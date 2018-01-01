@@ -13,7 +13,7 @@ reference_datetime: "2011-01-30 00:00:00"
 remotes: []
 files:
 - "boost_1_60_0.tar.bz2"
-- "boost-mingw-gas-cross-compile-2013-03-03.patch"
+# - "boost-mingw-gas-cross-compile-2013-03-03.patch"   need to check if 1.60 has patches
 script: |
   # Defines
   export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
@@ -61,7 +61,9 @@ script: |
     # Patch Mirror:   http://wtogami.fedorapeople.org/boost-mingw-gas-cross-compile-2013-03-03.patch
     # Patch Mirror:   http://mindstalk.net/host/boost-mingw-gas-cross-compile-2013-03-03.patch
     # Patch Mirror:   http://rose.makesad.us/~paulproteus/mirrors/boost-mingw-gas-cross-compile-2013-03-03.patch
-    patch -p0 < $INDIR/boost-mingw-gas-cross-compile-2013-03-03.patch
+
+# appears to be obsolete now
+#    patch -p0 < $INDIR/boost-mingw-gas-cross-compile-2013-03-03.patch
 
     # Bug Workaround: boost-1.54.0 broke the ability to disable zlib, still broken in 1.60
     # https://svn.boost.org/trac/boost/ticket/9156
