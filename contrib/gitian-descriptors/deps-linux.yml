@@ -1,7 +1,7 @@
 ---
 name: "bitcoin"
 suites:
-- "precise"
+- "xenial"
 architectures:
 - "i386"
 - "amd64"
@@ -16,11 +16,11 @@ packages:
 reference_datetime: "2013-06-01 00:00:00"
 remotes: []
 files:
-- "openssl-1.0.1e.tar.gz"
-- "miniupnpc-1.8.tar.gz"
-- "qrencode-3.4.3.tar.bz2"
+- "openssl-1.0.2n.tar.gz"
+- "miniupnpc-1.6.20120509.tar.gz"
+- "qrencode-4.0.0.tar.bz2"
 - "protobuf-2.5.0.tar.bz2"
-- "db-4.8.30.NC.tar.gz"
+- "db-5.3.28.NC.tar.gz"
 script: |
   STAGING="$HOME/install"
   TEMPDIR="$HOME/tmp"
@@ -37,8 +37,8 @@ script: |
   echo "12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef  db-4.8.30.NC.tar.gz"    | sha256sum -c
 
   #
-  tar xzf openssl-1.0.1e.tar.gz
-  cd openssl-1.0.1e
+  tar xzf openssl-1.0.2n.tar.gz
+  cd openssl-1.0.2n
   #   need -fPIC to avoid relocation error in 64 bit builds
   ./config no-shared no-zlib no-dso no-krb5 --openssldir=$STAGING -fPIC
   #   need to build OpenSSL with faketime because a timestamp is embedded into cversion.o
@@ -46,15 +46,15 @@ script: |
   make install_sw
   cd ..
   #
-  tar xzfm miniupnpc-1.8.tar.gz
-  cd miniupnpc-1.8
+  tar xzfm miniupnpc-1.6.20120509.tar.gz
+  cd miniupnpc-1.6.20120509
   #   miniupnpc is always built with -fPIC
   INSTALLPREFIX=$STAGING make $MAKEOPTS install
   rm -f $STAGING/lib/libminiupnpc.so* # no way to skip shared lib build
   cd ..
   #
-  tar xjf qrencode-3.4.3.tar.bz2
-  cd qrencode-3.4.3
+  tar xjf qrencode-4.0.0.tar.bz2
+  cd qrencode-4.0.0
   unset FAKETIME # unset fake time during configure, as it does some clock sanity tests
   #   need --with-pic to avoid relocation error in 64 bit builds
   ./configure --prefix=$STAGING --enable-static --disable-shared --with-pic --without-tools --disable-dependency-tracking
