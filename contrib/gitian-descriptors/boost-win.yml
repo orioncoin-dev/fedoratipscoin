@@ -15,7 +15,7 @@ files:
 - "boost_1_60_0.tar.bz2"
 script: |
   # Defines
-  export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+  export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
   export FAKETIME=$REFERENCE_DATETIME
   export TZ=UTC
   INDIR=$HOME/build
@@ -23,7 +23,8 @@ script: |
   # Input Integrity Check
   echo "686affff989ac2488f79a97b9479efb9f2abae035b5ed4d8226de6857933fd3b  boost_1_60_0.tar.bz2" | shasum -c
 
-  for BITS in 32 64; do # for architectures
+  # 32
+  for BITS in 64; do # for architectures
     #
     INSTALLPREFIX=$HOME/staging${BITS}
     BUILDDIR=$HOME/build${BITS}
