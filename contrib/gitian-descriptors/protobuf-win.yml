@@ -1,7 +1,7 @@
 ---
 name: "protobuf-win32"
 suites:
-- "precise"
+- "xenial"
 architectures:
 - "amd64"
 packages:
@@ -12,7 +12,7 @@ packages:
 reference_datetime: "2013-04-15 00:00:00"
 remotes: []
 files:
-- "protobuf-2.5.0.tar.bz2"
+- "protobuf-all-3.5.1.tar.gz"
 script: |
   #
   export TZ=UTC
@@ -20,9 +20,10 @@ script: |
   TEMPDIR=$HOME/tmp
   OPTFLAGS="-O2"
   # Integrity Check
-  echo "13bfc5ae543cf3aa180ac2485c0bc89495e3ae711fc6fab4f8ffe90dfb4bb677  protobuf-2.5.0.tar.bz2" | sha256sum -c
+  echo "72d43863f58567a9ea2054671fdb667867f9cf7865df623c7be630978ff97dff  protobuf-all-3.5.1.tar.gz" | sha256sum -c
 
-  for BITS in 32 64; do # for architectures
+  # 32
+  for BITS in 64; do # for architectures
     #
     INSTALLPREFIX=$HOME/staging${BITS}
     BUILDDIR=$HOME/build${BITS}
@@ -35,8 +36,8 @@ script: |
     mkdir -p $INSTALLPREFIX $BUILDDIR
     cd $BUILDDIR
     #
-    tar xjf $INDIR/protobuf-2.5.0.tar.bz2
-    cd protobuf-2.5.0
+    tar xzf $INDIR/protobuf-all-3.5.1.tar.gz
+    cd protobuf-3.5.1
     # First: build a native (linux) protoc
     ./configure --enable-shared=no --disable-dependency-tracking --without-zlib CXXFLAGS="-frandom-seed=11 ${OPTFLAGS}"
     make
