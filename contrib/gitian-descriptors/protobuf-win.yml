@@ -46,7 +46,7 @@ script: |
     # Now recompile with the mingw cross-compiler:
     make distclean
     ./configure --prefix=$INSTALLPREFIX --enable-shared=no --disable-dependency-tracking --without-zlib --with-protoc=$INSTALLPREFIX/host/bin/protoc --host=$HOST CXXFLAGS="-frandom-seed=11 ${OPTFLAGS}"
-    export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+    export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
     export FAKETIME=$REFERENCE_DATETIME
     make
     make install
