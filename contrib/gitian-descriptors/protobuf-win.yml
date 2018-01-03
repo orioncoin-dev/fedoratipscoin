@@ -35,7 +35,7 @@ script: |
     #
     mkdir -p $INSTALLPREFIX $BUILDDIR
     cd $BUILDDIR
-    #
+    # adjusted tar for gz
     tar xzf $INDIR/protobuf-all-3.5.1.tar.gz
     cd protobuf-3.5.1
     # First: build a native (linux) protoc
