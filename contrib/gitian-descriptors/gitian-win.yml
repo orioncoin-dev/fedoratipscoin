@@ -1,7 +1,7 @@
 ---
 name: "bitcoin"
 suites:
-- "precise"
+- "xenial"
 architectures:
 - "amd64"
 packages:
@@ -45,7 +45,9 @@ script: |
   #  The thorough solution would be to use QMap instead of QHash, but this requires patching Qt.
   #  For now luckily there is a test mode that forces a fixed seed.
   export QT_RCC_TEST=1
-  for BITS in 32 64; do # for architectures
+
+  # 32
+  for BITS in 64; do # for architectures
     #
     STAGING=$HOME/staging${BITS}
     BUILDDIR=$HOME/build${BITS}
