@@ -1,4 +1,4 @@
-Howdy, this document is no longer accurate.
+### Howdy, this document is no longer accurate.  I will update it soon... -Poppa
 
 I wil be replacing these instructions with a new cross compilation build insructions soon.
 
