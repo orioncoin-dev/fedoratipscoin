@@ -1,3 +1,13 @@
+Howdy, this document is no longer accurate.
+
+I wil be replacing these instructions with a new cross compilation build insructions soon.
+
+Thank you for your patience...
+-Poppa
+
+
+
+
 ### Gavin's notes on getting gitian builds up and running using KVM:###
 
 These instructions distilled from:
