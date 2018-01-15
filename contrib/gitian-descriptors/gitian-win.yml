@@ -17,19 +17,19 @@ packages:
 - "pkg-config"
 - "bsdmainutils"
 
-reference_datetime: "2013-06-01 00:00:00"
+reference_datetime: "2018-01-02 00:00:00"
 remotes:
-- "url": "https://github.com/bitcoin/bitcoin.git"
-  "dir": "bitcoin"
+- "url": "https://github.com/jojapoppa"
+- "dir": "fedoracoin-1"
 files:
-- "qt-win32-5.2.0-gitian-r2.zip"
-- "qt-win64-5.2.0-gitian-r2.zip"
-- "boost-win32-1.55.0-gitian-r6.zip"
-- "boost-win64-1.55.0-gitian-r6.zip"
-- "bitcoin-deps-win32-gitian-r10.zip"
-- "bitcoin-deps-win64-gitian-r10.zip"
-- "protobuf-win32-2.5.0-gitian-r4.zip"
+- "qt-win64-5.10.0-gitian-r2.zip"
+- "boost-win64-1.60.0-gitian-r6.zip"
 - "protobuf-win64-2.5.0-gitian-r4.zip"
+- "bitcoin-db-win64-gitian-r10.zip"
+- "bitcoin-qrencode-win64-gitian-r10.zip"
+- "bitcoin-ssl-win64-gitian-r10.zip"
+- "bitcoin-upnp-win64-gitian-r10.zip"
+- "bitcoin-zib_png-win64-gitian-r10.zip"
 script: |
   # Defines
   export TZ=UTC
@@ -61,10 +61,15 @@ script: |
     mkdir -p $STAGING $BUILDDIR $BINDIR
     #
     cd $STAGING
-    unzip $INDIR/qt-win${BITS}-5.2.0-gitian-r2.zip
-    unzip $INDIR/boost-win${BITS}-1.55.0-gitian-r6.zip
-    unzip $INDIR/bitcoin-deps-win${BITS}-gitian-r10.zip
+    unzip $INDIR/qt-win${BITS}-5.10.0-gitian-r2.zip
+    unzip $INDIR/boost-win${BITS}-1.60.0-gitian-r6.zip
     unzip $INDIR/protobuf-win${BITS}-2.5.0-gitian-r4.zip
+    unzip $INDIR/bitcoin-db-win${BITS}-gitian-r10.zip
+    unzip $INDIR/bitcoin-qrencode-win${BITS}-gitian-r10.zip
+    unzip $INDIR/bitcoin-ssl-win${BITS}-gitian-r10.zip
+    unzip $INDIR/bitcoin-upnp-win${BITS}-gitian-r10.zip
+    unzip $INDIR/bitcoin-zib_png-win${BITS}-gitian-r10.zip
+
     if [ "$NEEDDIST" == "1" ]; then
       # Make source code archive which is architecture independent so it only needs to be done once
       cd $HOME/build/bitcoin
