@@ -19,7 +19,7 @@ files:
 - "zlib-1.2.11.tar.gz"
 - "libpng-1.6.34.tar.gz"
 script: |
-  #
+  # Defines
   export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
   export FAKETIME=$REFERENCE_DATETIME
   export TZ=UTC
