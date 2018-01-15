@@ -96,3 +96,4 @@ script: |
   #
   cd $STAGING
   find include lib bin host | sort | zip -X@ $OUTDIR/bitcoin-deps-linux${GBUILD_BITS}-gitian-r3.zip
+
