@@ -69,7 +69,9 @@ script: |
     unzip $INDIR/bitcoin-upnp-win${BITS}-gitian-r10.zip
     unzip $INDIR/bitcoin-zib_png-win${BITS}-gitian-r10.zip
 
-    CURTIMESTAMP=timestamp=$(date +%s%N)
+    CURTIMESTAMP=$(date +%s%N)
+    echo "Timestamp in nanoseconds:"
+    echo ${CURTIMESTAMP}
 
     if [ "$NEEDDIST" == "1" ]; then
       # Make source code archive which is architecture independent so it only needs to be done once
