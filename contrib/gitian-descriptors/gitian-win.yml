@@ -69,10 +69,11 @@ script: |
     unzip $INDIR/bitcoin-upnp-win${BITS}-gitian-r10.zip
     unzip $INDIR/bitcoin-zib_png-win${BITS}-gitian-r10.zip
 
+    CURTIMESTAMP=timestamp=$(date +%s%N)
+
     if [ "$NEEDDIST" == "1" ]; then
       # Make source code archive which is architecture independent so it only needs to be done once
       cd $HOME/build/fedoracoin-1
-      CURTIMESTAMP=timestamp=$(date +%s%N)
       ./autogen.sh
       ./configure --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING/plugins  --with-qt-incdir=$STAGING/include --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
       make dist
@@ -84,7 +85,7 @@ script: |
     mkdir -p distsrc
     cd distsrc
     tar --strip-components=1 -xf $HOME/build/fedoracoin-1/$DISTNAME
-    ./configure --enable-upnp-default --bindir=$BINDIR --prefix=$STAGING --host=$HOST --with-qt-plugindir=$STAGING/plugins  --with-qt-incdir=$STAGING/include --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed=fedoracoin ${OPTFLAGS}"
+    ./configure --enable-upnp-default --bindir=$BINDIR --prefix=$STAGING --host=$HOST --with-qt-plugindir=$STAGING/plugins  --with-qt-incdir=$STAGING/include --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
     export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
     export FAKETIME=$REFERENCE_DATETIME
     make $MAKEOPTS
