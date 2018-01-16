@@ -18,7 +18,7 @@ packages:
 - "bsdmainutils"
 reference_datetime: "2018-01-02 00:00:00"
 remotes:
-- "url": "https://github.com/jojapoppa"
+- "url": "https://github.com/jojapoppa/fedoracoin-1.git"
 - "dir": "fedoracoin-1"
 files:
 - "qt-win64-5.10.0-gitian-r2.zip"
