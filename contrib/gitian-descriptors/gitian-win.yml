@@ -19,7 +19,7 @@ packages:
 reference_datetime: "2018-01-02 00:00:00"
 remotes:
 - "url": "https://github.com/jojapoppa/fedoracoin-1.git"
-  "dir": "fedoracoin-1"
+  "dir": "fedoracoin-2.5.1"
 files:
 - "qt-win64-5.10.0-gitian-r2.zip"
 - "boost-win64-1.60.0-gitian-r6.zip"
@@ -60,14 +60,14 @@ script: |
     mkdir -p $STAGING $BUILDDIR $BINDIR
     #
     cd $STAGING
-    unzip $INDIR/qt-win${BITS}-5.10.0-gitian-r2.zip
-    unzip $INDIR/boost-win${BITS}-1.60.0-gitian-r6.zip
-    unzip $INDIR/protobuf-win${BITS}-2.5.0-gitian-r4.zip
-    unzip $INDIR/bitcoin-db-win${BITS}-gitian-r10.zip
-    unzip $INDIR/bitcoin-qrencode-win${BITS}-gitian-r10.zip
-    unzip $INDIR/bitcoin-ssl-win${BITS}-gitian-r10.zip
-    unzip $INDIR/bitcoin-upnp-win${BITS}-gitian-r10.zip
-    unzip $INDIR/bitcoin-zib_png-win${BITS}-gitian-r10.zip
+    unzip -o $INDIR/qt-win${BITS}-5.10.0-gitian-r2.zip
+    unzip -o $INDIR/boost-win${BITS}-1.60.0-gitian-r6.zip
+    unzip -o $INDIR/protobuf-win${BITS}-2.5.0-gitian-r4.zip
+    unzip -o $INDIR/bitcoin-db-win${BITS}-gitian-r10.zip
+    unzip -o $INDIR/bitcoin-qrencode-win${BITS}-gitian-r10.zip
+    unzip -o $INDIR/bitcoin-ssl-win${BITS}-gitian-r10.zip
+    unzip -o $INDIR/bitcoin-upnp-win${BITS}-gitian-r10.zip
+    unzip -o $INDIR/bitcoin-zib_png-win${BITS}-gitian-r10.zip
 
     CURTIMESTAMP=$(date +%s%N)
     echo "Timestamp in nanoseconds:"
