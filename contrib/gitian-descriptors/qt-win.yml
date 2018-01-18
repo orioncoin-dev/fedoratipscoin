@@ -93,8 +93,12 @@ script: |
     # bug in qt for expected date format on windows
     sed 's/qt_instdate=`date +%Y-%m-%d`/qt_instdate=2018-02-01/' -i qtbase/configure
 
+    CURTIMESTAMP=$(date +%s%N)
+    echo "Timestamp in nanoseconds:"
+    echo ${CURTIMESTAMP}
+
     # configuration flag insertion...
-    sed --posix "s|QMAKE_CFLAGS            = -pipe -fno-keep-inline-dllexport|QMAKE_CFLAGS\t\t= -pipe -fno-keep-inline-dllexport -isystem /usr/$HOST/include/ -frandom-seed=qtbuild -I$DEPSDIR/include|" -i ${SPECFILE}
+    sed --posix "s|QMAKE_CFLAGS            = -pipe -fno-keep-inline-dllexport|QMAKE_CFLAGS\t\t= -pipe -fno-keep-inline-dllexport -isystem /usr/$HOST/include/ -frandom-seed=${CURTIMESTAMP} -I$DEPSDIR/include|" -i ${SPECFILE}
     sed --posix "s|QMAKE_LFLAGS            =|QMAKE_LFLAGS\t\t= -L$DEPSDIR/lib|" -i ${SPECFILE}
 
     # Before we tried to pass arguments to ar (static linking) in using QMAKE_LIB, however

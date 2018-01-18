@@ -39,6 +39,10 @@ script: |
     mkdir -p $INSTALLPREFIX $BUILDDIR
     cd $BUILDDIR
     #
+    CURTIMESTAMP=$(date +%s%N)
+    echo "Timestamp in nanoseconds:"
+    echo ${CURTIMESTAMP}
+
     tar --warning=no-timestamp -xjf $INDIR/boost_1_60_0.tar.bz2
     cd boost_1_60_0
     GCCVERSION=$($HOST-g++ -E -dM $(mktemp --suffix=.h) | grep __VERSION__ | cut -d ' ' -f 3 | cut -d '"' -f 2)
@@ -46,7 +50,7 @@ script: |
         :
         <rc>$HOST-windres
         <archiver>$HOST-ar
-        <cxxflags>-frandom-seed=boost1
+        <cxxflags>-frandom-seed=${CURTIMESTAMP}
         <ranlib>$HOST-ranlib
   ;" > user-config.jam
     ./bootstrap.sh --without-icu

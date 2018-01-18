@@ -33,19 +33,23 @@ script: |
       HOST=x86_64-w64-mingw32
     fi
     #
+    CURTIMESTAMP=$(date +%s%N)
+    echo "Timestamp in nanoseconds:"
+    echo ${CURTIMESTAMP}
+
     mkdir -p $INSTALLPREFIX $BUILDDIR
     cd $BUILDDIR
     # adjusted tar for gz
     tar xzf $INDIR/protobuf-all-3.5.1.tar.gz
     cd protobuf-3.5.1
     # First: build a native (linux) protoc
-    ./configure --enable-shared=no --disable-dependency-tracking --without-zlib CXXFLAGS="-frandom-seed=11 ${OPTFLAGS}"
+    ./configure --enable-shared=no --disable-dependency-tracking --without-zlib CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
     make
     mkdir -p $INSTALLPREFIX/host/bin
     cp src/protoc $INSTALLPREFIX/host/bin
     # Now recompile with the mingw cross-compiler:
     make distclean
-    ./configure --prefix=$INSTALLPREFIX --enable-shared=no --disable-dependency-tracking --without-zlib --with-protoc=$INSTALLPREFIX/host/bin/protoc --host=$HOST CXXFLAGS="-frandom-seed=11 ${OPTFLAGS}"
+    ./configure --prefix=$INSTALLPREFIX --enable-shared=no --disable-dependency-tracking --without-zlib --with-protoc=$INSTALLPREFIX/host/bin/protoc --host=$HOST CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
     export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
     export FAKETIME=$REFERENCE_DATETIME
     make
