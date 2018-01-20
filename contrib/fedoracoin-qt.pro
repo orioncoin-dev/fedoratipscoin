@@ -20,13 +20,16 @@ FORMS += \
     ../src/qt/forms/snapwidget.ui \
     ../src/qt/forms/transactiondescdialog.ui \
 
+LIBS += \
+-L"$$quote($$STAGING\lib)" \
+
+# QT += \
+#     printsupport \
+
 RESOURCES += \
     ../src/qt/bitcoin.qrc \
     ../src/qt/fedoracoin.qrc
     
-# QT += \
-#     printsupport
-
 #allows qt to complile with programs over 32k in size (limit should be 64k on Windows)
 #  also have option regarding EXE output on errors (fedora's code is messy)
 if(win32-g++*:if(CONFIG(debug, debug|release))) {
