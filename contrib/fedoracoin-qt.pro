@@ -24,5 +24,12 @@ RESOURCES += \
     ../src/qt/bitcoin.qrc \
     ../src/qt/fedoracoin.qrc
     
-QT += \
-    printsupport
+# QT += \
+#     printsupport
+
+#allows qt to complile with programs over 32k in size (limit should be 64k on Windows)
+#  also have option regarding EXE output on errors (fedora's code is messy)
+if(win32-g++*:if(CONFIG(debug, debug|release))) {
+  QMAKE_CXXFLAGS += -Wa,-mbig-obj
+  QMAKE_AR += --noinhibit-exec
+}
