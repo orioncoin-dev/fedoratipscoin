@@ -21,10 +21,11 @@ FORMS += \
     ../src/qt/forms/transactiondescdialog.ui \
 
 LIBS += \
--L"$$quote($$STAGING\lib)" \
+-L"$$(STAGING)\lib" \
 
-# QT += \
-#     printsupport \
+QT += \
+    gui \
+    printsupport \
 
 RESOURCES += \
     ../src/qt/bitcoin.qrc \
