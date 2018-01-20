@@ -24,8 +24,10 @@ LIBS += \
 -L"$$(STAGING)\lib" \
 
 QT += \
-    gui \
-    printsupport \
+    qtwidgets \
+
+#    gui \
+#    printsupport \
 
 RESOURCES += \
     ../src/qt/bitcoin.qrc \
