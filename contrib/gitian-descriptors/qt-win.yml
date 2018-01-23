@@ -13,6 +13,9 @@ packages:
 - "faketime"
 - "libz-dev"
 - "psmisc"
+- "bison"
+- "gperf"
+- "flex"
 reference_datetime: "2018-02-01 00:00:00"
 remotes: []
 files:
@@ -77,20 +80,28 @@ script: |
 
     cd $BUILDDIR
 
-    # the new tar recognizes the compression method: xf
+    echo "uncompress qt-everywhere: the new tar recognizes the compression method: xf"
     tar xf $INDIR/qt-everywhere-src-5.10.0.tar.xz
     cd qt-everywhere-src-5.10.0
     QTDIR=$BUILDDIR/qt-everywhere-opensource-src-5.10.0
 
-    # Bug in qt because they don't include a file, but equiv exists
+    echo "Working around bug in qt because they don't include a file, but equiv exists in linux..."
     ln -sf $DEPSDIR/qtwebengine/src/3rdparty/chromium/third_party/apple_apsl/malloc.h $DEPSDIR/include/alloca.h
     printf "#include <malloc.h>\n#include <fcntl.h>\n">$BUILDDIR/alloca.h
     cat $BUILDDIR/alloca.h
 
     SPECNAME="win32-g++"
-    SPECFILE="qtbase/mkspecs/win32-g++/qmake.conf"
+    SPECPATH="qtbase/mkspecs/win32-g++"
+    SPECFILE="$SPECPATH/qmake.conf"
 
-    # bug in qt for expected date format on windows
+    bison -V
+    ls -al
+
+    echo "Building qmake ourselves so we can control which features it supports..."
+    yes|./configure -static -release -opensource -no-opengl
+
+    ls -al
+    echo "Fixing bug in qt for expected date format on windows..."
     sed 's/qt_instdate=`date +%Y-%m-%d`/qt_instdate=2018-02-01/' -i qtbase/configure
 
     CURTIMESTAMP=$(date +%s%N)
@@ -182,18 +193,37 @@ script: |
     -skip qtwebengine
     -skip qt3d
     -skip qtcanvas3d
+    -skip qtspeech
     -skip qtdoc"
 
-    export QT_DEBUG_PLUGINS=1
+    echo "Applying bugfixes for cross compiling to Windows... missing uiviewsettingsinterop header..."
+    sed -i '/^ *# *define *HAS_UI_VIEW_SETTINGS_INTEROP *$/d' /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/src/plugins/platforms/windows/qwin10helpers.cpp
 
+    sed -i 's/#  define WINVER 0x0601/ /g' /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/src/plugins/platforms/windows/qwindowssystemtrayicon.cpp
+    sed -i 's/ChangeWindowMessageFilterEx(/\/\/ ChangeWindowMessageFilterEx(/g' /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/src/plugins/platforms/windows/qwindowssystemtrayicon.cpp
+
+    sed -i '/option(host_build)/d' /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtactiveqt/src/tools/idc/idc.pro
+    sed -i '/# *if *defined *( *_WIN32_IE *) *&& *_WIN32_IE *<< *0x0700/{s,<<,<,}' /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtwinextras/src/winextras/qwinjumplist.cpp
+
+    export QT_DEBUG_PLUGINS=1
     OPENSSL_LIBS="-L$DEPSDIR/lib -lssl -lcrypto -lgdi32" ./configure $CONFIG_OPTS -I$BUILDDIR -device-option CROSS_COMPILE="$HOST-"
 
-    # make clean
-    make -i -k $MAKEOPTS install
+    echo "making work-around for bug in cross compile of qt for windows on Linux..."
+    ls -al /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/src/3rdparty/pcre2
+    echo "QMAKE_LINK_OBJECT_MAX = 10" >> /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/mkspecs/win32-g++/qmake.conf
+    echo "QMAKE_LINK_OBJECT_SCRIPT = object_script" >> /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/mkspecs/win32-g++/qmake.conf
 
-    # post-process all generated libraries and plugins to be deterministic
-    # extract them to a temporary directory then re-build them deterministically
+    echo "make with MAKEOPTS..."
+    make 
+    # $MAKEOPTS 
+    # DESTDIR=$INSTALLPREFIX
+
+    echo "post-process all generated libraries and plugins to be deterministic..."
+    echo "extract them to a temporary directory then re-build them deterministically..."
     for LIB in $(find $INSTALLPREFIX -name *.a); do
+        echo "Processing: "$LIB
+        # next line is patch for qt bug that links release with debug libraries
+        # sed -i 's,\(-lQt5[-_a-zA-Z0-9]*\)d,\1,g' "$LIB"
         rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
         $HOST-ar xv $LIB | cut -b5- > /tmp/list.txt
         rm $LIB
