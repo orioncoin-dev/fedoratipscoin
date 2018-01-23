@@ -684,7 +684,21 @@ AM_CONDITIONAL([USE_ZXING], [test x$use_qr = xyes])
 AM_CONDITIONAL([USE_LCOV],[test x$use_lcov == xyes])
 AM_CONDITIONAL([USE_COMPARISON_TOOL],[test x$use_comparison_tool != xno])
 AM_CONDITIONAL([USE_COMPARISON_TOOL_REORG_TESTS],[test x$use_comparison_tool_reorg_test != xno])
-AM_CONDITIONAL([GLIBC_BACK_COMPAT],[test x$use_glibc_compat = xyes])
+
+# this was changed to "no"
+# ... because there have been massive changes
+# in the glibc libraries, and linux has effectively deprecated
+# all static linking of glibc.  that no longer works, and
+# backwards compatibility is no longer advised.  this default
+# has since been changed to 'no' therefore.
+# PLEASE NOTE: I have since also gotten a build working
+# with the mxe toolkit, which would allow us to reinstate
+# full static links (and therefore support for the RedHat/Android
+# brands of Linux can be reinstated).  But for now, until I can merge
+# in those rather distruptive edits, we will only support Debian/Ubuntu.
+# this is temporary... - Poppa
+# AM_CONDITIONAL([GLIBC_BACK_COMPAT],[test x$use_glibc_compat = xyes])
+GLIBC_BACK_COMPAT=0
 
 AC_DEFINE(CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MAJOR, [Major version])
 AC_DEFINE(CLIENT_VERSION_MINOR, _CLIENT_VERSION_MINOR, [Minor version])
