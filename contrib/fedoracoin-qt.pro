@@ -71,6 +71,7 @@ LIBS += \
 
 QT += \
     qtwidgets \
+    core \
     gui \
     printsupport \
 
