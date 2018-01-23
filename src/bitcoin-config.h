@@ -202,7 +202,7 @@
 #define HAVE_WORKING_BOOST_SLEEP_FOR 1
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "info@fedoracoin.xy"
+#define PACKAGE_BUGREPORT "tipsbugreports@protonmail.com"
 
 /* Define to the full name of this package. */
 #define PACKAGE_NAME "Fedoracoin Core"
