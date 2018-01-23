@@ -41,39 +41,29 @@ script: |
     #
     tar xzf $INDIR/miniupnpc-2.0.tar.gz
     cd miniupnpc-2.0.20171212
+    ls -al
 
-    # Alert!
-    # this code is required with the plugin interface for service discovery.  trouble is
-    # that on xenial i can't even get it to compile any more.  part of me really doesn't
-    # like this patch embedded in a script, as it's impossible to debug as there is
-    # no output visible on the outside of vagrant.  it's a very messy code patch. in
-    # any event we need to see if the new version of "patch" changed parameter interpretation
-    # or maybe the syntax of the patch is no longer compatible.  but i just can't get
-    # this "thing" to compile, so i'm commenting it out, and it's likely that
-    # the plugin service-discovery in the wallet won't be functional over the
-    # short term.  NOTE: we need to return to this issue and repair it... perhaps
-    # we could try a diff against the current bitcoin-core and see how they fixed it. tx -Poppa
-    #
-    #    echo "
-    #  --- miniupnpc-2.0.20171212/Makefile.mingw.orig   2013-09-29 18:52:51.014087958 -1000
-    #  +++ miniupnpc-2.0.20171212/Makefile.mingw        2013-09-29 19:09:29.663318691 -1000
-    #  @@ -74,8 +74,8 @@
-    #   
-    #   wingenminiupnpcstrings.o:	wingenminiupnpcstrings.c
-    #   
-    #  -miniupnpcstrings.h: miniupnpcstrings.h.in wingenminiupnpcstrings
-    #  -	wingenminiupnpcstrings \$< \$@
-    #  +miniupnpcstrings.h: miniupnpcstrings.h.in 
-    #  +	sed -e 's|OS/version|MSWindows/5.1.2600|' -e 's|MINIUPNPC_VERSION_STRING \"version\"|MINIUPNPC_VERSION_STRING \"VERSIONHERE\"|' \$< > \$@
-    #   
-    #   minixml.o:	minixml.c minixml.h miniupnpcstrings.h
-    #   
-    #  " | sed "s/VERSIONHERE/$(cat VERSION)/" | patch -p1
+    echo "
+  --- miniupnpc-1.8/Makefile.mingw.orig   2013-09-29 18:52:51.014087958 -1000
+  +++ miniupnpc-1.8/Makefile.mingw        2013-09-29 19:09:29.663318691 -1000
+  @@ -67,8 +67,8 @@
+   
+   wingenminiupnpcstrings.o:	wingenminiupnpcstrings.c
+   
+  -miniupnpcstrings.h: miniupnpcstrings.h.in wingenminiupnpcstrings
+  -	wingenminiupnpcstrings \$< \$@
+  +miniupnpcstrings.h: miniupnpcstrings.h.in 
+  +	sed -e 's|OS/version|MSWindows/5.1.2600|' -e 's|MINIUPNPC_VERSION_STRING \"version\"|MINIUPNPC_VERSION_STRING \"VERSIONHERE\"|' \$< > \$@
+   
+   minixml.o:	minixml.c minixml.h miniupnpcstrings.h
+   
+  " | sed "s/VERSIONHERE/$(cat VERSION)/" | patch -p1
 
     mkdir -p dll
-    make -w -t -f Makefile.mingw CC=$HOST-gcc AR=$HOST-ar libminiupnpc.a
+    make -f Makefile.mingw CC=$HOST-gcc AR=$HOST-ar libminiupnpc.a
     install -d $INSTALLPREFIX/include/miniupnpc
     install *.h $INSTALLPREFIX/include/miniupnpc
+    ls -al libminiupnpc.a
     install libminiupnpc.a  $INSTALLPREFIX/lib
     cd ..
     #
@@ -83,6 +73,8 @@ script: |
         rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
         $HOST-ar xv $LIB | cut -b5- > /tmp/list.txt
         rm $LIB
+        echo "list.txt:"
+        cat /tmp/list.txt
         $HOST-ar crsD $LIB $(cat /tmp/list.txt)
     done
     #
