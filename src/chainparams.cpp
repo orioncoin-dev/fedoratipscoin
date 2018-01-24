@@ -73,13 +73,21 @@ public:
 	vSeeds.push_back(CDNSSeedData("tips2.netcraft.ch", "tips2.netcraft.ch"));
 
         //how to do fedoracoin ?
-        base58Prefixes[PUBKEY_ADDRESS] = list_of(33); // FeatherCoin addresses start with F
-        base58Prefixes[SCRIPT_ADDRESS_OLD] = list_of(5);
-        base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
-        base58Prefixes[SECRET_KEY] =     list_of(128);// 14+128
-        base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x88)(0xBC)(0x26);
-        base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x88)(0xDA)(0xEE);
-        //base58Prefixes[EXT_SCRIPT_ADDRESS] = list_of(96);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,14); // FeatherCoin addresses start with F
+        base58Prefixes[SCRIPT_ADDRESS_OLD] = std::vector<unsigned char>(1,5);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,142);// 14+128
+        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xBC)(0x26).convert_to_container<std::vector<unsigned char> >();
+        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xDA)(0xEE).convert_to_container<std::vector<unsigned char> >();
+
+        // C++ can no longer caste this way, hence the change above...
+        //base58Prefixes[PUBKEY_ADDRESS] = list_of(33); // FeatherCoin addresses start with F
+        //base58Prefixes[SCRIPT_ADDRESS_OLD] = list_of(5);
+        //base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
+        //base58Prefixes[SECRET_KEY] =     list_of(128);// 14+128
+        //base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x88)(0xBC)(0x26);
+        //base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x88)(0xDA)(0xEE);
+        ////base58Prefixes[EXT_SCRIPT_ADDRESS] = list_of(96);
         
         // Convert the pnSeeds array into usable address objects.
         for (unsigned int i = 0; i < ARRAYLEN(pnSeed); i++)
