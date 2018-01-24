@@ -10,7 +10,8 @@
 #include "bitcoin-config.h"
 #endif
 
-#include <QMainWindow>
+#include <QtWidgets/qmainwindow.h>
+
 #include <QMap>
 #include <QSystemTrayIcon>
 #include <QLabel>
