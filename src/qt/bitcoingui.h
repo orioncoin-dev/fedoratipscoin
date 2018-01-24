@@ -10,11 +10,10 @@
 #include "bitcoin-config.h"
 #endif
 
-#include <QtWidgets/qmainwindow.h>
 #include <QtCore/qmap.h>
-
-#include <QSystemTrayIcon>
-#include <QLabel>
+#include <QtWidgets/qmainwindow.h>
+#include <QtWidgets/qsystemtrayicon.h>
+#include <QtWidgets/qlabel.h>
 
 class ClientModel;
 class Notificator;
