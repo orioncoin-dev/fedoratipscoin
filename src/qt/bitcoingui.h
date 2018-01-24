@@ -11,8 +11,8 @@
 #endif
 
 #include <QtWidgets/qmainwindow.h>
+#include <QtCore/qmap.h>
 
-#include <QMap>
 #include <QSystemTrayIcon>
 #include <QLabel>
 
