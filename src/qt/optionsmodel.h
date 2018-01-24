@@ -5,7 +5,7 @@
 #ifndef OPTIONSMODEL_H
 #define OPTIONSMODEL_H
 
-#include <QAbstractListModel>
+#include <QtCore/QAbstractListModel>
 
 QT_BEGIN_NAMESPACE
 class QNetworkProxy;
