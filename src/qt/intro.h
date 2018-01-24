@@ -5,9 +5,9 @@
 #ifndef INTRO_H
 #define INTRO_H
 
-#include <QDialog>
-#include <QMutex>
-#include <QThread>
+#include <QtCore/qmutex.h>
+#include <QtCore/qthread.h>
+#include <QtWidgets/qdialog.h>
 
 class FreespaceChecker;
 
