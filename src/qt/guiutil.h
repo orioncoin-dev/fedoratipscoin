@@ -5,11 +5,11 @@
 #ifndef GUIUTIL_H
 #define GUIUTIL_H
 
-#include <QHeaderView>
-#include <QMessageBox>
-#include <QObject>
-#include <QString>
-#include <QTableView>
+#include <QtCore/qobject.h>
+#include <QtCore/qstring.h>
+#include <QtWidgets/qheaderview.h>
+#include <QtWidgets/qmessagebox.h>
+#include <QtWidgets/qtableview.h>
 
 #include <boost/filesystem.hpp>
 
