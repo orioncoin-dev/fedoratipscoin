@@ -214,7 +214,8 @@ script: |
     echo "QMAKE_LINK_OBJECT_SCRIPT = object_script" >> /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/mkspecs/win32-g++/qmake.conf
 
     echo "calling make..."
-    make 
+    make $MAKEOPTS install
+    ls -al
 
     echo "post-process all generated libraries and plugins to be deterministic..."
     echo "extract them to a temporary directory then re-build them deterministically..."
@@ -227,8 +228,11 @@ script: |
         rm $LIB
         $HOST-ar crsD $LIB $(cat /tmp/list.txt)
     done
+    ls -al
     #
+    echo "moving to $INSTALLPREFIX..."
     cd $INSTALLPREFIX
+    ls -al
     # Remove unused non-deterministic stuff
     rm host/bin/qtpaths.exe lib/libQt5Bootstrap.a lib/libQt5Bootstrap.la
     # as zip stores file timestamps, use faketime to intercept stat calls to set dates for all files to reference date
