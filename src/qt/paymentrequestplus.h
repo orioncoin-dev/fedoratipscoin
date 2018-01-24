@@ -9,9 +9,9 @@
 
 #include "base58.h"
 
-#include <QByteArray>
-#include <QList>
-#include <QString>
+#include <QtCore/qbytearray.h>
+#include <QtCore/qlist.h>
+#include <QtCore/qstring.h>
 
 //
 // Wraps dumb protocol buffer paymentRequest

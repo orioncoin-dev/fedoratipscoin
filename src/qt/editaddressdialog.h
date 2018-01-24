@@ -5,7 +5,7 @@
 #ifndef EDITADDRESSDIALOG_H
 #define EDITADDRESSDIALOG_H
 
-#include <QDialog>
+#include <QtWidgets/qdialog.h>
 
 class AddressTableModel;
 

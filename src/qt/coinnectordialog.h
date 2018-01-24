@@ -5,9 +5,9 @@
 #ifndef COINNECTORDIALOG_H
 #define COINNECTORDIALOG_H
 
-#include <QWidget>
-#include <QDialog>
-#include <QtNetwork>
+#include <QtWidgets/qwidget.h>
+#include <QtWidgets/qdialog.h>
+#include <QtNetwork/qnetworkaccessmanager.h>
 
 class MonitoredDataMapper;
 class OptionsModel;

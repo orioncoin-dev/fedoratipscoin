@@ -5,8 +5,8 @@
 #ifndef MACDOCKICONHANDLER_H
 #define MACDOCKICONHANDLER_H
 
-#include <QMainWindow>
-#include <QObject>
+#include <QtWidgets/qmainwindow.h>
+#include <QtCore/qobject.h>
 
 QT_BEGIN_NAMESPACE
 class QIcon;

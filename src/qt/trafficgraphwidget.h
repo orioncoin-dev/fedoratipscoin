@@ -5,8 +5,8 @@
 #ifndef TRAFFICGRAPHWIDGET_H
 #define TRAFFICGRAPHWIDGET_H
 
-#include <QWidget>
-#include <QQueue>
+#include <QtWidgets/qwidget.h>
+#include <QtCore/qqueue.h>
 
 class ClientModel;
 

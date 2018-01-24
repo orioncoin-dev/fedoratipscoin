@@ -5,7 +5,7 @@
 #ifndef WALLETVIEW_H
 #define WALLETVIEW_H
 
-#include <QStackedWidget>
+#include <QtWidgets/qstackedwidget.h>
 
 class BitcoinGUI;
 class ClientModel;

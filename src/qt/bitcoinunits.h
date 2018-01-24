@@ -5,8 +5,8 @@
 #ifndef BITCOINUNITS_H
 #define BITCOINUNITS_H
 
+#include <QtCore/qstring.h>
 #include <QAbstractListModel>
-#include <QString>
 
 /** Bitcoin unit definitions. Encapsulates parsing and formatting
    and serves as list model for drop-down selection boxes.

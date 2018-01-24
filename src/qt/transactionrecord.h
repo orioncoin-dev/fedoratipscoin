@@ -7,8 +7,8 @@
 
 #include "uint256.h"
 
-#include <QList>
-#include <QString>
+#include <QtCore/qlist.h>
+#include <QtCore/qstring.h>
 
 class CWallet;
 class CWalletTx;

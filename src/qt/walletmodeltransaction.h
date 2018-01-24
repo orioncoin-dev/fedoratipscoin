@@ -7,7 +7,7 @@
 
 #include "walletmodel.h"
 
-#include <QObject>
+#include <QtCore/qobject.h>
 
 class SendCoinsRecipient;
 

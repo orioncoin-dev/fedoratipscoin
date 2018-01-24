@@ -5,8 +5,8 @@
 #ifndef SHIFTDIALOG_H
 #define SHIFTDIALOG_H
 
-#include <QDialog>
-#include <QtNetwork>
+#include <QtWidgets/qdialog.h>
+#include <QtNetwork/qtnetwork.h>
 
 class MonitoredDataMapper;
 class OptionsModel;

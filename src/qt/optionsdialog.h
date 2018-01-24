@@ -5,7 +5,7 @@
 #ifndef OPTIONSDIALOG_H
 #define OPTIONSDIALOG_H
 
-#include <QDialog>
+#include <QtWidgets/qdialog.h>
 
 class MonitoredDataMapper;
 class OptionsModel;

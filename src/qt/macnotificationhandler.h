@@ -5,7 +5,7 @@
 #ifndef MACNOTIFICATIONHANDLER_H
 #define MACNOTIFICATIONHANDLER_H
 
-#include <QObject>
+#include <QtCore/qobject.h>
 
 /** Macintosh-specific notification handler (supports UserNotificationCenter and Growl).
  */

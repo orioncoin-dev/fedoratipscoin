@@ -1,7 +1,7 @@
 #ifndef VERTICALLABEL_H
 #define VERTICALLABEL_H
 
-#include <QLabel>
+#include <QtWidgets/qlabel.h>
 
 class VerticalLabel : public QLabel
 {

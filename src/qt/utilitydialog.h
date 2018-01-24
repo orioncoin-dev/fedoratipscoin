@@ -5,8 +5,8 @@
 #ifndef UTILITYDIALOG_H
 #define UTILITYDIALOG_H
 
-#include <QDialog>
-#include <QObject>
+#include <QtWidgets/qdialog.h>
+#include <QtCore/qobject.h>
 #include "walletmodel.h"
 
 class BitcoinGUI;

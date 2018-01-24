@@ -5,7 +5,7 @@
 #ifndef ASKPASSPHRASEDIALOG_H
 #define ASKPASSPHRASEDIALOG_H
 
-#include <QDialog>
+#include <QtWidgets/qdialog.h>
 
 class WalletModel;
 

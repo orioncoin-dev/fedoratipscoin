@@ -1,7 +1,7 @@
 #ifndef CREATEMULTISIGADDRESSDIALOG_H
 #define CREATEMULTISIGADDRESSDIALOG_H
 
-#include <QDialog>
+#include <QtWidgets/qdialog.h>
 
 QT_BEGIN_NAMESPACE
 class QLabel;

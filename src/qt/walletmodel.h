@@ -15,7 +15,7 @@
 #include <map>
 #include <vector>
 
-#include <QObject>
+#include <QtCore/qobject.h>
 
 class AddressTableModel;
 class OptionsModel;

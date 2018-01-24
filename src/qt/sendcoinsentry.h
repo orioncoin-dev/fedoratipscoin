@@ -7,7 +7,7 @@
 
 #include "walletmodel.h"
 
-#include <QStackedWidget>
+#include <QtWidgets/qstackedwidget.h>
 
 class WalletModel;
 

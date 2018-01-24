@@ -7,8 +7,8 @@
 
 #include "walletmodel.h"
 
-#include <QDialog>
-#include <QString>
+#include <QtWidgets/qdialog.h>
+#include <QtCore/qstring.h>
 
 class OptionsModel;
 class SendCoinsEntry;

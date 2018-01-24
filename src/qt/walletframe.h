@@ -5,8 +5,8 @@
 #ifndef WALLETFRAME_H
 #define WALLETFRAME_H
 
-#include <QFrame>
-#include <QMap>
+#include <QtWidgets/qframe.h>
+#include <QtCore/qmap.h>
 
 class BitcoinGUI;
 class ClientModel;

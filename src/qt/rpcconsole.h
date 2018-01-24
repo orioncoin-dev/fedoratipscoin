@@ -5,7 +5,7 @@
 #ifndef RPCCONSOLE_H
 #define RPCCONSOLE_H
 
-#include <QDialog>
+#include <QtWidgets/qdialog.h>
 
 class ClientModel;
 

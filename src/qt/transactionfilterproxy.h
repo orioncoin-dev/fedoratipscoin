@@ -5,8 +5,8 @@
 #ifndef TRANSACTIONFILTERPROXY_H
 #define TRANSACTIONFILTERPROXY_H
 
-#include <QDateTime>
-#include <QSortFilterProxyModel>
+#include <QtCore/qdatetime.h>
+#include <QtCore/qsortfilterproxymodel.h>
 
 /** Filter the transaction list according to pre-specified rules. */
 class TransactionFilterProxy : public QSortFilterProxyModel

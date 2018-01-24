@@ -5,7 +5,7 @@
 #ifndef OVERVIEWPAGE_H
 #define OVERVIEWPAGE_H
 
-#include <QWidget>
+#include <QtWidgets/qwidget.h>
 
 class ClientModel;
 class TransactionFilterProxy;

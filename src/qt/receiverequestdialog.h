@@ -7,9 +7,9 @@
 
 #include "walletmodel.h"
 
-#include <QDialog>
-#include <QImage>
-#include <QLabel>
+#include <QtWidgets/qdialog.h>
+#include <QtGui/qimage.h>
+#include <QtGui/qlabel.h>
 
 namespace Ui {
     class ReceiveRequestDialog;

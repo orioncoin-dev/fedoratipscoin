@@ -5,7 +5,7 @@
 #ifndef OPENURIDIALOG_H
 #define OPENURIDIALOG_H
 
-#include <QDialog>
+#include <QtWidgets/qdialog.h>
 
 namespace Ui {
 class OpenURIDialog;

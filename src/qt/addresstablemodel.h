@@ -5,8 +5,8 @@
 #ifndef ADDRESSTABLEMODEL_H
 #define ADDRESSTABLEMODEL_H
 
+#include <QtCore/qstringlist.h>
 #include <QAbstractTableModel>
-#include <QStringList>
 
 class AddressTablePriv;
 class WalletModel;

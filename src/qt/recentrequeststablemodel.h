@@ -8,8 +8,8 @@
 #include "walletmodel.h"
 
 #include <QAbstractTableModel>
-#include <QStringList>
-#include <QDateTime>
+#include <QtCore/qstringlist.h>
+#include <QtCore/qdatetime.h>
 
 class CWallet;
 

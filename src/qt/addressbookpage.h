@@ -5,7 +5,7 @@
 #ifndef ADDRESSBOOKPAGE_H
 #define ADDRESSBOOKPAGE_H
 
-#include <QDialog>
+#include <QtWidgets/qdialog.h>
 
 class AddressTableModel;
 class OptionsModel;

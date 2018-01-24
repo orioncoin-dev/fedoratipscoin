@@ -5,14 +5,14 @@
 #ifndef COINCONTROLDIALOG_H
 #define COINCONTROLDIALOG_H
 
-#include <QAbstractButton>
-#include <QAction>
-#include <QDialog>
-#include <QList>
-#include <QMenu>
-#include <QPoint>
-#include <QString>
-#include <QTreeWidgetItem>
+#include <QtWidgets/qabstractbutton.h>
+#include <QtWidgets/qaction.h>
+#include <QtWidgets/qdialog.h>
+#include <QtCore/qlist.h>
+#include <QtWidgets/qmenu.h>
+#include <QtCore/qpoint.h>
+#include <QtCore/qstring.h>
+#include <QtWidgets/qtreewidget.h>
 
 namespace Ui {
     class CoinControlDialog;

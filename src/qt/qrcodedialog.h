@@ -1,8 +1,8 @@
 #ifndef QRCODEDIALOG_H
 #define QRCODEDIALOG_H
 
-#include <QDialog>
-#include <QImage>
+#include <QtWidgets/qdialog.h>
+#include <QtWidgets/qimage.h>
 
 namespace Ui {
     class QRCodeDialog;

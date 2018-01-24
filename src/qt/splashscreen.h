@@ -5,7 +5,7 @@
 #ifndef SPLASHSCREEN_H
 #define SPLASHSCREEN_H
 
-#include <QSplashScreen>
+#include <QtWidgets/qsplashscreen.h>
 
 /** class for the splashscreen with information of the running client
  */

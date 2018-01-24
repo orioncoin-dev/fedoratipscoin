@@ -5,7 +5,7 @@
 #ifndef SIGNVERIFYMESSAGEDIALOG_H
 #define SIGNVERIFYMESSAGEDIALOG_H
 
-#include <QDialog>
+#include <QtWidgets/qdialog.h>
 
 class WalletModel;
 

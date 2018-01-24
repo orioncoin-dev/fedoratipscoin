@@ -1,8 +1,8 @@
 #ifndef MULTISIGDIALOG_H
 #define MULTISIGDIALOG_H
 
-#include <QDialog>
-#include <QString>
+#include <QtWidgets/qdialog.h>
+#include <QtCore/qstring.h>
 
 namespace Ui {
     class MultiSigDialog;

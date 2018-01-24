@@ -5,7 +5,7 @@
 #ifndef MONITOREDDATAMAPPER_H
 #define MONITOREDDATAMAPPER_H
 
-#include <QDataWidgetMapper>
+#include <QtWidgets/qdatawidgetmapper.h>
 
 QT_BEGIN_NAMESPACE
 class QWidget;

@@ -4,7 +4,7 @@
 
 #include "guiutil.h"
 
-#include <QWidget>
+#include <QtWidgets/qwidget.h>
 
 class WalletModel;
 class TransactionFilterProxy;
