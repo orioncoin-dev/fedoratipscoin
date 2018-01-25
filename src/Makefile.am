@@ -147,6 +147,7 @@ libbitcoin_common_a_SOURCES = \
   sync.cpp \
   util.cpp \
   version.cpp \
+  scrypt-sse2.cpp \
   $(BITCOIN_CORE_H)
 
 # GlibC static linking and backward compatibility are no longer supported by Linux
