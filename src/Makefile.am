@@ -75,6 +75,7 @@ BITCOIN_CORE_H = \
   version.h \
   walletdb.h \
   wallet.h \
+  net.h \
   fedoracoin-qt.pro
 
 JSON_H = \
@@ -148,6 +149,7 @@ libbitcoin_common_a_SOURCES = \
   util.cpp \
   version.cpp \
   scrypt-sse2.cpp \
+  net.cpp \
   $(BITCOIN_CORE_H)
 
 # GlibC static linking and backward compatibility are no longer supported by Linux
