@@ -34,14 +34,14 @@
 #include <stdint.h>
 
 #include <boost/filesystem/operations.hpp>
-#include <QApplication>
-#include <QLibraryInfo>
-#include <QLocale>
-#include <QMessageBox>
-#include <QSettings>
-#include <QTimer>
-#include <QTranslator>
-#include <QThread>
+#include <QtWidgets/QApplication>
+#include <QtCore/QLibraryInfo>
+#include <QtCore/QLocale>
+#include <QtWidgets/QMessageBox>
+#include <QtCore/QSettings>
+#include <QtCore/QTimer>
+#include <QtCore/QTranslator>
+#include <QtCore/QThread>
 
 #if defined(QT_STATICPLUGIN)
 #include <QtPlugin>
