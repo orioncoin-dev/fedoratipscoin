@@ -6,8 +6,8 @@
 #define WINSHUTDOWNMONITOR_H
 
 #ifdef WIN32
-#include <QByteArray>
-#include <QString>
+#include <QtCore/qbytearray.h>
+#include <QtCore/qstring.h>
 
 #if QT_VERSION >= 0x050000
 #include <windef.h> // for HWND
