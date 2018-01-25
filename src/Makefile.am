@@ -74,7 +74,8 @@ BITCOIN_CORE_H = \
   util.h \
   version.h \
   walletdb.h \
-  wallet.h
+  wallet.h \
+  fedoracoin-qt.pro
 
 JSON_H = \
   json/json_spirit.h \
@@ -91,8 +92,7 @@ obj/build.h: FORCE
 	@$(MKDIR_P) $(abs_top_builddir)/src/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
 	  $(abs_top_srcdir)
-version.o: obj/build.h \
-  fedoracoin-qt.pro
+version.o: obj/build.h
 
 libbitcoin_server_a_SOURCES = \
   addrman.cpp \
