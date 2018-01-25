@@ -70,7 +70,7 @@ LIBS += \
 -L"$$(STAGING)\lib" \
 
 QT += \
-    qtwidgets \
+    widgets \
     core \
     gui \
     printsupport \
