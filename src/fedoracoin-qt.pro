@@ -76,8 +76,7 @@ QT += \
     printsupport \
 
 RESOURCES += \
-    ../src/qt/fedoracoin.qrc \
-    ../src/qt/res/icons/coinnector.png
+    ../src/qt/fedoracoin.qrc 
 
 greaterThan(QT_MAJOR_VERSION, 4) {
         QT += widgets
