@@ -290,7 +290,7 @@ RES_ICONS = \
   res/icons/print.png \
   res/icons/account-report.png \
   res/icons/multisig.png \
-  res/icons/coinnector.png \
+  res/icons/coinnector.png 
 
 RES_FONTS = \
   res/fonts/ComicNeue-Bold.ttf \
