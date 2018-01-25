@@ -34,8 +34,8 @@
 #include "paymentrequestplus.h"
 #include "walletmodel.h"
 
-#include <QObject>
-#include <QString>
+#include <QtCore/QObject>
+#include <QtCore/QString>
 
 class OptionsModel;
 
