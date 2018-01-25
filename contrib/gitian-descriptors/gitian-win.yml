@@ -35,6 +35,7 @@ script: |
   INDIR=$HOME/build
   OPTFLAGS='-O2'
   TEMPDIR="$HOME/tempdir"
+  REPONAME="fedoracoin-2.5.1"
   NEEDDIST=1
   # Qt: workaround for determinism in resource ordering
   #  Qt5's rcc uses a QHash to store the files for the resource.
@@ -48,7 +49,7 @@ script: |
   # 32
   for BITS in 64; do # for architectures
     #
-    STAGING=$HOME/staging${BITS}
+    export STAGING=$HOME/staging${BITS}
     BUILDDIR=$HOME/build${BITS}
     BINDIR=$OUTDIR/$BITS
     if [ "$BITS" == "32" ]; then
@@ -74,31 +75,80 @@ script: |
     echo ${CURTIMESTAMP}
 
     if [ "$NEEDDIST" == "1" ]; then
-      # Make source code archive which is architecture independent so it only needs to be done once
-      cd $HOME/build/fedoracoin-1
+      echo "BUILDING DIST!!"
+      cd $HOME/build/fedoracoin-2.5.1
       ./autogen.sh
+      echo "Calling configure now..."
       ./configure --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING/plugins  --with-qt-incdir=$STAGING/include --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
+
+      echo "make dist now..."
       make dist
-      DISTNAME=`echo fedoracoin-*.tar.gz`
+      ls -al
+      DISTNAME=`echo fedoracoin-2.5.1.tar.gz`
       NEEDDIST=0
     fi
-    # Build platform-dependent executables from source archive
+
+    echo "Build executable from source archive..."
     cd $BUILDDIR
     mkdir -p distsrc
     cd distsrc
-    tar --strip-components=1 -xf $HOME/build/fedoracoin-1/$DISTNAME
-    ./configure --enable-upnp-default --bindir=$BINDIR --prefix=$STAGING --host=$HOST --with-qt-plugindir=$STAGING/plugins  --with-qt-incdir=$STAGING/include --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
-    export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+    pwd
+    # tar --strip-components=1 -xf $HOME/build/fedoracoin-2.5.1/$DISTNAME
+    tar -xf $HOME/build/fedoracoin-2.5.1/$DISTNAME
+    ls -al
+    ls -al $REPONAME
+    cd $REPONAME
+    ls -al src
+
+    ./configure --disable-tests --enable-upnp-default --bindir=$BINDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING/plugins  --with-qt-incdir=$STAGING/include --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed=${CURTIMESTAMP} -std=c++11 ${OPTFLAGS}"
+
+    ls -al /usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
+    export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
     export FAKETIME=$REFERENCE_DATETIME
+
+    # echo "calling qmake..."
+    $STAGING/host/bin/qmake -spec win32-g++ \
+    CROSS_COMPILE=$HOST \
+    USE_QRCODE=1 \
+    CONFIG+='warn_on' \
+    QMAKE_CXXFLAGS+='-w' \
+    QMAKE_LFLAGS+='--verbose -t -static-libgcc -static-libstdc++ -frandom-seed=${CURTIMESTAMP}' \
+    INCLUDEPATH=$STAGING \
+    DEFINES=BOOST_THREAD_USE_LIB \
+    BITCOIN_NEED_QT_PLUGINS=1 \
+    BOOST_LIB_SUFFIX=-mt-s \
+    BOOST_THREAD_LIB_SUFFIX=_win32-mt-s \
+    QMAKE_LRELEASE=lrelease \
+    USE_BUILD_INFO=1 \
+    src/fedoracoin-qt.pro
+
+    echo "adding additional default parameter for new version of upnpc..."
+    sed -i 's/devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0,/devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, 0,/' /home/ubuntu/build64/distsrc/src/net.cpp
+
+    ls -al $STAGING/host/bin
+    $STAGING/host/bin/protoc --version
+
+    echo "calling make..."
     make $MAKEOPTS
+
+    echo "calling protoc..."
+    ls -al /home/ubuntu/build64/distsrc/src/qt
+    $STAGING/host/bin/protoc --cpp_out=/home/ubuntu/build64/distsrc/src/qt --proto_path=/home/ubuntu/build64/distsrc/src/qt /home/ubuntu/build64/distsrc/src/qt/paymentrequest.proto
+
+    echo "make deploy..."
     make deploy
+    echo "make install-strip"
     make install-strip
+    ls -al
+
     cp -f fedoracoin-*setup*.exe $BINDIR/
+
     unset LD_PRELOAD
     unset FAKETIME
   done # for BITS in
 
   # sort distribution tar file and normalize user/group/mtime information for deterministic output
+  echo "configuring deterministic build result"
   mkdir -p $OUTDIR/src
   rm -rf $TEMPDIR
   mkdir -p $TEMPDIR
