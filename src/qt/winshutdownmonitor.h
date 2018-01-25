@@ -12,7 +12,7 @@
 #if QT_VERSION >= 0x050000
 #include <windef.h> // for HWND
 
-#include <QAbstractNativeEventFilter>
+#include <QtCore/QAbstractNativeEventFilter>
 
 class WinShutdownMonitor : public QAbstractNativeEventFilter
 {
