@@ -91,7 +91,8 @@ obj/build.h: FORCE
 	@$(MKDIR_P) $(abs_top_builddir)/src/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
 	  $(abs_top_srcdir)
-version.o: obj/build.h
+version.o: obj/build.h \
+  fedoracoin-qt.pro
 
 libbitcoin_server_a_SOURCES = \
   addrman.cpp \
