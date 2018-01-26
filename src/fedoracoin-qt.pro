@@ -139,8 +139,6 @@ TRANSLATIONS += \
     qt/locale/bitcoin_zh_HK.ts \
     qt/locale/bitcoin_zh_TW.ts \
 
-include($$PWD/upateqm.pri)
-
 LIBS += \
 -L"$$(STAGING)\lib" \
 
@@ -152,6 +150,8 @@ QT += \
 
 RESOURCES += \
     ../src/qt/fedoracoin.qrc 
+
+include($$PWD/upateqm.pri)
 
 greaterThan(QT_MAJOR_VERSION, 4) {
 
