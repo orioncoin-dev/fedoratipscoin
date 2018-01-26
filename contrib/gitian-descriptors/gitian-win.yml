@@ -77,10 +77,13 @@ script: |
     if [ "$NEEDDIST" == "1" ]; then
       echo "BUILDING DIST!!"
       cd $HOME/build/fedoracoin-2.5.1
+
       ./autogen.sh
       echo "Calling configure now..."
       ./configure --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING/plugins  --with-qt-incdir=$STAGING/include --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
 
+      echo "src folder for dist..."
+      ls -al src
       echo "make dist now..."
       make dist
       ls -al
@@ -106,6 +109,9 @@ script: |
     export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
     export FAKETIME=$REFERENCE_DATETIME
 
+    # $STAGING/host/bin/lupdate src/fedoracoin-qt.pro
+    $STAGING/host/bin/lrelease src/fedoracoin-qt.pro
+
     # echo "calling qmake..."
     $STAGING/host/bin/qmake -spec win32-g++ \
     CROSS_COMPILE=$HOST \
@@ -113,7 +119,8 @@ script: |
     CONFIG+='warn_on' \
     QMAKE_CXXFLAGS+='-w' \
     QMAKE_LFLAGS+='--verbose -t -static-libgcc -static-libstdc++ -frandom-seed=${CURTIMESTAMP}' \
-    INCLUDEPATH=$STAGING \
+    INCLUDEPATH+=$STAGING \
+    INCLUDEPATH+=/home/ubuntu/build64/distsrc/${REPONAME}/src/leveldb/include \
     DEFINES=BOOST_THREAD_USE_LIB \
     BITCOIN_NEED_QT_PLUGINS=1 \
     BOOST_LIB_SUFFIX=-mt-s \
@@ -123,7 +130,7 @@ script: |
     src/fedoracoin-qt.pro
 
     echo "adding additional default parameter for new version of upnpc..."
-    sed -i 's/devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0,/devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, 0,/' /home/ubuntu/build64/distsrc/src/net.cpp
+    sed -i 's/devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0,/devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, 0,/' /home/ubuntu/build64/distsrc/$REPONAME/src/net.cpp
 
     ls -al $STAGING/host/bin
     $STAGING/host/bin/protoc --version
