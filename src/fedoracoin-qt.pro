@@ -151,7 +151,7 @@ QT += \
 RESOURCES += \
     ../src/qt/fedoracoin.qrc 
 
-include($$PWD/upateqm.pri)
+include($$PWD/updateqm.pri)
 
 greaterThan(QT_MAJOR_VERSION, 4) {
 
