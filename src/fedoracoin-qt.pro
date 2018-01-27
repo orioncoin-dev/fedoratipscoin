@@ -143,12 +143,19 @@ LIBS += \
 -L"$$(STAGING)\lib" \
 -lboost_system-mt-s \
 -lboost_filesystem-mt-s \
+-lboost_prg_exec_monitor-mt-s \
+-lboost_timer-mt-s \
 -lboost_chrono-mt-s \
 -lboost_thread_win32-mt-s \
+-lminiupnpc \
+-lprotobuf \
+-lqrencode \
+-lprotoc \
+-lpng \
 -lssl \
 -lcrypto \
--ldb-5.3 \
 -ldb \
+-lz \
 
 QT += \
     widgets \
