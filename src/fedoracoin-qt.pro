@@ -159,6 +159,9 @@ LIBS += \
 -lcrypto \
 -ldb \
 -lz \
+crtbegin.o \
+crt2.o \
+crtend.o \
 
 QT += \
     widgets \
