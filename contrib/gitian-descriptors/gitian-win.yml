@@ -63,8 +63,8 @@ script: |
     mkdir -p $STAGING $BUILDDIR $BINDIR
     #
     cd $STAGING
-    cp $INDIR/libleveldb.a .
-    cp $INDIR/libmemenv.a .
+    cp $INDIR/libleveldb.a ./lib
+    cp $INDIR/libmemenv.a ./lib
     unzip -o $INDIR/qt-win${BITS}-5.10.0-gitian-r2.zip
     unzip -o $INDIR/boost-win${BITS}-1.60.0-gitian-r6.zip
     unzip -o $INDIR/protobuf-win${BITS}-2.5.0-gitian-r4.zip
@@ -127,9 +127,10 @@ script: |
     CONFIG+='warn_on' \
     BOOST_LIB_SUFFIX=-mt-s \
     BOOST_THREAD_LIB_SUFFIX=_win32-mt-s \
-    QMAKE_CXXFLAGS+='-w -d' \
+    QMAKE_CXXFLAGS+='-w -d -Wa' \
     QMAKE_CXXFLAGS+='-frandom-seed='$CURTIMESTAMP \
     QMAKE_LFLAGS+='--verbose -t -static -static-libgcc -static-libstdc++' \
+    QMAKE_AR+='--noinhibit-exec' \
     INCLUDEPATH+=$STAGING \
     INCLUDEPATH+=/home/ubuntu/build64/distsrc/${REPONAME}/src/leveldb/include \
     DEFINES=BOOST_THREAD_USE_LIB \
@@ -148,17 +149,17 @@ script: |
     ls -al $STAGING/host/bin
     $STAGING/host/bin/protoc --version
 
+    echo "double check that the ming linker is getting called!..."
+    ld -v
+    ranlib -v
+    echo
+
     echo "calling make..."
     make $MAKEOPTS
 
     echo "calling protoc..."
     ls -al /home/ubuntu/build64/distsrc/src/qt
     $STAGING/host/bin/protoc --cpp_out=/home/ubuntu/build64/distsrc/src/qt --proto_path=/home/ubuntu/build64/distsrc/src/qt /home/ubuntu/build64/distsrc/src/qt/paymentrequest.proto
-
-    echo "double check that the ming linker is getting called!..."
-    ld -v
-    ranlib -v
-    echo
 
     echo "make deploy..."
     make deploy
