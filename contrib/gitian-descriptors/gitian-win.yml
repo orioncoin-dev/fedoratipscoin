@@ -109,22 +109,31 @@ script: |
     export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
     export FAKETIME=$REFERENCE_DATETIME
 
-    # $STAGING/host/bin/lupdate src/fedoracoin-qt.pro
+    echo "regenerating langage qm files..."
     $STAGING/host/bin/lrelease src/fedoracoin-qt.pro
 
-    # echo "calling qmake..."
+    echo "staging..."
+    ls -al $STAGING/include
+    ls -al $STAGING/lib
+
+    echo "calling qmake..."
     $STAGING/host/bin/qmake -spec win32-g++ \
     CROSS_COMPILE=$HOST \
     USE_QRCODE=1 \
     CONFIG+='warn_on' \
-    QMAKE_CXXFLAGS+='-w' \
-    QMAKE_LFLAGS+='--verbose -t -static-libgcc -static-libstdc++ -frandom-seed=${CURTIMESTAMP}' \
+    BOOST_LIB_SUFFIX=-mt-s \
+    BOOST_THREAD_LIB_SUFFIX=_win32-mt-s \
+    QMAKE_CXXFLAGS+='-w -d' \
+    QMAKE_CXXFLAGS+='-frandom-seed='$CURTIMESTAMP \
+    QMAKE_LFLAGS+='--verbose -t -static -static-libgcc -static-libstdc++' \
     INCLUDEPATH+=$STAGING \
     INCLUDEPATH+=/home/ubuntu/build64/distsrc/${REPONAME}/src/leveldb/include \
     DEFINES=BOOST_THREAD_USE_LIB \
     BITCOIN_NEED_QT_PLUGINS=1 \
-    BOOST_LIB_SUFFIX=-mt-s \
-    BOOST_THREAD_LIB_SUFFIX=_win32-mt-s \
+    BOOST_LIB_PATH+=$STAGING/lib \
+    OPENSSL_LIB_PATH+=$STAGING/lib \
+    BDB_LIB_PATH+=$STAGING/lib \
+    MINIUPNPC_LIB_PATH+=$STAGING/lib \
     QMAKE_LRELEASE=lrelease \
     USE_BUILD_INFO=1 \
     src/fedoracoin-qt.pro
@@ -141,6 +150,11 @@ script: |
     echo "calling protoc..."
     ls -al /home/ubuntu/build64/distsrc/src/qt
     $STAGING/host/bin/protoc --cpp_out=/home/ubuntu/build64/distsrc/src/qt --proto_path=/home/ubuntu/build64/distsrc/src/qt /home/ubuntu/build64/distsrc/src/qt/paymentrequest.proto
+
+    echo "double check that the ming linker is getting called!..."
+    ld -v
+    ranlib -v
+    echo
 
     echo "make deploy..."
     make deploy

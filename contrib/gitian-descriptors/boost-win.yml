@@ -95,7 +95,41 @@ script: |
     #         <phrase role="identifier">model</phrase>
     #   </code>.
 
-    ./bjam toolset=gcc target-os=windows abi=ms binary-format=pe architecture=x86 address-model=64 threadapi=win32 threading=multi variant=release link=static runtime-link=static --user-config=user-config.jam --without-mpi --without-python -sNO_BZIP2=1 -sNO_ZLIB=1 --layout=tagged --build-type=complete --prefix="$INSTALLPREFIX" $MAKEOPTS install
+    # echo "show which libraries are available to build..."
+    # ./bjam --show-libraries
+    # THESE ARE THE LIBRARIES YOU CAN BUILD WITH THE --with-NAME command below...
+    # - atomic
+    # - chrono
+    # - container
+    # - context
+    # - coroutine
+    # - coroutine2
+    # - date_time
+    # - exception
+    # - filesystem
+    # - graph
+    # - graph_parallel
+    # - iostreams
+    # - locale
+    # - log
+    # - math
+    # - mpi
+    # - program_options
+    # - python
+    # - random
+    # - regex
+    # - serialization
+    # - signals
+    # - system
+    # - test
+    # - thread
+    # - timer
+    # - type_erasure
+    # - wave
+
+    # should be upgraded to use b2 instead --without-python --without-mpi
+    echo "building now..."
+    ./bjam toolset=gcc target-os=windows abi=ms binary-format=pe architecture=x86 address-model=64 threadapi=win32 threading=multi variant=release link=static runtime-link=static --with-system --with-test --with-filesystem --with-thread --with-program_options --user-config=user-config.jam -sNO_BZIP2=1 -sNO_ZLIB=1 --layout=tagged --build-type=complete --prefix="$INSTALLPREFIX" $MAKEOPTS install
 
     # post-process all generated libraries to be deterministic
     # extract them to a temporary directory then re-build them deterministically
