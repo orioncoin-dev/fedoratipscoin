@@ -150,6 +150,7 @@ LIBS += \
 -lminiupnpc \
 -lprotobuf \
 -lqrencode \
+-lleveldb \
 -lprotoc \
 -lpng \
 -lssl \
