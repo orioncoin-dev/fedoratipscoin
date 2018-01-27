@@ -141,7 +141,7 @@ TRANSLATIONS += \
 
 LIBS += \
 -lmingw32 \
--L"$$(STAGING)\lib" \
+-L"$$(STAGING)/lib" \
 -lboost_system-mt-s \
 -lboost_filesystem-mt-s \
 -lboost_prg_exec_monitor-mt-s \
