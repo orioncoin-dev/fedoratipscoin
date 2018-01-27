@@ -159,9 +159,9 @@ LIBS += \
 -lcrypto \
 -ldb \
 -lz \
-crtbegin.o \
-crt2.o \
-crtend.o \
+$$(STAGING)/lib/crtbegin.o \
+$$(STAGING)/lib/crt2.o \
+$$(STAGING)/lib/crtend.o \
 
 QT += \
     widgets \
