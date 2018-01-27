@@ -143,7 +143,6 @@ LIBS += \
 -L"$$(STAGING)\lib" \
 -lboost_system-mt-s \
 -lboost_filesystem-mt-s \
--lboost_serialization-mt-s \
 -lboost_chrono-mt-s \
 -lboost_thread_win32-mt-s \
 -lssl \
