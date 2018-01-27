@@ -140,6 +140,7 @@ TRANSLATIONS += \
     qt/locale/bitcoin_zh_TW.ts \
 
 LIBS += \
+-lmingw32 \
 -L"$$(STAGING)\lib" \
 -lboost_system-mt-s \
 -lboost_filesystem-mt-s \
