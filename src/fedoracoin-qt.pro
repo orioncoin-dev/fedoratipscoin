@@ -147,6 +147,8 @@ LIBS += \
 -lboost_thread_win32-mt-s \
 -lssl \
 -lcrypto \
+-ldb-5.3 \
+-ldb \
 
 QT += \
     widgets \
