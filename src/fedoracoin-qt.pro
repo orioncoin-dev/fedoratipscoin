@@ -151,6 +151,7 @@ LIBS += \
 -lprotobuf \
 -lqrencode \
 -lleveldb \
+-lmemenv \
 -lprotoc \
 -lpng \
 -lssl \
