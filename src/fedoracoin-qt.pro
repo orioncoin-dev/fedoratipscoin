@@ -191,4 +191,4 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 # if(win32-g++*:if(CONFIG(debug, debug|release))) {
 #  QMAKE_CXXFLAGS += -Wa,-mbig-obj
 #  QMAKE_AR += --noinhibit-exec
-}
+# }
