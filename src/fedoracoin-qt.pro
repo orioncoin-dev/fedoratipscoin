@@ -159,7 +159,7 @@ LIBS += \
 -lcrypto \
 -ldb \
 -lz \
-/usr/lib/gcc/x86_64-w64-mingw32/5.3-win32/../../../../x86_64-w64-mingw32/lib/libcrtdll.a \
+/usr/lib/gcc/x86_64-w64-mingw32/5.3-win32/../../../../x86_64-w64-mingw32/lib/libmingwex.a \
 
 QT += \
     widgets \
