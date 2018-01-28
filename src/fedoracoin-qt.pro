@@ -187,7 +187,8 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     
 #allows qt to complile with programs over 32k in size (limit should be 64k on Windows)
 #  also have option regarding EXE output on errors (fedora's code is messy)
-if(win32-g++*:if(CONFIG(debug, debug|release))) {
-  QMAKE_CXXFLAGS += -Wa,-mbig-obj
-  QMAKE_AR += --noinhibit-exec
+#  moved to qmake config section.  see yml file...
+# if(win32-g++*:if(CONFIG(debug, debug|release))) {
+#  QMAKE_CXXFLAGS += -Wa,-mbig-obj
+#  QMAKE_AR += --noinhibit-exec
 }
