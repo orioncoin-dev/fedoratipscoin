@@ -159,9 +159,9 @@ LIBS += \
 -lcrypto \
 -ldb \
 -lz \
-$$(STAGING)/lib/crtbegin.o \
-$$(STAGING)/lib/crt2.o \
-$$(STAGING)/lib/crtend.o \
+/usr/lib/gcc/x86_64-w64-mingw32/5.3-win32/../../../../x86_64-w64-mingw32/lib/crtbegin.o \
+/usr/lib/gcc/x86_64-w64-mingw32/5.3-win32/../../../../x86_64-w64-mingw32/lib/crt2.o \
+/usr/lib/gcc/x86_64-w64-mingw32/5.3-win32/../../../../x86_64-w64-mingw32/lib/crtend.o \
 
 QT += \
     widgets \
