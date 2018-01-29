@@ -8,7 +8,7 @@
 #include "guiconstants.h"
 #include "qvaluecombobox.h"
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtGui/QKeyEvent>
