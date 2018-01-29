@@ -8,11 +8,11 @@
 #include "guiconstants.h"
 #include "qvaluecombobox.h"
 
-#include <QApplication>
-#include <QDoubleSpinBox>
-#include <QHBoxLayout>
-#include <QKeyEvent>
-#include <qmath.h> // for qPow()
+#include <QtGui/QApplication>
+#include <QtWidgets/QDoubleSpinBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtGui/QKeyEvent>
+#include <QtCore/qmath.h> // for qPow()
 
 BitcoinAmountField::BitcoinAmountField(QWidget *parent) :
     QWidget(parent),
