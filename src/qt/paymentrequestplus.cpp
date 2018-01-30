@@ -15,8 +15,7 @@
 #include <openssl/x509_vfy.h>
 #include <QDateTime>
 #include <QDebug>
-#include <QtNetwork/qsslcertificate.h>
-
+#include <QSslCertificate>
 
 class SSLVerifyError : public std::runtime_error
 {
@@ -99,7 +98,7 @@ bool PaymentRequestPlus::getMerchant(X509_STORE* certStore, QString& merchant) c
         QByteArray certData(certChain.certificate(i).data(), certChain.certificate(i).size());
         QSslCertificate qCert(certData, QSsl::Der);
         if (currentTime < qCert.effectiveDate() || currentTime > qCert.expiryDate()) {
-            qDebug() << "PaymentRequestPlus::getMerchant : Payment request: certificate expired or not yet active: " << qCert;
+          qDebug() << "PaymentRequestPlus::getMerchant : Payment request: certificate expired or not yet active: " << qCert;
             return false;
         }
 #if QT_VERSION >= 0x050000
