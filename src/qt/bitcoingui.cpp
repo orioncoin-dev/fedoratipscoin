@@ -35,7 +35,7 @@
 #include <QDateTime>
 #include <QDesktopWidget>
 #include <QDragEnterEvent>
-#include <QIcon>
+#include <QtGui/QIcon>
 #include <QLabel>
 #include <QListWidget>
 #include <QMenu>
