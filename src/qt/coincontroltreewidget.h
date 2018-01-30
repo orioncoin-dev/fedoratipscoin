@@ -5,7 +5,7 @@
 #ifndef COINCONTROLTREEWIDGET_H
 #define COINCONTROLTREEWIDGET_H
 
-#include <QtWidgets/qkeyeventtransition.h>
+#include <QtGui/QKeyEvent>
 #include <QtWidgets/qtreewidget.h>
 
 class CoinControlTreeWidget : public QTreeWidget
