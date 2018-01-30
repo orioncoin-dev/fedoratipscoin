@@ -127,6 +127,7 @@ script: |
     -opensource
     -confirm-license
     -xplatform $SPECNAME
+    -openssl-linked 
     -release
     -static
     -continue
