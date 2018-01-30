@@ -6,7 +6,7 @@
 #define TRANSACTIONTABLEMODEL_H
 
 #include <QAbstractTableModel>
-#include <QtCore/stringlist.h>
+#include <QtCore/qstringlist.h>
 
 class TransactionRecord;
 class TransactionTablePriv;
