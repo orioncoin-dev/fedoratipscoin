@@ -8,7 +8,7 @@
 #include <QtWidgets/qdialog.h>
 #include <QtWidgets/qheaderview.h>
 #include <QtCore/qitemselectionmodel.h>
-#include <QtWidgets/qkeyeventtransition.h>
+#include <QtGui/QKeyEvent>
 #include <QtWidgets/qmenu.h>
 #include <QtCore/qpoint.h>
 #include <QtCore/qvariant.h>
