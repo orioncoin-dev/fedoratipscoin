@@ -58,7 +58,7 @@ script: |
     fi
     #
     export PATH="$DEPSDIR/lib:$OLDPATH"
-    export INCLUDE="$DEPSDIR/include:$OLDINCLUDE"
+    export INCLUDE="$DEPSDIR/include:$DEPSDIR/include/openssl:$OLDINCLUDE"
     export LIB="$DEPSDIR/lib:$OLDLIB"
     export PATH="$DEPSDIR/bin:$PATH"
 
@@ -77,6 +77,9 @@ script: |
     ln -sf $DEPSDIR/lib/libsicutest.a $DEPSDIR/lib/libicutest.a
     ln -sf $DEPSDIR/lib/libsicutu.a $DEPSDIR/lib/libicutu.a
     ln -sf $DEPSDIR/lib/libsicuuc.a $DEPSDIR/lib/libicuuc.a
+
+    echo "Checking openssl headers location..."
+    ls -al /home/ubuntu/deps64/include/openssl
 
     cd $BUILDDIR
 
@@ -97,7 +100,7 @@ script: |
     bison -V
     ls -al
 
-    echo "Building qmake ourselves so we can control which features it supports..."
+    # echo "Building qmake ourselves so we can control which features it supports..."
     yes|./configure -static -release -opensource -no-opengl
 
     ls -al
@@ -127,7 +130,7 @@ script: |
     -opensource
     -confirm-license
     -xplatform $SPECNAME
-    -openssl-linked 
+    -openssl-linked
     -release
     -static
     -continue
@@ -207,12 +210,15 @@ script: |
     sed -i '/# *if *defined *( *_WIN32_IE *) *&& *_WIN32_IE *<< *0x0700/{s,<<,<,}' /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtwinextras/src/winextras/qwinjumplist.cpp
 
     export QT_DEBUG_PLUGINS=1
-    OPENSSL_LIBS="-L$DEPSDIR/lib -lssl -lcrypto -lgdi32" ./configure $CONFIG_OPTS -I$BUILDDIR -device-option CROSS_COMPILE="$HOST-"
+    OPENSSL_LIBS="-L $DEPSDIR/lib -lssl -lcrypto" ./configure $CONFIG_OPTS -I $DEPSDIR/include -I $DEPSDIR/include/openssl -I $BUILDDIR -device-option CROSS_COMPILE="$HOST-"
 
     echo "making work-around for bug in cross compile of qt for windows on Linux..."
     ls -al /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/src/3rdparty/pcre2
     echo "QMAKE_LINK_OBJECT_MAX = 10" >> /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/mkspecs/win32-g++/qmake.conf
     echo "QMAKE_LINK_OBJECT_SCRIPT = object_script" >> /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/mkspecs/win32-g++/qmake.conf
+
+    echo "printing out qmake.conf..."
+    cat /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/mkspecs/win32-g++/qmake.conf
 
     echo "calling make..."
     make $MAKEOPTS install
