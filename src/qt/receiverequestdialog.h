@@ -9,7 +9,7 @@
 
 #include <QtWidgets/qdialog.h>
 #include <QtGui/qimage.h>
-#include <QtGui/qlabel.h>
+#include <QtWidgets/qlabel.h>
 
 namespace Ui {
     class ReceiveRequestDialog;
