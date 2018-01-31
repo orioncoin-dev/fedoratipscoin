@@ -101,7 +101,7 @@ script: |
     ls -al
 
     # echo "Building qmake ourselves so we can control which features it supports..."
-    yes|./configure -static -release -opensource -no-opengl
+    # yes|./configure -static -release -opensource -no-opengl
 
     ls -al
     echo "Fixing bug in qt for expected date format on windows..."
@@ -124,16 +124,22 @@ script: |
     #export FAKETIME=$REFERENCE_DATETIME
  
     # Compile static libraries, and use statically linked openssl (-openssl-linked):
-    # -system-zlib
 
     CONFIG_OPTS="
+    -prefix $INSTALLPREFIX
+    -bindir ${INSTALLPREFIX}/host/bin
+    -optimized-qmake
+    -continue
+    -make libs
     -opensource
     -confirm-license
     -xplatform $SPECNAME
-    -openssl-linked
+    -openssl
     -release
     -static
-    -continue
+    -nomake examples
+    -nomake tests
+    -nomake tools
     -no-glib
     -no-dbus
     -no-cups
@@ -144,10 +150,6 @@ script: |
     -no-pch
     -no-qml-debug
     -no-compile-examples
-    -nomake examples
-    -nomake tests
-    -nomake tools
-    -make libs
     -no-sql-ibase
     -no-sql-oci
     -no-sql-tds
@@ -156,12 +158,6 @@ script: |
     -no-sql-psql
     -no-sql-sqlite
     -no-sql-sqlite2
-    -prefix $INSTALLPREFIX
-    -bindir ${INSTALLPREFIX}/host/bin
-    -v
-    -qt-libpng
-    -qt-libjpeg
-    -qt-pcre
     -no-openvg
     -no-mtdev
     -no-kms
@@ -171,7 +167,6 @@ script: |
     -no-linuxfb
     -no-xinput2
     -no-libudev
-    -optimized-qmake
     -skip qtwinextras
     -skip qtandroidextras
     -skip qtmacextras
@@ -200,6 +195,9 @@ script: |
     -skip qtspeech
     -skip qtdoc"
 
+    #-system-libpng
+    #-system-zlib"
+
     echo "Applying bugfixes for cross compiling to Windows... missing uiviewsettingsinterop header..."
     sed -i '/^ *# *define *HAS_UI_VIEW_SETTINGS_INTEROP *$/d' /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/src/plugins/platforms/windows/qwin10helpers.cpp
 
@@ -210,7 +208,8 @@ script: |
     sed -i '/# *if *defined *( *_WIN32_IE *) *&& *_WIN32_IE *<< *0x0700/{s,<<,<,}' /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtwinextras/src/winextras/qwinjumplist.cpp
 
     export QT_DEBUG_PLUGINS=1
-    OPENSSL_LIBS="-L $DEPSDIR/lib -lssl -lcrypto" ./configure $CONFIG_OPTS -I $DEPSDIR/include -I $DEPSDIR/include/openssl -I $BUILDDIR -device-option CROSS_COMPILE="$HOST-"
+    OPENSSL_LIBS="-L $DEPSDIR/lib -lssl -lcrypto -lgdi32" 
+    yes|./configure $CONFIG_OPTS -I $DEPSDIR/include -I $DEPSDIR/include/openssl -I $BUILDDIR -device-option CROSS_COMPILE="$HOST-"
 
     echo "making work-around for bug in cross compile of qt for windows on Linux..."
     ls -al /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/src/3rdparty/pcre2
@@ -221,8 +220,9 @@ script: |
     cat /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/mkspecs/win32-g++/qmake.conf
 
     echo "calling make..."
+    make $MAKEOPTS
+    echo "calling make install..."
     make $MAKEOPTS install
-    ls -al
 
     echo "post-process all generated libraries and plugins to be deterministic..."
     echo "extract them to a temporary directory then re-build them deterministically..."
