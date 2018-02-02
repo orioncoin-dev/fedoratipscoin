@@ -37,10 +37,10 @@
 #include "wallet.h"
 #include "base40.h"
 
-#include <QLabel>
-#include <QFont>
-#include <QVBoxLayout>
-#include <QInputDialog>
+#include <QtWigets/QLabel>
+#include <QtGui/QFont>
+#include <QtGui/QVBoxLayout>
+#include <QtWigets/QInputDialog>
 
 #ifdef USE_QRCODE
 #include <qrencode.h>

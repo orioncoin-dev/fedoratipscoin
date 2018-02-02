@@ -20,10 +20,10 @@
 #include "init.h" 
 #include <stdint.h>
 
-#include <QDebug>
-#include <QSet>
-#include <QTimer>
-#include <QMessageBox>
+#include <QtCore/QDebug>
+#include <QtCore/QSet>
+#include <QtCore/QTimer>
+#include <QtWidgets/QMessageBox>
 
 #if defined(_MSC_VER) || defined(__MSVCRT__)
   /* (s)size_t and ptrdiff_t have the same size specifier in MSVC:

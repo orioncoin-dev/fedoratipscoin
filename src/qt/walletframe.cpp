@@ -10,8 +10,8 @@
 #include <cstdio>
 #include <iostream>
 
-#include <QHBoxLayout>
-#include <QLabel>
+#include <QtGui/QHBoxLayout>
+#include <QtWidgets/QLabel>
 
 WalletFrame::WalletFrame(BitcoinGUI *_gui) :
     QFrame(_gui),

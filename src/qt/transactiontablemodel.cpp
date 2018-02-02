@@ -19,11 +19,11 @@
 #include "util.h"
 #include "wallet.h"
 
-#include <QColor>
-#include <QDateTime>
-#include <QDebug>
-#include <QIcon>
-#include <QList>
+#include <QtGui/QColor>
+#include <QtCore/QDateTime>
+#include <QtCore/QDebug>
+#include <QtGui/QIcon>
+#include <QtCore/QList>
 
 // Amount column is right-aligned it contains numbers
 static int column_alignments[] = {

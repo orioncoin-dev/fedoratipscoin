@@ -7,7 +7,7 @@
 
 #include "transactiontablemodel.h"
 
-#include <QModelIndex>
+#include <QtCore/QModelIndex>
 
 TransactionDescDialog::TransactionDescDialog(const QModelIndex &idx, QWidget *parent) :
     QDialog(parent),

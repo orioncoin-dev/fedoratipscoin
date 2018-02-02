@@ -18,22 +18,22 @@
 
 #include "ui_interface.h"
 
-#include <QComboBox>
-#include <QDateTimeEdit>
-#include <QDesktopServices>
-#include <QDoubleValidator>
-#include <QHBoxLayout>
-#include <QHeaderView>
-#include <QLabel>
-#include <QLineEdit>
-#include <QMenu>
-#include <QPoint>
-#include <QScrollBar>
-#include <QSignalMapper>
-#include <QTableView>
-#include <QUrl>
-#include <QVBoxLayout>
-#include <QProcess>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QDateTimeEdit>
+#include <QtGui/QDesktopServices>
+#include <QtGui/QDoubleValidator>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtGui/QMenu>
+#include <QtGui/QPoint>
+#include <QtWidgets/QScrollBar>
+#include <QtCore/QSignalMapper>
+#include <QtWidgets/QTableView>
+#include <QtCore/QUrl>
+#include <QtGui/QVBoxLayout>
+#include <QtCore/QProcess>
 
 TransactionView::TransactionView(QWidget *parent) :
     QWidget(parent), model(0), transactionProxyModel(0),

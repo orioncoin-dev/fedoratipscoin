@@ -24,15 +24,15 @@
 
 #include "ui_interface.h"
 
-#include <QAction>
-#include <QActionGroup>
-#include <QFileDialog>
-#include <QHBoxLayout>
-#include <QProgressDialog>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QApplication>
-#include <QProcess>
+#include <QtGui/QAction>
+#include <QtGui/QActionGroup>
+#include <QtWidgets/QFileDialog>
+#include <QtGui/QHBoxLayout>
+#include <QtWidgets/QProgressDialog>
+#include <QtGui/QPushButton>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QApplication>
+#include <QtCore/QProcess>
 
 WalletView::WalletView(QWidget *parent):
     QStackedWidget(parent),

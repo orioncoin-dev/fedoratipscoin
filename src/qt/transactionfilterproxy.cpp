@@ -9,7 +9,7 @@
 
 #include <cstdlib>
 
-#include <QDateTime>
+#include <QtCore/QDateTime>
 
 // Earliest date that can be represented (far in the past)
 const QDateTime TransactionFilterProxy::MIN_DATE = QDateTime::fromTime_t(0);

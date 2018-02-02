@@ -9,7 +9,7 @@
 
 #include <windows.h>
 
-#include <QDebug>
+#include <QtCore/QDebug>
 
 // If we don't want a message to be processed by Qt, return true and set result to
 // the value that the window procedure should return. Otherwise return false.
