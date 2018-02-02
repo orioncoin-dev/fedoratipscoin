@@ -32,31 +32,31 @@
 #include <iostream>
 
 #include <QtWidgets/QApplication>
-#include <QDateTime>
-#include <QDesktopWidget>
-#include <QDragEnterEvent>
+#include <QtCore/QDateTime>
+#include <QtWidgets/QDesktopWidget>
+#include <QtGui/QDragEnterEvent>
 #include <QtGui/QIcon>
-#include <QLabel>
-#include <QListWidget>
-#include <QMenu>
-#include <QMenuBar>
-#include <QMessageBox>
-#include <QMimeData>
-#include <QProgressBar>
-#include <QSettings>
-#include <QStackedWidget>
-#include <QStatusBar>
-#include <QStyle>
-#include <QTimer>
-#include <QToolBar>
-#include <QVBoxLayout>
-#include <QProcess>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QListWidget>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QMessageBox>
+#include <QtCore/QMimeData>
+#include <QtWidgets/QProgressBar>
+#include <QtCore/QSettings>
+#include <QtWidgets/QStackedWidget>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgetsQStyle>
+#include <QtCore/QTimer>
+#include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
+#include <QtCore/QProcess>
 
 #if QT_VERSION < 0x050000
 #include <QUrl>
 #include <QTextDocument>
 #else
-#include <QUrlQuery>
+#include <QtCore/QUrlQuery>
 #endif
 
 const QString BitcoinGUI::DEFAULT_WALLET = "~Default";
