@@ -7,7 +7,7 @@
 
 #include "walletmodel.h"
 
-#include <QAbstractTableModel>
+#include <QtCore/QAbstractTableModel>
 #include <QtCore/qstringlist.h>
 #include <QtCore/qdatetime.h>
 

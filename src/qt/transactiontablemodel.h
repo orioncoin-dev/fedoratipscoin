@@ -5,7 +5,7 @@
 #ifndef TRANSACTIONTABLEMODEL_H
 #define TRANSACTIONTABLEMODEL_H
 
-#include <QAbstractTableModel>
+#include <QtCore/QAbstractTableModel>
 #include <QtCore/qstringlist.h>
 
 class TransactionRecord;
