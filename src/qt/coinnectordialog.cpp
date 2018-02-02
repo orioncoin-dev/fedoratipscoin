@@ -31,7 +31,7 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QDateTime>
 #include <QtGui/QStandardItemModel>
-#include <QtWidgets/QDesktopServices>
+#include <QtGui/QDesktopServices>
 #include <QtCore/QUrl>
 
 CoinnectorDialog::CoinnectorDialog(QWidget *parent) :
