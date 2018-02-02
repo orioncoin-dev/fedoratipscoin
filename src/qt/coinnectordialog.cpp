@@ -18,21 +18,21 @@
 #include "netbase.h"
 #include "txdb.h" // for -dbcache defaults
 
-#include <QDir>
-#include <QIntValidator>
-#include <QLocale>
-#include <QMessageBox>
-#include <QTimer>
-#include <QNetworkReply>
-#include <QNetworkRequest>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QByteArray>
-#include <QDateTime>
-#include <QStandardItemModel>
-#include <QDesktopServices>
-#include <QUrl>
+#include <QtCore/QDir>
+#include <QtCore/QIntValidator>
+#include <QtCore/QLocale>
+#include <QtWidgets/QMessageBox>
+#include <QtCore/QTimer>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkRequest>
+#include <QtCore/QJsonObject>
+#include <QtCore/QJsonArray>
+#include <QtCore/QJsonDocument>
+#include <QtCore/QByteArray>
+#include <QtCore/QDateTime>
+#include <QtWidgets/QStandardItemModel>
+#include <QtWidgets/QDesktopServices>
+#include <QtCore/QUrl>
 
 CoinnectorDialog::CoinnectorDialog(QWidget *parent) :
     QDialog(parent),
