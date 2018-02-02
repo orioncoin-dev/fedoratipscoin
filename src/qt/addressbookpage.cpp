@@ -33,10 +33,10 @@
 #include "walletview.h"
 #include "createmultisigaddrdialog.h"
 
-#include <QIcon>
-#include <QMenu>
-#include <QMessageBox>
-#include <QSortFilterProxyModel>
+#include <QtGui/QIcon>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMessageBox>
+#include <QtCore/QSortFilterProxyModel>
 
 #include "json/json_spirit.h"
 #include "json/json_spirit_reader_template.h"
