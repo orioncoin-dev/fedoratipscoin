@@ -46,7 +46,7 @@
 #include <QtCore/QSettings>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgetsQStyle>
+#include <QtWidgets/QStyle>
 #include <QtCore/QTimer>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
