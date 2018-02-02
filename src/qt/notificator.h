@@ -9,8 +9,8 @@
 #include "bitcoin-config.h"
 #endif
 
-#include <QIcon>
-#include <QObject>
+#include <QtGui/QIcon>
+#include <QtCore/QObject>
 
 QT_BEGIN_NAMESPACE
 class QSystemTrayIcon;
