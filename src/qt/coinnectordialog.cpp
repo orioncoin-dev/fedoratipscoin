@@ -19,7 +19,7 @@
 #include "txdb.h" // for -dbcache defaults
 
 #include <QtCore/QDir>
-#include <QtCore/QIntValidator>
+#include <QtGui/QIntValidator>
 #include <QtCore/QLocale>
 #include <QtWidgets/QMessageBox>
 #include <QtCore/QTimer>
