@@ -51,7 +51,7 @@
 #include <QtPrintSupport/QPrinter>
 #include <QtPrintSupport/QPrintDialog>
 #include <QtPrintSupport/QPrintPreviewDialog>
-#include <QPainter>
+#include <QtGui/QPainter>
 #include "walletmodel.h"
 
 /** "About" dialog box */
