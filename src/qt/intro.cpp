@@ -11,7 +11,7 @@
 
 #include <boost/filesystem.hpp>
 
-#include <QtGui/QFileDialog>
+#include <QtWidgets/QFileDialog>
 #include <QtCore/QSettings>
 #include <QtWidgets/QMessageBox>
 
