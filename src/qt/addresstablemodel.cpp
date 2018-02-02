@@ -11,8 +11,8 @@
 #include "wallet.h"
 #include "stealth.h"
 
-#include <QFont>
-#include <QDebug>
+#include <QtGui/QFont>
+#include <QtCore/QDebug>
 
 const QString AddressTableModel::Send = "S";
 const QString AddressTableModel::Receive = "R";

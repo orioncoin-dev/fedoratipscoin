@@ -10,9 +10,9 @@
 
 #include "allocators.h"
 
-#include <QKeyEvent>
-#include <QMessageBox>
-#include <QPushButton>
+#include <QtGui/QKeyEvent>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QPushButton>
 
 AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget *parent) :
     QDialog(parent),
