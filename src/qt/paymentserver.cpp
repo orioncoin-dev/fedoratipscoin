@@ -23,7 +23,7 @@
 #include <QtCore/QDateTime>
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
-#include <QtCore/QFileOpenEvent>
+#include <QtGui/QFileOpenEvent>
 #include <QtCore/QHash>
 #include <QtCore/QList>
 #include <QtNetwork/QLocalServer>
