@@ -16,15 +16,15 @@
 #include "main.h"
 #include "wallet.h"
 
-#include <QApplication>
-#include <QCheckBox>
-#include <QCursor>
-#include <QDialogButtonBox>
-#include <QFlags>
-#include <QIcon>
-#include <QString>
-#include <QTreeWidget>
-#include <QTreeWidgetItem>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
+#include <QtGui/QCursor>
+#include <QtWidgets/QDialogButtonBox>
+#include <QtCore/QFlags>
+#include <QtGui/QIcon>
+#include <QtCore/QString>
+#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QTreeWidgetItem>
 
 using namespace std;
 QList<qint64> CoinControlDialog::payAmounts;
