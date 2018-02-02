@@ -16,9 +16,9 @@
 
 #include <stdint.h>
 
-#include <QDateTime>
-#include <QDebug>
-#include <QTimer>
+#include <QtCore/QDateTime>
+#include <QtCore/QDebug>
+#include <QtCore/QTimer>
 
 static const int64_t nClientStartupTime = GetTime();
 
