@@ -20,9 +20,9 @@
 #include "walletdb.h"
 #endif
 
-#include <QNetworkProxy>
-#include <QSettings>
-#include <QStringList>
+#include <QtNetwork/QNetworkProxy>
+#include <QtCore/QSettings>
+#include <QtCore/QStringList>
 
 OptionsModel::OptionsModel(QObject *parent) :
     QAbstractListModel(parent)

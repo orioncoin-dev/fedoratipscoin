@@ -22,11 +22,11 @@
 #include "json/json_spirit_value.h"
 using namespace json_spirit;
 
-#include <QMessageBox>
-#include <QTextDocument>
-#include <QScrollBar>
-#include <QFile>
-#include <QTextStream>
+#include <QtGui/QMessageBox>
+#include <QtGui/QTextDocument>
+#include <QtWidgets/QScrollBar>
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
 
 CCoinControl* MultiSigDialog::coinControl = new CCoinControl();
 CTransaction* MultiSigDialog::rawTx = new CTransaction();

@@ -14,12 +14,12 @@
 #include "addresstablemodel.h"
 #include "recentrequeststablemodel.h"
 
-#include <QAction>
-#include <QCursor>
-#include <QMessageBox>
-#include <QTextDocument>
-#include <QScrollBar>
-#include <QItemSelection>
+#include <QtGui/QAction>
+#include <QtGui/QCursor>
+#include <QtWidgets/QMessageBox>
+#include <QtCore/QTextDocument>
+#include <QtWidgets/QScrollBar>
+#include <QtWidgets/QItemSelection>
 
 ReceiveCoinsDialog::ReceiveCoinsDialog(QWidget *parent) :
     QDialog(parent),

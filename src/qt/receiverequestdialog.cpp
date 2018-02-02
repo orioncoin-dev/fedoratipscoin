@@ -11,13 +11,13 @@
 #include "optionsmodel.h"
 #include "walletmodel.h"
 
-#include <QClipboard>
-#include <QDrag>
-#include <QMimeData>
-#include <QMouseEvent>
-#include <QPixmap>
+#include <QtGui/QClipboard>
+#include <QtGui/QDrag>
+#include <QtCore/QMimeData>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QPixmap>
 #if QT_VERSION < 0x050000
-#include <QUrl>
+#include <QtCore/QUrl>
 #endif
 
 #if defined(HAVE_CONFIG_H)

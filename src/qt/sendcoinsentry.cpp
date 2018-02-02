@@ -12,9 +12,9 @@
 #include "walletmodel.h"
 #include "stealth.h"
 
-#include <QApplication>
-#include <QClipboard>
-#include <QDebug>
+#include <QtGui/QApplication>
+#include <QtGui/QClipboard>
+#include <QtCore/QDebug>
 
 SendCoinsEntry::SendCoinsEntry(QWidget *parent) :
     QStackedWidget(parent),

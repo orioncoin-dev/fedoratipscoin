@@ -14,20 +14,20 @@
 
 #include "ui_interface.h"
 
-#include <QScrollBar>
-#include <QComboBox>
-#include <QDoubleValidator>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QLineEdit>
-#include <QTableView>
-#include <QStandardItemModel>
-#include <QHeaderView>
-#include <QMessageBox>
-#include <QPoint>
-#include <QMenu>
-#include <QLabel>
-#include <QDateTimeEdit>
+#include <QtGui/QScrollBar>
+#include <QtGui/QComboBox>
+#include <QtGui/QDoubleValidator>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QLineEdit>
+#include <QtGui/QTableView>
+#include <QtGui/QStandardItemModel>
+#include <QtGui/QHeaderView>
+#include <QtWidgets/QMessageBox>
+#include <QtGui/QPoint>
+#include <QtGui/QMenu>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QDateTimeEdit>
 
 ReportView::ReportView(QWidget *parent) :
     QWidget(parent), model(0), transactionProxyModel(0),

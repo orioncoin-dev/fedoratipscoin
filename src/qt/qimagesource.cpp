@@ -1,5 +1,5 @@
 #include "qimagesource.h"
-#include <QColor>
+#include <QtGui/QColor>
 
 QImageLuminanceSource::QImageLuminanceSource(QImage& _image) : LuminanceSource(_image.width(), _image.height())
 {

@@ -4,16 +4,16 @@
 
 #include "notificator.h"
 
-#include <QApplication>
-#include <QByteArray>
-#include <QIcon>
-#include <QImageWriter>
-#include <QMessageBox>
-#include <QMetaType>
-#include <QStyle>
-#include <QSystemTrayIcon>
-#include <QTemporaryFile>
-#include <QVariant>
+#include <QtWidgets/QApplication>
+#include <QtCore/QByteArray>
+#include <QtGui/QIcon>
+#include <QtGui/QImageWriter>
+#include <QtWidgets/QMessageBox>
+#include <QtCore/QMetaType>
+#include <QtWidgets/QStyle>
+#include <QtWidgets/QSystemTrayIcon>
+#include <QtCore/QTemporaryFile>
+#include <QtCore/QVariant>
 #ifdef USE_DBUS
 #include <stdint.h>
 #include <QtDBus>

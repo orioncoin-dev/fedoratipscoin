@@ -17,26 +17,26 @@
 
 #include <openssl/x509.h>
 #include <openssl/x509_vfy.h>
-#include <QApplication>
-#include <QByteArray>
-#include <QDataStream>
-#include <QDateTime>
-#include <QDebug>
-#include <QFile>
-#include <QFileOpenEvent>
-#include <QHash>
-#include <QList>
-#include <QLocalServer>
-#include <QLocalSocket>
-#include <QNetworkAccessManager>
-#include <QNetworkProxy>
-#include <QNetworkReply>
-#include <QNetworkRequest>
-#include <QSslCertificate>
-#include <QSslError>
-#include <QSslSocket>
-#include <QStringList>
-#include <QTextDocument>
+#include <QtGui/QApplication>
+#include <QtCore/QByteArray>
+#include <QtCore/QDataStream>
+#include <QtCore/QDateTime>
+#include <QtCore/QDebug>
+#include <QtCore/QFile>
+#include <QtCore/QFileOpenEvent>
+#include <QtCore/QHash>
+#include <QtCore/QList>
+#include <QtNetwork/QLocalServer>
+#include <QtNetwork/QLocalSocket>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkProxy>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QSslCertificate>
+#include <QtNetwork/QSslError>
+#include <QtNetwork/QSslSocket>
+#include <QtCore/QStringList>
+#include <QtGui/QTextDocument>
 
 #if QT_VERSION < 0x050000
 #include <QUrl>

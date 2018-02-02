@@ -37,24 +37,24 @@
 #include <boost/filesystem/detail/utf8_codecvt_facet.hpp>
 #endif
 
-#include <QAbstractItemView>
-#include <QApplication>
-#include <QClipboard>
-#include <QDateTime>
-#include <QDesktopServices>
-#include <QDesktopWidget>
-#include <QDoubleValidator>
-#include <QFileDialog>
-#include <QFont>
-#include <QLineEdit>
-#include <QSettings>
-#include <QTextDocument> // for Qt::mightBeRichText
-#include <QThread>
+#include <QtWidgets/QAbstractItemView>
+#include <QtGui/QApplication>
+#include <QtGui/QClipboard>
+#include <QtCore/QDateTime>
+#include <QtGui/QDesktopServices>
+#include <QtWidgets/QDesktopWidget>
+#include <QtGui/QDoubleValidator>
+#include <QtWidgets/QFileDialog>
+#include <QtGui/QFont>
+#include <QtWidgets/QLineEdit>
+#include <QtCore/QSettings>
+#include <QtGui/QTextDocument> // for Qt::mightBeRichText
+#include <QtCore/QThread>
 
 #if QT_VERSION < 0x050000
 #include <QUrl>
 #else
-#include <QUrlQuery>
+#include <QtCore/QUrlQuery>
 #endif
 
 #if BOOST_FILESYSTEM_VERSION >= 3

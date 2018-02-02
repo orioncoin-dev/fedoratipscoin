@@ -12,8 +12,8 @@
 #include "wallet.h"
 #endif
 
-#include <QApplication>
-#include <QPainter>
+#include <QtGui/QApplication>
+#include <QtGui/QPainter>
 
 SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f, bool isTestNet) :
     QSplashScreen(pixmap, f)

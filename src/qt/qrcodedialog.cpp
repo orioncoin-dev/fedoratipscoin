@@ -6,9 +6,9 @@
 #include "guiutil.h"
 #include "optionsmodel.h"
 
-#include <QPixmap>
+#include <QtGui/QPixmap>
 #if QT_VERSION < 0x050000
-#include <QUrl>
+#include <QtCore/QUrl>
 #endif
 
 #include <qrencode.h>

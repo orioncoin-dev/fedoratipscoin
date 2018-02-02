@@ -14,8 +14,8 @@
 #include "transactiontablemodel.h"
 #include "walletmodel.h"
 
-#include <QAbstractItemDelegate>
-#include <QPainter>
+#include <QtWidgets/QAbstractItemDelegate>
+#include <QtGui/QPainter>
 
 #define DECORATION_SIZE 64
 #define NUM_ITEMS 3

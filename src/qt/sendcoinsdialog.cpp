@@ -17,10 +17,10 @@
 #include "coincontrol.h"
 #include "ui_interface.h"
 
-#include <QMessageBox>
-#include <QScrollBar>
-#include <QTextDocument>
-#include <QClipboard>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QScrollBar>
+#include <QtGui/QTextDocument>
+#include <QtGui/QClipboard>
 
 #ifdef USE_ZXING
 #include "snapwidget.h"

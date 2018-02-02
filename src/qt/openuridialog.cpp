@@ -8,7 +8,7 @@
 #include "guiutil.h"
 #include "walletmodel.h"
 
-#include <QUrl>
+#include <QtCore/QUrl>
 
 OpenURIDialog::OpenURIDialog(QWidget *parent) :
     QDialog(parent),

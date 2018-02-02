@@ -13,9 +13,9 @@
 
 #include <openssl/x509.h>
 #include <openssl/x509_vfy.h>
-#include <QDateTime>
-#include <QDebug>
-#include <QSslCertificate>
+#include <QtCore/QDateTime>
+#include <QtCore/QDebug>
+#include <QtNetwork/QSslCertificate>
 
 class SSLVerifyError : public std::runtime_error
 {

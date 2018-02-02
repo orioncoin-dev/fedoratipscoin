@@ -18,11 +18,11 @@
 #include "netbase.h"
 #include "txdb.h" // for -dbcache defaults
 
-#include <QDir>
-#include <QIntValidator>
-#include <QLocale>
-#include <QMessageBox>
-#include <QTimer>
+#include <QtCore/QDir>
+#include <QtGui/QIntValidator>
+#include <QtCore/QLocale>
+#include <QtWidgets/QMessageBox>
+#include <QtCore/QTimer>
 
 OptionsDialog::OptionsDialog(QWidget *parent) :
     QDialog(parent),

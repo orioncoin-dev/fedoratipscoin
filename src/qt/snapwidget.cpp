@@ -2,10 +2,10 @@
 
 #include "snapwidget.h"
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-#include <QtWidgets>
-#include <QDialog>
+#include <QtWidgets/QtWidgets>
+#include <QtWidgets/QDialog>
 #else
-#include <QDesktopWidget>
+#include <QtWidgets/QDesktopWidget>
 #endif
 #include "zxing/common/GlobalHistogramBinarizer.h"
 #include <zxing/Binarizer.h>

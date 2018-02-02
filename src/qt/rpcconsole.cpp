@@ -13,13 +13,13 @@
 
 #include "json/json_spirit_value.h"
 #include <openssl/crypto.h>
-#include <QKeyEvent>
-#include <QScrollBar>
-#include <QThread>
-#include <QTime>
+#include <QtGui/QKeyEvent>
+#include <QtWidgets/QScrollBar>
+#include <QtCore/QThread>
+#include <QtCore/QTime>
 
 #if QT_VERSION < 0x050000
-#include <QUrl>
+#include <QtCore/QUrl>
 #endif
 
 // TODO: add a scrollback limit, as there is currently none

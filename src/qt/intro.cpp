@@ -11,9 +11,9 @@
 
 #include <boost/filesystem.hpp>
 
-#include <QFileDialog>
-#include <QSettings>
-#include <QMessageBox>
+#include <QtGui/QFileDialog>
+#include <QtCore/QSettings>
+#include <QtWidgets/QMessageBox>
 
 /* Minimum free space (in bytes) needed for data directory */
 static const uint64_t GB_BYTES = 1000000000LL;
