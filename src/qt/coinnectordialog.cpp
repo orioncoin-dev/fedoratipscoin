@@ -30,7 +30,7 @@
 #include <QtCore/QJsonDocument>
 #include <QtCore/QByteArray>
 #include <QtCore/QDateTime>
-#include <QtWidgets/QStandardItemModel>
+#include <QtGui/QStandardItemModel>
 #include <QtWidgets/QDesktopServices>
 #include <QtCore/QUrl>
 
