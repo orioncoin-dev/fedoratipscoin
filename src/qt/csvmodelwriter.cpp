@@ -4,9 +4,9 @@
 
 #include "csvmodelwriter.h"
 
-#include <QAbstractItemModel>
-#include <QFile>
-#include <QTextStream>
+#include <QtCore/QAbstractItemModel>
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
 
 CSVModelWriter::CSVModelWriter(const QString &filename, QObject *parent) :
     QObject(parent),
