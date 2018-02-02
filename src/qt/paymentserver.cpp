@@ -17,7 +17,7 @@
 
 #include <openssl/x509.h>
 #include <openssl/x509_vfy.h>
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <QtCore/QByteArray>
 #include <QtCore/QDataStream>
 #include <QtCore/QDateTime>

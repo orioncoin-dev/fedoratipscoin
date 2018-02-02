@@ -38,7 +38,7 @@
 #endif
 
 #include <QtWidgets/QAbstractItemView>
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <QtGui/QClipboard>
 #include <QtCore/QDateTime>
 #include <QtGui/QDesktopServices>

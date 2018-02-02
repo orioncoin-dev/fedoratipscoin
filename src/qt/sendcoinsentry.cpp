@@ -12,7 +12,7 @@
 #include "walletmodel.h"
 #include "stealth.h"
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <QtGui/QClipboard>
 #include <QtCore/QDebug>
 

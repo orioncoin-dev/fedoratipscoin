@@ -31,7 +31,7 @@
 #include <QtWidgets/QProgressDialog>
 #include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <QtCore/QProcess>
 
 WalletView::WalletView(QWidget *parent):
