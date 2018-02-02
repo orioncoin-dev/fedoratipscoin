@@ -22,8 +22,8 @@
 #include <QtWidgets/QDateTimeEdit>
 #include <QtGui/QDesktopServices>
 #include <QtGui/QDoubleValidator>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtGui/QMenu>
@@ -32,7 +32,7 @@
 #include <QtCore/QSignalMapper>
 #include <QtWidgets/QTableView>
 #include <QtCore/QUrl>
-#include <QtGui/QVBoxLayout>
+#include <QtWidgets/QVBoxLayout>
 #include <QtCore/QProcess>
 
 TransactionView::TransactionView(QWidget *parent) :

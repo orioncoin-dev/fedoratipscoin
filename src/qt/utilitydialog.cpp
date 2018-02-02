@@ -39,7 +39,7 @@
 
 #include <QtWidgets/QLabel>
 #include <QtGui/QFont>
-#include <QtGui/QVBoxLayout>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QInputDialog>
 
 #ifdef USE_QRCODE

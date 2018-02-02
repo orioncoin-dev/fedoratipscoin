@@ -30,7 +30,7 @@
 #include <QtGui/QHBoxLayout>
 #include <QtWidgets/QProgressDialog>
 #include <QtGui/QPushButton>
-#include <QtGui/QVBoxLayout>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QApplication>
 #include <QtCore/QProcess>
 

@@ -17,12 +17,12 @@
 #include <QtGui/QScrollBar>
 #include <QtGui/QComboBox>
 #include <QtGui/QDoubleValidator>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QLineEdit>
-#include <QtGui/QTableView>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QTableView>
 #include <QtGui/QStandardItemModel>
-#include <QtGui/QHeaderView>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMessageBox>
 #include <QtGui/QPoint>
 #include <QtGui/QMenu>
