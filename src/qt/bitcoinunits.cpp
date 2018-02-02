@@ -4,7 +4,7 @@
 
 #include "bitcoinunits.h"
 
-#include <QStringList>
+#include <QtCore/QStringList>
 
 BitcoinUnits::BitcoinUnits(QObject *parent):
         QAbstractListModel(parent),
