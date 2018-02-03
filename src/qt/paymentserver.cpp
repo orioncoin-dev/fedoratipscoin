@@ -39,9 +39,9 @@
 #include <QtGui/QTextDocument>
 
 #if QT_VERSION < 0x050000
-#include <QUrl>
+#include <QtCore/QUrl>
 #else
-#include <QUrlQuery>
+#include <QtCore/QUrlQuery>
 #endif
 
 using namespace boost;
