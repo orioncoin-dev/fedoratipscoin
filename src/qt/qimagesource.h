@@ -1,8 +1,8 @@
 #ifndef QIMAGELUMINANCESOURCE_H
 #define QIMAGELUMINANCESOURCE_H
 
-#include <QImage>
-#include <QString>
+#include <QtGui/QImage>
+#include <QtCore/QString>
 #include <zxing/LuminanceSource.h>
 
 using namespace zxing;
