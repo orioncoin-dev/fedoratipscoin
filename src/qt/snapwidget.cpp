@@ -8,6 +8,13 @@
 #include <QtWidgets/QDesktopWidget>
 #endif
 
+// NOTE: This was added as mingw doesn't support NAN on Windows
+//  ... so I supplied it with one here for the zxing compile below...
+#define isnan(x) ((x) != (x))
+#ifndef NAN
+#define NAN ((double)0.0/(double)DBL_MIN)
+#endif
+
 #include <zxing/common/GlobalHistogramBinarizer.h>
 #include <zxing/Binarizer.h>
 #include <zxing/BinaryBitmap.h>
