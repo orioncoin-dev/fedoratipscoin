@@ -22,7 +22,7 @@
 #include "json/json_spirit_value.h"
 using namespace json_spirit;
 
-#include <QtGui/QMessageBox>
+#include <QtWidgets/QMessageBox>
 #include <QtGui/QTextDocument>
 #include <QtWidgets/QScrollBar>
 #include <QtCore/QFile>
