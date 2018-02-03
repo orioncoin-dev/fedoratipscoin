@@ -22,7 +22,10 @@
 // #endif       
 // #endif
 
-#include <cmath>
+// #include <cmath>
+
+#include <QtCore/QtGlobal>
+inline bool isnan(float v) {return qIsNaN(v);}
 
 #include <zxing/common/GlobalHistogramBinarizer.h>
 #include <zxing/Binarizer.h>
