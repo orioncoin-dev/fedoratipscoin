@@ -8,8 +8,7 @@
 #include <QtWidgets/QDesktopWidget>
 #endif
 
-#include "zxing/zxing-cpp-master/core/src/zxing/common/GlobalHistogramBinarizer.h"
-// #include "zxing/common/GlobalHistogramBinarizer.h"
+#include <zxing/common/GlobalHistogramBinarizer.h>
 #include <zxing/Binarizer.h>
 #include <zxing/BinaryBitmap.h>
 #include <zxing/MultiFormatReader.h>
