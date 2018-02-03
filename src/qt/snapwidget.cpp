@@ -8,24 +8,10 @@
 #include <QtWidgets/QDesktopWidget>
 #endif
 
-// NOTE: This was added as mingw doesn't support NAN on Windows
-//  ... so I supplied it with one here for the zxing compile below...
-// #ifndef _isnan
-// #define isnan _isnan
-// static float const NAN = std::numeric_limits<float>::quiet_NaN();
-// static float const INFINITY = std::numeric_limits<float>::infinity();
-// #else
-// extern float __fNaN, __fInFINITY;
-// #idefine NAN             __fNaN
-// #define INFINITY        __fInFINITY
-// #endif
-// #endif       
-// #endif
-
-// #include <cmath>
-
 #include <QtCore/QtGlobal>
-inline bool isnan(float v) {return qIsNaN(v);}
+#ifndef _isnan
+inline bool _isnan(float v) {return qIsNaN(v);}
+#endif
 
 #include <zxing/common/GlobalHistogramBinarizer.h>
 #include <zxing/Binarizer.h>
