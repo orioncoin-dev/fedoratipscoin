@@ -27,9 +27,9 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QActionGroup>
 #include <QtWidgets/QFileDialog>
-#include <QtGui/QHBoxLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QProgressDialog>
-#include <QtGui/QPushButton>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QApplication>
 #include <QtCore/QProcess>
