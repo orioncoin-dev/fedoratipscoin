@@ -14,15 +14,15 @@
 #include "json/json_spirit_writer_template.h"
 using namespace json_spirit;
 
-#include <QSortFilterProxyModel>
-#include <QClipboard>
-#include <QMessageBox>
-#include <QMenu>
-#include <QTextDocument>
-#include <QScrollBar>
-#include <QFile>
-#include <QTextStream>
-#include <QDataWidgetMapper>
+#include <QtCore/QSortFilterProxyModel>
+#include <QtGui/QClipboard>
+#include <QtWidgets/QMessageBox>
+#include <QtGui/QMenu>
+#include <QtGui/QTextDocument>
+#include <QtWidgets/QScrollBar>
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
+#include <QtWidgets/QDataWidgetMapper>
 
 CreateMultiSigAddrDialog::CreateMultiSigAddrDialog(QWidget *parent) :
     QDialog(parent),

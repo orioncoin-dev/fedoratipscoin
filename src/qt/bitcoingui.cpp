@@ -53,8 +53,8 @@
 #include <QtCore/QProcess>
 
 #if QT_VERSION < 0x050000
-#include <QUrl>
-#include <QTextDocument>
+#include <QtCore/QUrl>
+#include <QtGui/QTextDocument>
 #else
 #include <QtCore/QUrlQuery>
 #endif

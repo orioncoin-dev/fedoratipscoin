@@ -17,7 +17,7 @@
 #include <QtWidgets/QAction>
 #include <QtGui/QCursor>
 #include <QtWidgets/QMessageBox>
-#include <QtCore/QTextDocument>
+#include <QtGui/QTextDocument>
 #include <QtWidgets/QScrollBar>
 #include <QtWidgets/QItemSelection>
 
