@@ -26,8 +26,8 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
-#include <QtGui/QMenu>
-#include <QtGui/QPoint>
+#include <QtWidgets/QMenu>
+#include <QtCore/QPoint>
 #include <QtWidgets/QScrollBar>
 #include <QtCore/QSignalMapper>
 #include <QtWidgets/QTableView>

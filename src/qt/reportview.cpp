@@ -14,8 +14,8 @@
 
 #include "ui_interface.h"
 
-#include <QtGui/QScrollBar>
-#include <QtGui/QComboBox>
+#include <QtWidgets/QScrollBar>
+#include <QtWidgets/QComboBox>
 #include <QtGui/QDoubleValidator>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QVBoxLayout>
@@ -24,8 +24,8 @@
 #include <QtGui/QStandardItemModel>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMessageBox>
-#include <QtGui/QPoint>
-#include <QtGui/QMenu>
+#include <QtCore/QPoint>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QDateTimeEdit>
 

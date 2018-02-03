@@ -17,7 +17,7 @@ using namespace json_spirit;
 #include <QtCore/QSortFilterProxyModel>
 #include <QtGui/QClipboard>
 #include <QtWidgets/QMessageBox>
-#include <QtGui/QMenu>
+#include <QtWidgets/QMenu>
 #include <QtGui/QTextDocument>
 #include <QtWidgets/QScrollBar>
 #include <QtCore/QFile>
