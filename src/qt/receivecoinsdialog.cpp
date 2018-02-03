@@ -14,7 +14,7 @@
 #include "addresstablemodel.h"
 #include "recentrequeststablemodel.h"
 
-#include <QtGui/QAction>
+#include <QtWidgets/QAction>
 #include <QtGui/QCursor>
 #include <QtWidgets/QMessageBox>
 #include <QtCore/QTextDocument>
