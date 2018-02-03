@@ -19,7 +19,7 @@
 #include <QtWidgets/QMessageBox>
 #include <QtGui/QTextDocument>
 #include <QtWidgets/QScrollBar>
-#include <QtWidgets/QItemSelection>
+#include <QtCore/QItemSelection>
 
 ReceiveCoinsDialog::ReceiveCoinsDialog(QWidget *parent) :
     QDialog(parent),
