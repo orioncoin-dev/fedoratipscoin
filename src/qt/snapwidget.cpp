@@ -10,10 +10,19 @@
 
 // NOTE: This was added as mingw doesn't support NAN on Windows
 //  ... so I supplied it with one here for the zxing compile below...
-#define isnan(x) ((x) != (x))
-#ifndef NAN
-#define NAN ((double)0.0/(double)DBL_MIN)
-#endif
+// #ifndef _isnan
+// #define isnan _isnan
+// static float const NAN = std::numeric_limits<float>::quiet_NaN();
+// static float const INFINITY = std::numeric_limits<float>::infinity();
+// #else
+// extern float __fNaN, __fInFINITY;
+// #idefine NAN             __fNaN
+// #define INFINITY        __fInFINITY
+// #endif
+// #endif       
+// #endif
+
+#include <cmath>
 
 #include <zxing/common/GlobalHistogramBinarizer.h>
 #include <zxing/Binarizer.h>
