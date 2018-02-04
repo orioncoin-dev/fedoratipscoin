@@ -44,7 +44,7 @@
 #include <QtCore/QThread>
 
 #if defined(QT_STATICPLUGIN)
-#include <QtPlugin>
+#include <QtCore/QtPlugin>
 #if QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qcncodecs)
 Q_IMPORT_PLUGIN(qjpcodecs)
