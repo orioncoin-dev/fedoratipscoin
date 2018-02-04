@@ -209,7 +209,7 @@ AC_DEFUN([_BITCOIN_QT_CHECK_STATIC_PLUGINS],[
   LIBS="$2 $QT_LIBS $LIBS"
   AC_TRY_LINK([
     #define QT_STATICPLUGIN
-    #include <QtPlugin>
+    #include <QtCore/QtPlugin>
     $1],
     [return 0;],
     [AC_MSG_RESULT(yes); QT_LIBS="$2 $QT_LIBS"],
