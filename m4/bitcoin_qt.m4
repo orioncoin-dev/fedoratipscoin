@@ -287,9 +287,9 @@ AC_DEFUN([_BITCOIN_QT_FIND_LIBS_WITHOUT_PKGCONFIG],[
     fi
   ])
 
-  BITCOIN_QT_CHECK([AC_CHECK_HEADER([QtPlugin],,BITCOIN_QT_FAIL(QtCore headers missing))])
-  BITCOIN_QT_CHECK([AC_CHECK_HEADER([QApplication],, BITCOIN_QT_FAIL(QtGui headers missing))])
-  BITCOIN_QT_CHECK([AC_CHECK_HEADER([QLocalSocket],, BITCOIN_QT_FAIL(QtNetwork headers missing))])
+  BITCOIN_QT_CHECK([AC_CHECK_HEADER([QtCore/QtPlugin],,BITCOIN_QT_FAIL(QtCore headers missing))])
+  BITCOIN_QT_CHECK([AC_CHECK_HEADER([QtWidgets/QApplication],, BITCOIN_QT_FAIL(QtGui headers missing))])
+  BITCOIN_QT_CHECK([AC_CHECK_HEADER([QtNetwork/QLocalSocket],, BITCOIN_QT_FAIL(QtNetwork headers missing))])
 
   BITCOIN_QT_CHECK([
     if test x$bitcoin_qt_want_version = xauto; then
