@@ -237,6 +237,55 @@ AC_DEFUN([_BITCOIN_QT_CHECK_STATIC_PLUGINS],[
   LIBS="$CHECK_STATIC_PLUGINS_TEMP_LIBS"
 ])
 
+dnl Internal. Find paths necessary for linking qt static plugins
+dnl Inputs: bitcoin_qt_got_major_vers. 4 or 5.
+dnl Inputs: qt_plugin_path. optional.
+dnl Outputs: QT_LIBS is appended
+AC_DEFUN([_BITCOIN_QT_FIND_STATIC_PLUGINS],[
+  if test x$bitcoin_qt_got_major_vers = x5; then
+      if test x$qt_plugin_path != x; then
+        QT_LIBS="$QT_LIBS -L$qt_plugin_path/platforms"
+        if test -d "$qt_plugin_path/accessible"; then
+          QT_LIBS="$QT_LIBS -L$qt_plugin_path/accessible"
+        fi
+      fi
+     if test x$use_pkgconfig = xyes; then
+     : dnl
+     m4_ifdef([PKG_CHECK_MODULES],[
+       PKG_CHECK_MODULES([QTPLATFORM], [Qt5PlatformSupport], [QT_LIBS="$QTPLATFORM_LIBS $QT_LIBS"])
+       if test x$TARGET_OS = xlinux; then
+         PKG_CHECK_MODULES([X11XCB], [x11-xcb], [QT_LIBS="$X11XCB_LIBS $QT_LIBS"])
+         if ${PKG_CONFIG} --exists "Qt5Core >= 5.5" 2>/dev/null; then
+           PKG_CHECK_MODULES([QTXCBQPA], [Qt5XcbQpa], [QT_LIBS="$QTXCBQPA_LIBS $QT_LIBS"])
+         fi
+       elif test x$TARGET_OS = xdarwin; then
+         PKG_CHECK_MODULES([QTPRINT], [Qt5PrintSupport], [QT_LIBS="$QTPRINT_LIBS $QT_LIBS"])
+       fi
+     ])
+     else
+       if test x$TARGET_OS = xwindows; then
+         AC_CACHE_CHECK(for Qt >= 5.6, bitcoin_cv_need_platformsupport,[AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+             [[#include <QtCore>]],[[
+             #if QT_VERSION < 0x050600
+             choke;
+             #endif
+             ]])],
+           [bitcoin_cv_need_platformsupport=yes],
+           [bitcoin_cv_need_platformsupport=no])
+         ])
+         if test x$bitcoin_cv_need_platformsupport = xyes; then
+           BITCOIN_QT_CHECK(AC_CHECK_LIB([${QT_LIB_PREFIX}PlatformSupport],[main],,BITCOIN_QT_FAIL(lib$QT_LIB_PREFIXPlatformSupport not found)))
+         fi
+       fi
+     fi
+  else
+    if test x$qt_plugin_path != x; then
+      QT_LIBS="$QT_LIBS -L$qt_plugin_path/accessible"
+      QT_LIBS="$QT_LIBS -L$qt_plugin_path/codecs"
+    fi
+  fi
+])
+
 dnl Internal. Find Qt libraries using pkg-config.
 dnl Inputs: bitcoin_qt_want_version (from --with-gui=). The version to check
 dnl         first.
@@ -369,6 +418,7 @@ AC_DEFUN([_BITCOIN_QT_FIND_LIBS_WITHOUT_PKGCONFIG],[
     if test x$bitcoin_qt_got_major_vers == x5; then
       _BITCOIN_QT_IS_STATIC
       if test x$bitcoin_cv_static_qt == xyes; then 
+        _BITCOIN_QT_FIND_STATIC_PLUGINS
         AC_DEFINE(QT_STATICPLUGIN, 1, [Define this symbol if qt plugins are static])
         _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(AccessibleFactory)], [-lQt5AccessibilitySupport])
         if test x$TARGET_OS == xwindows; then
