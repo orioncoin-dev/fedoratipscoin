@@ -8,12 +8,12 @@
 #endif
 #include "uritests.h"
 
-#include <QCoreApplication>
-#include <QObject>
-#include <QTest>
+#include <QtCore/QCoreApplication>
+#include <QtCore/QObject>
+#include <QtCore/QTest>
 
 #if defined(QT_STATICPLUGIN) && QT_VERSION < 0x050000
-#include <QtPlugin>
+#include <QtCore/QtPlugin>
 Q_IMPORT_PLUGIN(qcncodecs)
 Q_IMPORT_PLUGIN(qjpcodecs)
 Q_IMPORT_PLUGIN(qtwcodecs)
