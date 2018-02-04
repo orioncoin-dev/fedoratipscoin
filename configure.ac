@@ -623,7 +623,7 @@ fi
 
 dnl these are only used when qt is enabled
 if test x$bitcoin_enable_qt != xno; then
-  BUILD_QT=qt
+  BUILD_QT=qt5
   dnl enable dbus support
   AC_MSG_CHECKING([whether to build GUI with support for D-Bus])
   if test x$bitcoin_enable_qt_dbus != xno; then
