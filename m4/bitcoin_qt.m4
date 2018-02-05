@@ -205,16 +205,13 @@ AC_DEFUN([_BITCOIN_QT_CHECK_STATIC_PLUGINS],[
   AC_MSG_CHECKING(for static Qt plugins: $2)
   CHECK_STATIC_PLUGINS_TEMP_LIBS="$LIBS"
   LIBS="$2 $QT_LIBS $LIBS"
-
-dnl  AC_LINK_IFELSE([AC_LANG_PROGRAM([[
-dnl    #define QT_STATICPLUGIN
-dnl    #include <QtCore/QtPlugin>
-dnl    $1]],
-dnl    [[return 0;]])],
-dnl    [AC_MSG_RESULT(yes); QT_LIBS="$2 $QT_LIBS"],
-dnl    [AC_MSG_RESULT(no); BITCOIN_QT_FAIL(Could not resolve: $2)])
-
-  QT_LIBS="$2 $QT_LIBS"
+  AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+    #define QT_STATICPLUGIN
+    #include <QtPlugin>
+    $1]],
+    [[return 0;]])],
+    [AC_MSG_RESULT(yes); QT_LIBS="$2 $QT_LIBS"],
+    [AC_MSG_RESULT(no); BITCOIN_QT_FAIL(Could not resolve: $2)])
   LIBS="$CHECK_STATIC_PLUGINS_TEMP_LIBS"
 ])
 
@@ -401,7 +398,6 @@ AC_DEFUN([_BITCOIN_QT_FIND_LIBS_WITHOUT_PKGCONFIG],[
       if test x$bitcoin_cv_static_qt == xyes; then 
         _BITCOIN_QT_FIND_STATIC_PLUGINS
         AC_DEFINE(QT_STATICPLUGIN, 1, [Define this symbol if qt plugins are static])
-        dnl _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(AccessibleFactory)], [-lQt5AccessibilitySupport])
         if test x$TARGET_OS == xwindows; then
           _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)],[-lqwindows])
           _BITCOIN_QT_CHECK_STATIC_PLUGINS([Q_IMPORT_PLUGIN(QMinimalIntegrationPlugin)],[-lqminimal])
