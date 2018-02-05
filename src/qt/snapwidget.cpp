@@ -78,8 +78,8 @@ void SnapWidget::on_snapButton_clicked()
         // const std::string& ss = s->text_;
         // decodedString = QString(ss.c_str());
         // delete qrDecoder;
-        decodedString = QString(r->getText()->getText().c_str());
-        delete qrDecoder;
+//        decodedString = QString(r->getText()->getText().c_str());
+//        delete qrDecoder;
     }
     this->close();
 }
