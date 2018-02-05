@@ -201,37 +201,21 @@ dnl Requires: INCLUDES and LIBS must be populated as necessary.
 dnl Inputs: $1: A series of Q_IMPORT_PLUGIN().
 dnl Inputs: $2: The libraries that resolve $1.
 dnl Output: QT_LIBS is prepended or configure exits.
-dnl 
-dnl AC_DEFUN([_BITCOIN_QT_CHECK_STATIC_PLUGINS],[
-dnl  AC_MSG_CHECKING(for static Qt plugins: $2)
-dnl  CHECK_STATIC_PLUGINS_TEMP_LIBS="$LIBS"
-dnl  LIBS="$2 $QT_LIBS $LIBS"
-dnl  AC_TRY_LINK([
-dnl    #define QT_STATICPLUGIN
-dnl    #include <QtCore/QtPlugin>
-dnl    $1],
-dnl    [return 0;],
-dnl    [AC_MSG_RESULT(yes); QT_LIBS="$2 $QT_LIBS"],
-dnl    [AC_MSG_RESULT(no)]; BITCOIN_QT_FAIL(Could not resolve: $2))
-dnl  LIBS="$CHECK_STATIC_PLUGINS_TEMP_LIBS"
-dnl ])
-
-dnl Internal. Check if the link-requirements for static plugins are met.
-dnl Requires: INCLUDES and LIBS must be populated as necessary.
-dnl Inputs: $1: A series of Q_IMPORT_PLUGIN().
-dnl Inputs: $2: The libraries that resolve $1.
-dnl Output: QT_LIBS is prepended or configure exits.
 AC_DEFUN([_BITCOIN_QT_CHECK_STATIC_PLUGINS],[
   AC_MSG_CHECKING(for static Qt plugins: $2)
   CHECK_STATIC_PLUGINS_TEMP_LIBS="$LIBS"
   LIBS="$2 $QT_LIBS $LIBS"
-  AC_LINK_IFELSE([AC_LANG_PROGRAM([[
-    #define QT_STATICPLUGIN
-    #include <QtCore/QtPlugin>
-    $1]],
-    [[return 0;]])],
-    [AC_MSG_RESULT(yes); QT_LIBS="$2 $QT_LIBS"],
-    [AC_MSG_RESULT(no); BITCOIN_QT_FAIL(Could not resolve: $2)])
+
+dnl  AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+dnl    #define QT_STATICPLUGIN
+dnl    #include <QtCore/QtPlugin>
+dnl    $1]],
+dnl    [[return 0;]])],
+dnl    [AC_MSG_RESULT(yes); QT_LIBS="$2 $QT_LIBS"],
+dnl    [AC_MSG_RESULT(no); BITCOIN_QT_FAIL(Could not resolve: $2)])
+
+  QT_LIBS="$2 $QT_LIBS"
+ 
   LIBS="$CHECK_STATIC_PLUGINS_TEMP_LIBS"
 ])
 
