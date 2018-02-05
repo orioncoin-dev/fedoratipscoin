@@ -85,14 +85,16 @@ AC_DEFUN([BITCOIN_QT_CONFIGURE],[
     use_pkgconfig=yes
   fi
 
-  if test x$use_pkgconfig = xyes; then
-    if test x$PKG_CONFIG == x; then
-      AC_MSG_ERROR(pkg-config not found.)
-    fi
-    BITCOIN_QT_CHECK([_BITCOIN_QT_FIND_LIBS_WITH_PKGCONFIG([$2])])
-  else
-    BITCOIN_QT_CHECK([_BITCOIN_QT_FIND_LIBS_WITHOUT_PKGCONFIG])
-  fi
+dnl  if test x$use_pkgconfig = xyes; then
+dnl    if test x$PKG_CONFIG == x; then
+dnl      AC_MSG_ERROR(pkg-config not found.)
+dnl    fi
+dnl    BITCOIN_QT_CHECK([_BITCOIN_QT_FIND_LIBS_WITH_PKGCONFIG([$2])])
+dnl  else
+dnl    BITCOIN_QT_CHECK([_BITCOIN_QT_FIND_LIBS_WITHOUT_PKGCONFIG])
+dnl  fi
+
+  BITCOIN_QT_CHECK([_BITCOIN_QT_FIND_LIBS_WITHOUT_PKGCONFIG])
 
   BITCOIN_QT_PATH_PROGS([MOC], [moc], $qt_bin_path)
   BITCOIN_QT_PATH_PROGS([UIC], [uic], $qt_bin_path)
