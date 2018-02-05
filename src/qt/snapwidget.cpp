@@ -41,6 +41,8 @@ SnapWidget::~SnapWidget()
 
 void SnapWidget::on_snapButton_clicked() 
 {
+return;
+
     int _x, _y, _w, _h;
     _x = geometry().x();
     _y = geometry().y() + cancelButton->height();
@@ -78,8 +80,8 @@ void SnapWidget::on_snapButton_clicked()
         // const std::string& ss = s->text_;
         // decodedString = QString(ss.c_str());
         // delete qrDecoder;
-//        decodedString = QString(r->getText()->getText().c_str());
-//        delete qrDecoder;
+        decodedString = QString(r->getText()->getText().c_str());
+        delete qrDecoder;
     }
     this->close();
 }
