@@ -41,49 +41,47 @@ SnapWidget::~SnapWidget()
 
 void SnapWidget::on_snapButton_clicked() 
 {
-return;
-
-    int _x, _y, _w, _h;
-    _x = geometry().x();
-    _y = geometry().y() + cancelButton->height();
-    _w = geometry().width();
-    _h = geometry().height() - cancelButton->height();
-    QPixmap p;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    QScreen *screen = QGuiApplication::primaryScreen();
-    if (screen) {   
-        p = screen->grabWindow(0, _x, _y, _w, _h);
-        }
-#else
-    p = QPixmap::grabWindow(QApplication::desktop()->winId(), _x, _y, _w, _h);
-#endif
-    
-    if (!p.isNull()) {
-        QImage image = p.toImage();
-        Ref<Result> r;
-        MultiFormatReader* qrDecoder = new MultiFormatReader();
-        QImageLuminanceSource* lumImage = new QImageLuminanceSource(image);
-        Ref<LuminanceSource> imageRef(lumImage);
-        GlobalHistogramBinarizer* binarizer = new GlobalHistogramBinarizer(imageRef);
-        Ref<Binarizer> binarizerRef(binarizer);
-        BinaryBitmap* binaryBitmap = new BinaryBitmap(binarizerRef);
-        Ref<BinaryBitmap> binaryBitmapRef(binaryBitmap);
-        try {
-            r = qrDecoder->decode(binaryBitmapRef, DecodeHints::QR_CODE_HINT);
-        }
-        catch (Exception e) {
-            delete qrDecoder;
-            close();
-            return;
-        }
-        // Ref<String> s = r->getText();
-        // const std::string& ss = s->text_;
-        // decodedString = QString(ss.c_str());
-        // delete qrDecoder;
-        decodedString = QString(r->getText()->getText().c_str());
-        delete qrDecoder;
-    }
-    this->close();
+//    int _x, _y, _w, _h;
+//    _x = geometry().x();
+//    _y = geometry().y() + cancelButton->height();
+//    _w = geometry().width();
+//    _h = geometry().height() - cancelButton->height();
+//    QPixmap p;
+//#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+//    QScreen *screen = QGuiApplication::primaryScreen();
+//    if (screen) {   
+//        p = screen->grabWindow(0, _x, _y, _w, _h);
+//        }
+//#else
+//    p = QPixmap::grabWindow(QApplication::desktop()->winId(), _x, _y, _w, _h);
+//#endif
+//    
+//    if (!p.isNull()) {
+//        QImage image = p.toImage();
+//        Ref<Result> r;
+//        MultiFormatReader* qrDecoder = new MultiFormatReader();
+//        QImageLuminanceSource* lumImage = new QImageLuminanceSource(image);
+//        Ref<LuminanceSource> imageRef(lumImage);
+//        GlobalHistogramBinarizer* binarizer = new GlobalHistogramBinarizer(imageRef);
+//        Ref<Binarizer> binarizerRef(binarizer);
+//        BinaryBitmap* binaryBitmap = new BinaryBitmap(binarizerRef);
+//        Ref<BinaryBitmap> binaryBitmapRef(binaryBitmap);
+//        try {
+//            r = qrDecoder->decode(binaryBitmapRef, DecodeHints::QR_CODE_HINT);
+//        }
+//        catch (Exception e) {
+//            delete qrDecoder;
+//            close();
+//            return;
+//        }
+//        // Ref<String> s = r->getText();
+//        // const std::string& ss = s->text_;
+//        // decodedString = QString(ss.c_str());
+//        // delete qrDecoder;
+//        decodedString = QString(r->getText()->getText().c_str());
+//        delete qrDecoder;
+//    }
+//    this->close();
 }
 
 void SnapWidget::on_cancelButton_clicked() 
