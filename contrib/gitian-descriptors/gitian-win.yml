@@ -5,11 +5,13 @@ suites:
 architectures:
 - "amd64"
 packages:
+- "qt5-qmake"
 - "mingw-w64"
 - "g++-mingw-w64"
 - "git-core"
 - "unzip"
 - "nsis"
+- "cmake"
 - "faketime"
 - "autoconf2.13"
 - "libtool"
@@ -27,11 +29,13 @@ files:
 - "protobuf-win64-2.5.0-gitian-r4.zip"
 - "bitcoin-db-win64-gitian-r10.zip"
 - "bitcoin-qrencode-win64-gitian-r10.zip"
-- "bitcoin-ssl-win64-gitian-r10.zip"
 - "bitcoin-upnp-win64-gitian-r10.zip"
 - "bitcoin-zib_png-win64-gitian-r10.zip"
+- "bitcoin-ssl-win64-gitian-r10.zip"
+- "openssl-1.0.2n-x64_86-win64.zip"
 - "libleveldb.a"
 - "libmemenv.a"
+- "master.zip"
 script: |
   # Defines
   export TZ=UTC
@@ -41,7 +45,7 @@ script: |
 
   CURTIMESTAMP=$(date +%s%N)
   echo "Timestamp in nanoseconds:"
-  echo ${CURTIMESTAMP}
+  echo $CURTIMESTAMP
 
   NEEDDIST=1
   # Qt: workaround for determinism in resource ordering
@@ -77,14 +81,55 @@ script: |
     unzip -o $INDIR/bitcoin-upnp-win${BITS}-gitian-r10.zip
     unzip -o $INDIR/bitcoin-zib_png-win${BITS}-gitian-r10.zip
 
+    echo "unzipping prebuilt ssl dlls, may want to build these too eventually... TBD..."
+    unzip -o $INDIR/openssl-1.0.2n-x64_86-win64.zip
+
+    echo "copy libs to libs folder as qmail is too lame to locate them otherwise..."
+    cp $STAGING/plugins/bearer/* $STAGING/lib
+    cp $STAGING/plugins/gamepads/* $STAGING/lib
+    cp $STAGING/plugins/generic/* $STAGING/lib
+    cp $STAGING/plugins/imageformats/* $STAGING/lib
+    cp $STAGING/plugins/printsupport/* $STAGING/lib
+    cp $STAGING/plugins/styles/* $STAGING/lib
+    cp $STAGING/plugins/platforms/* $STAGING/lib
+    ls -al $STAGING/lib
+
+    echo "Must now build the zxing library now (used for qrcodes)..."
+    cd $STAGING/include
+    mkdir zxing
+    cd zxing
+    unzip -o $INDIR/master.zip
+    # sed -i 's/private:/public:/' $STAGING/include/zxing/zxing-cpp-master/core/src/zxing/LuminanceSource.h
+    cd zxing-cpp-master
+    ls -al
+    mkdir build
+    cd build
+    export CXXFLAGS="-fPIC"
+    cmake -G "Unix Makefiles" -DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=0 -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_BUILD_TYPE=Release ..
+    make
+    ls -al $STAGING/include/zxing/zxing-cpp-master/build
+    cp $STAGING/include/zxing/zxing-cpp-master/core/src/zxing/ZXing.h $STAGING/include/zxing.h
+    cp $STAGING/include/zxing/zxing-cpp-master/build/libzxing.a $STAGING/lib
+    cp $STAGING/include/zxing/zxing-cpp-master/core/src/win32/zxing/* $STAGING/lib
+    mv $STAGING/include/zxing/zxing-cpp-master/core/src/zxing/* $STAGING/include/zxing
+    echo "zxing in include dir..."
+    ls -al $STAGING/include/zxing
+
+    echo $STAGING/include
+    ls -al $STAGING/include
+
     echo "show what utilities are available..."
     ls -al $STAGING/host/bin
 
+    echo "Bundle up a distribution internally with all the source in it..."
     if [ "$NEEDDIST" == "1" ]; then
       # Make source code archive which is architecture independent so it only needs to be done once
       cd $HOME/build/bitcoin
       ./autogen.sh
-      ./configure --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING/plugins  --with-qt-incdir=$STAGING/include --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
+      ./configure --disable-tests --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING  --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I $STAGING/include $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib $OPTFLAGS" CXXFLAGS="-frandom-seed=$CURTIMESTAMP -std=c++11 $OPTFLAGS"
+      echo "Print out configure config.log file..."
+      cat config.log
+      echo "Making dist of code for coin..."
       make dist
       DISTNAME=`echo fedoracoin-*.tar.gz`
       echo "showing distribution created in $HOME/build/bitcoin..."
@@ -106,11 +151,51 @@ script: |
     moc -o intro.moc intro.h
     moc -o overviewpage.moc overviewpage.h
     moc -o rpcconsole.moc rpcconsole.h
-    cd ../..
 
-    INCPATHS="-I $STAGING -I $STAGING/include -I $STAGING/include/QtCore -I $STAGING/include/QtGui -I $STAGING/include/QtWidgets"
+    echo "Calling uic to convert form files into header files..."
+    uic -v
+    uic -o ui_aboutdialog.h forms/aboutdialog.ui
+    uic -o ui_debugdialog.h forms/debugdialog.ui
+    uic -o ui_optionsdialog.h forms/optionsdialog.ui
+    uic -o ui_sendcoinsdialog.h forms/sendcoinsdialog.ui
+    uic -o ui_addressbookpage.h forms/addressbookpage.ui
+    uic -o ui_editaddressdialog.h forms/editaddressdialog.ui
+    uic -o ui_overviewpage.h forms/overviewpage.ui
+    uic -o ui_sendcoinsentry.h forms/sendcoinsentry.ui
+    uic -o ui_askpassphrasedialog.h forms/askpassphrasedialog.ui
+    uic -o ui_helpmessagedialog.h forms/helpmessagedialog.ui
+    uic -o ui_paperwalletdialog.h forms/paperwalletdialog.ui
+    uic -o ui_shiftdialog.h forms/shiftdialog.ui
+    uic -o ui_coincontroldialog.h forms/coincontroldialog.ui
+    uic -o ui_intro.h forms/intro.ui
+    uic -o ui_qrcodedialog.h forms/qrcodedialog.ui
+    uic -o ui_signverifymessagedialog.h forms/signverifymessagedialog.ui
+    uic -o ui_coinnectordialog.h forms/coinnectordialog.ui
+    uic -o ui_multisigdialog.h forms/multisigdialog.ui
+    uic -o ui_receivecoinsdialog.h forms/receivecoinsdialog.ui
+    uic -o ui_snapwidget.h forms/snapwidget.ui
+    uic -o ui_commentdialog.h forms/commentdialog.ui
+    uic -o ui_opennamedialog.h forms/opennamedialog.ui
+    uic -o ui_receiverequestdialog.h forms/receiverequestdialog.ui
+    uic -o ui_transactiondescdialog.h forms/transactiondescdialog.ui
+    uic -o ui_createmultisigaddrdialog.h forms/createmultisigaddrdialog.ui
+    uic -o ui_openuridialog.h forms/openuridialog.ui
+    uic -o ui_rpcconsole.h forms/rpcconsole.ui
+    cd ..
+    cd ..
 
-    ./configure --disable-tests --enable-upnp-default --bindir=$BINDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING/plugins  --with-qt-incdir=$STAGING/include --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="${INCPATHS} ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib ${OPTFLAGS}" CXXFLAGS="-frandom-seed={CURTIMESTAMP} -std=c++11 ${OPTFLAGS}"
+    echo "adding paths of all the QT code to the include..."
+    export CPLUS_INCLUDE_PATH="$STAGING/include;$STAGING/include/boost;$STAGING/include/google;$STAGING/include/libpng16;$STAGING/include/miniupnpc;$STAGING/include/openssl;$STAGING/include/QtAccessibilitySupport;$STAGING/include/QtCharts;$STAGING/include/QtConcurrent;$STAGING/include/QtCore;$STAGING/include/QtDeviceDiscoverySupport;$STAGING/include/QtEdidSupport;$STAGING/include/QtEventDispatcherSupport;$STAGING/include/QtFbSupport;$STAGING/include/QtFontDatabaseSupport;$STAGING/include/QtGamepad;$STAGING/include/QtGui;$STAGING/include/QtHelp;$STAGING/include/QtNetwork;$STAGING/include/QtNetworkAuth;$STAGING/include/QtPlatformHeaders;$STAGING/include/QtPrintSupport;$STAGING/include/QtRemoteObjects;$STAGING/include/QtRepParser;$STAGING/include/QtSql;$STAGING/include/QtTest;$STAGING/include/QtThemeSupport;$STAGING/include/QtUiPlugin;$STAGING/include/QtUiTools;$STAGING/include/QtWidgets;$STAGING/include/QtXml;$STAGING/include/QtZlib;$STAGING/zxing/zxing-cpp-master/core/src/zxing;$STAGING/zxing/zxing-cpp-master/core/src/win32/zxing;$STAGING/zxing/zxing-cpp-master/core/src;$STAGING/zxing/zxing-cpp-master/core/src/zxing/common"
+
+    # export CPLUS_INCLUDE_PATH="-I$STAGING/include -I$STAGING/include/boost -I$STAGING/include/google -I$STAGING/include/libpng16 -I$STAGING/include/miniupnpc -I$STAGING/include/openssl -I$STAGING/include/QtAccessibilitySupport -I$STAGING/include/QtCharts -I$STAGING/include/QtConcurrent -I$STAGING/include/QtCore -I$STAGING/include/QtDeviceDiscoverySupport -I$STAGING/include/QtEdidSupport -I$STAGING/include/QtEventDispatcherSupport -I$STAGING/include/QtFbSupport -I$STAGING/include/QtFontDatabaseSupport -I$STAGING/include/QtGamepad -I$STAGING/include/QtGui -I$STAGING/include/QtHelp -I$STAGING/include/QtNetwork -I$STAGING/include/QtNetworkAuth -I$STAGING/include/QtPlatformHeaders -I$STAGING/include/QtPrintSupport -I$STAGING/include/QtRemoteObjects -I$STAGING/include/QtRepParser -I$STAGING/include/QtSql -I$STAGING/include/QtTest -I$STAGING/include/QtThemeSupport -I$STAGING/include/QtUiPlugin -I$STAGING/include/QtUiTools -I$STAGING/include/QtWidgets -I$STAGING/include/QtXml -I$STAGING/include/QtZlib -I$STAGING/zxing/zxing-cpp-master/core/src/zxing -I$STAGING/zxing/zxing-cpp-master/core/src/win32/zxing -I$STAGING/zxing/zxing-cpp-master/core/src -I$STAGING/zxing/zxing-cpp-master/core/src/zxing/common"
+
+    # export LIBRARY_PATH="$STAGING/zxing/zxing-cpp-master/build:$STAGING/core/src/win32/zxing"
+    # -lzxing
+
+    echo "Calling configure now..."
+    ./configure --disable-tests --enable-upnp-default --bindir=$BINDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L$STAGING/lib -static -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--noinhibit-exec -Wl,--stats -Wl,--verbose ${OPTFLAGS}" CXXFLAGS="-frandom-seed=$CURTIMESTAMP -std=c++11 ${OPTFLAGS}"
+
+    echo "set up faketime..."
     export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
     export FAKETIME=$REFERENCE_DATETIME
 
@@ -133,9 +218,24 @@ script: |
     $STAGING/host/bin/protoc --version
     $STAGING/host/bin/protoc --cpp_out=/home/ubuntu/build64/distsrc/src/qt --proto_path=/home/ubuntu/build64/distsrc/src/qt /home/ubuntu/build64/distsrc/src/qt/paymentrequest.proto
 
+    echo "review version of qt we are using..."
+    qtchooser -list-versions
+    qmake -v
+
+    cp -f $BUILDDIR/distsrc/src/qt/fed*.exe $HOME/build/bitcoin/$DISTNAME
+    cp -f $STAGING/*.dll $HOME/build/bitcoin/$DISTNAME
+
+    echo "make deploy..."
     make deploy
+
+    echo "make install-strip..."
     make install-strip
+
     cp -f fedoracoin-*setup*.exe $BINDIR/
+    echo "this is the BINDIR..."
+    echo $BINDIR
+    ls -al $BINDIR
+
     unset LD_PRELOAD
     unset FAKETIME
   done # for BITS in
