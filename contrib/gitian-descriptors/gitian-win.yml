@@ -222,8 +222,10 @@ script: |
     qtchooser -list-versions
     qmake -v
 
-    cp -f $BUILDDIR/distsrc/src/qt/fed*.exe $OUTDIR
-    cp -f $STAGING/*.dll $OUTDIR
+    cd $BUILDDIR/distsrc/src/qt
+    find | grep ".exe" | sort | zip -X@ $OUTDIR/fedoracoin.zip
+    cd $STAGING
+    find | grep ".dll" | sort | zip -X@ $OUTDIR/openssl.zip
 
     exit 1
     echo "below this line under development... don't have the install program working yet..."
