@@ -219,37 +219,20 @@ script: |
     $STAGING/host/bin/protoc --version
     $STAGING/host/bin/protoc --cpp_out=/home/ubuntu/build64/distsrc/src/qt --proto_path=/home/ubuntu/build64/distsrc/src/qt /home/ubuntu/build64/distsrc/src/qt/paymentrequest.proto
 
-    echo "review version of qt we are using..."
-    qtchooser -list-versions
-    qmake -v
-
-    cp $BUILDDIR/distsrc/src/qt/*.exe $BINDIR
-    cp $STAGING/*.dll $BINDIR
-    cd $BINDIR
-    ls -al $BINDIR
-    find | sort | zip -X@ $OUTDIR/fedoracoin.zip
-
-    exit 0
-    echo "below this line under development... don't have the install program working yet..."
-
     echo "make deploy..."
     make deploy
-
     echo "make install-strip..."
     make install-strip
+    echo "makes completed..."
 
-    cp -f fedoracoin-*setup*.exe $BINDIR/
-    echo "this is the BINDIR..."
-    echo $BINDIR
-    ls -al $BINDIR
+    cd release
+    cp $STAGING/*.dll .
+    ls -al
+    find | sort | zip -X@ $OUTDIR/fedoracoin.zip
+    makensis ../share/setup.nsi
+    cp -f fedoracoin-*setup*.exe $OUTDIR/
 
     unset LD_PRELOAD
     unset FAKETIME
   done # for BITS in
-  # sort distribution tar file and normalize user/group/mtime information for deterministic output
-  mkdir -p $OUTDIR/src
-  rm -rf $TEMPDIR
-  mkdir -p $TEMPDIR
-  cd $TEMPDIR
-  tar --preserve-permissions -xvf $HOME/build/bitcoin/$DISTNAME | sort | tar --no-recursion -cT /dev/stdin --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 --mtime="$REFERENCE_DATETIME" | gzip -n > $OUTDIR/src/$DISTNAME
 
