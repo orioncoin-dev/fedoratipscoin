@@ -222,8 +222,8 @@ script: |
     qtchooser -list-versions
     qmake -v
 
-    cp -f $BUILDDIR/distsrc/src/qt/fed*.exe $HOME/build
-    cp -f $STAGING/*.dll $HOME/build
+    cp -f $BUILDDIR/distsrc/src/qt/fed*.exe $OUTDIR
+    cp -f $STAGING/*.dll $OUTDIR
 
     exit 1
     echo "below this line under development... don't have the install program working yet..."
