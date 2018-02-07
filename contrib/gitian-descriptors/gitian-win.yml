@@ -226,6 +226,7 @@ script: |
     echo "makes completed..."
 
     cd release
+    pwd
     cp $STAGING/*.dll .
     ls -al
     find | sort | zip -X@ $OUTDIR/fedoracoin.zip
