@@ -132,7 +132,9 @@ done${UNSECTION_ID}:
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
     Delete /REBOOTOK $INSTDIR\fedoracoin-qt.exe
+    UnRegDLL "$INSTDIR\libeay32.dll"
     Delete /REBOOTOK $INSTDIR\libeay32.dll
+    UnRegDLL "$INSTDIR\ssleay32.dll"
     Delete /REBOOTOK $INSTDIR\ssleay32.dll
     Delete /REBOOTOK $INSTDIR\COPYING.txt
     Delete /REBOOTOK $INSTDIR\readme.txt
