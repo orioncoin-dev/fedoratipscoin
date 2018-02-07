@@ -74,6 +74,8 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
     File /root/fedoracoin-new/release/fedoracoin-qt.exe
+    File /root/fedoracoin-new/release/libeay32.dll
+    File /root/fedoracoin-new/release/ssleay32.dll
     File /oname=COPYING.txt /root/fedoracoin-new/COPYING
     File /oname=readme.txt /root/fedoracoin-new/doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
@@ -128,6 +130,8 @@ done${UNSECTION_ID}:
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
     Delete /REBOOTOK $INSTDIR\fedoracoin-qt.exe
+    Delete /REBOOTOK $INSTDIR\libeay32.dll
+    Delete /REBOOTOK $INSTDIR\ssleay32.dll
     Delete /REBOOTOK $INSTDIR\COPYING.txt
     Delete /REBOOTOK $INSTDIR\readme.txt
     RMDir /r /REBOOTOK $INSTDIR\daemon
