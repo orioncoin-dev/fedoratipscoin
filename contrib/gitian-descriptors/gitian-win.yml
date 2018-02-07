@@ -231,7 +231,7 @@ script: |
     ls -al
     find | sort | zip -X@ $OUTDIR/fedoracoin.zip
     makensis ../share/setup.nsi
-    cp -f fedoracoin-*setup*.exe $OUTDIR/
+    cp -f /home/ubuntu/build64/distsrc/fedoracoin-2.5.1-win64-setup.exe $OUTDIR/
 
     unset LD_PRELOAD
     unset FAKETIME
