@@ -75,7 +75,9 @@ Section -Main SEC0000
     SetOverwrite on
     File /root/fedoracoin-new/release/fedoracoin-qt.exe
     File /root/fedoracoin-new/release/libeay32.dll
+    RegDLL $INSTDIR\libeay32.dll
     File /root/fedoracoin-new/release/ssleay32.dll
+    RegDLL $INSTDIR\ssleay32.dll
     File /oname=COPYING.txt /root/fedoracoin-new/COPYING
     File /oname=readme.txt /root/fedoracoin-new/doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
