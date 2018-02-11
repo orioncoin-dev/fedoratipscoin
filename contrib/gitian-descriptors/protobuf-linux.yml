@@ -1,0 +1,74 @@
+---
+name: "protobuf-linux"
+suites:
+- "xenial"
+architectures:
+- "amd64"
+packages:
+- "g++"
+- "zip"
+- "faketime"
+reference_datetime: "2013-04-15 00:00:00"
+remotes: []
+files:
+- "protobuf-2.5.0.tar.bz2"
+# - "protobuf-all-3.5.1.tar.gz"
+script: |
+  #
+  export TZ=UTC
+  INDIR=$HOME/build
+  TEMPDIR=$HOME/tmp
+  OPTFLAGS="-O2"
+  # Integrity Check
+  # echo "72d43863f58567a9ea2054671fdb667867f9cf7865df623c7be630978ff97dff  protobuf-all-3.5.1.tar.gz" | sha256sum -c
+  echo "13bfc5ae543cf3aa180ac2485c0bc89495e3ae711fc6fab4f8ffe90dfb4bb677  protobuf-2.5.0.tar.bz2" | sha256sum -c
+
+  # 32
+  for BITS in 64; do # for architectures
+    #
+    INSTALLPREFIX=$HOME/staging${BITS}
+    BUILDDIR=$HOME/build${BITS}
+    HOST=x86_64-linux-gnu
+    #
+    CURTIMESTAMP=$(date +%s%N)
+    echo "Timestamp in nanoseconds:"
+    echo ${CURTIMESTAMP}
+
+    mkdir -p $INSTALLPREFIX $BUILDDIR
+    cd $BUILDDIR
+    # adjusted tar for gz
+    # tar xzf $INDIR/protobuf-all-3.5.1.tar.gz
+    tar xf $INDIR/protobuf-2.5.0.tar.bz2
+
+    cd protobuf-2.5.0
+    # cd protobuf-3.5.1
+
+    # First: build a native (linux) protoc
+    ./configure --enable-shared=no --disable-dependency-tracking --without-zlib CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
+    make
+    mkdir -p $INSTALLPREFIX/host/bin
+    cp src/protoc $INSTALLPREFIX/host/bin
+    $INSTALLPREFIX/host/bin/protoc --version
+
+    # Now recompile with the mingw cross-compiler:
+    make distclean
+    ./configure --prefix=$INSTALLPREFIX --enable-shared=no --disable-dependency-tracking --without-zlib --with-protoc=$INSTALLPREFIX/host/bin/protoc --host=$HOST CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
+    export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
+    export FAKETIME=$REFERENCE_DATETIME
+    make
+    make install
+    # post-process all generated libraries to be deterministic
+    # extract them to a temporary directory then re-build them deterministically
+    for LIB in $(find $INSTALLPREFIX -name \*.a); do
+        rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
+        $HOST-ar xv $LIB | cut -b5- > /tmp/list.txt
+        rm $LIB
+        $HOST-ar crsD $LIB $(cat /tmp/list.txt)
+    done
+    #
+    cd $INSTALLPREFIX
+    find include lib host | sort | zip -X@ $OUTDIR/protobuf-linux$BITS-2.5.0-gitian-r4.zip
+    # find include lib host | sort | zip -X@ $OUTDIR/protobuf-linux$BITS-3.5.1-gitian-r4.zip
+    unset LD_PRELOAD
+    unset FAKETIME
+  done # for BITS in
