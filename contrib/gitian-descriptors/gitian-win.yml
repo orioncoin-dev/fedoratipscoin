@@ -19,7 +19,6 @@ packages:
 - "automake"
 - "pkg-config"
 - "bsdmainutils"
-
 reference_datetime: "2018-02-01 00:00:00"
 remotes:
 - "url": "https://github.com/jojapoppa/fedoracoin-1.git"
