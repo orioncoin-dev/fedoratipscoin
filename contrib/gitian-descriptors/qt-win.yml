@@ -132,6 +132,7 @@ script: |
     -continue
     -make libs
     -opensource
+    -accessibility
     -confirm-license
     -xplatform $SPECNAME
     -openssl
@@ -226,7 +227,7 @@ script: |
 
     echo "post-process all generated libraries and plugins to be deterministic..."
     echo "extract them to a temporary directory then re-build them deterministically..."
-    for LIB in $(find $INSTALLPREFIX -name *.a); do
+    for LIB in $(find $INSTALLPREFIX -name *.a && find $INSTALLPREFIX -name *.dll); do
         echo "Processing: "$LIB
         # next line is patch for qt bug that links release with debug libraries
         # sed -i 's,\(-lQt5[-_a-zA-Z0-9]*\)d,\1,g' "$LIB"
