@@ -35,8 +35,6 @@ files:
 - "bitcoin-ssl-win64-gitian-r10.zip"
 - "openssl-1.0.2n-x64_86-win64.zip"
 - "zxing-master.zip"
-- "libleveldb.a"
-- "libmemenv.a"
 script: |
   # Defines
   export TZ=UTC
@@ -71,8 +69,6 @@ script: |
     mkdir -p $STAGING $BUILDDIR $BINDIR
     #
     cd $STAGING
-    cp $INDIR/libleveldb.a ./lib
-    cp $INDIR/libmemenv.a ./lib
     unzip -o $INDIR/qt-win${BITS}-5.10.0-gitian-r2.zip
     unzip -o $INDIR/boost-win${BITS}-1.60.0-gitian-r6.zip
     unzip -o $INDIR/protobuf-win${BITS}-2.5.0-gitian-r4.zip
@@ -129,6 +125,15 @@ script: |
       ./configure --disable-tests --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING  --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I $STAGING/include $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lpthread $OPTFLAGS" CXXFLAGS="-frandom-seed=$CURTIMESTAMP -std=c++11 $OPTFLAGS"
       echo "Print out configure config.log file..."
       cat config.log
+      echo "building leveldb..."
+      cd src/leveldb
+      make
+      # TARGET_OS=NATIVE_WINDOWS make libleveldb.a libmemenv.a
+      cp libleveldb.a $STAGING/lib
+      cp libmemenv.a $STAGING/lib
+      cd ..
+      cd ..
+
       echo "Making dist of code for coin..."
       make dist
       DISTNAME=`echo fedoracoin-*.tar.gz`
@@ -144,9 +149,11 @@ script: |
     tar --strip-components=1 -xf $HOME/build/bitcoin_win/$DISTNAME
     ls -al
 
-    echo "Calling moc..."
+    cd src
+    cd qt
+
+    echo "moc version..."
     moc -v
-    cd src/qt
 
     echo "Calling uic to convert form files into header files..."
     uic -v
