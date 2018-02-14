@@ -8,6 +8,7 @@ packages:
 - "qt5-qmake"
 - "mingw-w64"
 - "g++-mingw-w64"
+- "gcc-mingw-w64"
 - "git-core"
 - "zip"
 - "unzip"
@@ -22,7 +23,7 @@ packages:
 reference_datetime: "2018-02-01 00:00:00"
 remotes:
 - "url": "https://github.com/jojapoppa/fedoracoin-1.git"
-  "dir": "bitcoin"
+  "dir": "bitcoin_win"
 files:
 - "qt-win64-5.10.0-gitian-r2.zip"
 - "boost-win64-1.60.0-gitian-r6.zip"
@@ -33,9 +34,9 @@ files:
 - "bitcoin-zib_png-win64-gitian-r10.zip"
 - "bitcoin-ssl-win64-gitian-r10.zip"
 - "openssl-1.0.2n-x64_86-win64.zip"
+- "zxing-master.zip"
 - "libleveldb.a"
 - "libmemenv.a"
-- "master.zip"
 script: |
   # Defines
   export TZ=UTC
@@ -98,7 +99,7 @@ script: |
     cd $STAGING/include
     mkdir zxing
     cd zxing
-    unzip -o $INDIR/master.zip
+    unzip -o $INDIR/zxing-master.zip
     cd zxing-cpp-master
     ls -al
     mkdir build
@@ -123,7 +124,7 @@ script: |
     echo "Bundle up a distribution internally with all the source in it..."
     if [ "$NEEDDIST" == "1" ]; then
       # Make source code archive which is architecture independent so it only needs to be done once
-      cd $HOME/build/bitcoin
+      cd $HOME/build/bitcoin_win
       ./autogen.sh
       ./configure --disable-tests --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING  --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I $STAGING/include $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lpthread $OPTFLAGS" CXXFLAGS="-frandom-seed=$CURTIMESTAMP -std=c++11 $OPTFLAGS"
       echo "Print out configure config.log file..."
@@ -131,8 +132,8 @@ script: |
       echo "Making dist of code for coin..."
       make dist
       DISTNAME=`echo fedoracoin-*.tar.gz`
-      echo "showing distribution created in $HOME/build/bitcoin..."
-      ls -al $HOME/build/bitcoin
+      echo "showing distribution created in $HOME/build/bitcoin_win..."
+      ls -al $HOME/build/bitcoin_win
       NEEDDIST=0
     fi
 
@@ -140,7 +141,7 @@ script: |
     cd $BUILDDIR
     mkdir -p distsrc
     cd distsrc
-    tar --strip-components=1 -xf $HOME/build/bitcoin/$DISTNAME
+    tar --strip-components=1 -xf $HOME/build/bitcoin_win/$DISTNAME
     ls -al
 
     echo "Calling moc..."
@@ -195,7 +196,6 @@ script: |
     which ld
     ld -V
 
-    # -Wl,--noinhibit-exec
     echo "Calling configure now..."
     ./configure --disable-tests --enable-upnp-default --bindir=$BINDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L/usr/x86_64-w64-mingw32/lib -L$STAGING/lib -static -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose ${OPTFLAGS}" CXXFLAGS="-frandom-seed=$CURTIMESTAMP -std=c++11 -static-libgcc -static-libstdc++ ${OPTFLAGS}"
 
