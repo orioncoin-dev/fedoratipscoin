@@ -119,7 +119,7 @@ script: |
     # sed 's/qt_instdate=`date +%Y-%m-%d`/qt_instdate=2018-02-01/' -i qtbase/configure
 
     echo "patch for linux as they moved font database support into QtCore and and shipped bugs in their build process after..."
-    sed 's/eventdispatcher_support-private fontdatabase_support-private/eventdispatcher_support-private/' -i qtbase/src/plugins/platforms/minimal/minimal.pro
+    # sed 's/eventdispatcher_support-private fontdatabase_support-private/eventdispatcher_support-private/' -i qtbase/src/plugins/platforms/minimal/minimal.pro
     # sed 's/eventdispatcher_support-private fontdatabase_support-private/eventdispatcher_support-private/' -i qtbase/src/plugins/platforms/xcb/xcb_qpa_lib.pro
     cp $QTDIR/qtbase/src/platformsupport/fontdatabases/freetype/*.h $QTDIR/qtbase/include/QtFontDatabaseSupport/5.10.0/QtFontDatabaseSupport/private
     mkdir $QTDIR/qtbase/include/QtFontDatabaseSupport/private

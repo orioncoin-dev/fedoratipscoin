@@ -12,7 +12,6 @@ reference_datetime: "2011-01-30 00:00:00"
 remotes: []
 files:
 - "boost_1_60_0.tar.bz2"
-- "boost-mingw-gas-cross-compile-2013-03-03.patch"
 script: |
   # Defines
   export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
@@ -22,7 +21,6 @@ script: |
   TEMPDIR=$HOME/tmp
   # Input Integrity Check
   echo "686affff989ac2488f79a97b9479efb9f2abae035b5ed4d8226de6857933fd3b  boost_1_60_0.tar.bz2" | shasum -c
-  echo "d2b7f6a1d7051faef3c9cf41a92fa3671d905ef1e1da920d07651a43299f6268  boost-mingw-gas-cross-compile-2013-03-03.patch" | shasum -c
 
   # 32
   for BITS in 64; do # for architectures
@@ -122,9 +120,9 @@ script: |
 
     # should be upgraded to use b2 instead --without-python --without-mpi
     echo "building now..."
-    # ./bjam toolset=gcc target-os=windows abi=ms binary-format=pe architecture=x86 address-model=64 threadapi=win32 threading=multi variant=release link=static runtime-link=static --with-system --with-test --with-filesystem --with-thread --with-program_options --user-config=user-config.jam -sNO_BZIP2=1 -sNO_ZLIB=1 --layout=tagged --build-type=complete --prefix="$INSTALLPREFIX" $MAKEOPTS install
+    ./bjam toolset=gcc threadapi=pthread threading=multi variant=release link=static runtime-link=static --with-system --with-filesystem --with-thread --with-program_options --with-chrono --user-config=user-config.jam -sNO_BZIP2=1 -sNO_ZLIB=1 --layout=tagged --build-type=complete --prefix="$INSTALLPREFIX" $MAKEOPTS install
 
-    ./bjam toolset=gcc threadapi=pthread threading=multi variant=release link=static runtime-link=shared --user-config=user-config.jam --without-mpi --without-python -sNO_BZIP2=1 --layout=tagged --build-type=complete --prefix="$STAGING" $MAKEOPTS -d+2 install
+    #./bjam toolset=gcc threadapi=pthread threading=multi variant=release link=static runtime-link=shared --user-config=user-config.jam --without-mpi --without-python -sNO_BZIP2=1 --layout=tagged --build-type=complete --prefix="$STAGING" $MAKEOPTS -d+2 install
 
     # post-process all generated libraries to be deterministic
     # extract them to a temporary directory then re-build them deterministically
