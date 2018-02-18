@@ -50,7 +50,7 @@ script: |
     cp src/protoc $INSTALLPREFIX/host/bin
     $INSTALLPREFIX/host/bin/protoc --version
 
-    # Now recompile with the mingw cross-compiler:
+    # Now recompile
     make distclean
     ./configure --prefix=$INSTALLPREFIX --enable-shared=no --disable-dependency-tracking --without-zlib --with-protoc=$INSTALLPREFIX/host/bin/protoc --host=$HOST CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
     export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1

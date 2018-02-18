@@ -242,6 +242,9 @@ script: |
     echo "calling make install..."
     make $MAKEOPTS install
 
+    ls -al $INSTALLPREFIX
+    ls -al $INSTALLPREFIX/host/bin
+
     echo "post-process all generated libraries and plugins to be deterministic..."
     echo "extract them to a temporary directory then re-build them deterministically..."
     for LIB in $(find $INSTALLPREFIX -name *.a && find $INSTALLPREFIX -name *.dll); do
