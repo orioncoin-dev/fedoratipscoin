@@ -163,6 +163,7 @@ script: |
     -nomake examples
     -nomake tests
     -nomake tools
+    -no-xcb
     -no-glib
     -no-dbus
     -no-cups

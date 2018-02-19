@@ -222,7 +222,7 @@ script: |
   # -lqjpeg -lqico -lqpng -lqpng16"
 
   echo "Calling configure now..."
-  ./configure --disable-tests --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING  --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl -I$STAGING/include/google/protobuf $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lprotobuf -lprotoc -lcrypto -lssl -lpthread -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose $OPTFLAGS" CXXFLAGS="-frandom-seed=$CURTIMESTAMP -std=c++11 -static-libgcc -static-libstdc++ $OPTFLAGS"
+  ./configure --disable-tests --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl -I$STAGING/include/google/protobuf $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lprotobuf -lprotoc -lcrypto -lssl -lpthread -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose $OPTFLAGS" CXXFLAGS="-frandom-seed=$CURTIMESTAMP -std=c++11 -static-libgcc -static-libstdc++ $OPTFLAGS"
 
   echo "set up faketime..."
   export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
@@ -239,13 +239,7 @@ script: |
   ls -al src
   ls -al src/qt
 
-  echo This is how you tell what libraries need to be bundled; the ones not compile in...
-  ldd src/qt/fedoracoin-qt
-
-  cd $OUTDIR/$DISTNAME
   find ${DISTNAME} -not -name "*.dbg" | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 --mtime="$REFERENCE_DATETIME" -c -T - | gzip -9n > ${OUTDIR}/${DISTNAME}-${i}.tar.gz
-
-  # tar -xvf $HOME/build/bitcoin/$DISTNAME | sort | tar --no-recursion -cT /dev/stdin --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 --mtime="$REFERENCE_DATETIME" | gzip -n > $OUTDIR/$DISTNAME
 
   unset LD_PRELOAD
   unset FAKETIME
