@@ -62,6 +62,8 @@ Q_IMPORT_PLUGIN(QMinimalIntegrationPlugin);
 #if defined(Q_OS_WIN)
 Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin);
 Q_IMPORT_PLUGIN(QWindowsPrinterSupportPlugin);
+#else
+Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
 #endif
 #endif
 #endif
