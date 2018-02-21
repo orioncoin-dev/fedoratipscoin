@@ -52,27 +52,16 @@ Q_IMPORT_PLUGIN(qtwcodecs)
 Q_IMPORT_PLUGIN(qkrcodecs)
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
 #else
-// Poppa - could not get this to link... is it critical?
-//   is AccessibleFactory even a plugin any more?
-//   i don't think that it is... QT deprecated it?
-// Q_IMPORT_PLUGIN(AccessibleFactory)
 
-#if defined(QT_QPA_PLATFORM_XCB)
-Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
-#elif defined(QT_QPA_PLATFORM_WINDOWS)
+#if defined(Q_OS_WIN)
 Q_IMPORT_PLUGIN(QMinimalIntegrationPlugin);
 Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin);
 Q_IMPORT_PLUGIN(QWindowsPrinterSupportPlugin);
-#elif defined(QT_QPA_PLATFORM_COCOA)
+#elif defined(Q_OS_MAC)
 Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin);
+#else
+Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
 #endif
-
-// Keeping for a time... until Windows has been fully tested
-// Q_IMPORT_PLUGIN(QMinimalIntegrationPlugin);
-// #if defined(Q_OS_WIN)
-// Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin);
-// Q_IMPORT_PLUGIN(QWindowsPrinterSupportPlugin);
-// #endif
 
 #endif
 #endif
