@@ -126,6 +126,10 @@ script: |
     cp $QTDIR/qtbase/include/QtFontDatabaseSupport/5.10.0/QtFontDatabaseSupport/private/*.h $QTDIR/qtbase/include/QtFontDatabaseSupport/private
     ls -al $QTDIR/qtbase/include/QtFontDatabaseSupport/private
 
+    echo "patch for plugin that fails to build due to broken qt dependencies in their build sys..."
+    sed 's/gui-private/gui-private\n\nSOURCES = qxcbmain.cpp \\\n        qxcbintegration.cpp/' -i qtbase/src/plugins/platforms/xcb/xcb.pro
+    cat qtbase/src/plugins/platforms/xcb/xcb.pro
+
     #sed 's/include(\$\$PWD\/windows\/windows.pri)/include(\$\$PWD\/fontconfig\/fontconfig.pri)/' -i $QTDIR/qtbase/src/platformsupport/fontdatabases/fontdatabases.pro
     #sed 's/include(\$\$PWD\/winrt\/winrt.pri)/include(\$\$PWD\/fontconfig\/fontconfig.pri)/' -i $QTDIR/qtbase/src/platformsupport/fontdatabases/fontdatabases.pro
 
@@ -163,7 +167,7 @@ script: |
     -nomake examples
     -nomake tests
     -nomake tools
-    -no-xcb
+    -qt-xcb
     -no-glib
     -no-dbus
     -no-cups
@@ -227,7 +231,6 @@ script: |
     export QT_DEBUG_PLUGINS=1
 
     OPENSSL_LIBS="-L $DEPSDIR/lib"
-    # -lssl -lcrypto -lgdi32" 
     yes|./configure $CONFIG_OPTS -I $DEPSDIR/include -I $DEPSDIR/include/openssl -I $BUILDDIR -I $QTDIR/qtbase/src/platformsupport/fontdatabases/freetype -device-option CROSS_COMPILE="$HOST-"
 
     echo "making work-around for bug in cross compile of qt..."

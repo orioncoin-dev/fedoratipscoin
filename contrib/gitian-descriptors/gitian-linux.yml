@@ -20,6 +20,26 @@ packages:
 - "automake"
 - "pkg-config"
 - "bsdmainutils"
+- "libxcb-xinerama0-dev"
+- "libfontconfig1-dev"
+- "libfreetype6-dev"
+- "libx11-dev"
+- "libxext-dev"
+- "libxfixes-dev"
+- "libxi-dev"
+- "libxrender-dev"
+- "libxcb1-dev"
+- "libx11-xcb-dev"
+- "libxcb-glx0-dev"
+- "libxcb-keysyms1-dev"
+- "libxcb-image0-dev"
+- "libxcb-shm0-dev"
+- "libxcb-icccm4-dev"
+- "libxcb-sync0-dev"
+- "libxcb-xfixes0-dev"
+- "libxcb-shape0-dev"
+- "libxcb-randr0-dev"
+- "libxcb-render-util0-dev"
 reference_datetime: "2018-02-01 00:00:00"
 remotes:
 - "url": "https://github.com/jojapoppa/fedoracoin-1.git"
@@ -82,6 +102,7 @@ script: |
   mv $STAGING/plugins/gamepads/* $STAGING/lib
   mv $STAGING/plugins/generic/* $STAGING/lib
   mv $STAGING/plugins/imageformats/* $STAGING/lib
+  mv $STAGING/plugins/platforminputcontexts/* $STAGING/lib
   # mv $STAGING/plugins/printsupport/* $STAGING/lib
   # mv $STAGING/plugins/styles/* $STAGING/lib
   mv $STAGING/plugins/platforms/* $STAGING/lib
@@ -213,13 +234,7 @@ script: |
   echo what is in the lib folder?...
   ls -al $STAGING/lib
 
-  # -lqtmain"
-  # -lboost-timer-mt-s"
-  # -lboost_prg_exec_monitor-mt-s
-  # -lqtuiotouchplugin -lxinputgamepad -lqgenericbearer -lqnativewifibearer -lqtlibpng 
-  # -luuid -lversion 
-  export LIBS="$LIBS -L$STAGING/lib -lqtpcre2 -lleveldb -lmemenv -lQt5Charts -lQt5Concurrent -lQt5DeviceDiscoverySupport -lQt5EdidSupport -lQt5EventDispatcherSupport -lQt5FbSupport -lQt5Gamepad -lQt5Gui -lQt5Help -lQt5Network -lQt5NetworkAuth -lQt5RemoteObjects -lQt5Sql -lQt5UiTools -lQt5Widgets -lQt5Xml -lqtharfbuzz -lboost_chrono-mt-s -lboost_program_options-mt-s -lboost_system-mt-s -lboost_thread-mt-s -lprotobuf -lprotoc -lqrencode -lcrypto -lssl -lminiupnpc -lpng16 -lpng -lQt5AccessibilitySupport -lz -lzxing -ldb -ldb_cxx -ldb-5.3 -ldb_cxx-5.3 -lprotobuf-lite -lQt5Core -lQt5ThemeSupport -lQt5FontDatabaseSupport -lQt5PrintSupport -lQt5EventDispatcherSupport -lQt5Gui -lboost_filesystem-mt-s -lpthread -lQt5AccessibilitySupport -lQt5Widgets -lqminimal -lQt5XcbQpa -lQt5EventDispatcherSupport -lqoffscreen -lqvnc -ldl"
-  # -lqjpeg -lqico -lqpng -lqpng16"
+  export LIBS="$LIBS -L$STAGING/lib -lqtpcre2 -lleveldb -lmemenv -lQt5Charts -lQt5Concurrent -lQt5DeviceDiscoverySupport -lQt5EventDispatcherSupport -lQt5FbSupport -lQt5Gamepad -lQt5Gui -lQt5Help -lQt5Network -lQt5NetworkAuth -lQt5RemoteObjects -lQt5Sql -lQt5UiTools -lQt5Widgets -lQt5Xml -lqtharfbuzz -lboost_chrono-mt-s -lboost_program_options-mt-s -lboost_system-mt-s -lboost_thread-mt-s -lprotobuf -lprotoc -lqrencode -lcrypto -lssl -lminiupnpc -lpng16 -lpng -lQt5AccessibilitySupport -lz -lzxing -ldb -ldb_cxx -ldb-5.3 -ldb_cxx-5.3 -lprotobuf-lite -lQt5Core -lQt5ThemeSupport -lQt5FontDatabaseSupport -lQt5PrintSupport -lQt5EventDispatcherSupport -lQt5Gui -lboost_filesystem-mt-s -lpthread -lQt5AccessibilitySupport -lQt5Widgets -lqminimal -lQt5XcbQpa -lQt5EventDispatcherSupport -lqoffscreen -lqvnc -ldl -levdevgamepad -lqgenericbearer -lqjpeg -lqico -lqevdevkeyboardplugin -lqevdevmouseplugin -lqevdevtabletplugin -lqevdevtouchplugin -lqtuiotouchplugin -lqvnc -lQt5InputSupport -lQt5ServiceSupport -lQt5Test -lqtfreetype -lcomposeplatforminputcontextplugin -Wl,--start-group -lqxcb -lQt5XcbQpa -lxcb-static -lQt5EdidSupport -Wl,--end-group -lQt5Gui -lQt5ThemeSupport -lQt5FontDatabaseSupport -lQt5ServiceSupport -lQt5EventDispatcherSupport -L/usr/lib/x86_64-linux-gnu -lxcb -lXau -lXdmcp -lX11 -lX11-xcb"
 
   echo "Calling configure now..."
   ./configure --disable-tests --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl -I$STAGING/include/google/protobuf $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lprotobuf -lprotoc -lcrypto -lssl -lpthread -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose $OPTFLAGS" CXXFLAGS="-frandom-seed=$CURTIMESTAMP -std=c++11 -static-libgcc -static-libstdc++ $OPTFLAGS"
