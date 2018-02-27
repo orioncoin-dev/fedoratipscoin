@@ -164,6 +164,7 @@ script: |
     -openssl
     -release
     -static
+    -fontconfig
     -nomake examples
     -nomake tests
     -nomake tools
@@ -222,7 +223,6 @@ script: |
     -skip qtspeech
     -skip qtdoc"
 
-    #-fontconfig
     #-system-libpng
     #-system-zlib"
 
@@ -231,6 +231,8 @@ script: |
     export QT_DEBUG_PLUGINS=1
 
     OPENSSL_LIBS="-L $DEPSDIR/lib"
+    export LIBS="$LIBS -L/usr/lib/x86_64-linux-gnu -lxcb -lXau -lXdmcp -lX11 -lX11-xcb -lfreetype -Wl,-Bdynamic -ldl -Wl,-Bdynamic -lpthread"
+
     yes|./configure $CONFIG_OPTS -I $DEPSDIR/include -I $DEPSDIR/include/openssl -I $BUILDDIR -I $QTDIR/qtbase/src/platformsupport/fontdatabases/freetype -device-option CROSS_COMPILE="$HOST-"
 
     echo "making work-around for bug in cross compile of qt..."
