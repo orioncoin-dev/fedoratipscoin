@@ -10,13 +10,14 @@ packages:
 - "zip"
 - "unzip"
 - "faketime"
-- "libz-dev"
 - "psmisc"
 - "bison"
 - "gperf"
 - "flex"
+- "pkg-config"
 - "libxcb-xinerama0-dev"
 - "libfontconfig1-dev"
+- "libfreetype6"
 - "libfreetype6-dev"
 - "libx11-dev"
 - "libxext-dev"
@@ -42,6 +43,11 @@ files:
 - "bitcoin-ssl-linux64-gitian-r10.zip"
 - "bitcoin-zib_png-linux64-gitian-r10.zip"
 script: |
+
+  # - "libz-dev"
+  # - "zlib1g-dev"
+  # - "libpng-dev"
+
   # Defines
   export TZ=UTC
   INDIR=$HOME/build
@@ -72,17 +78,16 @@ script: |
     DEPSDIR=$HOME/deps${BITS}
     HOST=x86_64-linux-gnu
     #
-    export PATH="$DEPSDIR/lib:$OLDPATH"
     export INCLUDE="$DEPSDIR/include:$DEPSDIR/include/openssl:$OLDINCLUDE"
     export LIB="$DEPSDIR/lib:$OLDLIB"
-    export PATH="$DEPSDIR/bin:$PATH"
+    export PATH="$DEPSDIR/bin:$PATH:$OLDPATH"
 
     mkdir -p $INSTALLPREFIX $INSTALLPREFIX/host/bin $DEPSDIR $BUILDDIR
     #
     # Need mingw-compiled openssl from bitcoin-deps:
     cd $DEPSDIR
     yes|unzip $INDIR/bitcoin-ssl-linux64-gitian-r10.zip
-    yes|unzip $INDIR/bitcoin-zib_png-linux64-gitian-r10.zip
+    # yes|unzip $INDIR/bitcoin-zib_png-linux64-gitian-r10.zip
 
     ln -sf $DEPSDIR/lib/libsicudt.a $DEPSDIR/lib/libicudt.a
     ln -sf $DEPSDIR/lib/libsicuin.a $DEPSDIR/lib/libicuin.a
@@ -115,12 +120,7 @@ script: |
     bison -V
     ls -al
 
-    # echo "Fixing bug in qt for expected date format on Windows..."
-    # sed 's/qt_instdate=`date +%Y-%m-%d`/qt_instdate=2018-02-01/' -i qtbase/configure
-
-    echo "patch for linux as they moved font database support into QtCore and and shipped bugs in their build process after..."
-    # sed 's/eventdispatcher_support-private fontdatabase_support-private/eventdispatcher_support-private/' -i qtbase/src/plugins/platforms/minimal/minimal.pro
-    # sed 's/eventdispatcher_support-private fontdatabase_support-private/eventdispatcher_support-private/' -i qtbase/src/plugins/platforms/xcb/xcb_qpa_lib.pro
+    echo "patch as they moved font database support into QtCore and shipped bugs in their build ..."
     cp $QTDIR/qtbase/src/platformsupport/fontdatabases/freetype/*.h $QTDIR/qtbase/include/QtFontDatabaseSupport/5.10.0/QtFontDatabaseSupport/private
     mkdir $QTDIR/qtbase/include/QtFontDatabaseSupport/private
     cp $QTDIR/qtbase/include/QtFontDatabaseSupport/5.10.0/QtFontDatabaseSupport/private/*.h $QTDIR/qtbase/include/QtFontDatabaseSupport/private
@@ -130,8 +130,11 @@ script: |
     sed 's/gui-private/gui-private\n\nSOURCES = qxcbmain.cpp \\\n        qxcbintegration.cpp/' -i qtbase/src/plugins/platforms/xcb/xcb.pro
     cat qtbase/src/plugins/platforms/xcb/xcb.pro
 
-    #sed 's/include(\$\$PWD\/windows\/windows.pri)/include(\$\$PWD\/fontconfig\/fontconfig.pri)/' -i $QTDIR/qtbase/src/platformsupport/fontdatabases/fontdatabases.pro
-    #sed 's/include(\$\$PWD\/winrt\/winrt.pri)/include(\$\$PWD\/fontconfig\/fontconfig.pri)/' -i $QTDIR/qtbase/src/platformsupport/fontdatabases/fontdatabases.pro
+    rm $QTDIR/qtbase/src/platformsupport/fontdatabases/fontdatabases.pro
+    echo -e "TARGET = QtFontDatabaseSupport\nMODULE = fontdatabase_support\nQT = core-private gui-private\nCONFIG += static internal_module\n\nDEFINES += QT_NO_CAST_FROM_ASCII\nPRECOMPILED_HEADER = ../../corelib/global/qt_pch.h\n\ninclude(\$\$PWD/freetype/freetype.pri)\ninclude(\$\$PWD/genericunix/genericunix.pri)\ninclude(\$\$PWD/fontconfig/fontconfig.pri)\n\nload(qt_module)" >>$QTDIR/qtbase/src/platformsupport/fontdatabases/fontdatabases.pro
+
+    echo "cat fontdatabases.pro ... after"
+    cat $QTDIR/qtbase/src/platformsupport/fontdatabases/fontdatabases.pro
 
     CURTIMESTAMP=$(date +%s%N)
     echo "Timestamp in nanoseconds:"
@@ -142,16 +145,18 @@ script: |
     sed --posix "s|QMAKE_LFLAGS            =|QMAKE_LFLAGS\t\t= -L$DEPSDIR/lib|" -i ${SPECFILE}
 
     # Before we tried to pass arguments to ar (static linking) in using QMAKE_LIB, however
-    #  qt removes the arguments for ar and provides a script which makes it impossible to pass the determinism flag -
+    #  qt removes the arguments for ar and provides a script which makes it impossible to pass the determinism flag
     #  so rather than try to replace ar, post-process all libraries and plugins at the end.
     #
     # Don't load faketime while compiling Qt, qmake will get stuck in nearly infinite loops
-    #export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
-    #export FAKETIME=$REFERENCE_DATETIME
+    # export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+    # export FAKETIME=$REFERENCE_DATETIME
  
     # Compile static libraries, and use statically linked openssl (-openssl-linked):
 
     CONFIG_OPTS="
+    -verbose
+    -pkg-config
     -prefix $INSTALLPREFIX
     -bindir ${INSTALLPREFIX}/host/bin
     -optimized-qmake
@@ -168,7 +173,10 @@ script: |
     -nomake examples
     -nomake tests
     -nomake tools
+    -system-freetype
     -qt-xcb
+    -qt-libpng
+    -qt-zlib
     -no-glib
     -no-dbus
     -no-cups
@@ -223,17 +231,20 @@ script: |
     -skip qtspeech
     -skip qtdoc"
 
-    #-system-libpng
-    #-system-zlib"
-
-    # sed -i '/option(host_build)/d' /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtactiveqt/src/tools/idc/idc.pro
-
+    export PKG_CONFIG_LIBDIR=/usr/lib/x86_64-linux-gnu/pkgconfig
+    # :$DEPSDIR/lib/pkgconfig
+    export PKG_CONFIG_SYSROOT_DIR=/
+    export PKG_CONFIG_PREFIX=/usr/lib/x86_64-linux-gnu
+    export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig:$DEPSDIR/lib/pkgconfig
     export QT_DEBUG_PLUGINS=1
 
     OPENSSL_LIBS="-L $DEPSDIR/lib"
     export LIBS="$LIBS -L/usr/lib/x86_64-linux-gnu -lxcb -lXau -lXdmcp -lX11 -lX11-xcb -lfreetype -Wl,-Bdynamic -ldl -Wl,-Bdynamic -lpthread"
 
-    yes|./configure $CONFIG_OPTS -I $DEPSDIR/include -I $DEPSDIR/include/openssl -I $BUILDDIR -I $QTDIR/qtbase/src/platformsupport/fontdatabases/freetype -device-option CROSS_COMPILE="$HOST-"
+    # -DPNG_NO_SETJMP=1
+    # -I $QTDIR/qtbase/src/platformsupport/fontdatabases/freetype
+    yes|./configure $CONFIG_OPTS -I $DEPSDIR/include -I $DEPSDIR/include/openssl -I $BUILDDIR -device-option CROSS_COMPILE="$HOST-"
+    # LDFLAGS="-static -L$DEPSDIR/lib -lpng -lpng16 -lz"
 
     echo "making work-around for bug in cross compile of qt..."
     ls -al /home/ubuntu/build64/qt-everywhere-src-5.10.0/qtbase/src/3rdparty/pcre2
