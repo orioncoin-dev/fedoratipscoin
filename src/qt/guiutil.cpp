@@ -447,10 +447,6 @@ void SubstituteFonts()
         QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
 #endif
 #endif
-
-  // Hard coded styles by Poppa (at request of team... moving away from OS adaptive mode
-  QApplication::setStyle("plastique");
-  QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
 }
 
 bool ToolTipToRichTextFilter::eventFilter(QObject *obj, QEvent *evt)

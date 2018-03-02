@@ -282,6 +282,11 @@ void BitcoinCore::shutdown()
 }
 
 BitcoinApplication::BitcoinApplication(int &argc, char **argv):
+
+    // Hard coded styles by Poppa (at request of team... moving away from OS adaptive mode
+    QApplication::setStyle("plastique");
+    QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
+
     QApplication(argc, argv),
     coreThread(0),
     optionsModel(0),
