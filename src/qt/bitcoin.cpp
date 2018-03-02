@@ -294,10 +294,6 @@ BitcoinApplication::BitcoinApplication(int &argc, char **argv):
 #endif
     returnValue(0)
 {
-    // Hard coded styles by Poppa (at request of team... moving away from OS adaptive mode
-    QApplication::setStyle("plastique");
-    QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
-
     setQuitOnLastWindowClosed(false);
     startThread();
 }
@@ -333,6 +329,10 @@ void BitcoinApplication::createOptionsModel()
 
 void BitcoinApplication::createWindow(bool isaTestNet)
 {
+    // Hard coded styles by Poppa (at request of team... moving away from OS adaptive mode
+    QApplication::setStyle("plastique");
+    QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
+
     window = new BitcoinGUI(isaTestNet, 0);
 
     pollShutdownTimer = new QTimer(window);
