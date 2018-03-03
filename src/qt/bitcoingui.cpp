@@ -143,7 +143,7 @@ BitcoinGUI::BitcoinGUI(bool fIsTestnet, QWidget *parent) :
     }
 
     // Load external stylesheet
-    QFile File(":styles/fedoracoin.qss");
+    QFile File(":themes/fedoracoin.qss");
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
     qApp->setStyleSheet(StyleSheet);
