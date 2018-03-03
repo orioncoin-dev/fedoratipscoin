@@ -1,8 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource prefix="/styles">
         <file alias="fedoracoin.qss">res/themes/fedoracoin.qss</file>
-    </qresource>
-    <qresource prefix="/styles">
         <file>res/themes/fedoracoin.qss</file>
     </qresource>
     <qresource prefix="/icons">
