@@ -298,7 +298,8 @@ RES_ICONS = \
   res/icons/sx.png
 
 RES_THEMES = \
-  res/themes/fedoracoin.qss
+  res/themes/fedoracoin.qss \
+  res/themes/fedoracoin-s.qss
 
 RES_FONTS = \
   res/fonts/ComicNeue-Bold.ttf \
