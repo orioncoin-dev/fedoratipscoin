@@ -1,4 +1,10 @@
 <!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/styles">
+        <file alias="fedoracoin.qss">res/styles/fedoracoin.qss</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file>res/styles/fedoracoin.qss</file>
+    </qresource>
     <qresource prefix="/icons">
         <file alias="coinnector">res/icons/coinnector.png</file>
         <file alias="multisig">res/icons/multisig.png</file>
