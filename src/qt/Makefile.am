@@ -297,6 +297,9 @@ RES_ICONS = \
   res/icons/comment.png \
   res/icons/sx.png
 
+RES_THEMES = \
+  res/themes/fedoracoin.qss
+
 RES_FONTS = \
   res/fonts/ComicNeue-Bold.ttf \
   res/fonts/ComicNeue-Bold-Oblique.ttf \
@@ -384,7 +387,7 @@ FEDORACOIN_RC = res/fedoracoin-qt-res.rc
 libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(QT_INCLUDES) \
   -I$(top_srcdir)/src/qt/forms $(QT_DBUS_INCLUDES)
 libbitcoinqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
-  $(QT_QRC) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_MOVIES) $(RES_FONTS)
+  $(QT_QRC) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_MOVIES) $(RES_THEMES) $(RES_FONTS)
 
 nodist_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
   $(PROTOBUF_H) $(QT_QRC_CPP)
