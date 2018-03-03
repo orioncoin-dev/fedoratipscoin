@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2015 The Bitcoin developers
+
 // Copyright (c)      2015 The Fedoracoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -329,10 +329,6 @@ void BitcoinApplication::createOptionsModel()
 
 void BitcoinApplication::createWindow(bool isaTestNet)
 {
-    // Hard coded styles by Poppa (at request of team... moving away from OS adaptive mode
-    QApplication::setStyle("plastique");
-    QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
-
     window = new BitcoinGUI(isaTestNet, 0);
 
     pollShutdownTimer = new QTimer(window);
