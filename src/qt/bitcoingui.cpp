@@ -148,6 +148,10 @@ BitcoinGUI::BitcoinGUI(bool fIsTestnet, QWidget *parent) :
     QString StyleSheet = QLatin1String(File.readAll());
     qApp->setStyleSheet(StyleSheet);
 
+    // Poppa test... just testing to see why the font isn't changing...
+    QFont font2 = property("font").value<QFont>();
+    qDebug() << font2.family() << font2.pointSize();
+
     // Accept D&D of URIs
     setAcceptDrops(true);
 
