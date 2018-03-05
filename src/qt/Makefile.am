@@ -302,12 +302,27 @@ RES_THEMES = \
   res/themes/fedoracoin-s.qss
 
 RES_FONTS = \
-  res/fonts/ComicNeue-Bold.ttf \
-  res/fonts/ComicNeue-Bold-Oblique.ttf \
-  res/fonts/ComicNeue-Light.ttf \
-  res/fonts/ComicNeue-Light-Oblique.ttf \
-  res/fonts/ComicNeue-Regular.ttf \
-  res/fonts/ComicNeue-Regular-Oblique.ttf
+  res/fonts/FiraMono-Bold.ttf \
+  res/fonts/FiraMono-Medium.ttf \
+  res/fonts/FiraMono-Regular.ttf \
+  res/fonts/FiraSans-BlackItalic.ttf \
+  res/fonts/FiraSans-Black.ttf \
+  res/fonts/FiraSans-BoldItalic.ttf \
+  res/fonts/FiraSans-Bold.ttf \
+  res/fonts/FiraSans-ExtraBoldItalic.ttf \
+  res/fonts/FiraSans-ExtraBold.ttf \
+  res/fonts/FiraSans-ExtraLightItalic.ttf \
+  res/fonts/FiraSans-ExtraLight.ttf \
+  res/fonts/FiraSans-Italic.ttf \
+  res/fonts/FiraSans-LightItalic.ttf \
+  res/fonts/FiraSans-Light.ttf \
+  res/fonts/FiraSans-MediumItalic.ttf \
+  res/fonts/FiraSans-Medium.ttf \
+  res/fonts/FiraSans-Regular.ttf \
+  res/fonts/FiraSans-SemiBoldItalic.ttf \
+  res/fonts/FiraSans-SemiBold.ttf \
+  res/fonts/FiraSans-ThinItalic.ttf \
+  res/fonts/FiraSans-Thin.ttf
 
 BITCOIN_QT_CPP = \
   bitcoin.cpp \

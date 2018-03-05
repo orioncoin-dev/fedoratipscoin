@@ -175,11 +175,26 @@
         <file alias="zh_TW">locale/bitcoin_zh_TW.qm</file>
     </qresource>
     <qresource prefix="/fonts">
-        <file alias="WalletFont-Bold">res/fonts/ComicNeue-Bold.ttf</file>
-        <file alias="WalletFont-Bold-Oblique">res/fonts/ComicNeue-Bold-Oblique.ttf</file>
-        <file alias="WalletFont-Light">res/fonts/ComicNeue-Light.ttf</file>
-        <file alias="WalletFont-Light-Oblique">res/fonts/ComicNeue-Light-Oblique.ttf</file>
-        <file alias="WalletFont-Regular">res/fonts/ComicNeue-Regular.ttf</file>
-        <file alias="WalletFont-Regular-Oblique">res/fonts/ComicNeue-Regular-Oblique.ttf</file>
+        <file alias="WalletMonoFont-Bold">res/fonts/FiraMono-Bold.ttf</file>
+        <file alias="WalletMonoFont-Medium">res/fonts/FiraMono-Medium.ttf</file>
+        <file alias="WalletMonoFont-Regular">res/fonts/FiraMono-Regular.ttf</file>
+        <file alias="WalletSansFont-BlackItalic">res/fonts/FiraSans-BlackItalic.ttf</file>
+        <file alias="WalletSansFont-Black">res/fonts/FiraSans-Black.ttf</file>
+        <file alias="WalletSansFont-BoldItalic">res/fonts/FiraSans-BoldItalic.ttf</file>
+        <file alias="WalletSansFont-Bold">res/fonts/FiraSans-Bold.ttf</file>
+        <file alias="WalletSansFont-ExtraBoldItalic">res/fonts/FiraSans-ExtraBoldItalic.ttf</file>
+        <file alias="WalletSansFont-ExtraBold">res/fonts/FiraSans-ExtraBold.ttf</file>
+        <file alias="WalletSansFont-ExtraLightItalic">res/fonts/FiraSans-ExtraLightItalic.ttf</file>
+        <file alias="WalletSansFont-ExtraLight">res/fonts/FiraSans-ExtraLight.ttf</file>
+        <file alias="WalletSansFont-Italic">res/fonts/FiraSans-Italic.ttf</file>
+        <file alias="WalletSansFont-LightItalic">res/fonts/FiraSans-LightItalic.ttf</file>
+        <file alias="WalletSansFont-Light">res/fonts/FiraSans-Light.ttf</file>
+        <file alias="WalletSansFont-MediumItalic">res/fonts/FiraSans-MediumItalic.ttf</file>
+        <file alias="WalletSansFont-Medium">res/fonts/FiraSans-Medium.ttf</file>
+        <file alias="WalletSansFont-Regular">res/fonts/FiraSans-Regular.ttf</file>
+        <file alias="WalletSansFont-SemiBoldItalic">res/fonts/FiraSans-SemiBoldItalic.ttf</file>
+        <file alias="WalletSansFont-SemiBold">res/fonts/FiraSans-SemiBold.ttf</file>
+        <file alias="WalletSansFont-ThinItalic">res/fonts/FiraSans-ThinItalic.ttf</file>
+        <file alias="WalletSansFont-Thin">res/fonts/FiraSans-Thin.ttf</file>
     </qresource>
 </RCC>
