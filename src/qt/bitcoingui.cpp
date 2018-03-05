@@ -143,14 +143,10 @@ BitcoinGUI::BitcoinGUI(bool fIsTestnet, QWidget *parent) :
     }
 
     // Load external stylesheet
-    QFile File(":themes/fedoracoin.qss");
+    QFile File(":themes/fedoracoin.qss");  // remember this can be aliased in the qrc file...
     File.open(QFile::ReadOnly);
     QString StyleSheet = QLatin1String(File.readAll());
     qApp->setStyleSheet(StyleSheet);
-
-    // Poppa test... just testing to see why the font isn't changing...
-    QFont font2 = property("font").value<QFont>();
-    qDebug() << font2.family() << font2.pointSize();
 
     // Accept D&D of URIs
     setAcceptDrops(true);
