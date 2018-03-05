@@ -34,7 +34,7 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f, bool isTest
     QString copyrightText   = QChar(0xA9)+QString(" 2013-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Fedoracoin developers"));
     QString testnetAddText  = QString(tr("[testnet]")); // define text to place as single text object
 
-    QString font            = "Arial";
+    QString sFont            = "WalletFont";
 
     // load the bitmap for writing some text over it
     QPixmap newPixmap;
@@ -48,8 +48,10 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f, bool isTest
     QPainter pixPaint(&newPixmap);
     pixPaint.setPen(QColor(70,70,70));
 
-
-    pixPaint.setFont(QFont(font, 9*fontFactor));
+    QFont splashFont;
+    splashFont.setFamily(sFont);
+    splashFont.setPointSize(9*fontFactor);
+    pixPaint.setFont(splashFont);
     QFontMetrics fm = pixPaint.fontMetrics();
     int titleTextWidth  = fm.width(titleText);
     fm = pixPaint.fontMetrics();
@@ -63,7 +65,9 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f, bool isTest
 
     // draw testnet string if testnet is on
     if(isTestNet) {
-        QFont boldFont = QFont(font, 9*fontFactor);
+        QFont boldFont;
+        boldFont.setFamily(sFont);
+        boldFont.setPointSize(9*fontFactor);
         boldFont.setWeight(QFont::Bold);
         pixPaint.setFont(boldFont);
         fm = pixPaint.fontMetrics();
