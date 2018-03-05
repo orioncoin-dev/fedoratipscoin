@@ -175,11 +175,11 @@
         <file alias="zh_TW">locale/bitcoin_zh_TW.qm</file>
     </qresource>
     <qresource prefix="/fonts">
-        <file alias="Wallet-Bold">res/fonts/ComicNeue-Bold.ttf</file>
-        <file alias="Wallet-Bold-Oblique">res/fonts/ComicNeue-Bold-Oblique.ttf</file>
-        <file alias="Wallet-Light">res/fonts/ComicNeue-Light.ttf</file>
-        <file alias="Wallet-Light-Oblique">res/fonts/ComicNeue-Light-Oblique.ttf</file>
-        <file alias="Wallet-Regular">res/fonts/ComicNeue-Regular.ttf</file>
-        <file alias="Wallet-Regular-Oblique">res/fonts/ComicNeue-Regular-Oblique.ttf</file>
+        <file alias="WalletFont-Bold">res/fonts/ComicNeue-Bold.ttf</file>
+        <file alias="WalletFont-Bold-Oblique">res/fonts/ComicNeue-Bold-Oblique.ttf</file>
+        <file alias="WalletFont-Light">res/fonts/ComicNeue-Light.ttf</file>
+        <file alias="WalletFont-Light-Oblique">res/fonts/ComicNeue-Light-Oblique.ttf</file>
+        <file alias="WalletFont-Regular">res/fonts/ComicNeue-Regular.ttf</file>
+        <file alias="WalletFont-Regular-Oblique">res/fonts/ComicNeue-Regular-Oblique.ttf</file>
     </qresource>
 </RCC>
