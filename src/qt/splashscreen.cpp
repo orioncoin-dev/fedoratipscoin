@@ -47,7 +47,7 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f, bool isTest
     pixPaint.setPen(QColor(170,170,170));
 
     QFont splashFont;
-    splashFont.setFamily(":/fonts/WalletSansFont-Regular");
+    splashFont.setFamily(QString::fromUtf8(":/fonts/WalletSansFont-Regular.ttf"));
     splashFont.setPointSize(9*fontFactor);
     pixPaint.setFont(splashFont);
     QFontMetrics fm = pixPaint.fontMetrics();
@@ -63,14 +63,14 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f, bool isTest
 
     // draw testnet string if testnet is on
     if(isTestNet) {
-        QFont boldFont;
-        boldFont.setFamily(":/fonts/WalletSansFont-Bold");
-        boldFont.setPointSize(9*fontFactor);
-        // boldFont.setWeight(QFont::Bold);
-        pixPaint.setFont(boldFont);
-        fm = pixPaint.fontMetrics();
-        int testnetAddTextWidth  = fm.width(testnetAddText);
-        pixPaint.drawText(newPixmap.width()-testnetAddTextWidth-10,15,testnetAddText);
+//        QFont boldFont;
+//        boldFont.setFamily(":/fonts/WalletSansFont-Bold");
+//        boldFont.setPointSize(9*fontFactor);
+//        // boldFont.setWeight(QFont::Bold);
+//        pixPaint.setFont(boldFont);
+//        fm = pixPaint.fontMetrics();
+//        int testnetAddTextWidth  = fm.width(testnetAddText);
+//        pixPaint.drawText(newPixmap.width()-testnetAddTextWidth-10,15,testnetAddText);
     }
 
     pixPaint.end();
