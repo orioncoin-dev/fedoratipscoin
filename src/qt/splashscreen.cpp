@@ -34,8 +34,6 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f, bool isTest
     QString copyrightText   = QChar(0xA9)+QString(" 2013-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Fedoracoin developers"));
     QString testnetAddText  = QString(tr("[testnet]")); // define text to place as single text object
 
-    QString sFont           = "WalletSansFont-Regular";
-
     // load the bitmap for writing some text over it
     QPixmap newPixmap;
     if(isTestNet) {
@@ -49,7 +47,7 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f, bool isTest
     pixPaint.setPen(QColor(170,170,170));
 
     QFont splashFont;
-    splashFont.setFamily(sFont);
+    splashFont.setFamily(":fonts/WalletSansFont");
     splashFont.setPointSize(9*fontFactor);
     pixPaint.setFont(splashFont);
     QFontMetrics fm = pixPaint.fontMetrics();
@@ -66,7 +64,7 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f, bool isTest
     // draw testnet string if testnet is on
     if(isTestNet) {
         QFont boldFont;
-        boldFont.setFamily(sFont);
+        boldFont.setFamily(":fonts/WalletSansFont");
         boldFont.setPointSize(9*fontFactor);
         boldFont.setWeight(QFont::Bold);
         pixPaint.setFont(boldFont);
