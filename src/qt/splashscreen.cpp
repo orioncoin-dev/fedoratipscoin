@@ -44,7 +44,8 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f, bool isTest
 
     QPainter pixPaint(&newPixmap);
     pixPaint.setPen(QColor(170,170,170));
-    pixPaint.setFont(QFont("Montserrat-Regular", 9*fontFactor));
+    QFont mFont = QFont("Montserrat", 9*fontFactor);
+    pixPaint.setFont(mFont);
 
     QFontMetrics fm = pixPaint.fontMetrics();
     int titleTextWidth  = fm.width(titleText);
@@ -58,7 +59,7 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f, bool isTest
 
     // draw testnet string if testnet is on
     if(isTestNet) {
-        QFont boldFont = QFont("Montserrat-Bold", 9*fontFactor);
+        QFont boldFont = QFont("Montserrat", 9*fontFactor);
         boldFont.setWeight(QFont::Bold);
         pixPaint.setFont(boldFont);
         fm = pixPaint.fontMetrics();
