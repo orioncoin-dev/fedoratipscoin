@@ -46,37 +46,42 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f, bool isTest
     QPainter pixPaint(&newPixmap);
     pixPaint.setPen(QColor(170,170,170));
 
-    QFont splashFont;
-    splashFont.setFamily(QString::fromUtf8(":/fonts/WalletSansFont-Regular.ttf"));
-    splashFont.setPointSize(9*fontFactor);
-    pixPaint.setFont(splashFont);
-    QFontMetrics fm = pixPaint.fontMetrics();
-    int titleTextWidth  = fm.width(titleText);
-    fm = pixPaint.fontMetrics();
-    titleTextWidth  = fm.width(titleText);
-    pixPaint.drawText(newPixmap.width()-titleTextWidth-paddingRight,paddingTop,titleText);
+    // Load the embedded font.
+    QString fontPath = ":/res/fonts/Montserrat-Regular.ttf";
+    QString boldFontPath = ":/res/fonts/Montserrat-Bold.ttf";
+    int fontId = QFontDatabase::addApplicationFont(fontPath);
+    int boldFontId = QFontDatabase::addApplicationFont(boldFontPath);
+    if (fontId != -1 && boldFontId != -1)
+    {
+        QFont splashFont("Montserrat-Regular");
+        QFont boldFont("Montserrat-Bold");
+        app.setFont(splashFont);
+        splashFont.setPointSize(9*fontFactor);
+        pixPaint.setFont(splashFont);
+        QFontMetrics fm = pixPaint.fontMetrics();
+        int titleTextWidth  = fm.width(titleText);
+        fm = pixPaint.fontMetrics();
+        titleTextWidth  = fm.width(titleText);
+        pixPaint.drawText(newPixmap.width()-titleTextWidth-paddingRight,paddingTop,titleText);
 
-    fm = pixPaint.fontMetrics();
-    pixPaint.drawText(newPixmap.width()-titleTextWidth-paddingRight,paddingTop+titleVersionVSpace,versionText);
+        fm = pixPaint.fontMetrics();
+        pixPaint.drawText(newPixmap.width()-titleTextWidth-paddingRight,paddingTop+titleVersionVSpace,versionText);
+        pixPaint.drawText(newPixmap.width()-titleTextWidth-paddingRight,paddingTop+titleCopyrightVSpace,copyrightText);
 
-    pixPaint.drawText(newPixmap.width()-titleTextWidth-paddingRight,paddingTop+titleCopyrightVSpace,copyrightText);
-
-    // draw testnet string if testnet is on
-    if(isTestNet) {
-//        QFont boldFont;
-//        boldFont.setFamily(":/fonts/WalletSansFont-Bold");
-//        boldFont.setPointSize(9*fontFactor);
-//        // boldFont.setWeight(QFont::Bold);
-//        pixPaint.setFont(boldFont);
-//        fm = pixPaint.fontMetrics();
-//        int testnetAddTextWidth  = fm.width(testnetAddText);
-//        pixPaint.drawText(newPixmap.width()-testnetAddTextWidth-10,15,testnetAddText);
+        // draw testnet string if testnet is on
+        if(isTestNet) {
+            app.setFont(boldFont);
+            boldFont.setPointSize(9*fontFactor);
+            boldFont.setWeight(QFont::Bold);
+            pixPaint.setFont(boldFont);
+            fm = pixPaint.fontMetrics();
+            int testnetAddTextWidth  = fm.width(testnetAddText);
+            pixPaint.drawText(newPixmap.width()-testnetAddTextWidth-10,15,testnetAddText);
+        }
     }
 
     pixPaint.end();
-
     this->setPixmap(newPixmap);
-
     subscribeToCoreSignals();
 }
 

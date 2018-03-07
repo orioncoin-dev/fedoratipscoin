@@ -174,27 +174,34 @@
         <file alias="zh_HK">locale/bitcoin_zh_HK.qm</file>
         <file alias="zh_TW">locale/bitcoin_zh_TW.qm</file>
     </qresource>
-    <qresource prefix="/fonts">
-        <file alias="WalletMonoFont-Bold">res/fonts/FiraMono-Bold.ttf</file>
-        <file alias="WalletMonoFont-Medium">res/fonts/FiraMono-Medium.ttf</file>
-        <file alias="WalletMonoFont-Regular">res/fonts/FiraMono-Regular.ttf</file>
-        <file alias="WalletSansFont-BlackItalic">res/fonts/FiraSans-BlackItalic.ttf</file>
-        <file alias="WalletSansFont-Black">res/fonts/FiraSans-Black.ttf</file>
-        <file alias="WalletSansFont-BoldItalic">res/fonts/FiraSans-BoldItalic.ttf</file>
-        <file alias="WalletSansFont-Bold">res/fonts/FiraSans-Bold.ttf</file>
-        <file alias="WalletSansFont-ExtraBoldItalic">res/fonts/FiraSans-ExtraBoldItalic.ttf</file>
-        <file alias="WalletSansFont-ExtraBold">res/fonts/FiraSans-ExtraBold.ttf</file>
-        <file alias="WalletSansFont-ExtraLightItalic">res/fonts/FiraSans-ExtraLightItalic.ttf</file>
-        <file alias="WalletSansFont-ExtraLight">res/fonts/FiraSans-ExtraLight.ttf</file>
-        <file alias="WalletSansFont-Italic">res/fonts/FiraSans-Italic.ttf</file>
-        <file alias="WalletSansFont-LightItalic">res/fonts/FiraSans-LightItalic.ttf</file>
-        <file alias="WalletSansFont-Light">res/fonts/FiraSans-Light.ttf</file>
-        <file alias="WalletSansFont-MediumItalic">res/fonts/FiraSans-MediumItalic.ttf</file>
-        <file alias="WalletSansFont-Medium">res/fonts/FiraSans-Medium.ttf</file>
-        <file alias="WalletSansFont-Regular">res/fonts/FiraSans-Regular.ttf</file>
-        <file alias="WalletSansFont-SemiBoldItalic">res/fonts/FiraSans-SemiBoldItalic.ttf</file>
-        <file alias="WalletSansFont-SemiBold">res/fonts/FiraSans-SemiBold.ttf</file>
-        <file alias="WalletSansFont-ThinItalic">res/fonts/FiraSans-ThinItalic.ttf</file>
-        <file alias="WalletSansFont-Thin">res/fonts/FiraSans-Thin.ttf</file>
+    <qresource>
+        <file alias="Montserrat-ExtraLight">res/fonts/Montserrat-ExtraLight.ttf</file>
+        <file alias="Montserrat-SemiBold">res/fonts/Montserrat-SemiBold.ttf</file>
+        <file alias="Montserrat-BlackItalic">res/fonts/Montserrat-BlackItalic.ttf</file>
+        <file alias="Montserrat-Italic">res/fonts/Montserrat-Italic.ttf</file>
+        <file alias="Montserrat-ThinItalic">res/fonts/Montserrat-ThinItalic.ttf</file>
+        <file alias="Montserrat-Black">res/fonts/Montserrat-Black.ttf</file>
+        <file alias="Montserrat-LightItalic">res/fonts/Montserrat-LightItalic.ttf</file>
+        <file alias="Montserrat-Thin">res/fonts/Montserrat-Thin.ttf</file>
+        <file alias="Montserrat-BoldItalic">res/fonts/Montserrat-BoldItalic.ttf</file>
+        <file alias="Montserrat-Light">res/fonts/Montserrat-Light.ttf</file>
+        <file alias="Montserrat-Bold">res/fonts/Montserrat-Bold.ttf</file>
+        <file alias="Montserrat-MediumItalic">res/fonts/Montserrat-MediumItalic.ttf</file>
+        <file alias="Montserrat-ExtraBoldItalic">res/fonts/Montserrat-ExtraBoldItalic.ttf</file>
+        <file alias="Montserrat-Medium">res/fonts/Montserrat-Medium.ttf</file>
+        <file alias="Montserrat-ExtraBold">res/fonts/Montserrat-ExtraBold.ttf</file>
+        <file alias="Montserrat-Regular">res/fonts/Montserrat-Regular.ttf</file>
+        <file alias="Montserrat-ExtraLightItalic">res/fonts/Montserrat-ExtraLightItalic.ttf</file>
+        <file alias="Montserrat-SemiBoldItalic">res/fonts/Montserrat-SemiBoldItalic.ttf</file>
+        <file alias="RobotoMono-Italic">res/fonts/RobotoMono-Italic.ttf</file>
+        <file alias="RobotoMono-LightItalic">res/fonts/RobotoMono-LightItalic.ttf</file>
+        <file alias="RobotoMono-MediumItalic">res/fonts/RobotoMono-MediumItalic.ttf</file>
+        <file alias="RobotoMono-ThinItalic">res/fonts/RobotoMono-ThinItalic.ttf</file>
+        <file alias="RobotoMono-Light">res/fonts/RobotoMono-Light.ttf</file>
+        <file alias="RobotoMono-Medium">res/fonts/RobotoMono-Medium.ttf</file>
+        <file alias="RobotoMono-Thin">res/fonts/RobotoMono-Thin.ttf</file>
+        <file alias="RobotoMono-Regular">res/fonts/RobotoMono-Regular.ttf</file>
+        <file alias="RobotoMono-BoldItalic">res/fonts/RobotoMono-BoldItalic.ttf</file>
+        <file alias="RobotoMono-Bold">res/fonts/RobotoMono-Bold.ttf</file>
     </qresource>
 </RCC>

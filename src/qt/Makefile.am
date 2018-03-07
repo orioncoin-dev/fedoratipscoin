@@ -298,31 +298,37 @@ RES_ICONS = \
   res/icons/sx.png
 
 RES_THEMES = \
-  res/themes/fedoracoin.qss \
   res/themes/fedoracoin-s.qss
 
 RES_FONTS = \
-  res/fonts/FiraMono-Bold.ttf \
-  res/fonts/FiraMono-Medium.ttf \
-  res/fonts/FiraMono-Regular.ttf \
-  res/fonts/FiraSans-BlackItalic.ttf \
-  res/fonts/FiraSans-Black.ttf \
-  res/fonts/FiraSans-BoldItalic.ttf \
-  res/fonts/FiraSans-Bold.ttf \
-  res/fonts/FiraSans-ExtraBoldItalic.ttf \
-  res/fonts/FiraSans-ExtraBold.ttf \
-  res/fonts/FiraSans-ExtraLightItalic.ttf \
-  res/fonts/FiraSans-ExtraLight.ttf \
-  res/fonts/FiraSans-Italic.ttf \
-  res/fonts/FiraSans-LightItalic.ttf \
-  res/fonts/FiraSans-Light.ttf \
-  res/fonts/FiraSans-MediumItalic.ttf \
-  res/fonts/FiraSans-Medium.ttf \
-  res/fonts/FiraSans-Regular.ttf \
-  res/fonts/FiraSans-SemiBoldItalic.ttf \
-  res/fonts/FiraSans-SemiBold.ttf \
-  res/fonts/FiraSans-ThinItalic.ttf \
-  res/fonts/FiraSans-Thin.ttf
+  res/fonts/Montserrat-ExtraLight.ttf \
+  res/fonts/Montserrat-SemiBold.ttf \
+  res/fonts/Montserrat-BlackItalic.ttf \
+  res/fonts/Montserrat-Italic.ttf \
+  res/fonts/Montserrat-ThinItalic.ttf \
+  res/fonts/Montserrat-Black.ttf \
+  res/fonts/Montserrat-LightItalic.ttf \
+  res/fonts/Montserrat-Thin.ttf \
+  res/fonts/Montserrat-BoldItalic.ttf \
+  res/fonts/Montserrat-Light.ttf \
+  res/fonts/Montserrat-Bold.ttf \
+  res/fonts/Montserrat-MediumItalic.ttf \
+  res/fonts/Montserrat-ExtraBoldItalic.ttf \
+  res/fonts/Montserrat-Medium.ttf \
+  res/fonts/Montserrat-ExtraBold.ttf \
+  res/fonts/Montserrat-Regular.ttf \
+  res/fonts/Montserrat-ExtraLightItalic.ttf \
+  res/fonts/Montserrat-SemiBoldItalic.ttf \
+  res/fonts/RobotoMono-Italic.ttf \
+  res/fonts/RobotoMono-LightItalic.ttf \
+  res/fonts/RobotoMono-MediumItalic.ttf \
+  res/fonts/RobotoMono-ThinItalic.ttf \
+  res/fonts/RobotoMono-Light.ttf \
+  res/fonts/RobotoMono-Medium.ttf \
+  res/fonts/RobotoMono-Thin.ttf \
+  res/fonts/RobotoMono-Regular.ttf \
+  res/fonts/RobotoMono-BoldItalic.ttf \
+  res/fonts/RobotoMono-Bold.ttf
 
 BITCOIN_QT_CPP = \
   bitcoin.cpp \
