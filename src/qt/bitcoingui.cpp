@@ -85,6 +85,9 @@ BitcoinGUI::BitcoinGUI(bool fIsTestnet, QWidget *parent) :
 {
     GUIUtil::restoreWindowGeometry("nWindow", QSize(850, 550), this);
 
+    QApplication::addApplicationFont(":fonts/Montserrat");
+    QApplication::addApplicationFont(":fonts/RobotoMono"
+
     QString windowTitle = tr("Fedoracoin Core") + " - ";
 #ifdef ENABLE_WALLET
     /* if compiled with wallet support, -disablewallet can still disable the wallet */
