@@ -174,7 +174,7 @@
         <file alias="zh_HK">locale/bitcoin_zh_HK.qm</file>
         <file alias="zh_TW">locale/bitcoin_zh_TW.qm</file>
     </qresource>
-    <qresource>
+    <qresource prefix="/fonts">
         <file alias="Montserrat-ExtraLight">res/fonts/Montserrat-ExtraLight.ttf</file>
         <file alias="Montserrat-SemiBold">res/fonts/Montserrat-SemiBold.ttf</file>
         <file alias="Montserrat-BlackItalic">res/fonts/Montserrat-BlackItalic.ttf</file>
