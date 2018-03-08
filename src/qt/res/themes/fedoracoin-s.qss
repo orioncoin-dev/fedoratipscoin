@@ -519,7 +519,6 @@ QSizeGrip {
     height: 12px;
 }
 
-
 QMainWindow::separator
 {
     background-color: #31363b;
@@ -539,6 +538,10 @@ QMainWindow::separator:hover
     spacing: 2px;
 }
 
+QMainWindow
+{
+    background-color: rgb(255, 0, 0);
+}
 
 QMenu::separator
 {
