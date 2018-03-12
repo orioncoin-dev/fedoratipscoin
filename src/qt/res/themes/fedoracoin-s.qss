@@ -34,8 +34,8 @@ QWidget
 {
     color: #eff0f1;
 
-    /* test by Poppa 31363b */
-    background-color: #310000;
+    /* background-color selected by K03nty - Poppa */
+    background-color: #1e2330;
 
     selection-background-color:#3daee9;
     selection-color: #eff0f1;
@@ -308,8 +308,8 @@ QWidget:disabled
 
 QAbstractItemView
 {
-    /* test by Poppa #31363b */
-    alternate-background-color: #310000;
+    /* background-color selected by K03nty - Poppa */
+    alternate-background-color: #1e2330;
 
     color: #eff0f1;
     border: 1px solid 3A3939;
