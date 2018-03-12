@@ -540,7 +540,8 @@ QMainWindow::separator:hover
 
 QMainWindow
 {
-    background-color: rgb(255, 0, 0);
+    /* background-color selected by K03nty - Poppa */
+    background-color: rgb(30,35,48);
 }
 
 QMenu::separator
@@ -1190,7 +1191,8 @@ QStatusBar::item {
 
 
 QFrame[height="3"], QFrame[width="3"] {
-    background-color: #76797C;
+    /* background-color: #76797C; Poppa */
+    background-color: #760000;
 }
 
 
