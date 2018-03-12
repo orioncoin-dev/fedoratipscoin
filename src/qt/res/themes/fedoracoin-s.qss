@@ -33,7 +33,10 @@ QToolTip
 QWidget
 {
     color: #eff0f1;
-    background-color: #31363b;
+
+    /* test by Poppa 31363b */
+    background-color: #310000;
+
     selection-background-color:#3daee9;
     selection-color: #eff0f1;
     background-clip: border;
@@ -305,7 +308,9 @@ QWidget:disabled
 
 QAbstractItemView
 {
-    alternate-background-color: #31363b;
+    /* test by Poppa #31363b */
+    alternate-background-color: #310000;
+
     color: #eff0f1;
     border: 1px solid 3A3939;
     border-radius: 2px;
@@ -1191,8 +1196,7 @@ QStatusBar::item {
 
 
 QFrame[height="3"], QFrame[width="3"] {
-    /* background-color: #76797C; Poppa */
-    background-color: #760000;
+    background-color: #76797C;
 }
 
 
