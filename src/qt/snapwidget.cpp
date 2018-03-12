@@ -74,11 +74,16 @@ void SnapWidget::on_snapButton_clicked()
             close();
             return;
         }
+
         Ref<String> s = r->getText();
-        const std::string& ss = s->text_;
-        decodedString = QString(ss.c_str());
-        delete qrDecoder;
-        decodedString = QString(r->getText()->getText().c_str());
+        String newS = new String(s);
+        const char * c = newS.c_str();
+        decodedString = new QString(c);
+
+        // const std::string& ss = s->text_;
+        // decodedString = QString(ss.c_str());
+        // decodedString = QString(r->getText()->getText().c_str());
+
         delete qrDecoder;
     }
     this->close();
