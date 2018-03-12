@@ -76,7 +76,7 @@ void SnapWidget::on_snapButton_clicked()
         }
 
         Ref<String> s = r->getText();
-        String newS = new String(s);
+        String newS = new String(*s);
         const char * c = newS.c_str();
         decodedString = new QString(c);
 
