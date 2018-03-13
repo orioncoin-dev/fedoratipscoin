@@ -42,7 +42,7 @@ packages:
 - "libxcb-render-util0-dev"
 reference_datetime: "2018-02-01 00:00:00"
 remotes:
-- "url": "https://github.com/jojapoppa/fedoracoin-1.git"
+- "url": "https://github.com/jojapoppa/fedoratipscoin.git"
   "dir": "bitcoin_linux"
 files:
 - "qt-linux64-5.10.0-gitian-r2.zip"
