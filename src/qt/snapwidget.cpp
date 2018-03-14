@@ -21,12 +21,13 @@ inline bool _isnan(float v) {return qIsNaN(v);}
 #include "qimagesource.h"
 
 //////////////////  SnapWidget Class
-SnapWidget::SnapWidget(QWidget* _parent)
-#ifdef Q_OS_MAC
-   : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
-#else
-   : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint|  Qt::WindowTitleHint|  Qt::CustomizeWindowHint)
-#endif
+// #ifdef Q_OS_MAC
+//    : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
+// #else
+//    : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint|  Qt::WindowTitleHint|  Qt::CustomizeWindowHint)
+//  #endif
+
+SnapWidget::SnapWidget(QWidget* _parent) : QDialog(parent, Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint), ui(new Ui::SnapWidget), model(0)
 {
     setupUi(this);
     this->setMinimumWidth(50);
