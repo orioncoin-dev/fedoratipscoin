@@ -27,7 +27,7 @@ inline bool _isnan(float v) {return qIsNaN(v);}
 //    : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint|  Qt::WindowTitleHint|  Qt::CustomizeWindowHint)
 //  #endif
 
-SnapWidget::SnapWidget(QWidget* _parent) : QDialog(parent, Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint), ui(new Ui::SnapWidget), model(0)
+SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
 {
     setupUi(this);
     this->setMinimumWidth(50);
