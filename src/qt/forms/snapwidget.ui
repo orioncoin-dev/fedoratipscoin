@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>SnapWidget</class>
- <widget class="QWidget" name="SnapWidget">
+ <widget class="QDialog" name="SnapWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
