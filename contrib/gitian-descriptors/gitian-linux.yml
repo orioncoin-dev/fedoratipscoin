@@ -113,23 +113,27 @@ script: |
 
   echo "Must now build the zxing library now (used for qrcodes)..."
   cd $STAGING/include
-  mkdir zxing
-  cd zxing
-  unzip -o $INDIR/zxing-master.zip
-  cd zxing-cpp-master
-  ls -al
-  mkdir build
-  cd build
-  export CXXFLAGS="-fPIC -static"
-  cmake -G "Unix Makefiles" -DCMAKE_CXX_FLAGS=-static -D_GLIBCXX_USE_CXX11_ABI=0 -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_BUILD_TYPE=Release ..
-  make
-  ls -al $STAGING/include/zxing/zxing-cpp-master/build
-  cp $STAGING/include/zxing/zxing-cpp-master/core/src/zxing/ZXing.h $STAGING/include/zxing.h
-  mv $STAGING/include/zxing/zxing-cpp-master/build/libzxing.a $STAGING/lib
-  mv $STAGING/include/zxing/zxing-cpp-master/core/src/win32/zxing/* $STAGING/lib
-  mv $STAGING/include/zxing/zxing-cpp-master/core/src/zxing/* $STAGING/include/zxing
-  echo "zxing in include dir..."
-  ls -al $STAGING/include/zxing
+
+  if ! test -d zxing
+  then
+    mkdir zxing
+    cd zxing
+    unzip -o $INDIR/zxing-master.zip
+    cd zxing-cpp-master
+    ls -al
+    mkdir build
+    cd build
+    export CXXFLAGS="-fPIC -static"
+    cmake -G "Unix Makefiles" -DCMAKE_CXX_FLAGS=-static -D_GLIBCXX_USE_CXX11_ABI=0 -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_BUILD_TYPE=Release ..
+    make
+    ls -al $STAGING/include/zxing/zxing-cpp-master/build
+    cp $STAGING/include/zxing/zxing-cpp-master/core/src/zxing/ZXing.h $STAGING/include/zxing.h
+    mv $STAGING/include/zxing/zxing-cpp-master/build/libzxing.a $STAGING/lib
+    mv $STAGING/include/zxing/zxing-cpp-master/core/src/win32/zxing/* $STAGING/lib
+    mv $STAGING/include/zxing/zxing-cpp-master/core/src/zxing/* $STAGING/include/zxing
+    echo "zxing in include dir..."
+    ls -al $STAGING/include/zxing
+  fi
 
   echo $STAGING/include
   ls -al $STAGING/include
