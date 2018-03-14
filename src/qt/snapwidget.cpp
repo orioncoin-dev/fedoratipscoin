@@ -30,7 +30,7 @@ SnapWidget::SnapWidget(QWidget* _parent)
 
     setupUi(this);
     this->setMinimumWidth(50);
-    prepareMask();
+    // prepareMask();
     show();
 }
 
