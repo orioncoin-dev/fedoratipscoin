@@ -22,17 +22,18 @@ inline bool _isnan(float v) {return qIsNaN(v);}
 
 //////////////////  SnapWidget Class
 // Qt::CustomizeWindowHint no longer used, as it is currently buggy in qt5.10 - Poppa
+// Qt::WindowCloseButtonHint | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint
 SnapWidget::SnapWidget(QWidget* _parent)
 #ifdef Q_OS_MAC
    : QDialog( _parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint )
 #else
-   : QDialog(_parent, Qt::Widget | Qt::WindowCloseButtonHint | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint)
+   : QDialog(_parent, Qt::Widget)
 #endif
 {
     setupUi(this);
-    this->setMinimumWidth(50);
-    prepareMask();
-    show();
+//    this->setMinimumWidth(50);
+//    prepareMask();
+//    show();
 }
 
 SnapWidget::~SnapWidget()
