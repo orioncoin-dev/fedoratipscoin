@@ -28,8 +28,9 @@ SnapWidget::SnapWidget(QWidget* _parent)
    : QDialog(_parent, Qt::Widget | Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint) {
 #endif
 
-    setupUi(this);
-    this->setMinimumWidth(50);
+    // Poppa testing...
+    // setupUi(this);
+    // this->setMinimumWidth(50);
     // prepareMask();
     show();
 }
@@ -78,10 +79,6 @@ void SnapWidget::on_snapButton_clicked()
         Ref<String> s = r->getText();
         const std::string ss = s->getText(); 
         decodedString = QString(ss.c_str());
-
-        // const std::string& ss = s->text_;
-        // decodedString = QString(ss.c_str());
-        // decodedString = QString(r->getText()->getText().c_str());
 
         delete qrDecoder;
     }
