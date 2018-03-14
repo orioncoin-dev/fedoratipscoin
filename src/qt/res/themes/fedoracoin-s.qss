@@ -549,6 +549,12 @@ QMainWindow
     background-color: rgb(30,35,48);
 }
 
+QDialog
+{
+    /* background-color selected by K03nty - Poppa */
+    background-color: rgb(30,35,48);
+}
+
 QMenu::separator
 {
     height: 1px;
