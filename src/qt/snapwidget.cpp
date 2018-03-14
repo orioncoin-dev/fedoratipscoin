@@ -32,6 +32,10 @@ SnapWidget::SnapWidget(QWidget* _parent) : QDialog(parent, Qt::WindowStaysOnTopH
     setupUi(this);
     this->setMinimumWidth(50);
     prepareMask();
+
+    setAttribute(Qt::WA_NoSystemBackground, false);
+    setAttribute(Qt::WA_TranslucentBackground, false);  
+
     show();
 }
 
