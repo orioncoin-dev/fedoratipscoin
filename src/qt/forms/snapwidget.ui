@@ -13,41 +13,54 @@
   <property name="windowTitle">
    <string/>
   </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
   <property name="autoFillBackground">
    <bool>true</bool>
   </property>
-  <widget class="QPushButton" name="snapButton">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>61</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Snap</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="cancelButton">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>0</y>
-     <width>71</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="contextMenuPolicy">
-    <enum>Qt::NoContextMenu</enum>
-   </property>
-   <property name="text">
-    <string>Cancel</string>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout_Main">
+  <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2_Main">
+    <item>
+    <widget class="QPushButton" name="snapButton">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>61</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Snap</string>
+     </property>
+    </widget>
+    </item>
+    <item>
+    <widget class="QPushButton" name="cancelButton">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>0</y>
+       <width>71</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
+     <property name="text">
+      <string>Cancel</string>
+     </property>
+    </widget>
+    </item>
+    </layout>
+  </item>
+  </layout>
  </widget>
  <resources>
   <include location="../fedoracoin.qrc"/>
