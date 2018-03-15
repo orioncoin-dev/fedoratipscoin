@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="5.0">
  <class>SnapWidget</class>
  <widget class="QDialog" name="SnapWidget">
   <property name="geometry">
@@ -51,38 +51,6 @@
       <string>Cancel</string>
      </property>
     </widget>
-
-  <layout class="QVBoxLayout" name="verticalLayout_Main">
-  <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2_Main">
-    <item>
-    <widget class="QLabel" name="lblQRCode">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>300</width>
-       <height>300</height>
-      </size>
-     </property>
-     <property name="textFormat">
-      <enum>Qt::PlainText</enum>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-    </widget>
-    </item>
-    </layout>
-  </item>
-  </layout>
  </widget>
  <resources>
   <include location="../fedoracoin.qrc"/>
