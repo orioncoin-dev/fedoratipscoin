@@ -36,6 +36,7 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::WindowStaysOnTopHi
     setAttribute(Qt::WA_NoSystemBackground, false);
     setAttribute(Qt::WA_TranslucentBackground, false);  
 
+    setVisible(true);
     show();
 }
 

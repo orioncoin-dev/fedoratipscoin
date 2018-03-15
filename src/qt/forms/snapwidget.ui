@@ -19,10 +19,6 @@
   <property name="autoFillBackground">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_Main">
-  <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2_Main">
-    <item>
     <widget class="QPushButton" name="snapButton">
      <property name="geometry">
       <rect>
@@ -36,8 +32,6 @@
       <string>Snap</string>
      </property>
     </widget>
-    </item>
-    <item>
     <widget class="QPushButton" name="cancelButton">
      <property name="geometry">
       <rect>
@@ -57,7 +51,10 @@
       <string>Cancel</string>
      </property>
     </widget>
-    </item>
+
+  <layout class="QVBoxLayout" name="verticalLayout_Main">
+  <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2_Main">
     <item>
     <widget class="QLabel" name="lblQRCode">
      <property name="sizePolicy">
