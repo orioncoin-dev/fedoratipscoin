@@ -4,7 +4,7 @@
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets/QtWidgets>
 #include <QtWidgets/QDialog>
-#include <QtMultimedia>
+#include <QtMultimedia/QtMultimedia>
 #else
 #include <QtWidgets/QDesktopWidget>
 #endif
