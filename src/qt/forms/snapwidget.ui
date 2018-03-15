@@ -51,11 +51,14 @@
       <string>Cancel</string>
      </property>
     </widget>
-    <widget class="QPlainTextEdit" name="outUri">
+    <widget class="QPlainTextEdit" name="infoBox">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>28</y>
+       <width>100</width>
+       <height>100</height>
+      </rect>
      </property>
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
