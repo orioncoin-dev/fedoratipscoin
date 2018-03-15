@@ -211,7 +211,6 @@ script: |
     -skip qtxmlpatterns
     -skip qtdeclarative
     -skip qtquickcontrols
-    -skip qtmultimedia
     -skip qtactiveqt
     -skip qtlocation
     -skip qtsensors
