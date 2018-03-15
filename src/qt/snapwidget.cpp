@@ -26,9 +26,9 @@ inline bool _isnan(float v) {return qIsNaN(v);}
 
 SnapWidget::SnapWidget(QWidget* parent)
 #ifdef Q_OS_MAC
- : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
+ : QDialog(parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
 #else
- : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint|  Qt::WindowTitleHint)
+ : QDialog(parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint|  Qt::WindowTitleHint)
 #endif
 {
     setupUi(this);
