@@ -4,6 +4,7 @@
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets/QtWidgets>
 #include <QtWidgets/QDialog>
+#include <QMultimedia>
 #else
 #include <QtWidgets/QDesktopWidget>
 #endif
@@ -25,7 +26,18 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
 {
     setupUi(this);
     this->setMinimumWidth(50);
-    prepareMask();
+    // prepareMask();
+
+    camera = new QCamera;
+    viewfinder = new QCameraViewfinder();
+    viewfinder->show();
+
+    camera->setViewfinder(viewfinder);
+
+    imageCapture = new QCameraImageCapture(camera);
+
+    camera->setCaptureMode(QCamera::CaptureStillImage);
+    camera->start();
 
 //    setAttribute(Qt::WA_NoSystemBackground, false);
 //    setAttribute(Qt::WA_TranslucentBackground, false);  
