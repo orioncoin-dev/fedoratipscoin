@@ -52,6 +52,11 @@
      </property>
     </widget>
     <widget class="QPlainTextEdit" name="outUri">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>28</y>
+     </property>
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
        <horstretch>0</horstretch>
