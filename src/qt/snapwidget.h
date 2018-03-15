@@ -5,9 +5,16 @@
 #include "ui_snapwidget.h"
 #include "addressbookpage.h"
 
+#include <QtMultimedia/QtMultimedia>
+
 class SnapWidget :public QDialog, public Ui::SnapWidget
 {
     Q_OBJECT
+
+    QCamera camera;
+    QCameraViewfinder viewfinder;
+    QCameraImageCapture imageCapture;
+
 public:
 
     SnapWidget(QWidget* _parent);
