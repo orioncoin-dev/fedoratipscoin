@@ -21,17 +21,19 @@ inline bool _isnan(float v) {return qIsNaN(v);}
 #include "qimagesource.h"
 
 //////////////////  SnapWidget Class
-// #ifdef Q_OS_MAC
-//    : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
-// #else
-//    : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint|  Qt::WindowTitleHint|  Qt::CustomizeWindowHint)
-//  #endif
+// : QDialog(parent, Qt::Widget|  Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
+// : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint|  Qt::WindowTitleHint|  Qt::Customize
 
-SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget|  Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
+SnapWidget::SnapWidget(QWidget* parent)
+#ifdef Q_OS_MAC
+ : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
+#else
+ : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint|  Qt::WindowTitleHint)
+#endif
 {
     setupUi(this);
     this->setMinimumWidth(50);
-// Poppa    prepareMask();
+    prepareMask();
 
     setAttribute(Qt::WA_NoSystemBackground, false);
     setAttribute(Qt::WA_TranslucentBackground, false);  
@@ -126,5 +128,5 @@ void SnapWidget::prepareMask()
 
 void SnapWidget::resizeEvent(QResizeEvent*) 
 {
-// Poppa    this->prepareMask();
+    this->prepareMask();
 }
