@@ -6,6 +6,7 @@
 #include "addressbookpage.h"
 
 #include <QtMultimedia/QtMultimedia>
+#include <QtMultimediaWidgets/qcameraviewfinder.h>
 
 class SnapWidget :public QDialog, public Ui::SnapWidget
 {
