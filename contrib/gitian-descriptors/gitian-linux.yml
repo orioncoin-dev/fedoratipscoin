@@ -1,5 +1,6 @@
 ---
 name: "bitcoin"
+enable_cache: true
 suites:
 - "xenial"
 architectures:
@@ -84,6 +85,12 @@ script: |
   HOST=x86_64-linux-gnu
   export PATH=$STAGING/host/bin:$PATH
   mkdir -p $STAGING $BUILDDIR $BINDIR
+
+  if test -n "$GBUILD_CACHE_ENABLED"; then
+    export SOURCES_PATH=${GBUILD_COMMON_CACHE}
+    export BASE_CACHE=${GBUILD_PACKAGE_CACHE}
+    mkdir -p ${BASE_CACHE} ${SOURCES_PATH}
+  fi
 
   cd $STAGING
   unzip -o $INDIR/qt-linux64-5.10.0-gitian-r2.zip
