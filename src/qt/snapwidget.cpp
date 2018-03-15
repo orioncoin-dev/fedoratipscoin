@@ -27,11 +27,11 @@ inline bool _isnan(float v) {return qIsNaN(v);}
 //    : QDialog(_parent, Qt::Widget | Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint|  Qt::WindowTitleHint|  Qt::CustomizeWindowHint)
 //  #endif
 
-SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
+SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget|  Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
 {
     setupUi(this);
     this->setMinimumWidth(50);
-    prepareMask();
+// Poppa    prepareMask();
 
     setAttribute(Qt::WA_NoSystemBackground, false);
     setAttribute(Qt::WA_TranslucentBackground, false);  
@@ -126,5 +126,5 @@ void SnapWidget::prepareMask()
 
 void SnapWidget::resizeEvent(QResizeEvent*) 
 {
-    this->prepareMask();
+// Poppa    this->prepareMask();
 }
