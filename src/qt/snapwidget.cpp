@@ -25,12 +25,12 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
 {
     setupUi(this);
     this->setMinimumWidth(50);
-//    prepareMask();
+    prepareMask();
 
-    setAttribute(Qt::WA_NoSystemBackground, false);
-    setAttribute(Qt::WA_TranslucentBackground, false);  
+//    setAttribute(Qt::WA_NoSystemBackground, false);
+//    setAttribute(Qt::WA_TranslucentBackground, false);  
+//    setVisible(true);
 
-    setVisible(true);
     show();
 }
 
@@ -102,16 +102,16 @@ void SnapWidget::prepareMask()
     option.initFrom(this);
     
     QRegion r;  
-#ifdef Q_OS_MAC
+//#ifdef Q_OS_MAC
     //this looks acceptable on Mac
     QRegion rgn(0, 0, fw, fh);
     QRegion rgn2(15, cancelButton->height() + 10, fw - 30, fh - 80);
-#else
-    //this looks ok on windows and ubuntu
-    int captionHeight = style()->pixelMetric(QStyle::PM_TitleBarHeight, &option, this);
-    QRegion rgn(-7, -captionHeight, fw, fh);
-    QRegion rgn2(5, cancelButton->height() + 3, fw - 28, fh - 75);
-#endif
+//#else
+//    //this looks ok on windows and ubuntu
+//    int captionHeight = style()->pixelMetric(QStyle::PM_TitleBarHeight, &option, this);
+//    QRegion rgn(-7, -captionHeight, fw, fh);
+//    QRegion rgn2(5, cancelButton->height() + 3, fw - 28, fh - 75);
+//#endif
     r = rgn.subtracted(rgn2);
     setMask(r);
     update();
@@ -120,5 +120,5 @@ void SnapWidget::prepareMask()
 
 void SnapWidget::resizeEvent(QResizeEvent*) 
 {
-//    this->prepareMask();
+    this->prepareMask();
 }
