@@ -29,15 +29,31 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
     // prepareMask();
 
     camera = new QCamera;
-    viewfinder = new QCameraViewfinder();
-    viewfinder.show();
+    QCameraViewfinder *viewfinder = new QCameraViewfinder();
+    viewfinder->show();
 
-    camera.setViewfinder(viewfinder);
+    QCameraImageCapture *cap = new QCameraImageCapture(camera);
+    cap->setCaptureDestination(QCameraImageCapture::CaptureToBuffer);
 
-    imageCapture = new QCameraImageCapture(camera);
+    camera->setViewfinder(viewfinder);
+    camera->setCaptureMode(QCamera::CaptureStillImage);
 
-    camera.setCaptureMode(QCamera::CaptureStillImage);
-    camera.start();
+    QObject::connect(cap, &QCameraImageCapture::imageCaptured, [=] (int id, QImage img) {
+      QByteArray buf;
+      QBuffer buffer(&buf);
+      buffer.open(QIODevice::WriteOnly);
+      img.save(&buffer, "PNG");
+    });
+
+    QObject::connect(cap, &QCameraImageCapture::readyForCaptureChanged, [=] (bool state) {
+      if(state == true) {
+       camera->searchAndLock();
+       capera->capture();
+       camera->unlock();
+       }
+    });
+
+    camera->start();
 
 //    setAttribute(Qt::WA_NoSystemBackground, false);
 //    setAttribute(Qt::WA_TranslucentBackground, false);  
