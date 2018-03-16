@@ -48,7 +48,7 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
     QObject::connect(cap, &QCameraImageCapture::readyForCaptureChanged, [=] (bool state) {
       if(state == true) {
        camera->searchAndLock();
-       camera->capture();
+       cap->capture();
        camera->unlock();
        }
     });
