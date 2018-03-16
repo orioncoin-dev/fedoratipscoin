@@ -11,11 +11,7 @@
 class SnapWidget :public QDialog, public Ui::SnapWidget
 {
     Q_OBJECT
-
-    QCamera camera;
-    QCameraViewfinder viewfinder;
-    QCameraImageCapture imageCapture;
-
+    QCamera *camera;
 public:
 
     SnapWidget(QWidget* _parent);
