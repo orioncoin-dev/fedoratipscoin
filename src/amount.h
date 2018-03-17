@@ -31,8 +31,7 @@ extern const std::string CURRENCY_UNIT;
  * */
 // static const CAmount MAX_MONEY = 336000000 * COIN;
 // Removed by Poppa for now
-
-inline bool MoneyRange(const CAmount& nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
+// inline bool MoneyRange(const CAmount& nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 
 /**
  * Fee rate in satoshis per kilobyte: CAmount / kB
