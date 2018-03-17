@@ -27,6 +27,7 @@ DIST_SUBDIRS = . qt test
 BITCOIN_CORE_H = \
   addrman.h \
   alert.h \
+  amount.h \
   auxpow.h \
   allocators.h \
   base58.h bignum.h \
@@ -98,6 +99,7 @@ version.o: obj/build.h
 libbitcoin_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
+  amount.cpp \
   auxpow.cpp \
   bloom.cpp \
   checkpoints.cpp \
