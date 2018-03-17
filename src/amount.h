@@ -12,6 +12,7 @@
 #include <string>
 
 #include "util.h"
+#include "core.h"
 
 /** Amount in satoshis (Can be negative) */
 typedef int64_t CAmount;
@@ -32,7 +33,7 @@ extern const std::string CURRENCY_UNIT;
  * for the creation of coins out of thin air modification could lead to a fork.
  * */
 static const CAmount MAX_MONEY_AMT = 336000000 * COIN;
-inline bool MoneyRange(const CAmount& nValue) { return (nValue >= 0 && nValue <= MAX_MONEY_AMT); }
+inline bool MoneyRangeAmt(const CAmount& nValue) { return (nValue >= 0 && nValue <= MAX_MONEY_AMT); }
 
 /**
  * Fee rate in satoshis per kilobyte: CAmount / kB
