@@ -210,5 +210,5 @@ QVariant BitcoinUnits::data(const QModelIndex &index, int role) const
 
 CAmount BitcoinUnits::maxMoney()
 {
-    return MAX_MONEY;
+    return MAX_MONEY_AMT;
 }
