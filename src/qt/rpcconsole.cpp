@@ -280,9 +280,11 @@ void RPCConsole::setClientModel(ClientModel *model)
         // Provide initial values
         ui->clientVersion->setText(model->formatFullVersion());
         ui->clientName->setText(model->clientName());
-        ui->buildDate->setText(model->formatBuildDate());
-        ui->startupTime->setText(model->formatClientStartupTime());
 
+        // removed by Poppa ... for now
+        ui->buildDate->setText(model->formatBuildDate());
+
+        ui->startupTime->setText(model->formatClientStartupTime());
         ui->networkName->setText(model->getNetworkName());
     }
 }

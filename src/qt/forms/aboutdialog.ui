@@ -153,14 +153,14 @@
      <item>
       <widget class="QLabel" name="label_17">
        <property name="text">
-        <string>Donations for wallet enhancements can be sent to mrbodz:</string>
+        <string></string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="label_18">
        <property name="text">
-        <string>BTC: 12tSquEBTgs2WsHXgh5kKD8hNwvsrvo7o1</string>
+        <string></string>
        </property>
       </widget>
      </item>
