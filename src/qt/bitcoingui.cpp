@@ -457,7 +457,7 @@ void BitcoinGUI::createMenuBar()
     QMenu *file = appMenuBar->addMenu(tr("&Wallet"));
     if(walletFrame)
     {
-        file->addAction(openAction);
+        //file->addAction(openAction);
         file->addAction(backupWalletAction);
         file->addAction(paperWalletAction);
         file->addSeparator();        
@@ -493,15 +493,16 @@ void BitcoinGUI::createMenuBar()
         advanced->addAction(inertBlockChainAction);
         advanced->addAction(opennameAction);
     }
-    
-    QMenu *plugins = appMenuBar->addMenu(tr("&Plugins"));
-    if(walletFrame)
-    { 
-        plugins->addAction(bitmessageAction);
-        plugins->addSeparator();
-        plugins->addAction(shapeshiftAction);
-        plugins->addAction(coinnectorAction);
-    }
+
+    // removed by Poppa - don't seem to work correctly at the moment...    
+    // QMenu *plugins = appMenuBar->addMenu(tr("&Plugins"));
+    // if(walletFrame)
+    // { 
+    //     plugins->addAction(bitmessageAction);
+    //     plugins->addSeparator();
+    //     plugins->addAction(shapeshiftAction);
+    //     plugins->addAction(coinnectorAction);
+    // }
     
     QMenu *help = appMenuBar->addMenu(tr("&Help"));
     help->addAction(showHelpMessageAction);
