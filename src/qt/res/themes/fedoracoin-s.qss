@@ -211,7 +211,7 @@ QMenuBar::item
 
 QMenuBar::item:disabled
 {
-    color: #C0C0C0;
+    color: #c0c0c0;
 }
 
 QMenuBar::item:selected
@@ -245,6 +245,11 @@ QMenu::item
 {
     padding: 5px 30px 5px 30px;
     border: 1px solid transparent; /* reserve space for selection border */
+}
+
+QMenu::item:disabled
+{
+    color: #c0c0c0;
 }
 
 QMenu::item:selected
