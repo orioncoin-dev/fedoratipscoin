@@ -28,9 +28,9 @@ bool BitcoinUnits::valid(int unit)
 {
     switch(unit)
     {
-    case BTC:
-    case mBTC:
-    case uBTC:
+    case TIPS:
+    case mTIPS:
+    case uTIPS:
         return true;
     default:
         return false;
@@ -41,9 +41,9 @@ QString BitcoinUnits::name(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("TIPS");
-    case mBTC: return QString("mTIPS");
-    case uBTC: return QString::fromUtf8("μTIPS");
+    case TIPS: return QString("TIPS");
+    case mTIPS: return QString("mTIPS");
+    case uTIPS: return QString::fromUtf8("μTIPS");
     default: return QString("???");
     }
 }
@@ -52,9 +52,9 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("Fedoracoins");
-    case mBTC: return QString("Milli-Fedoracoins (1 / 1" THIN_SP_UTF8 "000)");
-    case uBTC: return QString("Micro-Fedoracoins (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case TIPS: return QString("TIPSFedoracoins");
+    case mTIPS: return QString("Milli-TIPSFedoracoins (1 / 1" THIN_SP_UTF8 "000)");
+    case uTIPS: return QString("Micro-TIPSFedoracoins (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }
@@ -63,9 +63,9 @@ qint64 BitcoinUnits::factor(int unit)
 {
     switch(unit)
     {
-    case BTC:  return 100000000;
-    case mBTC: return 100000;
-    case uBTC: return 100;
+    case TIPS:  return 100000000;
+    case mTIPS: return 100000;
+    case uTIPS: return 100;
     default:   return 100000000;
     }
 }
@@ -74,9 +74,9 @@ int BitcoinUnits::decimals(int unit)
 {
     switch(unit)
     {
-    case BTC: return 8;
-    case mBTC: return 5;
-    case uBTC: return 2;
+    case TIPS: return 8;
+    case mTIPS: return 5;
+    case uTIPS: return 2;
     default: return 0;
     }
 }
