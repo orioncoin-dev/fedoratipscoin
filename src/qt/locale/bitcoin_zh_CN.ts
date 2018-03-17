@@ -1271,7 +1271,7 @@ Address: %4
         <translation>钱包个数？</translation>
     </message>
     <message>
-        <source>So Print</source>
+        <source>Print</source>
         <translation>开始打印</translation>
     </message>
     <message>

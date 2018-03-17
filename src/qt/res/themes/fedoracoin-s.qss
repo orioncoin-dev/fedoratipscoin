@@ -209,6 +209,11 @@ QMenuBar::item
     background: transparent;
 }
 
+QMenuBar::item:disabled
+{
+    color: #C0C0C0;
+}
+
 QMenuBar::item:selected
 {
     background: transparent;
