@@ -117,9 +117,8 @@ public:
         return text;
     }
 
-    // Removed by Poppa for now, should be in a separate library I believe
     //! Return maximum number of base units (Satoshis)
-    // static CAmount maxMoney();
+    static CAmount maxMoney();
 
 private:
     QList<BitcoinUnits::Unit> unitlist;

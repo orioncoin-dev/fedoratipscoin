@@ -207,8 +207,7 @@ QVariant BitcoinUnits::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-// Removed by Poppa for now
-// CAmount BitcoinUnits::maxMoney()
-// {
-//    return MAX_MONEY;
-// }
+CAmount BitcoinUnits::maxMoney()
+{
+    return MAX_MONEY;
+}
