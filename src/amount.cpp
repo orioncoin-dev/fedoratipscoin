@@ -36,9 +36,9 @@ CAmount CFeeRate::GetFee(size_t nBytes_) const
 
     return nFee;
 }
-
-std::string CFeeRate::ToString() const
-{
-    return strprintf("%d.%08d %s/kB", nSatoshisPerK / COIN, nSatoshisPerK % COIN, CURRENCY_UNIT);
-}
+// Removed by Poppa for now
+// std::string CFeeRate::ToString() const
+// {
+//    return strprintf("%d.%08d %s/kB", nSatoshisPerK / COIN, nSatoshisPerK % COIN, CURRENCY_UNIT);
+// }
 
