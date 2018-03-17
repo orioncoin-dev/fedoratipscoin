@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.0"> 
  <class>TransactionDescDialog</class>
  <widget class="QDialog" name="TransactionDescDialog">
   <property name="geometry">
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Transaction details</string>
+   <string notr="true">Transaction details</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
