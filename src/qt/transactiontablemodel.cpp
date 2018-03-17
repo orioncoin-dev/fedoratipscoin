@@ -5,6 +5,7 @@
 #include "transactiontablemodel.h"
 
 #include "addresstablemodel.h"
+#include "bitcoinunits.h"
 #include "guiconstants.h"
 #include "guiutil.h"
 #include "optionsmodel.h"
@@ -13,12 +14,11 @@
 #include "transactionrecord.h"
 #include "walletmodel.h"
 
-#include "core_io.h"
 #include "main.h"
 #include "sync.h"
 #include "uint256.h"
 #include "util.h"
-#include "wallet/wallet.h"
+#include "wallet.h"
 
 #include <QtGui/QColor>
 #include <QtCore/QDateTime>
