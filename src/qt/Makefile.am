@@ -228,6 +228,7 @@ BITCOIN_QT_H = \
   transactionrecord.h \
   transactiontablemodel.h \
   transactionview.h \
+  platformstyle.h \
   utilitydialog.h \
   walletframe.h \
   walletmodel.h \
@@ -380,6 +381,7 @@ BITCOIN_QT_CPP += \
   transactionrecord.cpp \
   transactiontablemodel.cpp \
   transactionview.cpp \
+  platformstyle.cpp \
   walletframe.cpp \
   walletmodel.cpp \
   walletmodeltransaction.cpp \
