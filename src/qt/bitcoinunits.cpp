@@ -4,7 +4,8 @@
 
 #include "bitcoinunits.h"
 
-#include "primitives/transaction.h"
+// removed by Poppa - Feather has a hard fork to support NeoScript
+// #include "primitives/transaction.h"
 
 #include <QStringList>
 
