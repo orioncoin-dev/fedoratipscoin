@@ -47,7 +47,9 @@ WalletView::WalletView(QWidget *parent):
     QVBoxLayout *vbox = new QVBoxLayout();
     QHBoxLayout *hbox_buttons = new QHBoxLayout();
     const PlatformStyle *walletPlatformStyle;
-    walletPlatformStyle = PlatformStyle::instantiate(QString::fromStdString(BitcoinGUI::DEFAULT_UIPLATFORM));
+    const std::string s_os = BitcoinGUI::DEFAULT_UIPLATFORM;
+    QString plat = QString::fromStdString(s_os);
+    walletPlatformStyle = PlatformStyle::instantiate(plat);
     transactionView = new TransactionView(walletPlatformStyle, this);
     vbox->addWidget(transactionView);
     
