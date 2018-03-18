@@ -1036,9 +1036,9 @@ void BitcoinGUI::incomingTransaction(const QString& date, int unit, qint64 amoun
     QString msg = tr("Date: %1\n").arg(date) +
                   tr("Amount: %1\n").arg(BitcoinUnits::formatWithUnit(unit, amount, true)) +
                   tr("Type: %1\n").arg(type);
-    if (!label.isEmpty())
-        msg += tr("Label: %1\n").arg(label);
-    else if (!address.isEmpty())
+    //if (!label.isEmpty())
+    //    msg += tr("Label: %1\n").arg(label);  else if...
+    if (!address.isEmpty())
         msg += tr("Address: %1\n").arg(address);
     message((amount)<0 ? tr("Sent transaction") : tr("Incoming transaction"),
              msg, CClientUIInterface::MSG_INFORMATION);
