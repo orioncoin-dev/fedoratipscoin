@@ -26,7 +26,7 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
 {
     setupUi(this);
     this->setMinimumWidth(50);
-//    prepareMask();
+    prepareMask();
 
 //    camera = new QCamera;
 //    QCameraViewfinder *viewfinder = new QCameraViewfinder();
@@ -83,24 +83,24 @@ void SnapWidget::on_snapButton_clicked()
         QImage image = p.toImage();
         Ref<Result> r;
         MultiFormatReader* qrDecoder = new MultiFormatReader();
-        QImageLuminanceSource* lumImage = new QImageLuminanceSource(image);
-        Ref<LuminanceSource> imageRef(lumImage);
-        GlobalHistogramBinarizer* binarizer = new GlobalHistogramBinarizer(imageRef);
-        Ref<Binarizer> binarizerRef(binarizer);
-        BinaryBitmap* binaryBitmap = new BinaryBitmap(binarizerRef);
-        Ref<BinaryBitmap> binaryBitmapRef(binaryBitmap);
-        try {
-            r = qrDecoder->decode(binaryBitmapRef, DecodeHints::QR_CODE_HINT);
-        }
-        catch (Exception e) {
-            delete qrDecoder;
-            close();
-            return;
-        }
-
-        Ref<String> s = r->getText();
-        const std::string ss = s->getText(); 
-        decodedString = QString(ss.c_str());
+//        QImageLuminanceSource* lumImage = new QImageLuminanceSource(image);
+//        Ref<LuminanceSource> imageRef(lumImage);
+//        GlobalHistogramBinarizer* binarizer = new GlobalHistogramBinarizer(imageRef);
+//        Ref<Binarizer> binarizerRef(binarizer);
+//        BinaryBitmap* binaryBitmap = new BinaryBitmap(binarizerRef);
+//        Ref<BinaryBitmap> binaryBitmapRef(binaryBitmap);
+//        try {
+//            r = qrDecoder->decode(binaryBitmapRef, DecodeHints::QR_CODE_HINT);
+//        }
+//        catch (Exception e) {
+//            delete qrDecoder;
+//            close();
+//            return;
+//        }
+//
+//        Ref<String> s = r->getText();
+//        const std::string ss = s->getText(); 
+//        decodedString = QString(ss.c_str());
 
         delete qrDecoder;
     }
