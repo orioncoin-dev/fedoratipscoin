@@ -5,9 +5,9 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 0.9.3
-!define COMPANY "Fedoracoin project"
-!define URL http://www.fedoracoin.org/
+!define VERSION 2.5.1
+!define COMPANY "TIPS Fedoracoin project"
+!define URL http://www.tipsco.in
 
 # MUI Symbol Definitions
 !define MUI_ICON "/root/fedoracoin-new/share/pixmaps/bitcoin.ico"
@@ -111,7 +111,7 @@ Section -post SEC0001
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoModify 1
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
     WriteRegStr HKCR "fedoracoin" "URL Protocol" ""
-    WriteRegStr HKCR "fedoracoin" "" "URL:Fedoracoin"
+    WriteRegStr HKCR "fedoracoin" "" "URL:TIPSFedoracoin"
     WriteRegStr HKCR "fedoracoin\DefaultIcon" "" $INSTDIR\fedoracoin-qt.exe
     WriteRegStr HKCR "fedoracoin\shell\open\command" "" '"$INSTDIR\fedoracoin-qt.exe" "%1"'
 SectionEnd
