@@ -60,6 +60,15 @@
 #include <QtCore/QUrlQuery>
 #endif
 
+const std::string BitcoinGUI::DEFAULT_UIPLATFORM =
+#if defined(Q_OS_MAC)
+        "macosx"
+#elif defined(Q_OS_WIN)
+        "windows"
+#else
+        "other"
+#endif
+
 const QString BitcoinGUI::DEFAULT_WALLET = "~Default";
 	
 ActiveLabel::ActiveLabel(const QString & text, QWidget * parent):

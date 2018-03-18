@@ -45,7 +45,7 @@ WalletView::WalletView(QWidget *parent):
     transactionsPage = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout();
     QHBoxLayout *hbox_buttons = new QHBoxLayout();
-    transactionView = new TransactionView(this);
+    transactionView = new TransactionView(PlatformStyle::instantiate(QString::fromStdString(BitcoinGUI::DEFAULT_UIPLATFORM)), this);
     vbox->addWidget(transactionView);
     
     accountreportPage = new QWidget(this);
