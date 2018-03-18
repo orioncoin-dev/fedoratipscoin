@@ -68,6 +68,7 @@ const std::string BitcoinGUI::DEFAULT_UIPLATFORM =
 #else
         "other"
 #endif
+        ;
 
 const QString BitcoinGUI::DEFAULT_WALLET = "~Default";
 	
