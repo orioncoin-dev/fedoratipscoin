@@ -81,8 +81,8 @@ void SnapWidget::on_snapButton_clicked()
     
     if (!p.isNull()) {
         QImage image = p.toImage();
-        Ref<Result> r;
-        MultiFormatReader* qrDecoder = new MultiFormatReader();
+//        Ref<Result> r;
+//        MultiFormatReader* qrDecoder = new MultiFormatReader();
 //        QImageLuminanceSource* lumImage = new QImageLuminanceSource(image);
 //        Ref<LuminanceSource> imageRef(lumImage);
 //        GlobalHistogramBinarizer* binarizer = new GlobalHistogramBinarizer(imageRef);
@@ -101,8 +101,8 @@ void SnapWidget::on_snapButton_clicked()
 //        Ref<String> s = r->getText();
 //        const std::string ss = s->getText(); 
 //        decodedString = QString(ss.c_str());
-
-        delete qrDecoder;
+//
+//        delete qrDecoder;
     }
     this->close();
 }
