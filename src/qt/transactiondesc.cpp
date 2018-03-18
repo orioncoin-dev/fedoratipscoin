@@ -14,7 +14,6 @@
 #include "base58.h"
 #include "main.h"
 #include "script.h"
-#include "timedata.h"
 #include "util.h"
 #include "db.h"
 #include "wallet.h"
