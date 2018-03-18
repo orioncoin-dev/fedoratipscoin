@@ -26,7 +26,7 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
 {
     setupUi(this);
     this->setMinimumWidth(50);
-    prepareMask();
+//    prepareMask();
 
 //    camera = new QCamera;
 //    QCameraViewfinder *viewfinder = new QCameraViewfinder();
