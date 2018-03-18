@@ -185,15 +185,6 @@ TransactionView::TransactionView(const PlatformStyle *platformStyle, QWidget *pa
     connect(showDetailsAction, SIGNAL(triggered()), this, SLOT(showDetails()));
 }
 
-void TransactionView::showTotal()
-{
-          float fTotal=0;
-          for (int i=0;i<=transactionProxyModel->rowCount();i++)
-                fTotal+=transactionProxyModel->data(transactionProxyModel->index(i,4)).toFloat();
-
-    totalWidget->setText(tr("Date:")+dateWidget->currentText()+" "+tr("Type:")+typeWidget->currentText()+" "+tr("Total:")+QObject::tr("%1").arg(fTotal)+" TIPS");
-}
-
 void TransactionView::setModel(WalletModel *model)
 {
     this->model = model;
@@ -243,7 +234,7 @@ void TransactionView::setModel(WalletModel *model)
         }
 
         //connect(transactionView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), this, SLOT(showTotal()));
-        showTotal();
+        //showTotal();
     }
 }
 
