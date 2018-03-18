@@ -94,10 +94,10 @@ private Q_SLOTS:
     void copyLabel();
     void copyAmount();
     void copyTxID();
-    void copyTxHex();
-    void copyTxPlainText();
+    //void copyTxHex();
+    //void copyTxPlainText();
     void openThirdPartyTxUrl(QString url);
-    void updateWatchOnlyColumn(bool fHaveWatchOnly);
+    //void updateWatchOnlyColumn(bool fHaveWatchOnly);
     void abandonTx();
 
 Q_SIGNALS:

@@ -143,8 +143,8 @@ TransactionView::TransactionView(const PlatformStyle *platformStyle, QWidget *pa
     QAction *copyLabelAction = new QAction(tr("Copy label"), this);
     QAction *copyAmountAction = new QAction(tr("Copy amount"), this);
     QAction *copyTxIDAction = new QAction(tr("Copy transaction ID"), this);
-    QAction *copyTxHexAction = new QAction(tr("Copy raw transaction"), this);
-    QAction *copyTxPlainText = new QAction(tr("Copy full transaction details"), this);
+    // QAction *copyTxHexAction = new QAction(tr("Copy raw transaction"), this);
+    // QAction *copyTxPlainText = new QAction(tr("Copy full transaction details"), this);
     QAction *editLabelAction = new QAction(tr("Edit label"), this);
     QAction *showDetailsAction = new QAction(tr("Show transaction details"), this);
 
@@ -153,8 +153,8 @@ TransactionView::TransactionView(const PlatformStyle *platformStyle, QWidget *pa
     contextMenu->addAction(copyLabelAction);
     contextMenu->addAction(copyAmountAction);
     contextMenu->addAction(copyTxIDAction);
-    contextMenu->addAction(copyTxHexAction);
-    contextMenu->addAction(copyTxPlainText);
+    // contextMenu->addAction(copyTxHexAction);
+    // contextMenu->addAction(copyTxPlainText);
     contextMenu->addAction(showDetailsAction);
     contextMenu->addSeparator();
     // contextMenu->addAction(abandonAction);
@@ -179,10 +179,19 @@ TransactionView::TransactionView(const PlatformStyle *platformStyle, QWidget *pa
     connect(copyLabelAction, SIGNAL(triggered()), this, SLOT(copyLabel()));
     connect(copyAmountAction, SIGNAL(triggered()), this, SLOT(copyAmount()));
     connect(copyTxIDAction, SIGNAL(triggered()), this, SLOT(copyTxID()));
-    connect(copyTxHexAction, SIGNAL(triggered()), this, SLOT(copyTxHex()));
-    connect(copyTxPlainText, SIGNAL(triggered()), this, SLOT(copyTxPlainText()));
+    // connect(copyTxHexAction, SIGNAL(triggered()), this, SLOT(copyTxHex()));
+    // connect(copyTxPlainText, SIGNAL(triggered()), this, SLOT(copyTxPlainText()));
     connect(editLabelAction, SIGNAL(triggered()), this, SLOT(editLabel()));
     connect(showDetailsAction, SIGNAL(triggered()), this, SLOT(showDetails()));
+}
+
+void TransactionView::showTotal()
+{
+          float fTotal=0;
+          for (int i=0;i<=transactionProxyModel->rowCount();i++)
+                fTotal+=transactionProxyModel->data(transactionProxyModel->index(i,4)).toFloat();
+
+    totalWidget->setText(tr("Date:")+dateWidget->currentText()+" "+tr("Type:")+typeWidget->currentText()+" "+tr("Total:")+QObject::tr("%1").arg(fTotal)+" TIPS");
 }
 
 void TransactionView::setModel(WalletModel *model)
@@ -233,7 +242,7 @@ void TransactionView::setModel(WalletModel *model)
             }
         }
 
-        connect(transactionView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), this, SLOT(showTotal()));
+        //connect(transactionView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)), this, SLOT(showTotal()));
         showTotal();
     }
 }
@@ -412,15 +421,15 @@ void TransactionView::copyTxID()
     GUIUtil::copyEntryData(transactionView, 0, TransactionTableModel::TxIDRole);
 }
 
-void TransactionView::copyTxHex()
-{
-    GUIUtil::copyEntryData(transactionView, 0, TransactionTableModel::TxHexRole);
-}
+//void TransactionView::copyTxHex()
+//{
+//    GUIUtil::copyEntryData(transactionView, 0, TransactionTableModel::TxHexRole);
+//}
 
-void TransactionView::copyTxPlainText()
-{
-    GUIUtil::copyEntryData(transactionView, 0, TransactionTableModel::TxPlainTextRole);
-}
+//void TransactionView::copyTxPlainText()
+//{
+//    GUIUtil::copyEntryData(transactionView, 0, TransactionTableModel::TxPlainTextRole);
+//}
 
 void TransactionView::editLabel()
 {
@@ -569,8 +578,9 @@ bool TransactionView::eventFilter(QObject *obj, QEvent *event)
 }
 
 // show/hide column Watch-only
-void TransactionView::updateWatchOnlyColumn(bool fHaveWatchOnly)
-{
-    watchOnlyWidget->setVisible(fHaveWatchOnly);
-    transactionView->setColumnHidden(TransactionTableModel::Watchonly, !fHaveWatchOnly);
+//void TransactionView::updateWatchOnlyColumn(bool fHaveWatchOnly)
+//{
+//    watchOnlyWidget->setVisible(fHaveWatchOnly);
+//    transactionView->setColumnHidden(TransactionTableModel::Watchonly, !fHaveWatchOnly);
+//
 }
