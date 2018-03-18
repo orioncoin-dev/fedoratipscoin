@@ -570,7 +570,7 @@ bool TransactionView::eventFilter(QObject *obj, QEvent *event)
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         if (ke->key() == Qt::Key_C && ke->modifiers().testFlag(Qt::ControlModifier))
         {
-             GUIUtil::copyEntryData(transactionView, 0, TransactionTableModel::TxPlainTextRole);
+             //GUIUtil::copyEntryData(transactionView, 0, TransactionTableModel::TxPlainTextRole);
              return true;
         }
     }
@@ -583,4 +583,4 @@ bool TransactionView::eventFilter(QObject *obj, QEvent *event)
 //    watchOnlyWidget->setVisible(fHaveWatchOnly);
 //    transactionView->setColumnHidden(TransactionTableModel::Watchonly, !fHaveWatchOnly);
 //
-}
+//}

@@ -36,6 +36,7 @@ public:
     explicit TransactionView(const PlatformStyle *platformStyle, QWidget *parent = 0);
 
     void setModel(WalletModel *model);
+    void showTotal();
 
     // Date ranges for filter
     enum DateEnum
