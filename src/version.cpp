@@ -61,11 +61,11 @@ const std::string CLIENT_NAME("Fedoracoin");
 #endif
 
 #ifndef BUILD_DATE
-#    ifdef GIT_COMMIT_DATE
-#        define BUILD_DATE GIT_COMMIT_DATE
-#    else
-#        define BUILD_DATE __DATE__ ", " __TIME__
-#    endif
+    ifdef GIT_COMMIT_DATE
+        define BUILD_DATE GIT_COMMIT_DATE
+    else
+        define BUILD_DATE __DATE__ ", " __TIME__
+    endif
 #endif
 
 const std::string CLIENT_BUILD(BUILD_DESC CLIENT_VERSION_SUFFIX);
