@@ -21,7 +21,8 @@
 #include "reportview.h"
 #include "walletmodel.h"
 #include "utilitydialog.h"
-
+#include "platformstyle.h"
+#
 #include "ui_interface.h"
 
 #include <QtWidgets/QAction>
@@ -45,7 +46,8 @@ WalletView::WalletView(QWidget *parent):
     transactionsPage = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout();
     QHBoxLayout *hbox_buttons = new QHBoxLayout();
-    transactionView = new TransactionView(PlatformStyle::instantiate(QString::fromStdString(BitcoinGUI::DEFAULT_UIPLATFORM)), this);
+    walletPlatformStyle = PlatformStyle::instantiate(QString::fromStdString(BitcoinGUI::DEFAULT_UIPLATFORM));
+    transactionView = new TransactionView(walletPlatformStyle, this);
     vbox->addWidget(transactionView);
     
     accountreportPage = new QWidget(this);
