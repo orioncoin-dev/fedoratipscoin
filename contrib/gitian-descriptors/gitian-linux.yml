@@ -222,6 +222,9 @@ script: |
   uic -o ui_openuridialog.h forms/openuridialog.ui
   uic -o ui_rpcconsole.h forms/rpcconsole.ui
 
+  # echo "Calling moc... must build some explicitly due to forward references"
+  moc -o bitcoinamountfield.moc bitcoinamountfield.cpp
+
   cd ..
   cd ..
 
