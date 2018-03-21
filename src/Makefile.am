@@ -49,6 +49,7 @@ BITCOIN_CORE_H = \
   key.h \
   keystore.h \
   leveldbwrapper.h \
+  chainparamsbase.h \
   limitedmap.h \
   main.h \
   miner.h \
@@ -112,6 +113,7 @@ libbitcoin_server_a_SOURCES = \
   miner.cpp \
   net.cpp \
   noui.cpp \
+  chainparamsbase.cpp \
   rpcblockchain.cpp \
   rpcmining.cpp \
   rpcmisc.cpp \
