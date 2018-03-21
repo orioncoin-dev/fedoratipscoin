@@ -265,8 +265,10 @@ void ReportView::changedAmount(const QString &amount)
     if(!transactionProxyModel)
         return;
     qint64 amount_parsed = 0;
-    if(BitcoinUnits::parse(model->getOptionsModel()->getDisplayUnit(), amount, &amount_parsed))
+    CAmount camt = 0;
+    if(BitcoinUnits::parse(model->getOptionsModel()->getDisplayUnit(), amount, &camt))
     {
+        amount_parsed = (qint64)camt;
         transactionProxyModel->setMinAmount(amount_parsed);
     }
     else
