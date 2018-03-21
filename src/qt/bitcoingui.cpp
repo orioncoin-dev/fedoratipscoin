@@ -421,9 +421,7 @@ void BitcoinGUI::createActions(bool fIsTestnet)
     showHelpMessageAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&Command-line options"), this);
     showHelpMessageAction->setStatusTip(tr("Show the Fedoracoin Core help message to get a list with possible Fedoracoin command-line options"));
 
-    //connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
-    connect(quitAction, SIGNAL(triggered()), walletFrame, SLOT(backupquitWallet()));
-    
+    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
@@ -1017,7 +1015,6 @@ void BitcoinGUI::closeEvent(QCloseEvent *event)
 {		
     if(clientModel)
     {
-    	//if (walletFrame) walletFrame->backupWallet();
 #ifndef Q_OS_MAC // Ignored on Mac
         if(!clientModel->getOptionsModel()->getMinimizeToTray() &&
            !clientModel->getOptionsModel()->getMinimizeOnClose())
@@ -1167,8 +1164,6 @@ void BitcoinGUI::detectShutdown()
 {			
     if (ShutdownRequested())
     {
-        //if (walletFrame) walletFrame->backupWallet();
-			
         if(rpcConsole)
             rpcConsole->hide();
         qApp->quit();
