@@ -8,6 +8,7 @@
 #include "bitcoinunits.h"
 #include "qvalidatedlineedit.h"
 #include "walletmodel.h"
+#include "chainparamsbase.h"
 
 #include "core.h"
 #include "init.h"
