@@ -82,7 +82,7 @@ QGroupBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/res/images/darkstyle/checkbox_unchecked.png);
+    image: url(../images/darkstyle/checkbox_unchecked.png);
 }
 
 QCheckBox::indicator:unchecked:hover,
@@ -93,12 +93,12 @@ QGroupBox::indicator:unchecked:focus,
 QGroupBox::indicator:unchecked:pressed
 {
   border: none;
-    image: url(:/res/images/darkstyle/checkbox_unchecked_focus.png);
+    image: url(../images/darkstyle/checkbox_unchecked_focus.png);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/res/images/darkstyle/checkbox_checked.png);
+    image: url(../images/darkstyle/checkbox_checked.png);
 }
 
 QCheckBox::indicator:checked:hover,
@@ -109,32 +109,32 @@ QGroupBox::indicator:checked:focus,
 QGroupBox::indicator:checked:pressed
 {
   border: none;
-    image: url(:/res/images/darkstyle/checkbox_checked_focus.png);
+    image: url(../images/darkstyle/checkbox_checked_focus.png);
 }
 
 
 QCheckBox::indicator:indeterminate
 {
-    image: url(:/res/images/darkstyle/checkbox_indeterminate.png);
+    image: url(../images/darkstyle/checkbox_indeterminate.png);
 }
 
 QCheckBox::indicator:indeterminate:focus,
 QCheckBox::indicator:indeterminate:hover,
 QCheckBox::indicator:indeterminate:pressed
 {
-    image: url(:/res/images/darkstyle/checkbox_indeterminate_focus.png);
+    image: url(../images/darkstyle/checkbox_indeterminate_focus.png);
 }
 
 QCheckBox::indicator:checked:disabled,
 QGroupBox::indicator:checked:disabled
 {
-    image: url(:/res/images/darkstyle/checkbox_checked_disabled.png);
+    image: url(../images/darkstyle/checkbox_checked_disabled.png);
 }
 
 QCheckBox::indicator:unchecked:disabled,
 QGroupBox::indicator:unchecked:disabled
 {
-    image: url(:/res/images/darkstyle/checkbox_unchecked_disabled.png);
+    image: url(../images/darkstyle/checkbox_unchecked_disabled.png);
 }
 
 QRadioButton
