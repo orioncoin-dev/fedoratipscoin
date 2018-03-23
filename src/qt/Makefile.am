@@ -296,7 +296,46 @@ RES_ICONS = \
   res/icons/bitmessage.png \
   res/icons/shapeshift.png \
   res/icons/comment.png \
-  res/icons/sx.png
+  res/icons/sx.png \
+  res/images/branch_closed.png \
+  res/images/branch_open-on.png \
+  res/images/branch_open.png \
+  res/images/checkbox_checked_disabled.png \
+  res/images/checkbox_checked_focus.png \
+  res/images/checkbox_checked.png \
+  res/images/checkbox_indeterminate_disabled.png \
+  res/images/checkbox_indeterminate_focus.png \
+  res/images/checkbox_indeterminate.png \
+  res/images/checkbox_unchecked_disabled.png \
+  res/images/checkbox_unchecked_focus.png \
+  res/images/checkbox_unchecked.png \
+  res/images/close-hover.png \
+  res/images/close.png \
+  res/images/close-pressed.png \
+  res/images/down_arrow_disabled.png \
+  res/images/down_arrow.png \
+  res/images/Hmovetoolbar.png \
+  res/images/Hsepartoolbar.png \
+  res/images/left_arrow_disabled.png \
+  res/images/left_arrow.png \
+  res/images/radio_checked_disabled.png \
+  res/images/radio_checked_focus.png \
+  res/images/radio_checked.png \
+  res/images/radio_unchecked_disabled.png \
+  res/images/radio_unchecked_focus.png \
+  res/images/radio_unchecked.png \
+  res/images/right_arrow_disabled.png \
+  res/images/right_arrow.png \
+  res/images/sizegrip.png \
+  res/images/stylesheet-branch-end.png \
+  res/images/stylesheet-branch-more.png \
+  res/images/stylesheet-vline.png \
+  res/images/transparent.png \
+  res/images/undock.png \
+  res/images/up_arrow_disabled.png \
+  res/images/up_arrow.png \
+  res/images/Vmovetoolbar.png \
+  res/images/Vsepartoolbar.png
 
 RES_THEMES = \
   res/themes/fedoracoin-s.qss
