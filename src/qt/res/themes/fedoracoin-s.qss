@@ -65,6 +65,17 @@ QCheckBox
     background-color: #666666;
 }
 
+// this little section appears critical to qt page rendering
+QCheckBox::indicator:unchecked
+{
+    image: url(:images/checkbox_unchecked.png);
+}
+QCheckBox::indicator:checked
+{
+    image: url(:images/checkbox_checked.png);
+}
+// end critical section
+
 QCheckBox:disabled
 {
     color: #86797C; //#76797C;
@@ -81,11 +92,6 @@ QGroupBox::indicator
     margin-left: 2px;
 }
 
-//QCheckBox::indicator:unchecked
-//{
-//    image: url(:images/checkbox_unchecked.png);
-//}
-
 QCheckBox::indicator:unchecked:hover,
 QCheckBox::indicator:unchecked:focus,
 QCheckBox::indicator:unchecked:pressed,
@@ -96,11 +102,6 @@ QGroupBox::indicator:unchecked:pressed
     border: none;
     image: url(:images/checkbox_unchecked_focus.png);
 }
-
-//QCheckBox::indicator:checked
-//{
-//    image: url(:images/checkbox_checked.png);
-//}
 
 QCheckBox::indicator:checked:hover,
 QCheckBox::indicator:checked:focus,
