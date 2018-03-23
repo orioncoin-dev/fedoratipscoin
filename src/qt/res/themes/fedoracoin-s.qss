@@ -60,8 +60,9 @@ QCheckBox
 {
     spacing: 5px;
     outline: none;
-    color: #edd0d1;    //#eff0f1;
+    color: #eff0f1;
     margin-bottom: 2px;
+    background-color: #666666;
 }
 
 QCheckBox:disabled
@@ -93,7 +94,7 @@ QGroupBox::indicator:unchecked:focus,
 QGroupBox::indicator:unchecked:pressed
 {
     border: none;
-//    image: url(:images/checkbox_unchecked_focus.png);
+    image: url(:images/checkbox_unchecked_focus.png);
 }
 
 //QCheckBox::indicator:checked
@@ -108,8 +109,8 @@ QGroupBox::indicator:checked:hover,
 QGroupBox::indicator:checked:focus,
 QGroupBox::indicator:checked:pressed
 {
-  border: none;
-//    image: url(:images/checkbox_checked_focus.png);
+    border: none;
+    image: url(:images/checkbox_checked_focus.png);
 }
 
 
