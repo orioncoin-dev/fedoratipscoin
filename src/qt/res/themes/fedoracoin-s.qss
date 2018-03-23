@@ -119,12 +119,12 @@ QGroupBox::indicator:checked:pressed
 //    image: url(:images/checkbox_indeterminate.png);
 //}
 
-//QCheckBox::indicator:indeterminate:focus,
-//QCheckBox::indicator:indeterminate:hover,
-//QCheckBox::indicator:indeterminate:pressed
-//{
-//    image: url(:images/checkbox_indeterminate_focus.png);
-//}
+QCheckBox::indicator:indeterminate:focus,
+QCheckBox::indicator:indeterminate:hover,
+QCheckBox::indicator:indeterminate:pressed
+{
+    image: url(:images/checkbox_indeterminate_focus.png);
+}
 
 QCheckBox::indicator:checked:disabled,
 QGroupBox::indicator:checked:disabled
