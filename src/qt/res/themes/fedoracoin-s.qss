@@ -126,17 +126,17 @@ QGroupBox::indicator:checked:pressed
 //    image: url(:images/checkbox_indeterminate_focus.png);
 //}
 
-//QCheckBox::indicator:checked:disabled,
-//QGroupBox::indicator:checked:disabled
-//{
-//    image: url(:images/checkbox_checked_disabled.png);
-//}
+QCheckBox::indicator:checked:disabled,
+QGroupBox::indicator:checked:disabled
+{
+    image: url(:images/checkbox_checked_disabled.png);
+}
 
-//QCheckBox::indicator:unchecked:disabled,
-//QGroupBox::indicator:unchecked:disabled
-//{
-//    image: url(:images/checkbox_unchecked_disabled.png);
-//}
+QCheckBox::indicator:unchecked:disabled,
+QGroupBox::indicator:unchecked:disabled
+{
+    image: url(:images/checkbox_unchecked_disabled.png);
+}
 
 QRadioButton
 {
