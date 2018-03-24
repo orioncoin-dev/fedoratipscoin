@@ -65,20 +65,18 @@ QCheckBox
     background-color: #666666;
 }
 
-// this little section appears critical to qt page rendering
 QCheckBox::indicator:unchecked
 {
-    image: url(:images/checkbox_unchecked.png);
+    image: url(:/images/checkbox_unchecked);
 }
 QCheckBox::indicator:checked
 {
-    image: url(:images/checkbox_checked.png);
+    image: url(:/images/checkbox_checked);
 }
-// end critical section
 
 QCheckBox:disabled
 {
-    color: #86797C; //#76797C;
+    color: #76797C;
 }
 
 QCheckBox::indicator,
@@ -100,7 +98,7 @@ QGroupBox::indicator:unchecked:focus,
 QGroupBox::indicator:unchecked:pressed
 {
     border: none;
-    image: url(:images/checkbox_unchecked_focus.png);
+    image: url(:/images/checkbox_unchecked_focus);
 }
 
 QCheckBox::indicator:checked:hover,
@@ -111,32 +109,32 @@ QGroupBox::indicator:checked:focus,
 QGroupBox::indicator:checked:pressed
 {
     border: none;
-    image: url(:images/checkbox_checked_focus.png);
+    image: url(:/images/checkbox_checked_focus);
 }
 
 
 QCheckBox::indicator:indeterminate
 {
-    image: url(:images/checkbox_indeterminate.png);
+    image: url(:/images/checkbox_indeterminate);
 }
 
 QCheckBox::indicator:indeterminate:focus,
 QCheckBox::indicator:indeterminate:hover,
 QCheckBox::indicator:indeterminate:pressed
 {
-    image: url(:images/checkbox_indeterminate_focus.png);
+    image: url(:/images/checkbox_indeterminate_focus);
 }
 
 QCheckBox::indicator:checked:disabled,
 QGroupBox::indicator:checked:disabled
 {
-    image: url(:images/checkbox_checked_disabled.png);
+    image: url(/:images/checkbox_checked_disabled);
 }
 
 QCheckBox::indicator:unchecked:disabled,
 QGroupBox::indicator:unchecked:disabled
 {
-    image: url(:images/checkbox_unchecked_disabled.png);
+    image: url(/:images/checkbox_unchecked_disabled);
 }
 
 QRadioButton
