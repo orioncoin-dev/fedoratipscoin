@@ -344,51 +344,57 @@ void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 {
     RenameThread("fedoracoin-loadblk");
 
-    // -reindex
-    if (fReindex) {
+    {
         CImportingNow imp;
-        int nFile = 0;
-        while (true) {
-            CDiskBlockPos pos(nFile, 0);
-            FILE *file = OpenBlockFile(pos, true);
-            if (!file)
-                break;
-            LogPrintf("Reindexing block file blk%05u.dat...\n", (unsigned int)nFile);
-            LoadExternalBlockFile(file, &pos);
-            nFile++;
-        }
-        pblocktree->WriteReindexing(false);
-        fReindex = false;
-        LogPrintf("Reindexing finished\n");
-        // To avoid ending up in a situation without genesis block, re-try initializing (no-op if reindexing worked):
-        InitBlockIndex();
-    }
 
-    // hardcoded $DATADIR/bootstrap.dat
-    filesystem::path pathBootstrap = GetDataDir() / "bootstrap.dat";
-    if (filesystem::exists(pathBootstrap)) {
-        FILE *file = fopen(pathBootstrap.string().c_str(), "rb");
-        if (file) {
-            CImportingNow imp;
-            filesystem::path pathBootstrapOld = GetDataDir() / "bootstrap.dat.old";
-            LogPrintf("Importing bootstrap.dat...\n");
-            LoadExternalBlockFile(file);
-            RenameOver(pathBootstrap, pathBootstrapOld);
-        } else {
-            LogPrintf("Warning: Could not open bootstrap file %s\n", pathBootstrap.string());
-        }
-    }
+        // -reindex
+        if (fReindex) {
+            int nFile = 0;
 
-    // -loadblock=
-    BOOST_FOREACH(boost::filesystem::path &path, vImportFiles) {
-        FILE *file = fopen(path.string().c_str(), "rb");
-        if (file) {
-            CImportingNow imp;
-            LogPrintf("Importing blocks file %s...\n", path.string());
-            LoadExternalBlockFile(file);
-        } else {
-            LogPrintf("Warning: Could not open blocks file %s\n", path.string());
+            while (true) {
+                CDiskBlockPos pos(nFile, 0);
+                FILE *file = OpenBlockFile(pos, true);
+                if (!file)
+                    break;
+                LogPrintf("Reindexing block file blk%05u.dat...\n", (unsigned int)nFile);
+                LoadExternalBlockFile(file, &pos);
+                nFile++;
+            }
+
+            pblocktree->WriteReindexing(false);
+            fReindex = false;
+            LogPrintf("Reindexing finished\n");
+
+            // Avoid the situation without genesis block, re-try initializing (no-op if reindexing worked)
+            InitBlockIndex();
         }
+
+        // hardcoded $DATADIR/bootstrap.dat
+        filesystem::path pathBootstrap = GetDataDir() / "bootstrap.dat";
+        if (filesystem::exists(pathBootstrap)) {
+            FILE *file = fopen(pathBootstrap.string().c_str(), "rb");
+            if (file) {
+                filesystem::path pathBootstrapOld = GetDataDir() / "bootstrap.dat.old";
+                LogPrintf("Importing bootstrap.dat...\n");
+                LoadExternalBlockFile(file);
+                RenameOver(pathBootstrap, pathBootstrapOld);
+            } else {
+                LogPrintf("Warning: Could not open bootstrap file %s\n", pathBootstrap.string());
+            }
+        }
+
+        // -loadblock=
+        BOOST_FOREACH(boost::filesystem::path &path, vImportFiles) {
+            FILE *file = fopen(path.string().c_str(), "rb");
+            if (file) {
+                LogPrintf("Importing blocks file %s...\n", path.string());
+                LoadExternalBlockFile(file);
+            } else {
+                LogPrintf("Warning: Could not open blocks file %s\n", path.string());
+            }
+        }
+
+
     }
 }
 
