@@ -898,7 +898,7 @@ bool AppInit2(boost::thread_group& threadGroup)
                 }
 
                 // Check if we are in the middle of an import right now
-                if (!fImporting) {
+                if (!fImporting && (chainActive.Tip() != NULL)) {
                     // Only verify blocks if the import has completed...
                     uiInterface.InitMessage(_("Verifying blocks..."));
                     if (!VerifyDB(GetArg("-checklevel", 3), GetArg("-checkblocks", 288))) {
