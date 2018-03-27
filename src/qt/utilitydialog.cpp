@@ -654,8 +654,8 @@ PaperWalletDialog::PaperWalletDialog(QWidget *parent) :
     font.setPixelSize(1);
     ui->addressText->setFont(font);
     ui->privateKeyText->setFont(font);
-    ui->addressText->setAlignment(Qt::AlignJustify);
-    ui->privateKeyText->setAlignment(Qt::AlignJustify);
+    ui->addressText->setAlignment(Qt::AlignLeft);
+    ui->privateKeyText->setAlignment(Qt::AlignLeft);
 
     if (vNodes.size() > 0) {
 
