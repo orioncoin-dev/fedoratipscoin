@@ -897,15 +897,15 @@ bool AppInit2(boost::thread_group& threadGroup)
                     break;
                 }
 
-                // Check if we are in the middle of an import right now
-//                if (!fImporting) {
-//                    // Only verify blocks if the import has completed...
-//                    uiInterface.InitMessage(_("Verifying blocks..."));
-//                    if (!VerifyDB(GetArg("-checklevel", 3), GetArg("-checkblocks", 288))) {
-//                        strLoadError = _("Corrupted block database detected");
-//                        break;
-//                    }
-//                }
+                // Check if we are in the middle of a network sync now
+                if (!IsInitialBlockDownload() && !fImporting && !fReindex) {
+                    // Only verify blocks if the import has completed...
+                    uiInterface.InitMessage(_("Verifying blocks..."));
+                    if (!VerifyDB(GetArg("-checklevel", 3), GetArg("-checkblocks", 288))) {
+                        strLoadError = _("Corrupted block database detected");
+                        break;
+                    }
+                }
             } catch(std::exception &e) {
                 if (fDebug) LogPrintf("%s\n", e.what());
                 strLoadError = _("Error opening block database");
