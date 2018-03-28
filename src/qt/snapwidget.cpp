@@ -29,7 +29,7 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
 //    prepareMask();
 
     camera = new QCamera;
-    QCameraViewfinder *viewfinder = new QCameraViewfinder();
+    QCameraViewfinder *viewfinder = new QCameraViewfinder(this);
     viewfinder->show();
     QCameraImageCapture *cap = new QCameraImageCapture(camera);
     cap->setCaptureDestination(QCameraImageCapture::CaptureToBuffer);
