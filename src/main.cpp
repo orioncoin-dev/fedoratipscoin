@@ -1659,8 +1659,6 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits)
 bool IsInitialBlockDownload()
 {
     LOCK(cs_main);
-//    if ((chainActive.Tip() == NULL) || fImporting || fReindex || chainActive.Height() < Checkpoints::GetTotalBlocksEstimate())
-
     if (fImporting || fReindex || chainActive.Height() < Checkpoints::GetTotalBlocksEstimate())
         return true;
     static int64_t nLastUpdate;
