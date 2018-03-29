@@ -16,9 +16,7 @@ public:
 
     SnapWidget(QWidget* _parent);
     ~SnapWidget();
-    //void prepareMask();
     virtual void closeEvent(QCloseEvent *event);
-    //void resizeEvent(QResizeEvent*);
     public slots:
     void on_cancelButton_clicked();
     void on_snapButton_clicked();

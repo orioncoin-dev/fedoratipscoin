@@ -21,12 +21,10 @@ inline bool _isnan(float v) {return qIsNaN(v);}
 
 #include "qimagesource.h"
 
-//////////////////  SnapWidget Class
 SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
 {
     setupUi(this);
     this->setMinimumWidth(50);
-//    prepareMask();
 
     camera = new QCamera;
     QCameraViewfinder *viewfinder = new QCameraViewfinder(this);
@@ -35,6 +33,7 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
     cap->setCaptureDestination(QCameraImageCapture::CaptureToBuffer);
     camera->setViewfinder(viewfinder);
     camera->setCaptureMode(QCamera::CaptureStillImage);
+
     QObject::connect(cap, &QCameraImageCapture::imageCaptured, [=] (int id, QImage img) {
       QByteArray buf;
       QBuffer buffer(&buf);
@@ -48,12 +47,8 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
        camera->unlock();
        }
     });
+
     camera->start();
-
-//    setAttribute(Qt::WA_NoSystemBackground, false);
-//    setAttribute(Qt::WA_TranslucentBackground, false);  
-//    setVisible(true);
-
     show();
 }
 
@@ -116,31 +111,3 @@ void SnapWidget::closeEvent(QCloseEvent *event)
 {
     emit finished(decodedString);
 }
-
-//void SnapWidget::prepareMask() 
-//{
-//    int fh = frameSize().height();
-//    int fw = frameSize().width();
-//    QStyleOptionTitleBar option;
-//    option.initFrom(this);
-//    
-//    QRegion r;  
-////#ifdef Q_OS_MAC
-//    //this looks acceptable on Mac
-//    QRegion rgn(0, 0, fw, fh);
-//    QRegion rgn2(15, cancelButton->height() + 10, fw - 30, fh - 80);
-////#else
-////    //this looks ok on windows and ubuntu
-////    int captionHeight = style()->pixelMetric(QStyle::PM_TitleBarHeight, &option, this);
-////    QRegion rgn(-7, -captionHeight, fw, fh);
-////    QRegion rgn2(5, cancelButton->height() + 3, fw - 28, fh - 75);
-////#endif
-//    r = rgn.subtracted(rgn2);
-//    setMask(r);
-//    update();
-//}
-
-//void SnapWidget::resizeEvent(QResizeEvent*) 
-//{
-//    this->prepareMask();
-//}

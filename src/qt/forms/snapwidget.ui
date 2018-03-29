@@ -28,6 +28,12 @@
        <height>28</height>
       </rect>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
      <property name="text">
       <string>Snap</string>
      </property>
