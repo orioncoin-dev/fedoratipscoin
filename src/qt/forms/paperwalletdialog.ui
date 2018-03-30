@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string><string/>
+    <string/>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -39,7 +39,7 @@
     </rect>
    </property>
    <property name="text">
-    <string><string/>
+    <string/>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
