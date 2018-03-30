@@ -16,14 +16,14 @@
   <widget class="QLabel" name="privateKeyQRCode">
    <property name="geometry">
     <rect>
-     <x>534</x>
-     <y>160</y>
+     <x>514</x>
+     <y>161</y>
      <width>149</width>
      <height>149</height>
     </rect>
    </property>
    <property name="text">
-    <string/>
+    <string><string/>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -32,14 +32,14 @@
   <widget class="QLabel" name="addressQRCode">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>40</y>
+     <x>70</x>
+     <y>41</y>
      <width>120</width>
      <height>120</height>
     </rect>
    </property>
    <property name="text">
-    <string/>
+    <string><string/>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
