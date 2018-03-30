@@ -81,7 +81,7 @@
   <widget class="VerticalLabel" name="addressText">
    <property name="geometry">
     <rect>
-     <x>212</x>
+     <x>222</x>
      <y>20</y>
      <width>31</width>
      <height>341</height>
@@ -109,7 +109,7 @@
   <widget class="VerticalLabel" name="privateKeyText">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>425</x>
      <y>10</y>
      <width>31</width>
      <height>362</height>
