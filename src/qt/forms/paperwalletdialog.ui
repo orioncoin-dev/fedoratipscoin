@@ -81,7 +81,7 @@
   <widget class="VerticalLabel" name="addressText">
    <property name="geometry">
     <rect>
-     <x>222</x>
+     <x>235</x>
      <y>20</y>
      <width>31</width>
      <height>341</height>
