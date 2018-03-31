@@ -27,29 +27,30 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
 
 //    this->setMinimumWidth(50);
 
-//    camera = new QCamera;
-//    QCameraViewfinder *viewfinder = new QCameraViewfinder(this);
-//    viewfinder->show();
-//    QCameraImageCapture *cap = new QCameraImageCapture(camera);
-//    cap->setCaptureDestination(QCameraImageCapture::CaptureToBuffer);
-//    camera->setViewfinder(viewfinder);
-//    camera->setCaptureMode(QCamera::CaptureStillImage);
+    camera = new QCamera;
+    QCameraViewfinder *viewfinder = new QCameraViewfinder(this);
+    viewfinder->show();
+    QCameraImageCapture *cap = new QCameraImageCapture(camera);
+    cap->setCaptureDestination(QCameraImageCapture::CaptureToBuffer);
+    camera->setViewfinder(viewfinder);
+    camera->setCaptureMode(QCamera::CaptureStillImage);
 
-//    QObject::connect(cap, &QCameraImageCapture::imageCaptured, [=] (int id, QImage img) {
-//    QByteArray buf;
-//      QBuffer buffer(&buf);
-//      buffer.open(QIODevice::WriteOnly);
-//      img.save(&buffer, "PNG");
-//    });
-//    QObject::connect(cap, &QCameraImageCapture::readyForCaptureChanged, [=] (bool state) {
-//      if(state == true) {
-//       camera->searchAndLock();
-//       cap->capture();
-//       camera->unlock();
-//       }
-//    });
+    QObject::connect(cap, &QCameraImageCapture::imageCaptured, [=] (int id, QImage img) {
+      QByteArray buf;
+      QBuffer buffer(&buf);
+      buffer.open(QIODevice::WriteOnly);
+      img.save(&buffer, "PNG");
+    });
 
-//    camera->start();
+    QObject::connect(cap, &QCameraImageCapture::readyForCaptureChanged, [=] (bool state) {
+      if(state == true) {
+        camera->searchAndLock();
+        cap->capture();
+        camera->unlock();
+        }
+    });
+
+    camera->start();
     show();
 }
 
