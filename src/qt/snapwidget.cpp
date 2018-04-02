@@ -24,7 +24,6 @@ inline bool _isnan(float v) {return qIsNaN(v);}
 SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::WindowStaysOnTopHint|  Qt::WindowCloseButtonHint)
 {
     setupUi(this);
-    this->setMinimumWidth(50);
 
 //    camera = new QCamera;
 //    QCameraViewfinder *viewfinder = new QCameraViewfinder(this);
