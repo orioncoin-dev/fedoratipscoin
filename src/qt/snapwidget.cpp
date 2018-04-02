@@ -25,7 +25,7 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
 {
     setupUi(this);
 
-//    camera = new QCamera;
+    camera = new QCamera;
 //    QCameraViewfinder *viewfinder = new QCameraViewfinder(this);
 //    viewfinder->show();
 //    QCameraImageCapture *cap = new QCameraImageCapture(camera);
@@ -48,7 +48,7 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
 //        }
 //    });
 
-//    camera->start();
+    camera->start();
     show();
 }
 
