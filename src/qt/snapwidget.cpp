@@ -22,6 +22,7 @@ inline bool _isnan(float v) {return qIsNaN(v);}
 #include <zxing/Binarizer.h>
 #include <zxing/BinaryBitmap.h>
 #include <zxing/MultiFormatReader.h>
+#include <QtMultimedia/qimageencodercontrol.h>
 
 #include "qimagesource.h"
 
@@ -39,11 +40,11 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
         if (cameraInfo == QCameraInfo::defaultCamera())
             videoDeviceAction->setChecked(true);
 
-        ui->menuDevices->addAction(videoDeviceAction);
+        // parent->menuDevices->addAction(videoDeviceAction);
     }
 
     connect(videoDevicesGroup, &QActionGroup::triggered, this, &SnapWidget::updateCameraDevice);
-    connect(ui->captureWidget, &QTabWidget::currentChanged, this, &SnapWidget::updateCaptureMode);
+    connect(captureWidget, &QTabWidget::currentChanged, this, &SnapWidget::updateCaptureMode);
 
     setCamera(QCameraInfo::defaultCamera());
 
@@ -226,7 +227,7 @@ void SnapWidget::updateRecordTime()
 void SnapWidget::processCapturedImage(int requestId, const QImage& img)
 {
     Q_UNUSED(requestId);
-    QImage scaledImage = img.scaled(ui->viewfinder->size(),
+    QImage scaledImage = img.scaled(viewfinder->size(),
                                     Qt::KeepAspectRatio,
                                     Qt::SmoothTransformation);
 
