@@ -14,10 +14,9 @@
 inline bool _isnan(float v) {return qIsNaN(v);}
 #endif
 
-#include <QMediaMetaData>
-#include <QMessageBox>
-#include <QPalette>
-#include <QtWidgets>
+#include <QtMultimedia/QMediaMetaData>
+#include <QtWidgets/QMessageBox>
+#include <QtGui/QPalette>
 
 #include <zxing/common/GlobalHistogramBinarizer.h>
 #include <zxing/Binarizer.h>
