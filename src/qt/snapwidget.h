@@ -21,7 +21,7 @@ public:
 
     SnapWidget(QWidget* _parent);
     ~SnapWidget();
-    virtual void closeEvent(QCloseEvent *event);
+    // virtual void closeEvent(QCloseEvent *event);
     public slots:
     void on_cancelButton_clicked();
     void on_snapButton_clicked();
