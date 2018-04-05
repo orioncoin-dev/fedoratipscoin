@@ -25,8 +25,8 @@ SnapWidget::SnapWidget(QWidget* parent) : QDialog(parent, Qt::Widget| Qt::Window
 {
     setupUi(this);
     camera = new QCamera;
-    connect(camera, QOverload<QCamera::Error>::of(&QCamera::error),
-      [=](QCamera::Error errorVal){ QMessageBox::warning(this, tr("Camera Error"), errorVal); });
+//    connect(camera, QOverload<QCamera::Error>::of(&QCamera::error),
+//      [=](QCamera::Error errorVal){ QMessageBox::warning(this, tr("Camera Error"), errorVal); });
 
     QCameraViewfinder *viewfinder = new QCameraViewfinder(this);
 //    viewfinder->show();
