@@ -641,8 +641,11 @@ bool AppInit2(boost::thread_group& threadGroup)
     if (!lock.try_lock())
         return InitError(strprintf(_("Cannot obtain a lock on data directory %s. Fedoracoin Core is probably already running."), strDataDir));
 
-    if (GetBoolArg("-shrinkdebugfile", !fDebug))
+    // Poppa changed default - shrink debug is now on by default
+    // if (GetBoolArg("-shrinkdebugfile", !fDebug))
+    if (!fDebug)
         ShrinkDebugFile();
+
     LogPrintf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     LogPrintf("Fedoracoin version %s (%s)\n", FormatFullVersion(), CLIENT_DATE);
     LogPrintf("Using OpenSSL version %s\n", SSLeay_version(SSLEAY_VERSION));
