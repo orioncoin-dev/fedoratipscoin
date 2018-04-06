@@ -1465,6 +1465,58 @@ bool CWallet::CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx&
     return rv;
 }
 
+// Call after CreateTransaction unless you want to abort
+bool CWallet::CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey)
+{
+    FindStealthTransactions(wtxNew);
+    
+    {
+        LOCK2(cs_main, cs_wallet);
+        LogPrintf("CommitTransaction start................\n");
+        LogPrintf("CommitTransaction:\n%s", wtxNew.ToString());
+        {
+            // This is only to keep the database open to defeat the auto-flush for the
+            // duration of this scope.  This is the only place where this optimization
+            // maybe makes sense; please don't do it anywhere else.
+            CWalletDB* pwalletdb = fFileBacked ? new CWalletDB(strWalletFile,"r") : NULL;
+
+            // Take key pair from key pool so it won't be used again
+            reservekey.KeepKey();
+
+            // Add tx to wallet, because if it has change it's also ours,
+            // otherwise just for transaction history.
+            AddToWallet(wtxNew);
+
+            // Notify that old coins are spent
+            set<CWalletTx*> setCoins;
+            BOOST_FOREACH(const CTxIn& txin, wtxNew.vin)
+            {
+                CWalletTx &coin = mapWallet[txin.prevout.hash];
+                coin.BindWallet(this);
+                NotifyTransactionChanged(this, coin.GetHash(), CT_UPDATED);
+            }
+
+            if (fFileBacked)
+                delete pwalletdb;
+        }
+
+        // Track how many getdata requests our transaction gets
+        mapRequestCount[wtxNew.GetHash()] = 0;
+
+        // Broadcast
+        LogPrintf("CommitTransaction Broadcast start.............\n");
+        if (!wtxNew.AcceptToMemoryPool(false))
+        {
+            // This must not fail. The transaction has already been signed and recorded.
+            LogPrintf("CommitTransaction() : Error: Transaction not valid");
+            return false;
+        }
+        wtxNew.RelayWalletTransaction();
+        LogPrintf("CommitTransaction RelayWalletTransaction............\n");
+    }
+    return true;
+}
+
 //string CWallet::SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew)
 string CWallet::SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, bool fAskFee)
 {
