@@ -102,7 +102,7 @@ public:
                 }
                 cachedAddressTable.append(AddressTableEntry(addressType,
                                   QString::fromStdString(strName),
-                                  QString::fromStdString(address.ToString()),false,cate));
+                                  QString::fromStdString(address.ToString()),cate));
             }
         }
         // qLowerBound() and qUpperBound() require our cachedAddressTable list to be sorted in asc order
@@ -134,11 +134,11 @@ public:
             parent->beginInsertRows(QModelIndex(), lowerIndex, lowerIndex);
             if (address.at(0)=='f')
             {
-            	cachedAddressTable.insert(lowerIndex, AddressTableEntry(newEntryType, label, address,false,AddressTableEntry::MultiSig));
+            	cachedAddressTable.insert(lowerIndex, AddressTableEntry(newEntryType, label, address,AddressTableEntry::MultiSig));
             }
             else
             {
-            	cachedAddressTable.insert(lowerIndex, AddressTableEntry(newEntryType, label, address,false,AddressTableEntry::Normal));
+            	cachedAddressTable.insert(lowerIndex, AddressTableEntry(newEntryType, label, address,AddressTableEntry::Normal));
             }
             parent->endInsertRows();
             break;
