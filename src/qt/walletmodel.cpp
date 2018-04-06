@@ -206,13 +206,6 @@ void WalletModel::updateAddressBook(const QString &address, const QString &label
 bool WalletModel::validateAddress(const QString &address)
 {
     std::string sAddr = address.toStdString();
-    
-    if (sAddr.length() > 75)
-    {
-        if (IsStealthAddress(sAddr))
-            return true;
-    };
-    
     CBitcoinAddress addressParsed(sAddr);
     return addressParsed.IsValid();
 }
@@ -295,88 +288,6 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
             ++nAddresses;
 
             std::string sAddr = rcp.address.toStdString();            
-            if (rcp.typeInd == AddressTableModel::AT_Stealth)
-            {
-                CStealthAddress sxAddr;
-                if (sxAddr.SetEncoded(sAddr))
-                {
-                    ec_secret ephem_secret;
-                    ec_secret secretShared;
-                    ec_point pkSendTo;
-                    ec_point ephem_pubkey;
-                    
-                    
-                    if (GenerateRandomSecret(ephem_secret) != 0)
-                    {
-                        printf("GenerateRandomSecret failed.\n");
-                        return Aborted;
-                    };
-                    
-                    LogPrintf("StealthSecret send start....\n");
-                    if (true)
-                    {
-			                LogPrintf("ephem_secret.e=%s \n",HexStr(&ephem_secret.e[0],&ephem_secret.e[32]).c_str());   //secret
-			                LogPrintf("sxAddr.scan_secret= %s\n", HexStr(sxAddr.scan_secret).c_str()); //
-			                LogPrintf("sxAddr.scan_pubkey= %s\n", HexStr(sxAddr.scan_pubkey).c_str()); //pubkey[0]
-			                LogPrintf("sxAddr.spend_secret= %s\n", HexStr(sxAddr.spend_secret).c_str()); //
-			                LogPrintf("sxAddr.spend_pubkey= %s\n",HexStr(sxAddr.spend_pubkey).c_str()); //pkSpend[0]
-			                LogPrintf("secretShared.e=%s \n",HexStr(&secretShared.e[0],&secretShared.e[32]).c_str());  //sharedSOut
-			                LogPrintf("pkSendTo= %"PRIszu": %s\n", pkSendTo.size(), HexStr(pkSendTo).c_str());//pkOut
-			                LogPrintf("send:  secret = ephem_secret, pubkey = scan_pubkey....\n");
-                    };
-                    
-                    if (StealthSecret(ephem_secret, sxAddr.scan_pubkey, sxAddr.spend_pubkey, secretShared, pkSendTo) != 0)
-                    {
-                        printf("Could not generate receiving public key.\n");
-                        return Aborted;
-                    };
-                    if (true)
-                    {
-			                LogPrintf("ephem_secret.e=%s \n",HexStr(&ephem_secret.e[0],&ephem_secret.e[32]).c_str());   //secret
-			                LogPrintf("sxAddr.scan_secret= %s\n", HexStr(sxAddr.scan_secret).c_str()); //
-			                LogPrintf("sxAddr.scan_pubkey= %s\n", HexStr(sxAddr.scan_pubkey).c_str()); //pubkey[0]
-			                LogPrintf("sxAddr.spend_secret= %s\n", HexStr(sxAddr.spend_secret).c_str()); //
-			                LogPrintf("sxAddr.spend_pubkey= %s\n",HexStr(sxAddr.spend_pubkey).c_str()); //pkSpend[0]
-			                LogPrintf("secretShared.e=%s \n",HexStr(&secretShared.e[0],&secretShared.e[32]).c_str());  //sharedSOut
-			                LogPrintf("pkSendTo= %"PRIszu": %s\n", pkSendTo.size(), HexStr(pkSendTo).c_str());//pkOut
-                    };
-                    
-                    CPubKey cpkTo(pkSendTo);
-                    if (!cpkTo.IsValid())
-                    {
-                        printf("Invalid public key generated.\n");
-                        return Aborted;
-                    };
-                    LogPrintf("CPubKey(pkSendTo)=%s \n",cpkTo.GetHash().ToString().c_str());
-                    
-                    CKeyID ckidTo = cpkTo.GetID();                    
-                    CBitcoinAddress addrTo(ckidTo);
-                    
-                    if (SecretToPublicKey(ephem_secret, ephem_pubkey) != 0)
-                    {
-                        printf("Could not generate ephem public key.\n");
-                        return Aborted;
-                    };
-                    
-                    if (true)
-                    {
-                        LogPrintf("Stealth send to generated pubkey,pkSendTo= %"PRIszu": %s\n", pkSendTo.size(), HexStr(pkSendTo).c_str());
-                        LogPrintf("hash, Address= %s\n", addrTo.ToString().c_str());
-                        LogPrintf("enerate ephem public key,ephem_pubkey= %"PRIszu": %s\n", ephem_pubkey.size(), HexStr(ephem_pubkey).c_str());
-                    };
-                    
-                    CScript scriptPubKey;
-                    scriptPubKey.SetDestination(addrTo.Get());
-                    LogPrintf("scriptPubKey= %s \n", scriptPubKey.ToString());                    
-                    vecSend.push_back(make_pair(scriptPubKey, rcp.amount));
-                    
-                    CScript scriptP = CScript() << OP_RETURN << ephem_pubkey;
-                    vecSend.push_back(make_pair(scriptP, 0));
-                    
-                    continue;
-                }; // else drop through to normal
-            }
-
             CScript scriptPubKey;
             scriptPubKey.SetDestination(CBitcoinAddress(sAddr).Get());
             vecSend.push_back(std::pair<CScript, int64_t>(scriptPubKey, rcp.amount));
@@ -499,23 +410,16 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction &tran
             {
                 LOCK(wallet->cs_wallet);
 
-		            if (rcp.typeInd == AddressTableModel::AT_Stealth)
-		            {
-		                wallet->UpdateStealthAddress(strAddress, strLabel, true);
-		            } else 
-		            {
-		                std::map<CTxDestination, CAddressBookData>::iterator mi = wallet->mapAddressBook.find(dest);
-		                // Check if we have a new address or an updated label
-		                if (mi == wallet->mapAddressBook.end())
-		                {
-		                    wallet->SetAddressBook(dest, strLabel, "send");
-		                }
-		                else if (mi->second.name != strLabel)
-		                {
-		                    wallet->SetAddressBook(dest, strLabel, ""); // "" means don't change purpose
-		                }
-		            }
-          	}
+                std::map<CTxDestination, CAddressBookData>::iterator mi = wallet->mapAddressBook.find(dest);
+                // Check if we have a new address or an updated label
+                if (mi == wallet->mapAddressBook.end())
+                {
+                    wallet->SetAddressBook(dest, strLabel, "send");
+                }
+                else if (mi->second.name != strLabel)
+                {
+                    wallet->SetAddressBook(dest, strLabel, ""); // "" means don't change purpose
+                }
         }
         emit coinsSent(wallet, rcp, transaction_array);
         LogPrintf("sendCoins: updateAddressBook. \n");
@@ -743,28 +647,15 @@ static void NotifyAddressBookChanged(WalletModel *walletmodel, CWallet *wallet,
     QString strLabel = QString::fromStdString(label);
     QString strPurpose = QString::fromStdString(purpose);
 	
-    if (address.type() == typeid(CStealthAddress))
-    {
-        CStealthAddress sxAddr = boost::get<CStealthAddress>(address);
-        std::string enc = sxAddr.Encoded();
-        //OutputDebugStringF("NotifyAddressBookChanged %s %s isMine=%i status=%i\n", enc.c_str(), label.c_str(), isMine, status);
-        qDebug() << "NotifyAddressBookChanged : " + QString::fromStdString(enc) + " " + QString::fromStdString(label) + " isMine=" + QString::number(isMine) + " purpose=" + strPurpose + " status=" + QString::number(status);
-        QMetaObject::invokeMethod(walletmodel, "updateAddressBook", Qt::QueuedConnection,
-                                  Q_ARG(QString, QString::fromStdString(enc)),
-                                  Q_ARG(QString, QString::fromStdString(label)),
-                                  Q_ARG(bool, isMine),
-                                  Q_ARG(QString, strPurpose),
-                                  Q_ARG(int, status));
-    } else {
-        //OutputDebugStringF("NotifyAddressBookChanged %s %s isMine=%i status=%i\n", CBitcoinAddress(address).ToString().c_str(), label.c_str(), isMine, status);
-        qDebug() << "NotifyAddressBookChanged : " + strAddress + " " + strLabel + " isMine=" + QString::number(isMine) + " purpose=" + strPurpose + " status=" + QString::number(status);
-        QMetaObject::invokeMethod(walletmodel, "updateAddressBook", Qt::QueuedConnection,
+    //OutputDebugStringF("NotifyAddressBookChanged %s %s isMine=%i status=%i\n", CBitcoinAddress(address).ToString().c_str(), label.c_str(), isMine, status);
+
+    qDebug() << "NotifyAddressBookChanged : " + strAddress + " " + strLabel + " isMine=" + QString::number(isMine) + " purpose=" + strPurpose + " status=" + QString::number(status);
+    QMetaObject::invokeMethod(walletmodel, "updateAddressBook", Qt::QueuedConnection,
                                   Q_ARG(QString, QString::fromStdString(CBitcoinAddress(address).ToString())),
                                   Q_ARG(QString, QString::fromStdString(label)),
                                   Q_ARG(bool, isMine),
                                   Q_ARG(QString, strPurpose),
                                   Q_ARG(int, status));
-    }
 }
 
 // queue notifications to show a non freezing progress dialog e.g. for rescan

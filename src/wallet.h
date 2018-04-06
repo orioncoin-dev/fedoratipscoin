@@ -13,7 +13,6 @@
 #include "ui_interface.h"
 #include "util.h"
 #include "walletdb.h"
-#include "stealth.h"
 #include "script.h"
 
 #include <algorithm>
@@ -33,8 +32,6 @@ extern bool bSpendZeroConfChange;
 static const int64_t DEFAULT_TRANSACTION_FEE = 0;
 // -paytxfee will warn if called with a higher fee than this amount (in satoshis) per KB
 static const int nHighTransactionFeeWarning = 0.05 * COIN;
-
-typedef std::map<CKeyID, CStealthKeyMetadata> StealthKeyMetaMap;
 typedef std::map<std::string, std::string> mapValue_t;
 
 class CAccountingEntry;
@@ -142,10 +139,6 @@ public:
     std::set<int64_t> setKeyPool;
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
 
-    std::set<CStealthAddress> stealthAddresses;
-    StealthKeyMetaMap mapStealthKeyMeta;
-    uint32_t nStealth, nFoundStealth; // for reporting, zero before use
-    
     typedef std::map<unsigned int, CMasterKey> MasterKeyMap;
     MasterKeyMap mapMasterKeys;
     unsigned int nMasterKeyMaxID;
@@ -281,17 +274,6 @@ public:
   //std::string SendMoneyToDestination(const CTxDestination &address, int64_t nValue, CWalletTx& wtxNew);
     std::string SendMoneyToDestination(const CTxDestination& address, int64_t nValue, CWalletTx& wtxNew, bool fAskFee=false);
 	
-    bool NewStealthAddress(std::string& sError, std::string& sLabel, CStealthAddress& sxAddr);
-    bool AddStealthAddress(CStealthAddress& sxAddr);
-    bool UnlockStealthAddresses(const CKeyingMaterial& vMasterKeyIn);
-    bool UpdateStealthAddress(std::string &addr, std::string &label, bool addIfNotExist);
-    
-    bool CreateStealthTransaction(CScript scriptPubKey, int64_t nValue, std::vector<uint8_t>& P, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl* coinControl=NULL);
-    std::string SendStealthMoney(CScript scriptPubKey, int64_t nValue, std::vector<uint8_t>& P, CWalletTx& wtxNew, bool fAskFee=false);
-    bool SendStealthMoneyToDestination(CStealthAddress& sxAddress, int64_t nValue, CWalletTx& wtxNew, std::string& sError, bool fAskFee=false);
-    bool FindStealthTransactions(const CTransaction& tx);
-    
-    
     bool NewKeyPool();
     bool TopUpKeyPool(unsigned int kpSize = 0);
     int64_t AddReserveKey(const CKeyPool& keypool);

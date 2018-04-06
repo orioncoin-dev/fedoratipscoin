@@ -319,14 +319,6 @@ static const CRPCCommand vRPCCommands[] =
     { "gethashespersec",        &gethashespersec,        true,      false,      false },
     { "getwork",                &getwork,                true,      false,      true  },
     { "setgenerate",            &setgenerate,            true,      true,       false },
-    
-    { "getnewstealthaddress",   &getnewstealthaddress,   false,  false,      true },
-    { "liststealthaddresses",   &liststealthaddresses,   false,  false,      true },
-    { "importstealthaddress",   &importstealthaddress,   false,  false,      true },
-    { "sendtostealthaddress",   &sendtostealthaddress,   false,  false,      true },
-    { "clearwallettransactions",&clearwallettransactions,false,  false,      true },
-    { "scanforalltxns",         &scanforalltxns,         false,  false,      true },
-    { "scanforstealthtxns",     &scanforstealthtxns,     false,  false,      true },
 #endif // ENABLE_WALLET
 };
 

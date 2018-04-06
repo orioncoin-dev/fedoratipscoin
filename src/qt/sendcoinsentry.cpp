@@ -10,7 +10,6 @@
 #include "guiutil.h"
 #include "optionsmodel.h"
 #include "walletmodel.h"
-#include "stealth.h"
 
 #include <QtWidgets/QApplication>
 #include <QtGui/QClipboard>
@@ -157,12 +156,7 @@ SendCoinsRecipient SendCoinsEntry::getValue()
     recipient.label = ui->addAsLabel->text();
     recipient.amount = ui->payAmount->value();
     recipient.message = ui->messageTextLabel->text();
-    
-    if (recipient.address.length() > 75 
-        && IsStealthAddress(recipient.address.toStdString()))
-        recipient.typeInd = AddressTableModel::AT_Stealth;
-    else
-        recipient.typeInd = AddressTableModel::AT_Normal;
+    recipient.typeInd = AddressTableModel::AT_Normal;
         	
     qDebug() << "SendCoinsEntry::getValue,recipient.typeInd ="+QString::number(recipient.typeInd);
     return recipient;

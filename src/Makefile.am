@@ -66,7 +66,6 @@ BITCOIN_CORE_H = \
   neoscrypt.h \
   serialize.h \
   sync.h \
-  stealth.h \
   threadsafety.h \
   tinyformat.h \
   txdb.h \
@@ -128,7 +127,6 @@ libbitcoin_server_a_SOURCES = \
 libbitcoin_wallet_a_SOURCES = \
   db.cpp \
   crypter.cpp \
-  stealth.cpp \
   rpcdump.cpp \
   rpcwallet.cpp \
   wallet.cpp \
