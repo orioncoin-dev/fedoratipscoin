@@ -70,22 +70,9 @@ void EditAddressDialog::loadRow(int row)
 {
     mapper->setCurrentIndex(row);
     
-    if (ui->addressEdit->text().length()>=75)
+    if (ui->addressEdit->text().length()<75)
     {
-	    CStealthAddress sxAddr;
-	    if (sxAddr.SetEncoded(ui->addressEdit->text().toStdString()))
-	    {
-	    	ui->lblPubkey->setText("");
-	    	ui->lblPrikey->setText("");
-	    	ui->lblScanPubkey->setText(HexStr(sxAddr.scan_pubkey).c_str());
-	    	ui->lblScanSecret->setText(HexStr(sxAddr.scan_secret).c_str());
-	    	ui->lblSpendPubkey->setText(HexStr(sxAddr.spend_pubkey).c_str());
-	    	ui->lblSpendSecret->setText(HexStr(sxAddr.spend_secret).c_str());
-	    }
-  	}
-  	else
-  	{
-  		CBitcoinAddress address(ui->addressEdit->text().toStdString());
+      CBitcoinAddress address(ui->addressEdit->text().toStdString());
       CKeyID keyID;
       if ( !address.GetKeyID(keyID) )
       {
@@ -115,11 +102,11 @@ void EditAddressDialog::loadRow(int row)
       ui->lblPrikey->setText(CBitcoinSecret(vchSecret, fCompressed).ToString().c_str());
       GUIUtil::setClipboard(QString::fromStdString(HexStr(vchPubKey)));
       
-    	ui->lblScanPubkey->setText("");
-    	ui->lblScanSecret->setText("");
-    	ui->lblSpendPubkey->setText("");
-    	ui->lblSpendSecret->setText("");
-  	}
+      ui->lblScanPubkey->setText("");
+      ui->lblScanSecret->setText("");
+      ui->lblSpendPubkey->setText("");
+      ui->lblSpendSecret->setText("");
+    }
 }
 
 bool EditAddressDialog::saveCurrentRow()
