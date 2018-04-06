@@ -144,11 +144,11 @@ bool parseCommandLine(std::vector<std::string> &args, const std::string &strComm
 void RPCExecutor::request(const QString &command)
 {
     std::vector<std::string> args;
-    //if(!parseCommandLine(args, command.toStdString()))
-    //{
-    //    emit reply(RPCConsole::CMD_ERROR, QString("Parse error: unbalanced ' or \""));
-    //    return;
-    //}
+    if(!parseCommandLine(args, command.toStdString()))
+    {
+        emit reply(RPCConsole::CMD_ERROR, QString("Parse error: unbalanced ' or \""));
+        return;
+    }
     if(args.empty())
         return; // Nothing to do
     try
