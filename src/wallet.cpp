@@ -1468,8 +1468,6 @@ bool CWallet::CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx&
 // Call after CreateTransaction unless you want to abort
 bool CWallet::CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey)
 {
-    FindStealthTransactions(wtxNew);
-    
     {
         LOCK2(cs_main, cs_wallet);
         LogPrintf("CommitTransaction start................\n");
