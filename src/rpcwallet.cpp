@@ -11,7 +11,6 @@
 #include "util.h"
 #include "wallet.h"
 #include "walletdb.h"
-#include "stealth.h"
 
 #include <stdint.h>
 
