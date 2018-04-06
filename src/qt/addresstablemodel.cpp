@@ -294,7 +294,7 @@ bool AddressTableModel::setData(const QModelIndex &index, const QVariant &value,
             }
             std::string sTemp = value.toString().toStdString();
             // Do nothing, if old address == new address
-            else if(newAddress == curAddress)
+            if(newAddress == curAddress)
             {
                 editStatus = NO_CHANGES;
                 return false;
