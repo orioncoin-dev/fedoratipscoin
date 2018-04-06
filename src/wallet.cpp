@@ -205,7 +205,6 @@ bool CWallet::Unlock(const SecureString& strWalletPassphrase)
             if (CCryptoKeyStore::Unlock(vMasterKey))
                 return true;
         }
-        UnlockStealthAddresses(vMasterKey);
     }
     return false;
 }
@@ -226,7 +225,7 @@ bool CWallet::ChangeWalletPassphrase(const SecureString& strOldWalletPassphrase,
                 return false;
             if (!crypter.Decrypt(pMasterKey.second.vchCryptedKey, vMasterKey))
                 return false;
-            if (CCryptoKeyStore::Unlock(vMasterKey)&& UnlockStealthAddresses(vMasterKey))
+            if (CCryptoKeyStore::Unlock(vMasterKey))
             {
                 int64_t nStartTime = GetTimeMillis();
                 crypter.SetKeyFromPassphrase(strNewWalletPassphrase, pMasterKey.second.vchSalt, pMasterKey.second.nDeriveIterations, pMasterKey.second.nDerivationMethod);
@@ -657,7 +656,6 @@ bool CWallet::AddToWalletIfInvolvingMe(const uint256 &hash, const CTransaction& 
         if (fExisted && !fUpdate) return false;
         	
         LogPrintf("AddToWalletIfInvolvingMe,hash=%s .\n",hash.ToString()); 
-        FindStealthTransactions(tx);
         
         if (fExisted || IsMine(tx) || IsFromMe(tx))
         {
@@ -1466,115 +1464,6 @@ bool CWallet::CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx&
     bool rv = CreateTransaction(vecSend, wtxNew, reservekey, nFeeRet, nChangePos, strError, coinControl);
     return rv;
 }
-
-bool CWallet::NewStealthAddress(std::string& sError, std::string& sLabel, CStealthAddress& sxAddr)
-{
-    ec_secret scan_secret;
-    ec_secret spend_secret;
-    
-    if (GenerateRandomSecret(scan_secret) != 0
-        || GenerateRandomSecret(spend_secret) != 0)
-    {
-        sError = "GenerateRandomSecret failed.";
-        printf("Error CWallet::NewStealthAddress - %s\n", sError.c_str());
-        return false;
-    };
-    
-    ec_point scan_pubkey, spend_pubkey;
-    if (SecretToPublicKey(scan_secret, scan_pubkey) != 0)
-    {
-        sError = "Could not get scan public key.";
-        printf("Error CWallet::NewStealthAddress - %s\n", sError.c_str());
-        return false;
-    };
-    
-    if (SecretToPublicKey(spend_secret, spend_pubkey) != 0)
-    {
-        sError = "Could not get spend public key.";
-        printf("Error CWallet::NewStealthAddress - %s\n", sError.c_str());
-        return false;
-    };
-    
-    if (fDebug)
-    {
-        printf("scan_pubkey ");
-        for (uint32_t i = 0; i < scan_pubkey.size(); ++i)
-          printf("%02x", scan_pubkey[i]);
-        printf("\n");
-        
-        printf("spend_pubkey ");
-        for (uint32_t i = 0; i < spend_pubkey.size(); ++i)
-          printf("%02x", spend_pubkey[i]);
-        printf("\n");
-    };
-    
-    
-    sxAddr.label = sLabel;
-    sxAddr.scan_pubkey = scan_pubkey;
-    sxAddr.spend_pubkey = spend_pubkey;
-    
-    sxAddr.scan_secret.resize(32);
-    memcpy(&sxAddr.scan_secret[0], &scan_secret.e[0], 32);
-    sxAddr.spend_secret.resize(32);
-    memcpy(&sxAddr.spend_secret[0], &spend_secret.e[0], 32);
-    
-    return true;
-}
-
-// Call after CreateTransaction unless you want to abort
-bool CWallet::CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey)
-{
-    FindStealthTransactions(wtxNew);
-    
-    {
-        LOCK2(cs_main, cs_wallet);
-        LogPrintf("CommitTransaction start................\n");
-        LogPrintf("CommitTransaction:\n%s", wtxNew.ToString());
-        {
-            // This is only to keep the database open to defeat the auto-flush for the
-            // duration of this scope.  This is the only place where this optimization
-            // maybe makes sense; please don't do it anywhere else.
-            CWalletDB* pwalletdb = fFileBacked ? new CWalletDB(strWalletFile,"r") : NULL;
-
-            // Take key pair from key pool so it won't be used again
-            reservekey.KeepKey();
-
-            // Add tx to wallet, because if it has change it's also ours,
-            // otherwise just for transaction history.
-            AddToWallet(wtxNew);
-
-            // Notify that old coins are spent
-            set<CWalletTx*> setCoins;
-            BOOST_FOREACH(const CTxIn& txin, wtxNew.vin)
-            {
-                CWalletTx &coin = mapWallet[txin.prevout.hash];
-                coin.BindWallet(this);
-                NotifyTransactionChanged(this, coin.GetHash(), CT_UPDATED);
-            }
-
-            if (fFileBacked)
-                delete pwalletdb;
-        }
-
-        // Track how many getdata requests our transaction gets
-        mapRequestCount[wtxNew.GetHash()] = 0;
-
-        // Broadcast
-        LogPrintf("CommitTransaction Broadcast start.............\n");
-        if (!wtxNew.AcceptToMemoryPool(false))
-        {
-            // This must not fail. The transaction has already been signed and recorded.
-            LogPrintf("CommitTransaction() : Error: Transaction not valid");
-            return false;
-        }
-        wtxNew.RelayWalletTransaction();
-        LogPrintf("CommitTransaction RelayWalletTransaction............\n");
-    }
-    return true;
-}
-
-
-
 
 //string CWallet::SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew)
 string CWallet::SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, bool fAskFee)
