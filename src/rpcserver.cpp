@@ -143,10 +143,12 @@ vector<unsigned char> ParseHexO(const Object& o, string strKey)
 
 string CRPCTable::help(string strCommand) const
 {
-    string strRet;
+    string strRet = "";
     set<rpcfn_type> setDone;
-    for (map<string, const CRPCCommand*>::const_iterator mi = mapCommands.begin(); mi != mapCommands.end(); ++mi)
-    {
+    
+    if (strCommand.length() > 0)
+     for (map<string, const CRPCCommand*>::const_iterator mi = mapCommands.begin(); mi != mapCommands.end(); ++mi)
+     {
         const CRPCCommand *pcmd = mi->second;
         string strMethod = mi->first;
         // We already filter duplicates, but these deprecated screw up the sort order
@@ -175,7 +177,8 @@ string CRPCTable::help(string strCommand) const
                     strHelp = strHelp.substr(0, strHelp.find('\n'));
             strRet += strHelp + "\n";
         }
-    }
+     }
+
     if (strRet == "")
         strRet = strprintf("help: unknown command: %s\n", strCommand);
     strRet = strRet.substr(0,strRet.size()-1);
