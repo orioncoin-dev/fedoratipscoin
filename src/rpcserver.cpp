@@ -168,7 +168,7 @@ string CRPCTable::help(string strCommand) const
             if (setDone.insert(pfn).second)
                 (*pfn)(params, true);
         }
-        catch (runtime_error e)
+        catch (runtime_error& e)
         {
             // Help text is returned in an exception
             string strHelp = string(e.what());
