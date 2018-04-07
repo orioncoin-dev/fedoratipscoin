@@ -166,7 +166,7 @@ string CRPCTable::help(string strCommand) const
             Array params;
             rpcfn_type pfn = pcmd->actor;
             if (setDone.insert(pfn).second)
-                (*pfn)(params, true);
+                (*pfn)(params, false); //true);
         }
         catch (runtime_error& e)
         {
