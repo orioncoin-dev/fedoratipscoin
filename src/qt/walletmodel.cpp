@@ -292,20 +292,20 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
             scriptPubKey.SetDestination(CBitcoinAddress(sAddr).Get());
             vecSend.push_back(std::pair<CScript, int64_t>(scriptPubKey, rcp.amount));
 
-						//insert message into blockchain
-						if ((rcp.message.length()>=1)&&(rcp.label=="blockchain"))
-						{				
-								std::string strMess = rcp.message.toStdString();
-								const char* pszMess =strMess.c_str();
+            //insert message into blockchain
+            if ((rcp.message.length()>=1)&&(rcp.label=="blockchain"))
+            {				
+		std::string strMess = rcp.message.toStdString();
+	        const char* pszMess =strMess.c_str();
                 CScript scriptP = CScript() << OP_RETURN << vector<unsigned char>((const unsigned char*)pszMess, (const unsigned char*)pszMess + strlen(pszMess));                
                 vecSend.push_back(std::pair<CScript, int64_t>(scriptP, 0));
-             }
+            }
             
             //commit openname
-						if ((rcp.message.length()>=1)&&(rcp.label=="openname"))
-						{		
-								std::string strMess = rcp.message.toStdString();
-								const char* pszMess =strMess.c_str();
+            if ((rcp.message.length()>=1)&&(rcp.label=="openname"))
+            {		
+                std::string strMess = rcp.message.toStdString();
+		const char* pszMess =strMess.c_str();
                 CScript scriptP = CScript() << OP_RETURN << vector<unsigned char>((const unsigned char*)pszMess, (const unsigned char*)pszMess + strlen(pszMess));
                 vecSend.push_back(std::pair<CScript, int64_t>(scriptP, 0));
              }
@@ -382,7 +382,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction &tran
                 newTx->vOrderForm.push_back(make_pair("Message", rcp.message.toStdString()));
         }
 
-				//Run//QMessageBox::information(NULL, "Info2", "Click_sendCoins", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+	//Run//QMessageBox::information(NULL, "Info2", "Click_sendCoins", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
         CReserveKey *keyChange = transaction.getPossibleKeyChange();
         LogPrintf("sendCoins: newTx= \n%s", newTx->ToString());
         
@@ -420,6 +420,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction &tran
                 {
                     wallet->SetAddressBook(dest, strLabel, ""); // "" means don't change purpose
                 }
+            }
         }
         emit coinsSent(wallet, rcp, transaction_array);
         LogPrintf("sendCoins: updateAddressBook. \n");
