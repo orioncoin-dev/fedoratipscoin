@@ -156,9 +156,8 @@ void RPCExecutor::request(const QString &command)
         std::string strPrint;
         // Convert argument list to JSON objects in method-dependent way,
         // and pass it along with the method name to the dispatcher.
-        json_spirit::Value result = tableRPC.execute(
-            args[0],
-            RPCConvertValues(args[0], std::vector<std::string>(args.begin() + 1, args.end())));
+        Array pparams = RPCConvertValues(args[0], std::vector<std::string>(args.begin() + 1, args.end()));
+        json_spirit::Value result = tableRPC.execute(args[0], pparams);
 
         // Format result reply
         if (result.type() == json_spirit::null_type)
