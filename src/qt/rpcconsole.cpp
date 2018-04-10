@@ -169,7 +169,7 @@ void RPCExecutor::request(const QString &command)
         }
         else
         {
-            json_spirit:Value result = tableRPC.execute(args[0], pparams);
+            json_spirit::Value result = tableRPC.execute(args[0], pparams);
 
             // Format result reply
             if (result.type() == json_spirit::null_type)
