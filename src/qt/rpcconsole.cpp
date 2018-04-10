@@ -158,7 +158,7 @@ void RPCExecutor::request(const QString &command)
         // and pass it along with the method name to the dispatcher.
         json_spirit::Array pparams = RPCConvertValues(args[0], std::vector<std::string>(args.begin() + 1, args.end()));
 
-        const CRPCCommand *pcmd = tableRPC[strMethod];
+        const CRPCCommand *pcmd = tableRPC[args[0]];
         if (!pcmd)
         {
             strPrint = "Unrecognized command: "+args[0];
