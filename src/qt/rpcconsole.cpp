@@ -163,7 +163,7 @@ void RPCExecutor::request(const QString &command)
         {
             strPrint = "Unrecognized command: "+args[0];
         }
-        else if (args[0].compare("help") == 0)
+        else if (args[0] == "help")
         {
             if (args.size() > 1)
                 strPrint = tableRPC.help(args[1]);
