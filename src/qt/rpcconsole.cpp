@@ -170,10 +170,6 @@ void RPCExecutor::request(const QString &command)
 
         emit reply(RPCConsole::CMD_REPLY, QString::fromStdString(strPrint));
     }
-    catch (JSONRPCError &e)
-    {
-        emit reply(RPCConsole::CMD_ERROR, "unrecognized command: "+command);
-    }
     catch (json_spirit::Object& objError)
     {
         try // Nice formatting for standard-format error
