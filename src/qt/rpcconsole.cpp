@@ -186,6 +186,10 @@ void RPCExecutor::request(const QString &command)
     {
         emit reply(RPCConsole::CMD_ERROR, QString("Error: ") + QString::fromStdString(e.what()));
     }
+    catch (...)
+    {
+        emit reply(RPCConsole::CMD_ERROR, QString("Unrecognized command: ") + command);
+    }
 }
 
 RPCConsole::RPCConsole(QWidget *parent) :
