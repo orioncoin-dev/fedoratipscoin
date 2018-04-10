@@ -10,7 +10,6 @@
 
 #include "rpcserver.h"
 #include "rpcclient.h"
-#include "rpcprotocol.h"
 
 #include "json/json_spirit_value.h"
 #include <openssl/crypto.h>

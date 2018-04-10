@@ -244,7 +244,7 @@ string JSONRPCReply(const Value& result, const Value& error, const Value& id)
     return write_string(Value(reply), false) + "\n";
 }
 
-Object JSONRPCError(int code, const string& message)
+json_spirit::Object JSONRPCError(int code, const string& message)
 {
     Object error;
     error.push_back(Pair("code", code));
