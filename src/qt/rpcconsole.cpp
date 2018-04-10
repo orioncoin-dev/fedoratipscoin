@@ -163,9 +163,13 @@ void RPCExecutor::request(const QString &command)
         {
             strPrint = "Unrecognized command: "+args[0];
         }
+        else if (boost::iequals(args[0], "help"))
+        {
+            strPrint = tableRPC.help(command);
+        }
         else
         {
-            json_spirit::Value result = tableRPC.execute(args[0], pparams);
+            json_spirit:Value result = tableRPC.execute(args[0], pparams);
 
             // Format result reply
             if (result.type() == json_spirit::null_type)
@@ -174,7 +178,8 @@ void RPCExecutor::request(const QString &command)
                 strPrint = result.get_str();
             else
                 strPrint = write_string(result, true);
-        } 
+        }
+
         emit reply(RPCConsole::CMD_REPLY, QString::fromStdString(strPrint));
     }
     catch (json_spirit::Object& objError)
