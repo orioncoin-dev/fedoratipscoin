@@ -163,9 +163,9 @@ void RPCExecutor::request(const QString &command)
         {
             strPrint = "Unrecognized command: "+args[0];
         }
-        else if (boost::iequals(args[0], "help"))
+        else if (tolower(args[0]).compare("help") == 0)
         {
-            strPrint = tableRPC.help(command);
+            strPrint = tableRPC.help(command.toStdString());
         }
         else
         {
