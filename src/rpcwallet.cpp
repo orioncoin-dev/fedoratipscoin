@@ -2011,8 +2011,7 @@ Value getwalletinfo(const Array& params, bool fHelp)
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("getwalletinfo", "")
-            + HelpExampleRpc("getwalletinfo", "")
-        );
+            + HelpExampleRpc("getwalletinfo", "");
 
         return obj;
     }
