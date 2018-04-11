@@ -14,6 +14,8 @@
 #include <boost/foreach.hpp>
 #include "json/json_spirit_value.h"
 
+static string helpText;
+
 using namespace json_spirit;
 using namespace std;
 
@@ -71,8 +73,11 @@ static void CopyNodeStats(std::vector<CNodeStats>& vstats)
 
 Value getpeerinfo(const Array& params, bool fHelp)
 {
+    Array ret;
+
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "getpeerinfo\n"
             "\nReturns data about each connected network node as a json array of objects.\n"
             "\nbResult:\n"
@@ -100,13 +105,12 @@ Value getpeerinfo(const Array& params, bool fHelp)
 
             "\nExamples:\n"
             + HelpExampleCli("getpeerinfo", "")
-            + HelpExampleRpc("getpeerinfo", "")
-        );
+            + HelpExampleRpc("getpeerinfo", "");
+        return ret;
+    }
 
     vector<CNodeStats> vstats;
     CopyNodeStats(vstats);
-
-    Array ret;
 
     BOOST_FOREACH(const CNodeStats& stats, vstats) {
         Object obj;
