@@ -14,7 +14,7 @@
 #include <boost/foreach.hpp>
 #include "json/json_spirit_value.h"
 
-static std::string helpText;
+std::string helpText;
 
 using namespace json_spirit;
 using namespace std;
