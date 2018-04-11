@@ -18,7 +18,7 @@
 #include "json/json_spirit_utils.h"
 #include "json/json_spirit_writer_template.h"
 
-extern static string helpText;
+extern string helpText;
 
 class CBlockIndex;
 
