@@ -119,7 +119,8 @@ Value getnetworkhashps(const Array& params, bool fHelp)
 Value getgenerate(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "getgenerate\n"
             "\nReturn if the server is set to generate coins or not. The default is false.\n"
             "It is set with the command line argument -gen (or bitcoin.conf setting gen)\n"
@@ -128,8 +129,9 @@ Value getgenerate(const Array& params, bool fHelp)
             "true|false      (boolean) If the server is set to generate coins or not\n"
             "\nExamples:\n"
             + HelpExampleCli("getgenerate", "")
-            + HelpExampleRpc("getgenerate", "")
-        );
+            + HelpExampleRpc("getgenerate", "");
+        return false;
+    }
 
     if (!pMiningKey)
         return false;
@@ -141,7 +143,8 @@ Value getgenerate(const Array& params, bool fHelp)
 Value setgenerate(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "setgenerate generate ( genproclimit )\n"
             "\nSet 'generate' true or false to turn generation on or off.\n"
             "Generation is limited to 'genproclimit' processors, -1 is unlimited.\n"
@@ -158,8 +161,10 @@ Value setgenerate(const Array& params, bool fHelp)
             "\nTurn off generation\n"
             + HelpExampleCli("setgenerate", "false") +
             "\nUsing json rpc\n"
-            + HelpExampleRpc("setgenerate", "true, 1")
-        );
+            + HelpExampleRpc("setgenerate", "true, 1");
+
+        return Value::null;
+    }
 
     if (pwalletMain == NULL)
         throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Method not found (disabled)");
@@ -217,7 +222,8 @@ Value setgenerate(const Array& params, bool fHelp)
 Value gethashespersec(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "gethashespersec\n"
             "\nReturns a recent hashes per second performance measurement while generating.\n"
             "See the getgenerate and setgenerate calls to turn generation on and off.\n"
@@ -225,8 +231,10 @@ Value gethashespersec(const Array& params, bool fHelp)
             "n            (numeric) The recent hashes per second when generation is on (will return 0 if generation is off)\n"
             "\nExamples:\n"
             + HelpExampleCli("gethashespersec", "")
-            + HelpExampleRpc("gethashespersec", "")
-        );
+            + HelpExampleRpc("gethashespersec", "");
+
+        return (boost::int64_t)0;
+    }
 
     if (GetTimeMillis() - nHPSTimerStart > 8000)
         return (boost::int64_t)0;
@@ -284,7 +292,8 @@ Value getmininginfo(const Array& params, bool fHelp)
 Value getwork(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
-        throw runtime_error(
+    {
+        helpText = 
             "getwork ( \"data\" )\n"
             "\nIf 'data' is not specified, it returns the formatted hash data to work on.\n"
             "If 'data' is specified, tries to solve the block and returns true if it was successful.\n"
@@ -301,8 +310,10 @@ Value getwork(const Array& params, bool fHelp)
             "true|false       (boolean) If solving the block specified in the 'data' was successfull\n"
             "\nExamples:\n"
             + HelpExampleCli("getwork", "")
-            + HelpExampleRpc("getwork", "")
-        );
+            + HelpExampleRpc("getwork", "");
+
+        return Value::null;
+    }
 
     if (vNodes.empty())
         throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Bitcoin is not connected!");

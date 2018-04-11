@@ -229,7 +229,8 @@ Value getblockhash(const Array& params, bool fHelp)
             "\nExamples:\n"
             + HelpExampleCli("getblockhash", "1000")
             + HelpExampleRpc("getblockhash", "1000");
-        return Value:null;
+
+        return Value::null;
     } 
 
     int nHeight = params[0].get_int();

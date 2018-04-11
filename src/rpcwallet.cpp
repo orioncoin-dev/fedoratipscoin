@@ -224,7 +224,8 @@ Value getrawchangeaddress(const Array& params, bool fHelp)
 Value setaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "setaccount \"fedoracoinaddress\" \"account\"\n"
             "\nSets the account associated with the given address.\n"
             "\nArguments:\n"
@@ -232,8 +233,10 @@ Value setaccount(const Array& params, bool fHelp)
             "2. \"account\"         (string, required) The account to assign the address to.\n"
             "\nExamples:\n"
             + HelpExampleCli("setaccount", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\" \"tabby\"")
-            + HelpExampleRpc("setaccount", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\", \"tabby\"")
-        );
+            + HelpExampleRpc("setaccount", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\", \"tabby\"");
+
+        return Value::null;
+    }
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
@@ -326,7 +329,8 @@ Value getaddressesbyaccount(const Array& params, bool fHelp)
 Value sendtoaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 2 || params.size() > 5)
-        throw runtime_error(
+    {
+        helpText =
             "sendtoaddress \"fedoracoinaddress\" amount ( \"comment\" \"comment-to\" )\n"
             "\nSent an amount to a given address. The amount is a real and is rounded to the nearest 0.00000001\n"
             + HelpRequiringPassphrase() +
@@ -343,8 +347,10 @@ Value sendtoaddress(const Array& params, bool fHelp)
             "\nExamples:\n"
             + HelpExampleCli("sendtoaddress", "\"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\" 0.1")
             + HelpExampleCli("sendtoaddress", "\"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\" 0.1 \"donation\" \"seans outpost\"")
-            + HelpExampleRpc("sendtoaddress", "\"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\", 0.1, \"donation\", \"seans outpost\"")
-        );
+            + HelpExampleRpc("sendtoaddress", "\"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\", 0.1, \"donation\", \"seans outpost\"");
+
+        return Value::null;
+    }
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
@@ -422,7 +428,8 @@ Value listaddressgroupings(const Array& params, bool fHelp)
 Value signmessage(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 2)
-        throw runtime_error(
+    {
+        helpText = 
             "signmessage \"fedoracoinaddress\" \"message\"\n"
             "\nSign a message with the private key of an address"
             + HelpRequiringPassphrase() + "\n"
@@ -439,8 +446,10 @@ Value signmessage(const Array& params, bool fHelp)
             "\nVerify the signature\n"
             + HelpExampleCli("verifymessage", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\" \"signature\" \"my message\"") +
             "\nAs json rpc\n"
-            + HelpExampleRpc("signmessage", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\", \"my message\"")
-        );
+            + HelpExampleRpc("signmessage", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\", \"my message\"");
+
+        return Value::null;
+    }
 
     EnsureWalletIsUnlocked();
 
@@ -703,7 +712,8 @@ Value getunconfirmedbalance(const Array &params, bool fHelp)
 Value movecmd(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 3 || params.size() > 5)
-        throw runtime_error(
+    {
+        helpText =
             "move \"fromaccount\" \"toaccount\" amount ( minconf \"comment\" )\n"
             "\nMove a specified amount from one account in your wallet to another.\n"
             "\nArguments:\n"
@@ -719,8 +729,10 @@ Value movecmd(const Array& params, bool fHelp)
             "\nMove 0.01 btc timotei to akiko with a comment and funds have 6 confirmations\n"
             + HelpExampleCli("move", "\"timotei\" \"akiko\" 0.01 6 \"happy birthday!\"") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("move", "\"timotei\", \"akiko\", 0.01, 6, \"happy birthday!\"")
-        );
+            + HelpExampleRpc("move", "\"timotei\", \"akiko\", 0.01, 6, \"happy birthday!\"");
+
+        return Value::null;
+    }
 
     string strFrom = AccountFromValue(params[0]);
     string strTo = AccountFromValue(params[1]);
@@ -768,7 +780,8 @@ Value movecmd(const Array& params, bool fHelp)
 Value sendfrom(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 3 || params.size() > 7)
-        throw runtime_error(
+    {
+        helpText =
             "sendfrom \"fromaccount\" \"tofedoracoinaddress\" amount ( minconf \"comment\" \"comment-to\" )\n"
             "\nSent an amount from an account to a fedoracoin address.\n"
             "The amount is a real and is rounded to the nearest 0.00000001."
@@ -791,8 +804,10 @@ Value sendfrom(const Array& params, bool fHelp)
             "\nSend 0.01 from the tabby account to the given address, funds must have at least 6 confirmations\n"
             + HelpExampleCli("sendfrom", "\"tabby\" \"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\" 0.01 6 \"donation\" \"seans outpost\"") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("sendfrom", "\"tabby\", \"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\", 0.01, 6, \"donation\", \"seans outpost\"")
-        );
+            + HelpExampleRpc("sendfrom", "\"tabby\", \"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\", 0.01, 6, \"donation\", \"seans outpost\"");
+
+        return Value::null;
+    }
 
     string strAccount = AccountFromValue(params[0]);
     CBitcoinAddress address(params[1].get_str());
@@ -829,7 +844,8 @@ Value sendfrom(const Array& params, bool fHelp)
 Value sendmany(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 2 || params.size() > 4)
-        throw runtime_error(
+    {
+        helpText =
             "sendmany \"fromaccount\" {\"address\":amount,...} ( minconf \"comment\" )\n"
             "\nSend multiple times. Amounts are double-precision floating point numbers."
             + HelpRequiringPassphrase() + "\n"
@@ -851,8 +867,10 @@ Value sendmany(const Array& params, bool fHelp)
             "\nSend two amounts to two different addresses setting the confirmation and comment:\n"
             + HelpExampleCli("sendmany", "\"tabby\" \"{\\\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\\\":0.01,\\\"1353tsE8YMTA4EuV7dgUXGjNFf9KpVvKHz\\\":0.02}\" 6 \"testing\"") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("sendmany", "\"tabby\", \"{\\\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\\\":0.01,\\\"1353tsE8YMTA4EuV7dgUXGjNFf9KpVvKHz\\\":0.02}\", 6, \"testing\"")
-        );
+            + HelpExampleRpc("sendmany", "\"tabby\", \"{\\\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\\\":0.01,\\\"1353tsE8YMTA4EuV7dgUXGjNFf9KpVvKHz\\\":0.02}\", 6, \"testing\"");
+
+        return Value::null;
+    }
 
     string strAccount = AccountFromValue(params[0]);
     Object sendTo = params[1].get_obj();
@@ -1622,7 +1640,8 @@ static void LockWallet(CWallet* pWallet)
 Value walletpassphrase(const Array& params, bool fHelp)
 {
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 2))
-        throw runtime_error(
+    {
+        helpText =
             "walletpassphrase \"passphrase\" timeout\n"
             "\nStores the wallet decryption key in memory for 'timeout' seconds.\n"
             "This is needed prior to performing transactions related to private keys such as sending fedoracoins\n"
@@ -1638,11 +1657,14 @@ Value walletpassphrase(const Array& params, bool fHelp)
             "\nLock the wallet again (before 60 seconds)\n"
             + HelpExampleCli("walletlock", "") +
             "\nAs json rpc call\n"
-            + HelpExampleRpc("walletpassphrase", "\"my pass phrase\", 60")
-        );
+            + HelpExampleRpc("walletpassphrase", "\"my pass phrase\", 60");
+
+        return false;
+    }
 
     if (fHelp)
         return true;
+
     if (!pwalletMain->IsCrypted())
         throw JSONRPCError(RPC_WALLET_WRONG_ENC_STATE, "Error: running with an unencrypted wallet, but walletpassphrase was called.");
 
@@ -1677,7 +1699,8 @@ Value walletpassphrase(const Array& params, bool fHelp)
 Value walletpassphrasechange(const Array& params, bool fHelp)
 {
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 2))
-        throw runtime_error(
+    {
+        helpText =
             "walletpassphrasechange \"oldpassphrase\" \"newpassphrase\"\n"
             "\nChanges the wallet passphrase from 'oldpassphrase' to 'newpassphrase'.\n"
             "\nArguments:\n"
@@ -1685,8 +1708,10 @@ Value walletpassphrasechange(const Array& params, bool fHelp)
             "2. \"newpassphrase\"      (string) The new passphrase\n"
             "\nExamples:\n"
             + HelpExampleCli("walletpassphrasechange", "\"old one\" \"new one\"")
-            + HelpExampleRpc("walletpassphrasechange", "\"old one\", \"new one\"")
-        );
+            + HelpExampleRpc("walletpassphrasechange", "\"old one\", \"new one\"");
+
+        return false;
+    } 
 
     if (fHelp)
         return true;
@@ -1718,7 +1743,8 @@ Value walletpassphrasechange(const Array& params, bool fHelp)
 Value walletlock(const Array& params, bool fHelp)
 {
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 0))
-        throw runtime_error(
+    {
+        helpText =
             "walletlock\n"
             "\nRemoves the wallet encryption key from memory, locking the wallet.\n"
             "After calling this method, you will need to call walletpassphrase again\n"
@@ -1731,8 +1757,10 @@ Value walletlock(const Array& params, bool fHelp)
             "\nClear the passphrase since we are done before 2 minutes is up\n"
             + HelpExampleCli("walletlock", "") +
             "\nAs json rpc call\n"
-            + HelpExampleRpc("walletlock", "")
-        );
+            + HelpExampleRpc("walletlock", "");
+
+        return Value::null;
+    }
 
     if (fHelp)
         return true;
@@ -1940,7 +1968,8 @@ Value listlockunspent(const Array& params, bool fHelp)
 Value settxfee(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 1)
-        throw runtime_error(
+    {
+        helpText =
             "settxfee amount\n"
             "\nSet the transaction fee per kB.\n"
             "\nArguments:\n"
@@ -1949,8 +1978,10 @@ Value settxfee(const Array& params, bool fHelp)
             "true|false        (boolean) Returns true if successful\n"
             "\nExamples:\n"
             + HelpExampleCli("settxfee", "0.00001")
-            + HelpExampleRpc("settxfee", "0.00001")
-        );
+            + HelpExampleRpc("settxfee", "0.00001");
+
+        return Value::null;
+    }
 
     // Amount
     int64_t nAmount = 0;

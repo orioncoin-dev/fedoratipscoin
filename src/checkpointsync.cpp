@@ -477,12 +477,15 @@ bool CSyncCheckpoint::ProcessSyncCheckpoint(CNode* pfrom)
 // get information of sync-checkpoint (first introduced in ppcoin)
 Value getcheckpoint(const Array& params, bool fHelp)
 {
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getcheckpoint\n"
-            "Show info of synchronized checkpoint.\n");
-
     Object result;
+    if (fHelp || params.size() != 0)
+    {
+        helpText =
+            "getcheckpoint\n"
+            "Show info of synchronized checkpoint.\n";
+        return result;
+    }
+
     CBlockIndex* pindexCheckpoint;
 
     result.push_back(Pair("synccheckpoint", hashSyncCheckpoint.ToString().c_str()));
@@ -502,9 +505,12 @@ Value getcheckpoint(const Array& params, bool fHelp)
 Value sendcheckpoint(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
-        throw runtime_error(
+    {
+        helpText =
             "sendcheckpoint <blockhash>\n"
-            "Send a synchronized checkpoint.\n");
+            "Send a synchronized checkpoint.\n";
+        return Value::null;
+    }
 
     if (!mapArgs.count("-checkpointkey") || CSyncCheckpoint::strMasterPrivKey.empty())
         throw runtime_error("Not a checkpointmaster node, first set checkpointkey in configuration and restart client. ");
@@ -535,9 +541,12 @@ Value sendcheckpoint(const Array& params, bool fHelp)
 Value enforcecheckpoint(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
-        throw runtime_error(
+    {
+        helpText = 
             "enforcecheckpoint <enforce>\n"
-            "<enforce> is true or false to enable or disable enforcement of broadcasted checkpoints by developer.");
+            "<enforce> is true or false to enable or disable enforcement of broadcasted checkpoints by developer.";
+        return Value::null;
+    }
 
     bool fEnforceCheckpoint = params[0].get_bool();
     if (mapArgs.count("-checkpointkey") && !fEnforceCheckpoint)
