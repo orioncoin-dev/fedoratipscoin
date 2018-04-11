@@ -112,7 +112,8 @@ void TxToJSON(const CTransaction& tx, const uint256 hashBlock, Object& entry)
 Value getrawtransaction(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "getrawtransaction \"txid\" ( verbose )\n"
             "\nReturn the raw transaction data.\n"
             "\nIf verbose=0, returns a string that is serialized, hex-encoded data for 'txid'.\n"
@@ -169,8 +170,10 @@ Value getrawtransaction(const Array& params, bool fHelp)
             "\nExamples:\n"
             + HelpExampleCli("getrawtransaction", "\"mytxid\"")
             + HelpExampleCli("getrawtransaction", "\"mytxid\" 1")
-            + HelpExampleRpc("getrawtransaction", "\"mytxid\", 1")
-        );
+            + HelpExampleRpc("getrawtransaction", "\"mytxid\", 1");
+
+        return Value::null;
+    }
 
     uint256 hash = ParseHashV(params[0], "parameter 1");
 
@@ -200,7 +203,8 @@ Value getrawtransaction(const Array& params, bool fHelp)
 Value listunspent(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 3)
-        throw runtime_error(
+    {
+        helpText =
             "listunspent ( minconf maxconf  [\"address\",...] )\n"
             "\nReturns array of unspent transaction outputs\n"
             "with between minconf and maxconf (inclusive) confirmations.\n"
@@ -232,8 +236,10 @@ Value listunspent(const Array& params, bool fHelp)
             "\nExamples\n"
             + HelpExampleCli("listunspent", "")
             + HelpExampleCli("listunspent", "6 9999999 \"[\\\"1PGFqEzfmQch1gKD3ra4k18PNj3tTUUSqg\\\",\\\"1LtvqCaApEdUGFkpKMM4MstjcaL4dKg8SP\\\"]\"")
-            + HelpExampleRpc("listunspent", "6, 9999999 \"[\\\"1PGFqEzfmQch1gKD3ra4k18PNj3tTUUSqg\\\",\\\"1LtvqCaApEdUGFkpKMM4MstjcaL4dKg8SP\\\"]\"")
-        );
+            + HelpExampleRpc("listunspent", "6, 9999999 \"[\\\"1PGFqEzfmQch1gKD3ra4k18PNj3tTUUSqg\\\",\\\"1LtvqCaApEdUGFkpKMM4MstjcaL4dKg8SP\\\"]\"");
+
+        return Value::null;
+    }
 
     RPCTypeCheck(params, list_of(int_type)(int_type)(array_type));
 
@@ -320,7 +326,8 @@ Value listunspent(const Array& params, bool fHelp)
 Value createrawtransaction(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 2)
-        throw runtime_error(
+    {
+        helpText =
             "createrawtransaction [{\"txid\":\"id\",\"vout\":n},...] {\"address\":amount,...}\n"
             "\nCreate a transaction spending the given inputs and sending to the given addresses.\n"
             "Returns hex-encoded raw transaction.\n"
@@ -347,8 +354,10 @@ Value createrawtransaction(const Array& params, bool fHelp)
 
             "\nExamples\n"
             + HelpExampleCli("createrawtransaction", "\"[{\\\"txid\\\":\\\"myid\\\",\\\"vout\\\":0}]\" \"{\\\"address\\\":0.01}\"")
-            + HelpExampleRpc("createrawtransaction", "\"[{\\\"txid\\\":\\\"myid\\\",\\\"vout\\\":0}]\", \"{\\\"address\\\":0.01}\"")
-        );
+            + HelpExampleRpc("createrawtransaction", "\"[{\\\"txid\\\":\\\"myid\\\",\\\"vout\\\":0}]\", \"{\\\"address\\\":0.01}\"");
+
+        return Value::null;
+    }
 
     RPCTypeCheck(params, list_of(array_type)(obj_type));
 
@@ -401,7 +410,8 @@ Value createrawtransaction(const Array& params, bool fHelp)
 Value decoderawtransaction(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
-        throw runtime_error(
+    {
+        helpText =
             "decoderawtransaction \"hexstring\"\n"
             "\nReturn a JSON object representing the serialized, hex-encoded transaction.\n"
 
@@ -446,8 +456,10 @@ Value decoderawtransaction(const Array& params, bool fHelp)
 
             "\nExamples:\n"
             + HelpExampleCli("decoderawtransaction", "\"hexstring\"")
-            + HelpExampleRpc("decoderawtransaction", "\"hexstring\"")
-        );
+            + HelpExampleRpc("decoderawtransaction", "\"hexstring\"");
+
+        return Value::null;
+    }
 
     vector<unsigned char> txData(ParseHexV(params[0], "argument"));
     CDataStream ssData(txData, SER_NETWORK, PROTOCOL_VERSION);
@@ -468,7 +480,8 @@ Value decoderawtransaction(const Array& params, bool fHelp)
 Value decodescript(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
-        throw runtime_error(
+    {
+        helpText =
             "decodescript \"hex\"\n"
             "\nDecode a hex-encoded script.\n"
             "\nArguments:\n"
@@ -487,8 +500,10 @@ Value decodescript(const Array& params, bool fHelp)
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("decodescript", "\"hexstring\"")
-            + HelpExampleRpc("decodescript", "\"hexstring\"")
-        );
+            + HelpExampleRpc("decodescript", "\"hexstring\"");
+
+        return Value::null;
+    }
 
     RPCTypeCheck(params, list_of(str_type));
 
@@ -509,7 +524,8 @@ Value decodescript(const Array& params, bool fHelp)
 Value signrawtransaction(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 4)
-        throw runtime_error(
+    {
+        helpText =
             "signrawtransaction \"hexstring\" ( [{\"txid\":\"id\",\"vout\":n,\"scriptPubKey\":\"hex\",\"redeemScript\":\"hex\"},...] [\"privatekey1\",...] sighashtype )\n"
             "\nSign inputs for raw transaction (serialized, hex-encoded).\n"
             "The second optional argument (may be null) is an array of previous transaction outputs that\n"
@@ -553,8 +569,10 @@ Value signrawtransaction(const Array& params, bool fHelp)
 
             "\nExamples:\n"
             + HelpExampleCli("signrawtransaction", "\"myhex\"")
-            + HelpExampleRpc("signrawtransaction", "\"myhex\"")
-        );
+            + HelpExampleRpc("signrawtransaction", "\"myhex\"");
+
+        return Value::null;
+    }
 
     RPCTypeCheck(params, list_of(str_type)(array_type)(array_type)(str_type), true);
 
@@ -743,7 +761,8 @@ Value signrawtransaction(const Array& params, bool fHelp)
 Value sendrawtransaction(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "sendrawtransaction \"hexstring\" ( allowhighfees )\n"
             "\nSubmits raw transaction (serialized, hex-encoded) to local node and network.\n"
             "\nAlso see createrawtransaction and signrawtransaction calls.\n"
@@ -760,9 +779,10 @@ Value sendrawtransaction(const Array& params, bool fHelp)
             "\nSend the transaction (signed hex)\n"
             + HelpExampleCli("sendrawtransaction", "\"signedhex\"") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("sendrawtransaction", "\"signedhex\"")
-        );
+            + HelpExampleRpc("sendrawtransaction", "\"signedhex\"");
 
+        return Value::null;
+    }
 
     // parse hex string from parameter
     vector<unsigned char> txData(ParseHexV(params[0], "parameter"));

@@ -130,8 +130,10 @@ public:
 
 Value validateaddress(const Array& params, bool fHelp)
 {
+    Object ret;
     if (fHelp || params.size() != 1)
-        throw runtime_error(
+    {
+        helpText =
             "validateaddress \"fedoracoinaddress\"\n"
             "\nReturn information about the given fedoracoin address.\n"
             "\nArguments:\n"
@@ -148,13 +150,14 @@ Value validateaddress(const Array& params, bool fHelp)
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("validateaddress", "\"1PSSGeFHDnKNxiEyFrD1wcEaHr9hrQDDWc\"")
-            + HelpExampleRpc("validateaddress", "\"1PSSGeFHDnKNxiEyFrD1wcEaHr9hrQDDWc\"")
-        );
+            + HelpExampleRpc("validateaddress", "\"1PSSGeFHDnKNxiEyFrD1wcEaHr9hrQDDWc\"");
+
+        return ret;
+    }
 
     CBitcoinAddress address(params[0].get_str());
     bool isValid = address.IsValid();
 
-    Object ret;
     ret.push_back(Pair("isvalid", isValid));
     if (isValid)
     {
@@ -245,9 +248,10 @@ CScript _createmultisig_redeemScript(const Array& params)
 
 Value createmultisig(const Array& params, bool fHelp)
 {
+    Object result;
     if (fHelp || params.size() < 2 || params.size() > 2)
     {
-        string msg = "createmultisig nrequired [\"key\",...]\n"
+        helpText = "createmultisig nrequired [\"key\",...]\n"
             "\nCreates a multi-signature address with n signature of m keys required.\n"
             "It returns a json object with the address and redeemScript.\n"
 
@@ -269,9 +273,9 @@ Value createmultisig(const Array& params, bool fHelp)
             "\nCreate a multisig address from 2 addresses\n"
             + HelpExampleCli("createmultisig", "2 \"[\\\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\\\",\\\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\\\"]\"") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("createmultisig", "2, \"[\\\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\\\",\\\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\\\"]\"")
-        ;
-        throw runtime_error(msg);
+            + HelpExampleRpc("createmultisig", "2, \"[\\\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\\\",\\\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\\\"]\"");
+
+        return result;
     }
 
     // Construct using pay-to-script-hash:
@@ -279,7 +283,6 @@ Value createmultisig(const Array& params, bool fHelp)
     CScriptID innerID = inner.GetID();
     CBitcoinAddress address(innerID);
 
-    Object result;
     result.push_back(Pair("address", address.ToString()));
     result.push_back(Pair("redeemScript", HexStr(inner.begin(), inner.end())));
 
@@ -289,7 +292,8 @@ Value createmultisig(const Array& params, bool fHelp)
 Value verifymessage(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 3)
-        throw runtime_error(
+    {
+        helpText =
             "verifymessage \"fedoracoinaddress\" \"signature\" \"message\"\n"
             "\nVerify a signed message\n"
             "\nArguments:\n"
@@ -306,8 +310,10 @@ Value verifymessage(const Array& params, bool fHelp)
             "\nVerify the signature\n"
             + HelpExampleCli("verifymessage", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\" \"signature\" \"my message\"") +
             "\nAs json rpc\n"
-            + HelpExampleRpc("verifymessage", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\", \"signature\", \"my message\"")
-        );
+            + HelpExampleRpc("verifymessage", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\", \"signature\", \"my message\"");
+
+        return Value::null;
+    }
 
     string strAddress  = params[0].get_str();
     string strSign     = params[1].get_str();

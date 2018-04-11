@@ -74,7 +74,8 @@ string AccountFromValue(const Value& value)
 Value getnewaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
-        throw runtime_error(
+    {
+        helpText =
             "getnewaddress ( \"account\" )\n"
             "\nReturns a new fedoracoin address for receiving payments.\n"
             "If 'account' is specified (recommended), it is added to the address book \n"
@@ -87,8 +88,10 @@ Value getnewaddress(const Array& params, bool fHelp)
             + HelpExampleCli("getnewaddress", "")
             + HelpExampleCli("getnewaddress", "\"\"")
             + HelpExampleCli("getnewaddress", "\"myaccount\"")
-            + HelpExampleRpc("getnewaddress", "\"myaccount\"")
-        );
+            + HelpExampleRpc("getnewaddress", "\"myaccount\"");
+
+        return Value::null;
+    }
 
     // Parse the account first so we don't generate a key if there's an error
     string strAccount;
@@ -150,8 +153,17 @@ CBitcoinAddress GetAccountAddress(string strAccount, bool bForceNew=false)
 
 Value getaccountaddress(const Array& params, bool fHelp)
 {
+    // note from Poppa: we need to code review these functions
+    // the list is in the "help" handler.  how are errors in
+    // parameter count getting reported?  it should not be thowing
+    // excecptions to pass help text parameters back on non-fatal
+    // explanations within console... this needs review as logic
+    // seems weak in this an many other functions
+
+    Value ret;
     if (fHelp || params.size() != 1)
-        throw runtime_error(
+    {
+        helpText =
             "getaccountaddress \"account\"\n"
             "\nReturns the current fedoracoin address for receiving payments to this account.\n"
             "\nArguments:\n"
@@ -162,13 +174,13 @@ Value getaccountaddress(const Array& params, bool fHelp)
             + HelpExampleCli("getaccountaddress", "")
             + HelpExampleCli("getaccountaddress", "\"\"")
             + HelpExampleCli("getaccountaddress", "\"myaccount\"")
-            + HelpExampleRpc("getaccountaddress", "\"myaccount\"")
-        );
+            + HelpExampleRpc("getaccountaddress", "\"myaccount\"");
+
+        return ret;
+    }
 
     // Parse the account first so we don't generate a key if there's an error
     string strAccount = AccountFromValue(params[0]);
-
-    Value ret;
 
     ret = GetAccountAddress(strAccount).ToString();
 
@@ -179,7 +191,8 @@ Value getaccountaddress(const Array& params, bool fHelp)
 Value getrawchangeaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
-        throw runtime_error(
+    {
+        helpText =
             "getrawchangeaddress\n"
             "\nReturns a new fedoracoin address, for receiving change.\n"
             "This is for use with raw transactions, NOT normal use.\n"
@@ -187,8 +200,10 @@ Value getrawchangeaddress(const Array& params, bool fHelp)
             "\"address\"    (string) The address\n"
             "\nExamples:\n"
             + HelpExampleCli("getrawchangeaddress", "")
-            + HelpExampleRpc("getrawchangeaddress", "")
-       );
+            + HelpExampleRpc("getrawchangeaddress", "");
+
+        return Value::null;
+    }    
 
     if (!pwalletMain->IsLocked())
         pwalletMain->TopUpKeyPool();
@@ -246,7 +261,8 @@ Value setaccount(const Array& params, bool fHelp)
 Value getaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
-        throw runtime_error(
+    {
+        helpText =
             "getaccount \"fedoracoinaddress\"\n"
             "\nReturns the account associated with the given address.\n"
             "\nArguments:\n"
@@ -255,8 +271,10 @@ Value getaccount(const Array& params, bool fHelp)
             "\"accountname\"        (string) the account address\n"
             "\nExamples:\n"
             + HelpExampleCli("getaccount", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\"")
-            + HelpExampleRpc("getaccount", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\"")
-        );
+            + HelpExampleRpc("getaccount", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\"");
+
+        return Value::null;
+    }
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
@@ -273,7 +291,8 @@ Value getaccount(const Array& params, bool fHelp)
 Value getaddressesbyaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
-        throw runtime_error(
+    {
+        helpText =
             "getaddressesbyaccount \"account\"\n"
             "\nReturns the list of addresses for the given account.\n"
             "\nArguments:\n"
@@ -285,8 +304,10 @@ Value getaddressesbyaccount(const Array& params, bool fHelp)
             "]\n"
             "\nExamples:\n"
             + HelpExampleCli("getaddressesbyaccount", "\"tabby\"")
-            + HelpExampleRpc("getaddressesbyaccount", "\"tabby\"")
-        );
+            + HelpExampleRpc("getaddressesbyaccount", "\"tabby\"");
+
+        return Value::null;
+    }
 
     string strAccount = AccountFromValue(params[0]);
 
@@ -351,7 +372,8 @@ Value sendtoaddress(const Array& params, bool fHelp)
 Value listaddressgroupings(const Array& params, bool fHelp)
 {
     if (fHelp)
-        throw runtime_error(
+    {
+        helpText =
             "listaddressgroupings\n"
             "\nLists groups of addresses which have had their common ownership\n"
             "made public by common use as inputs or as the resulting change\n"
@@ -370,8 +392,10 @@ Value listaddressgroupings(const Array& params, bool fHelp)
             "]\n"
             "\nExamples:\n"
             + HelpExampleCli("listaddressgroupings", "")
-            + HelpExampleRpc("listaddressgroupings", "")
-        );
+            + HelpExampleRpc("listaddressgroupings", "");
+
+        return Value::null;
+    }
 
     Array jsonGroupings;
     map<CTxDestination, int64_t> balances = pwalletMain->GetAddressBalances();
@@ -449,7 +473,8 @@ Value signmessage(const Array& params, bool fHelp)
 Value getreceivedbyaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "getreceivedbyaddress \"fedoracoinaddress\" ( minconf )\n"
             "\nReturns the total amount received by the given fedoracoinaddress in transactions with at least minconf confirmations.\n"
             "\nArguments:\n"
@@ -465,8 +490,10 @@ Value getreceivedbyaddress(const Array& params, bool fHelp)
             "\nThe amount with at least 6 confirmation, very safe\n"
             + HelpExampleCli("getreceivedbyaddress", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\" 6") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("getreceivedbyaddress", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\", 6")
-       );
+            + HelpExampleRpc("getreceivedbyaddress", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\", 6");
+
+       return Value::null;
+    }
 
     // fedoracoin address
     CBitcoinAddress address = CBitcoinAddress(params[0].get_str());
@@ -503,7 +530,8 @@ Value getreceivedbyaddress(const Array& params, bool fHelp)
 Value getreceivedbyaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "getreceivedbyaccount \"account\" ( minconf )\n"
             "\nReturns the total amount received by addresses with <account> in transactions with at least [minconf] confirmations.\n"
             "\nArguments:\n"
@@ -519,8 +547,10 @@ Value getreceivedbyaccount(const Array& params, bool fHelp)
             "\nThe amount with at least 6 confirmation, very safe\n"
             + HelpExampleCli("getreceivedbyaccount", "\"tabby\" 6") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("getreceivedbyaccount", "\"tabby\", 6")
-        );
+            + HelpExampleRpc("getreceivedbyaccount", "\"tabby\", 6");
+
+        return Value::null;
+    }
 
     // Minimum confirmations
     int nMinDepth = 1;
@@ -587,7 +617,8 @@ int64_t GetAccountBalance(const string& strAccount, int nMinDepth)
 Value getbalance(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "getbalance ( \"account\" minconf )\n"
             "\nIf account is not specified, returns the server's total available balance.\n"
             "If account is specified, returns the balance in the account.\n"
@@ -608,8 +639,10 @@ Value getbalance(const Array& params, bool fHelp)
             "\nThe total amount in the account named tabby with at least 6 confirmations\n"
             + HelpExampleCli("getbalance", "\"tabby\" 6") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("getbalance", "\"tabby\", 6")
-        );
+            + HelpExampleRpc("getbalance", "\"tabby\", 6");
+
+        return Value::null;
+    }
 
     if (params.size() == 0)
         return  ValueFromAmount(pwalletMain->GetBalance());
@@ -656,9 +689,13 @@ Value getbalance(const Array& params, bool fHelp)
 Value getunconfirmedbalance(const Array &params, bool fHelp)
 {
     if (fHelp || params.size() > 0)
-        throw runtime_error(
+    {
+        helpText =
                 "getunconfirmedbalance\n"
-                "Returns the server's total unconfirmed balance\n");
+                "Returns the server's total unconfirmed balance\n";
+        return Value::null;
+    }
+
     return ValueFromAmount(pwalletMain->GetUnconfirmedBalance());
 }
 
@@ -878,7 +915,7 @@ Value addmultisigaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 2 || params.size() > 3)
     {
-        string msg = "addmultisigaddress nrequired [\"key\",...] ( \"account\" )\n"
+        helpText = "addmultisigaddress nrequired [\"key\",...] ( \"account\" )\n"
             "\nAdd a nrequired-to-sign multisignature address to the wallet.\n"
             "Each key is a fedoracoin address or hex-encoded public key.\n"
             "If 'account' is specified, assign address to that account.\n"
@@ -899,9 +936,9 @@ Value addmultisigaddress(const Array& params, bool fHelp)
             "\nAdd a multisig address from 2 addresses\n"
             + HelpExampleCli("addmultisigaddress", "2 \"[\\\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\\\",\\\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\\\"]\"") +
             "\nAs json rpc call\n"
-            + HelpExampleRpc("addmultisigaddress", "2, \"[\\\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\\\",\\\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\\\"]\"")
-        ;
-        throw runtime_error(msg);
+            + HelpExampleRpc("addmultisigaddress", "2, \"[\\\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\\\",\\\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\\\"]\"");
+
+        return Value::null;
     }
 
     string strAccount;
@@ -1033,7 +1070,8 @@ Value ListReceived(const Array& params, bool fByAccounts)
 Value listreceivedbyaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "listreceivedbyaddress ( minconf includeempty )\n"
             "\nList balances by receiving address.\n"
             "\nArguments:\n"
@@ -1054,8 +1092,10 @@ Value listreceivedbyaddress(const Array& params, bool fHelp)
             "\nExamples:\n"
             + HelpExampleCli("listreceivedbyaddress", "")
             + HelpExampleCli("listreceivedbyaddress", "6 true")
-            + HelpExampleRpc("listreceivedbyaddress", "6, true")
-        );
+            + HelpExampleRpc("listreceivedbyaddress", "6, true");
+
+        return Value::null;
+    }
 
     return ListReceived(params, false);
 }
@@ -1063,7 +1103,8 @@ Value listreceivedbyaddress(const Array& params, bool fHelp)
 Value listreceivedbyaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "listreceivedbyaccount ( minconf includeempty )\n"
             "\nList balances by account.\n"
             "\nArguments:\n"
@@ -1083,8 +1124,10 @@ Value listreceivedbyaccount(const Array& params, bool fHelp)
             "\nExamples:\n"
             + HelpExampleCli("listreceivedbyaccount", "")
             + HelpExampleCli("listreceivedbyaccount", "6 true")
-            + HelpExampleRpc("listreceivedbyaccount", "6, true")
-        );
+            + HelpExampleRpc("listreceivedbyaccount", "6, true");
+
+        return Value::null;
+    }    
 
     return ListReceived(params, true);
 }
@@ -1179,7 +1222,8 @@ void AcentryToJSON(const CAccountingEntry& acentry, const string& strAccount, Ar
 Value listtransactions(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 3)
-        throw runtime_error(
+    {
+        helpText =
             "listtransactions ( \"account\" count from )\n"
             "\nReturns up to 'count' most recent transactions skipping the first 'from' transactions for account 'account'.\n"
             "\nArguments:\n"
@@ -1229,8 +1273,10 @@ Value listtransactions(const Array& params, bool fHelp)
             "\nList transactions 100 to 120 from the tabby account\n"
             + HelpExampleCli("listtransactions", "\"tabby\" 20 100") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("listtransactions", "\"tabby\", 20, 100")
-        );
+            + HelpExampleRpc("listtransactions", "\"tabby\", 20, 100");
+
+        return Value::null;
+    }
 
     string strAccount = "*";
     if (params.size() > 0)
@@ -1286,7 +1332,8 @@ Value listtransactions(const Array& params, bool fHelp)
 Value listaccounts(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
-        throw runtime_error(
+    {
+        helpText =
             "listaccounts ( minconf )\n"
             "\nReturns Object that has account names as keys, account balances as values.\n"
             "\nArguments:\n"
@@ -1304,8 +1351,10 @@ Value listaccounts(const Array& params, bool fHelp)
             "\nList account balances for 6 or more confirmations\n"
             + HelpExampleCli("listaccounts", "6") +
             "\nAs json rpc call\n"
-            + HelpExampleRpc("listaccounts", "6")
-        );
+            + HelpExampleRpc("listaccounts", "6");
+
+        return Value::null;
+    } 
 
     int nMinDepth = 1;
     if (params.size() > 0)
@@ -1356,7 +1405,8 @@ Value listaccounts(const Array& params, bool fHelp)
 Value listsinceblock(const Array& params, bool fHelp)
 {
     if (fHelp)
-        throw runtime_error(
+    {
+        helpText =
             "listsinceblock ( \"blockhash\" target-confirmations )\n"
             "\nGet all transactions in blocks since block [blockhash], or all transactions if omitted\n"
             "\nArguments:\n"
@@ -1386,8 +1436,10 @@ Value listsinceblock(const Array& params, bool fHelp)
             "\nExamples:\n"
             + HelpExampleCli("listsinceblock", "")
             + HelpExampleCli("listsinceblock", "\"000000000000000bacf66f7497b7dc45ef753ee9a7d38571037cdb1a57f663ad\" 6")
-            + HelpExampleRpc("listsinceblock", "\"000000000000000bacf66f7497b7dc45ef753ee9a7d38571037cdb1a57f663ad\", 6")
-        );
+            + HelpExampleRpc("listsinceblock", "\"000000000000000bacf66f7497b7dc45ef753ee9a7d38571037cdb1a57f663ad\", 6");
+
+        return Value::null;
+    }
 
     CBlockIndex *pindex = NULL;
     int target_confirms = 1;
@@ -1435,7 +1487,8 @@ Value listsinceblock(const Array& params, bool fHelp)
 Value gettransaction(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
-        throw runtime_error(
+    {
+        helpText =
             "gettransaction \"txid\"\n"
             "\nGet detailed information about in-wallet transaction <txid>\n"
             "\nArguments:\n"
@@ -1464,8 +1517,10 @@ Value gettransaction(const Array& params, bool fHelp)
 
             "\nbExamples\n"
             + HelpExampleCli("gettransaction", "\"1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d\"")
-            + HelpExampleRpc("gettransaction", "\"1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d\"")
-        );
+            + HelpExampleRpc("gettransaction", "\"1075db55d416d3ca199f55b6084e2115b9345e16c5cf302fc80e9d5fbf5d48d\"");
+
+        return Value::null;
+    }
 
     uint256 hash;
     hash.SetHex(params[0].get_str());
@@ -1502,15 +1557,18 @@ Value gettransaction(const Array& params, bool fHelp)
 Value backupwallet(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
-        throw runtime_error(
+    {
+        helpText =
             "backupwallet \"destination\"\n"
             "\nSafely copies wallet.dat to destination, which can be a directory or a path with filename.\n"
             "\nArguments:\n"
             "1. \"destination\"   (string) The destination directory or file\n"
             "\nExamples:\n"
             + HelpExampleCli("backupwallet", "\"backup.dat\"")
-            + HelpExampleRpc("backupwallet", "\"backup.dat\"")
-        );
+            + HelpExampleRpc("backupwallet", "\"backup.dat\"");
+
+        return Value::null;
+    }
 
     string strDest = params[0].get_str();
     if (!BackupWallet(*pwalletMain, strDest))
@@ -1523,7 +1581,8 @@ Value backupwallet(const Array& params, bool fHelp)
 Value keypoolrefill(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
-        throw runtime_error(
+    {
+        helpText =
             "keypoolrefill ( newsize )\n"
             "\nFills the keypool."
             + HelpRequiringPassphrase() + "\n"
@@ -1531,8 +1590,9 @@ Value keypoolrefill(const Array& params, bool fHelp)
             "1. newsize     (numeric, optional, default=100) The new keypool size\n"
             "\nExamples:\n"
             + HelpExampleCli("keypoolrefill", "")
-            + HelpExampleRpc("keypoolrefill", "")
-        );
+            + HelpExampleRpc("keypoolrefill", "");
+        return Value::null;
+    }
 
     // 0 is interpreted by TopUpKeyPool() as the default keypool size given by -keypool
     unsigned int kpSize = 0;
@@ -1691,8 +1751,12 @@ Value walletlock(const Array& params, bool fHelp)
 
 Value encryptwallet(const Array& params, bool fHelp)
 {
+    // note from Poppa: this is in need of code review - why all the conditions
+    // set on help text?  it should explain regardless of the state of encryption correct?
+
     if (!pwalletMain->IsCrypted() && (fHelp || params.size() != 1))
-        throw runtime_error(
+    {
+        helpText =
             "encryptwallet \"passphrase\"\n"
             "\nEncrypts the wallet with 'passphrase'. This is for first time encryption.\n"
             "After this, any calls that interact with private keys such as sending or signing \n"
@@ -1712,11 +1776,14 @@ Value encryptwallet(const Array& params, bool fHelp)
             "\nNow lock the wallet again by removing the passphrase\n"
             + HelpExampleCli("walletlock", "") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("encryptwallet", "\"my pass phrase\"")
-        );
+            + HelpExampleRpc("encryptwallet", "\"my pass phrase\"");
+
+        return false;
+    }
 
     if (fHelp)
         return true;
+
     if (pwalletMain->IsCrypted())
         throw JSONRPCError(RPC_WALLET_WRONG_ENC_STATE, "Error: running with an encrypted wallet, but encryptwallet was called.");
 
@@ -1744,7 +1811,8 @@ Value encryptwallet(const Array& params, bool fHelp)
 Value lockunspent(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "lockunspent unlock [{\"txid\":\"txid\",\"vout\":n},...]\n"
             "\nUpdates list of temporarily unspendable outputs.\n"
             "Temporarily lock (unlock=false) or unlock (unlock=true) specified transaction outputs.\n"
@@ -1776,8 +1844,10 @@ Value lockunspent(const Array& params, bool fHelp)
             "\nUnlock the transaction again\n"
             + HelpExampleCli("lockunspent", "true \"[{\\\"txid\\\":\\\"a08e6907dbbd3d809776dbfc5d82e371b764ed838b5655e72f463568df1aadf0\\\",\\\"vout\\\":1}]\"") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("lockunspent", "false, \"[{\\\"txid\\\":\\\"a08e6907dbbd3d809776dbfc5d82e371b764ed838b5655e72f463568df1aadf0\\\",\\\"vout\\\":1}]\"")
-        );
+            + HelpExampleRpc("lockunspent", "false, \"[{\\\"txid\\\":\\\"a08e6907dbbd3d809776dbfc5d82e371b764ed838b5655e72f463568df1aadf0\\\",\\\"vout\\\":1}]\"");
+
+        return Value::null;
+    }
 
     if (params.size() == 1)
         RPCTypeCheck(params, list_of(bool_type));
@@ -1823,7 +1893,8 @@ Value lockunspent(const Array& params, bool fHelp)
 Value listlockunspent(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 0)
-        throw runtime_error(
+    {
+        helpText =
             "listlockunspent\n"
             "\nReturns list of temporarily unspendable outputs.\n"
             "See the lockunspent call to lock and unlock transactions for spending.\n"
@@ -1845,8 +1916,10 @@ Value listlockunspent(const Array& params, bool fHelp)
             "\nUnlock the transaction again\n"
             + HelpExampleCli("lockunspent", "true \"[{\\\"txid\\\":\\\"a08e6907dbbd3d809776dbfc5d82e371b764ed838b5655e72f463568df1aadf0\\\",\\\"vout\\\":1}]\"") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("listlockunspent", "")
-        );
+            + HelpExampleRpc("listlockunspent", "");
+
+        return Value::null;
+    }
 
     vector<COutPoint> vOutpts;
     pwalletMain->ListLockedCoins(vOutpts);
@@ -1890,8 +1963,10 @@ Value settxfee(const Array& params, bool fHelp)
 
 Value getwalletinfo(const Array& params, bool fHelp)
 {
+    Object obj;
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "getwalletinfo\n"
             "Returns an object containing various wallet state info.\n"
             "\nResult:\n"
@@ -1908,7 +1983,9 @@ Value getwalletinfo(const Array& params, bool fHelp)
             + HelpExampleRpc("getwalletinfo", "")
         );
 
-    Object obj;
+        return obj;
+    }
+
     obj.push_back(Pair("walletversion", pwalletMain->GetVersion()));
     obj.push_back(Pair("balance",       ValueFromAmount(pwalletMain->GetBalance())));
     obj.push_back(Pair("txcount",       (int)pwalletMain->mapWallet.size()));

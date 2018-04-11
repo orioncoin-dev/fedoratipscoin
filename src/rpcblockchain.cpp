@@ -82,15 +82,18 @@ Object blockToJSON(const CBlock& block, const CBlockIndex* blockindex)
 Value getblockcount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "getblockcount\n"
             "\nReturns the number of blocks in the longest block chain.\n"
             "\nResult:\n"
             "n    (numeric) The current block count\n"
             "\nExamples:\n"
             + HelpExampleCli("getblockcount", "")
-            + HelpExampleRpc("getblockcount", "")
-        );
+            + HelpExampleRpc("getblockcount", "");
+
+        return Value::null;
+    }
 
     return chainActive.Height();
 }
@@ -98,15 +101,18 @@ Value getblockcount(const Array& params, bool fHelp)
 Value getbestblockhash(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "getbestblockhash\n"
             "\nReturns the hash of the best (tip) block in the longest block chain.\n"
             "\nResult\n"
             "\"hex\"      (string) the block hash hex encoded\n"
             "\nExamples\n"
             + HelpExampleCli("getbestblockhash", "")
-            + HelpExampleRpc("getbestblockhash", "")
-        );
+            + HelpExampleRpc("getbestblockhash", "");
+
+        return Value::null;
+    }
 
     return chainActive.Tip()->GetBlockHash().GetHex();
 }
@@ -114,15 +120,17 @@ Value getbestblockhash(const Array& params, bool fHelp)
 Value getdifficulty(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "getdifficulty\n"
             "\nReturns the proof-of-work difficulty as a multiple of the minimum difficulty.\n"
             "\nResult:\n"
             "n.nnn       (numeric) the proof-of-work difficulty as a multiple of the minimum difficulty.\n"
             "\nExamples:\n"
             + HelpExampleCli("getdifficulty", "")
-            + HelpExampleRpc("getdifficulty", "")
-        );
+            + HelpExampleRpc("getdifficulty", "");
+        return Value::null;
+    }
 
     return GetDifficulty();
 }
@@ -131,7 +139,8 @@ Value getdifficulty(const Array& params, bool fHelp)
 Value getrawmempool(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
-        throw runtime_error(
+    {
+        helpText =
             "getrawmempool ( verbose )\n"
             "\nReturns all transaction ids in memory pool as a json array of string transaction ids.\n"
             "\nArguments:\n"
@@ -157,8 +166,9 @@ Value getrawmempool(const Array& params, bool fHelp)
             "]\n"
             "\nExamples\n"
             + HelpExampleCli("getrawmempool", "true")
-            + HelpExampleRpc("getrawmempool", "true")
-        );
+            + HelpExampleRpc("getrawmempool", "true");
+        return Value::null;
+    }
 
     bool fVerbose = false;
     if (params.size() > 0)
@@ -208,7 +218,8 @@ Value getrawmempool(const Array& params, bool fHelp)
 Value getblockhash(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
-        throw runtime_error(
+    {
+        helpText =
             "getblockhash index\n"
             "\nReturns hash of block in best-block-chain at index provided.\n"
             "\nArguments:\n"
@@ -217,8 +228,9 @@ Value getblockhash(const Array& params, bool fHelp)
             "\"hash\"         (string) The block hash\n"
             "\nExamples:\n"
             + HelpExampleCli("getblockhash", "1000")
-            + HelpExampleRpc("getblockhash", "1000")
-        );
+            + HelpExampleRpc("getblockhash", "1000");
+        return Value:null;
+    } 
 
     int nHeight = params[0].get_int();
     if (nHeight < 0 || nHeight > chainActive.Height())
@@ -231,7 +243,8 @@ Value getblockhash(const Array& params, bool fHelp)
 Value getblock(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "getblock \"hash\" ( verbose )\n"
             "\nIf verbose is false, returns a string that is serialized, hex-encoded data for block 'hash'.\n"
             "If verbose is true, returns an Object with information about block <hash>.\n"
@@ -261,8 +274,10 @@ Value getblock(const Array& params, bool fHelp)
             "\"data\"             (string) A string that is serialized, hex-encoded data for block 'hash'.\n"
             "\nExamples:\n"
             + HelpExampleCli("getblock", "\"00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09\"")
-            + HelpExampleRpc("getblock", "\"00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09\"")
-        );
+            + HelpExampleRpc("getblock", "\"00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09\"");
+
+        return Value::null;
+    }
 
     std::string strHash = params[0].get_str();
     uint256 hash(strHash);
@@ -293,8 +308,10 @@ Value getblock(const Array& params, bool fHelp)
 
 Value gettxoutsetinfo(const Array& params, bool fHelp)
 {
+    Object ret;
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "gettxoutsetinfo\n"
             "\nReturns statistics about the unspent transaction output set.\n"
             "Note this call may take some time.\n"
@@ -310,10 +327,9 @@ Value gettxoutsetinfo(const Array& params, bool fHelp)
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("gettxoutsetinfo", "")
-            + HelpExampleRpc("gettxoutsetinfo", "")
-        );
-
-    Object ret;
+            + HelpExampleRpc("gettxoutsetinfo", "");
+        return ret;
+    }
 
     CCoinsStats stats;
     if (pcoinsTip->GetStats(stats)) {
@@ -330,8 +346,10 @@ Value gettxoutsetinfo(const Array& params, bool fHelp)
 
 Value gettxout(const Array& params, bool fHelp)
 {
+    Object ret;
     if (fHelp || params.size() < 2 || params.size() > 3)
-        throw runtime_error(
+    {
+        helpText =
             "gettxout \"txid\" n ( includemempool )\n"
             "\nReturns details about an unspent transaction output.\n"
             "\nArguments:\n"
@@ -363,10 +381,9 @@ Value gettxout(const Array& params, bool fHelp)
             "\nView the details\n"
             + HelpExampleCli("gettxout", "\"txid\" 1") +
             "\nAs a json rpc call\n"
-            + HelpExampleRpc("gettxout", "\"txid\", 1")
-        );
-
-    Object ret;
+            + HelpExampleRpc("gettxout", "\"txid\", 1");
+        return ret;
+    }
 
     std::string strHash = params[0].get_str();
     uint256 hash(strHash);
@@ -409,7 +426,8 @@ Value gettxout(const Array& params, bool fHelp)
 Value verifychain(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "verifychain ( checklevel numblocks )\n"
             "\nVerifies blockchain database.\n"
             "\nArguments:\n"
@@ -419,8 +437,9 @@ Value verifychain(const Array& params, bool fHelp)
             "true|false       (boolean) Verified or not\n"
             "\nExamples:\n"
             + HelpExampleCli("verifychain", "")
-            + HelpExampleRpc("verifychain", "")
-        );
+            + HelpExampleRpc("verifychain", "");
+        return Value::null;
+    }
 
     int nCheckLevel = GetArg("-checklevel", 3);
     int nCheckDepth = GetArg("-checkblocks", 288);
@@ -434,8 +453,10 @@ Value verifychain(const Array& params, bool fHelp)
 
 Value getblockchaininfo(const Array& params, bool fHelp)
 {
+    Object obj;
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "getblockchaininfo\n"
             "Returns an object containing various state info regarding block chain processing.\n"
             "\nResult:\n"
@@ -449,13 +470,14 @@ Value getblockchaininfo(const Array& params, bool fHelp)
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("getblockchaininfo", "")
-            + HelpExampleRpc("getblockchaininfo", "")
-        );
+            + HelpExampleRpc("getblockchaininfo", "");
+
+        return obj;
+    }
 
     proxyType proxy;
     GetProxy(NET_IPV4, proxy);
 
-    Object obj;
     std::string chain = Params().DataDir();
     if(chain.empty())
         chain = "main";

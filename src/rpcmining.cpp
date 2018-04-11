@@ -94,7 +94,8 @@ Value GetNetworkHashPS(int lookup, int height) {
 Value getnetworkhashps(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "getnetworkhashps ( blocks height )\n"
             "\nReturns the estimated network hashes per second based on the last n blocks.\n"
             "Pass in [blocks] to override # of blocks, -1 specifies since last difficulty change.\n"
@@ -106,8 +107,10 @@ Value getnetworkhashps(const Array& params, bool fHelp)
             "x             (numeric) Hashes per second estimated\n"
             "\nExamples:\n"
             + HelpExampleCli("getnetworkhashps", "")
-            + HelpExampleRpc("getnetworkhashps", "")
-       );
+            + HelpExampleRpc("getnetworkhashps", "");
+
+       return Value::null;
+    }
 
     return GetNetworkHashPS(params.size() > 0 ? params[0].get_int() : 120, params.size() > 1 ? params[1].get_int() : -1);
 }
@@ -234,8 +237,10 @@ Value gethashespersec(const Array& params, bool fHelp)
 
 Value getmininginfo(const Array& params, bool fHelp)
 {
+    Object obj;
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "getmininginfo\n"
             "\nReturns a json object containing mining-related information."
             "\nResult:\n"
@@ -253,10 +258,11 @@ Value getmininginfo(const Array& params, bool fHelp)
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("getmininginfo", "")
-            + HelpExampleRpc("getmininginfo", "")
-        );
+            + HelpExampleRpc("getmininginfo", "");
 
-    Object obj;
+        return obj;
+    }
+
     obj.push_back(Pair("blocks",           (int)chainActive.Height()));
     obj.push_back(Pair("currentblocksize", (uint64_t)nLastBlockSize));
     obj.push_back(Pair("currentblocktx",   (uint64_t)nLastBlockTx));
@@ -403,7 +409,8 @@ Value getwork(const Array& params, bool fHelp)
 Value getblocktemplate(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
-        throw runtime_error(
+    {
+        helpText =
             "getblocktemplate ( \"jsonrequestobject\" )\n"
             "\nIf the request parameters include a 'mode' key, that is used to explicitly select between the default 'template' request or a 'proposal'.\n"
             "It returns data needed to construct a block to work on.\n"
@@ -459,8 +466,10 @@ Value getblocktemplate(const Array& params, bool fHelp)
 
             "\nExamples:\n"
             + HelpExampleCli("getblocktemplate", "")
-            + HelpExampleRpc("getblocktemplate", "")
-         );
+            + HelpExampleRpc("getblocktemplate", "");
+
+         return Value::null;
+    }
 
     std::string strMode = "template";
     if (params.size() > 0)
@@ -591,7 +600,8 @@ Value getblocktemplate(const Array& params, bool fHelp)
 Value submitblock(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "submitblock \"hexdata\" ( \"jsonparametersobject\" )\n"
             "\nAttempts to submit new block to network.\n"
             "The 'jsonparametersobject' parameter is currently ignored.\n"
@@ -606,8 +616,10 @@ Value submitblock(const Array& params, bool fHelp)
             "\nResult:\n"
             "\nExamples:\n"
             + HelpExampleCli("submitblock", "\"mydata\"")
-            + HelpExampleRpc("submitblock", "\"mydata\"")
-        );
+            + HelpExampleRpc("submitblock", "\"mydata\"");
+
+        return Value::null;
+    }
 
     vector<unsigned char> blockData(ParseHex(params[0].get_str()));
     CDataStream ssBlock(blockData, SER_NETWORK, PROTOCOL_VERSION);
