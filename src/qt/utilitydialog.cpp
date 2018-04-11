@@ -802,7 +802,6 @@ void PaperWalletDialog::on_getNewAddress_clicked()
 
 void PaperWalletDialog::on_printButton_clicked()
 {
-#if HAVE_QT5
     QPrinter printer(QPrinter::HighResolution);
     QPrintDialog *qpd = new QPrintDialog(&printer, this);
 
@@ -916,7 +915,6 @@ void PaperWalletDialog::on_printButton_clicked()
 
     }
 
-   // Stolen from sendcoinsdialog.cpp
     qint64 txFee = tx->getTransactionFee();
     QString questionString = tr("Are you sure you want to send?");
     questionString.append("<br /><br />%1");
@@ -963,7 +961,6 @@ void PaperWalletDialog::on_printButton_clicked()
     delete tx;
 #endif  //#ENABLE_WALLET
     return;
-#endif //#HAVE_QT5
 }
 
 /** "Help message" dialog box */
