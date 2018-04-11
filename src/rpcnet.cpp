@@ -22,15 +22,18 @@ using namespace std;
 Value getconnectioncount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "getconnectioncount\n"
             "\nReturns the number of connections to other nodes.\n"
             "\nbResult:\n"
             "n          (numeric) The connection count\n"
             "\nExamples:\n"
             + HelpExampleCli("getconnectioncount", "")
-            + HelpExampleRpc("getconnectioncount", "")
-        );
+            + HelpExampleRpc("getconnectioncount", "");
+
+        return 0;
+    }
 
     LOCK(cs_vNodes);
     return (int)vNodes.size();
@@ -39,15 +42,18 @@ Value getconnectioncount(const Array& params, bool fHelp)
 Value ping(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "ping\n"
             "\nRequests that a ping be sent to all other nodes, to measure ping time.\n"
             "Results provided in getpeerinfo, pingtime and pingwait fields are decimal seconds.\n"
             "Ping command is handled in queue with all other commands, so it measures processing backlog, not just network ping.\n"
             "\nExamples:\n"
             + HelpExampleCli("ping", "")
-            + HelpExampleRpc("ping", "")
-        );
+            + HelpExampleRpc("ping", "");
+
+        return Value::null;
+    }
 
     // Request that each node send a ping during next message processing pass
     LOCK(cs_vNodes);
@@ -153,7 +159,8 @@ Value addnode(const Array& params, bool fHelp)
         strCommand = params[1].get_str();
     if (fHelp || params.size() != 2 ||
         (strCommand != "onetry" && strCommand != "add" && strCommand != "remove"))
-        throw runtime_error(
+    {
+        helpText =
             "addnode \"node\" \"add|remove|onetry\"\n"
             "\nAttempts add or remove a node from the addnode list.\n"
             "Or try a connection to a node once.\n"
@@ -162,8 +169,10 @@ Value addnode(const Array& params, bool fHelp)
             "2. \"command\"  (string, required) 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once\n"
             "\nExamples:\n"
             + HelpExampleCli("addnode", "\"192.168.0.6:9336\" \"onetry\"")
-            + HelpExampleRpc("addnode", "\"192.168.0.6:9336\", \"onetry\"")
-        );
+            + HelpExampleRpc("addnode", "\"192.168.0.6:9336\", \"onetry\"");
+
+        return Value::null;
+    }
 
     string strNode = params[0].get_str();
 
@@ -198,8 +207,11 @@ Value addnode(const Array& params, bool fHelp)
 
 Value getaddednodeinfo(const Array& params, bool fHelp)
 {
+    Array ret;
+
     if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
+    {
+        helpText =
             "getaddednodeinfo dns ( \"node\" )\n"
             "\nReturns information about the given added node, or all added nodes\n"
             "(note that onetry addnodes are not listed here)\n"
@@ -226,8 +238,10 @@ Value getaddednodeinfo(const Array& params, bool fHelp)
             "\nExamples:\n"
             + HelpExampleCli("getaddednodeinfo", "true")
             + HelpExampleCli("getaddednodeinfo", "true \"192.168.0.201\"")
-            + HelpExampleRpc("getaddednodeinfo", "true, \"192.168.0.201\"")
-        );
+            + HelpExampleRpc("getaddednodeinfo", "true, \"192.168.0.201\"");
+
+        return ret;
+    }
 
     bool fDns = params[0].get_bool();
 
@@ -252,7 +266,6 @@ Value getaddednodeinfo(const Array& params, bool fHelp)
             throw JSONRPCError(RPC_CLIENT_NODE_NOT_ADDED, "Error: Node has not been added.");
     }
 
-    Array ret;
     if (!fDns)
     {
         BOOST_FOREACH(string& strAddNode, laddedNodes)
@@ -315,8 +328,10 @@ Value getaddednodeinfo(const Array& params, bool fHelp)
 
 Value getnettotals(const Array& params, bool fHelp)
 {
+    Object obj;
     if (fHelp || params.size() > 0)
-        throw runtime_error(
+    {
+        helpText =
             "getnettotals\n"
             "\nReturns information about network traffic, including bytes in, bytes out,\n"
             "and current time.\n"
@@ -328,10 +343,11 @@ Value getnettotals(const Array& params, bool fHelp)
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("getnettotals", "")
-            + HelpExampleRpc("getnettotals", "")
-       );
+            + HelpExampleRpc("getnettotals", "");
 
-    Object obj;
+        return obj;
+    }
+
     obj.push_back(Pair("totalbytesrecv", CNode::GetTotalBytesRecv()));
     obj.push_back(Pair("totalbytessent", CNode::GetTotalBytesSent()));
     obj.push_back(Pair("timemillis", GetTimeMillis()));
@@ -340,8 +356,10 @@ Value getnettotals(const Array& params, bool fHelp)
 
 Value getnetworkinfo(const Array& params, bool fHelp)
 {
+    Object obj;
     if (fHelp || params.size() != 0)
-        throw runtime_error(
+    {
+        helpText =
             "getnetworkinfo\n"
             "Returns an object containing various state info regarding P2P networking.\n"
             "\nResult:\n"
@@ -360,13 +378,14 @@ Value getnetworkinfo(const Array& params, bool fHelp)
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("getnetworkinfo", "")
-            + HelpExampleRpc("getnetworkinfo", "")
-        );
+            + HelpExampleRpc("getnetworkinfo", "");
+
+        return obj;
+    }
 
     proxyType proxy;
     GetProxy(NET_IPV4, proxy);
 
-    Object obj;
     obj.push_back(Pair("version",       (int)CLIENT_VERSION));
     obj.push_back(Pair("protocolversion",(int)PROTOCOL_VERSION));
     obj.push_back(Pair("timeoffset",    GetTimeOffset()));

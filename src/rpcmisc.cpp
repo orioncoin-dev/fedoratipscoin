@@ -28,9 +28,10 @@ using namespace json_spirit;
 
 Value getinfo(const Array& params, bool fHelp)
 {
+    Object obj;
     if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getinfo\n"
+    {
+        helpText=    "getinfo\n"
             "Returns an object containing various state info.\n"
             "\nResult:\n"
             "{\n"
@@ -53,13 +54,14 @@ Value getinfo(const Array& params, bool fHelp)
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("getinfo", "")
-            + HelpExampleRpc("getinfo", "")
-        );
+            + HelpExampleRpc("getinfo", "");
+
+        return obj;
+    }
 
     proxyType proxy;
     GetProxy(NET_IPV4, proxy);
 
-    Object obj;
     obj.push_back(Pair("version",       (int)CLIENT_VERSION));
     obj.push_back(Pair("protocolversion",(int)PROTOCOL_VERSION));
 #ifdef ENABLE_WALLET
