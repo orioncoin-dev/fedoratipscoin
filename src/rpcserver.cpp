@@ -167,7 +167,11 @@ string CRPCTable::help(string strCommand) const
             rpcfn_type pfn = pcmd->actor;
             if (setDone.insert(pfn).second)
             {
-                (*pfn)(params, true);
+                if (strCommand == "help")
+                  (*pfn)(params, false);                
+                else
+                  (*pfn)(params, true);
+
                 strRet = helpText;
             }
         }
