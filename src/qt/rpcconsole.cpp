@@ -169,8 +169,8 @@ void RPCExecutor::request(const QString &command)
                 strPrint = tableRPC.help(args[1]);
             else
             {
-                for (int i=0; i<pparams.size(); i++)
-                    strPrint += pparams[i].get_str();
+                for (map<string, const CRPCCommand*>::const_iterator mi = tableRPC.mapCommands.begin(); mi != tableRPC.mapCommands.end(); ++mi)
+                  strPrint += mi->first;
             }
         }
         else

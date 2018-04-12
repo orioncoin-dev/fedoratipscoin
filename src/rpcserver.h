@@ -69,7 +69,7 @@ public:
  */
 class CRPCTable
 {
-private:
+public:
     std::map<std::string, const CRPCCommand*> mapCommands;
 public:
     CRPCTable();
