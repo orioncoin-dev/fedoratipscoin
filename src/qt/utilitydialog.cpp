@@ -1028,7 +1028,7 @@ void ShutdownWindow::showShutdownWindow(BitcoinGUI *window)
         return;
 
     // Show a simple window indicating shutdown status
-    QWidget *shutdownWindow = new QWidget(window);
+    QWidget *shutdownWindow = new QWidget(this);
     QVBoxLayout *layout = new QVBoxLayout();
     layout->addWidget(new QLabel(
         tr("Fedoracoin Core is shutting down...") + "<br /><br />" +
