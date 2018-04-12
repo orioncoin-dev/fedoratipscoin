@@ -226,6 +226,7 @@ private:
     WalletModel *walletModel;
 #endif
     int returnValue;
+    std::unique_ptr<QWidget> shutdownWindow;
 
     void startThread();
 };
@@ -372,6 +373,12 @@ void BitcoinApplication::requestInitialize()
 void BitcoinApplication::requestShutdown()
 {
     LogPrintf("Requesting shutdown\n");
+
+    // Show a simple window indicating shutdown status
+    // Do this first as some of the steps may take some time below,
+    // for example the RPC console may still be executing a command.
+    shutdownWindow.reset(ShutdownWindow::showShutdownWindow(window));
+
     window->hide();
     window->setClientModel(0);
     pollShutdownTimer->stop();
@@ -383,9 +390,6 @@ void BitcoinApplication::requestShutdown()
 #endif
     delete clientModel;
     clientModel = 0;
-
-    // Show a simple window indicating shutdown status
-    ShutdownWindow::showShutdownWindow(window);
 
     // Request shutdown from core thread
     emit requestedShutdown();
