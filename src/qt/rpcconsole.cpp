@@ -168,10 +168,7 @@ void RPCExecutor::request(const QString &command)
             if (args.size() > 1)
                 strPrint = tableRPC.help(args[1]);
             else
-            {
-                for (map<std:string, const CRPCCommand*>::const_iterator mi = tableRPC.mapCommands.begin(); mi != tableRPC.mapCommands.end(); ++mi)
-                  strPrint += mi->first;
-            }
+                strPrint = tableRPC.helpList();
         }
         else
         {

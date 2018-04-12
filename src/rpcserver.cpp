@@ -141,6 +141,14 @@ vector<unsigned char> ParseHexO(const Object& o, string strKey)
 /// Note: This interface may still be subject to change.
 ///
 
+string CRPCTable::helpList() const
+{
+    string strOut;
+    for (map<string, const CRPCCommand*>::const_iterator mi = tableRPC.mapCommands.begin(); mi != tableRPC.mapCommands.end(); ++mi)
+        strOut += mi->first;
+    return strOut;
+}
+
 string CRPCTable::help(string strCommand) const
 {
     string strRet = "";
