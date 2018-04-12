@@ -145,7 +145,7 @@ string CRPCTable::helpList() const
 {
     string strOut;
     for (map<string, const CRPCCommand*>::const_iterator mi = tableRPC.mapCommands.begin(); mi != tableRPC.mapCommands.end(); ++mi)
-        strOut += mi->first;
+        strOut += mi->first + "\n";
     return strOut;
 }
 
