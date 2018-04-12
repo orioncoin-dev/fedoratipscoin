@@ -168,7 +168,7 @@ void RPCExecutor::request(const QString &command)
             if (args.size() > 1)
                 strPrint = tableRPC.help(args[1]);
             else
-                strPrint = tableRPC.help("help");
+                strPrint = pparams.toString();
         }
         else
         {
