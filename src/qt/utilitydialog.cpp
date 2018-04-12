@@ -37,6 +37,7 @@
 #include "wallet.h"
 #include "base40.h"
 
+#include <QtGui/qevent.h>
 #include <QtWidgets/QLabel>
 #include <QtGui/QFont>
 #include <QtWidgets/QVBoxLayout>
