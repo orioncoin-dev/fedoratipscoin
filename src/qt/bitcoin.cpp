@@ -251,29 +251,11 @@ void BitcoinCore::initialize()
         LogPrintf("Running AppInit2 in thread\n");
         int rv = AppInit2(threadGroup);
         Q_EMIT initializeResult(rv);
-    } catch (const std::exception& e) {
+    } catch (std::exception& e) {
         handleRunawayException(&e);
     } catch (...) {
         handleRunawayException(NULL);
     }
-
-//    try
-//    {
-//        LogPrintf("Running AppInit2 in thread\n");
-//        int rv = AppInit2(threadGroup);
-//        if(rv)
-//        {
-//            /* Start a dummy RPC thread if no RPC thread is active yet
-//             * to handle timeouts.
-//             */
-//            StartDummyRPCThread();
-//        }
-//        emit initializeResult(rv);
-//    } catch (std::exception& e) {
-//        handleRunawayException(&e);
-//    } catch (...) {
-//        handleRunawayException(NULL);
-//    }
 }
 
 void BitcoinCore::shutdown()
