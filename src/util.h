@@ -84,11 +84,18 @@ inline void MilliSleep(int64_t n)
 // See: https://svn.boost.org/trac/boost/ticket/7238
 
 //#if defined(HAVE_WORKING_BOOST_SLEEP_FOR)
-//    boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
+
+    try
+    {
+        boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
+    }
+    catch (boost::thread_interrupted)
+    {
+        LogPrintf("thread stopped in MilliSleep\n");
+    }
+
 //#elif defined(HAVE_WORKING_BOOST_SLEEP)
-
-    boost::this_thread::sleep(boost::posix_time::milliseconds(n));
-
+//    boost::this_thread::sleep(boost::posix_time::milliseconds(n));
 //#else
 //should never get here
 //#error missing boost sleep implementation
