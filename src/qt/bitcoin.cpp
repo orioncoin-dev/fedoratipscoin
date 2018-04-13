@@ -250,19 +250,30 @@ void BitcoinCore::initialize()
     {
         LogPrintf("Running AppInit2 in thread\n");
         int rv = AppInit2(threadGroup);
-        if(rv)
-        {
-            /* Start a dummy RPC thread if no RPC thread is active yet
-             * to handle timeouts.
-             */
-            StartDummyRPCThread();
-        }
-        emit initializeResult(rv);
-    } catch (std::exception& e) {
+        Q_EMIT initializeResult(rv);
+    } catch (const std::exception& e) {
         handleRunawayException(&e);
     } catch (...) {
         handleRunawayException(NULL);
     }
+
+//    try
+//    {
+//        LogPrintf("Running AppInit2 in thread\n");
+//        int rv = AppInit2(threadGroup);
+//        if(rv)
+//        {
+//            /* Start a dummy RPC thread if no RPC thread is active yet
+//             * to handle timeouts.
+//             */
+//            StartDummyRPCThread();
+//        }
+//        emit initializeResult(rv);
+//    } catch (std::exception& e) {
+//        handleRunawayException(&e);
+//    } catch (...) {
+//        handleRunawayException(NULL);
+//    }
 }
 
 void BitcoinCore::shutdown()
@@ -296,7 +307,7 @@ BitcoinApplication::BitcoinApplication(int &argc, char **argv):
     returnValue(0)
 {
     setQuitOnLastWindowClosed(false);
-    startThread();
+    //startThread();
 }
 
 BitcoinApplication::~BitcoinApplication()
@@ -347,6 +358,9 @@ void BitcoinApplication::createSplashScreen(bool isaTestNet)
 
 void BitcoinApplication::startThread()
 {
+    if (coreThread)
+        return;
+
     coreThread = new QThread(this);
     BitcoinCore *executor = new BitcoinCore();
     executor->moveToThread(coreThread);
@@ -367,6 +381,7 @@ void BitcoinApplication::startThread()
 void BitcoinApplication::requestInitialize()
 {
     LogPrintf("Requesting initialize\n");
+    startThread();
     emit requestedInitialize();
 }
 
@@ -379,6 +394,7 @@ void BitcoinApplication::requestShutdown()
     // for example the RPC console may still be executing a command.
     shutdownWindow.reset(ShutdownWindow::showShutdownWindow(window));
 
+    startThread();
     window->hide();
     window->setClientModel(0);
     pollShutdownTimer->stop();
