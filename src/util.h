@@ -77,9 +77,6 @@ T* alignup(T* p)
 #define MSG_NOSIGNAL 0
 #endif
 
-#define strprintf tfm::format
-#define LogPrintf(...) LogPrint(NULL, __VA_ARGS__)
-
 inline void MilliSleep(int64_t n)
 {
 // Boost's sleep_for was uninterruptable when backed by nanosleep from 1.50
@@ -94,7 +91,6 @@ inline void MilliSleep(int64_t n)
     }
     catch (boost::thread_interrupted)
     {
-        LogPrintf("thread stopped in MilliSleep\n");
     }
 
 //#elif defined(HAVE_WORKING_BOOST_SLEEP)
@@ -127,8 +123,8 @@ bool LogAcceptCategory(const char* category);
 /* Send a string to the log output */
 int LogPrintStr(const std::string &str);
 
-//#define strprintf tfm::format
-//#define LogPrintf(...) LogPrint(NULL, __VA_ARGS__)
+#define strprintf tfm::format
+#define LogPrintf(...) LogPrint(NULL, __VA_ARGS__)
 
 /* When we switch to C++11, this can be switched to variadic templates instead
  * of this macro-based construction (see tinyformat.h).
