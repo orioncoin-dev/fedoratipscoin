@@ -92,6 +92,9 @@ inline void MilliSleep(int64_t n)
     catch (boost::thread_interrupted)
     {
     }
+    catch (...)
+    {
+    }
 
 //#elif defined(HAVE_WORKING_BOOST_SLEEP)
 //    boost::this_thread::sleep(boost::posix_time::milliseconds(n));
