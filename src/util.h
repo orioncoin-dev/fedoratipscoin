@@ -89,10 +89,10 @@ inline void MilliSleep(int64_t n)
     {
         boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
     }
-    catch (boost::thread_interrupted)
+    catch (boost::thread_interrupted& e)
     {
     }
-    catch (std::exception& e) 
+    catch (boost::exception& e) 
     {
     }
     catch (...)
