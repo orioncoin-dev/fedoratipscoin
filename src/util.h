@@ -92,6 +92,9 @@ inline void MilliSleep(int64_t n)
     catch (boost::thread_interrupted)
     {
     }
+    catch (std::exception& e) 
+    {
+    }
     catch (...)
     {
     }
