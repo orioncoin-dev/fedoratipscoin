@@ -77,6 +77,9 @@ T* alignup(T* p)
 #define MSG_NOSIGNAL 0
 #endif
 
+#define strprintf tfm::format
+#define LogPrintf(...) LogPrint(NULL, __VA_ARGS__)
+
 inline void MilliSleep(int64_t n)
 {
 // Boost's sleep_for was uninterruptable when backed by nanosleep from 1.50
@@ -102,8 +105,6 @@ inline void MilliSleep(int64_t n)
 //#endif
 }
 
-
-
 extern std::map<std::string, std::string> mapArgs;
 extern std::map<std::string, std::vector<std::string> > mapMultiArgs;
 extern bool fDebug;
@@ -126,8 +127,8 @@ bool LogAcceptCategory(const char* category);
 /* Send a string to the log output */
 int LogPrintStr(const std::string &str);
 
-#define strprintf tfm::format
-#define LogPrintf(...) LogPrint(NULL, __VA_ARGS__)
+//#define strprintf tfm::format
+//#define LogPrintf(...) LogPrint(NULL, __VA_ARGS__)
 
 /* When we switch to C++11, this can be switched to variadic templates instead
  * of this macro-based construction (see tinyformat.h).
