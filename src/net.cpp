@@ -80,6 +80,7 @@ NodeId nLastNodeId = 0;
 CCriticalSection cs_nLastNodeId;
 
 static CSemaphore *semOutbound = NULL;
+boost::condition_variable messageHandlerCondition;
 
 // Signals for message handling
 static CNodeSignals g_signals;
@@ -664,6 +665,11 @@ bool CNode::ReceiveMsgBytes(const char *pch, unsigned int nBytes)
 
         pch += handled;
         nBytes -= handled;
+
+        if (msg.complete())
+        {
+            messageHandlerCondition.notify_one();
+        }
     }
 
     return true;
@@ -1582,8 +1588,11 @@ void ThreadMessageHandler()
                 pnode->Release();
         }
 
+        //if (fSleep)
+        //    MilliSleep(100);
+
         if (fSleep)
-            MilliSleep(100);
+            messageHandlerCondition.timed_wait(lock, boost::posix_time::microsec_clock::universal_time() + boost::posix_time::milliseconds(100));
     }
 }
 
