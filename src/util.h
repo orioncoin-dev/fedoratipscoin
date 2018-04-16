@@ -77,6 +77,11 @@ T* alignup(T* p)
 #define MSG_NOSIGNAL 0
 #endif
 
+/* Return true if log accepts specified category */
+bool LogAcceptCategory(const char* category);
+/* Send a string to the log output */
+int LogPrintStr(const std::string &str);
+
 inline void MilliSleep(int64_t n)
 {
 // Boost's sleep_for was uninterruptable when backed by nanosleep from 1.50
@@ -89,14 +94,15 @@ inline void MilliSleep(int64_t n)
     {
         boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
     }
-    catch (boost::thread_interrupted& e)
+    catch (const boost::thread_interrupted const& e)
     {
+        std::string diag = diagnostic_information(e);
+        LogPrintStr(diag);
     }
-    catch (boost::exception& e) 
+    catch (const boost::exception const& e) 
     {
-    }
-    catch (...)
-    {
+        std::string diag = diagnostic_information(e);
+        LogPrintStr(diag);
     }
 
 //#elif defined(HAVE_WORKING_BOOST_SLEEP)
@@ -123,11 +129,6 @@ long hex2long(const char* hexString);
 void RandAddSeed();
 void RandAddSeedPerfmon();
 void SetupEnvironment();
-
-/* Return true if log accepts specified category */
-bool LogAcceptCategory(const char* category);
-/* Send a string to the log output */
-int LogPrintStr(const std::string &str);
 
 #define strprintf tfm::format
 #define LogPrintf(...) LogPrint(NULL, __VA_ARGS__)
