@@ -94,12 +94,12 @@ inline void MilliSleep(int64_t n)
     {
         boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
     }
-    catch (const boost::thread_interrupted const& e)
+    catch (const boost::thread_interrupted &e)
     {
         std::string diag = diagnostic_information(e);
         LogPrintStr(diag);
     }
-    catch (const boost::exception const& e) 
+    catch (const boost::exception &e) 
     {
         std::string diag = diagnostic_information(e);
         LogPrintStr(diag);
