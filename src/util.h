@@ -96,13 +96,15 @@ inline void MilliSleep(int64_t n)
     }
     catch (const boost::thread_interrupted &e)
     {
-        std::string diag = diagnostic_information(e);
-        LogPrintStr(diag);
+        std::cerr << "exception in MilliSleep: " << boost::diagnostic_information(e);
+        LogPrintStr(diagnostic_information(e));
+        throw;
     }
     catch (const boost::exception &e) 
     {
-        std::string diag = diagnostic_information(e);
-        LogPrintStr(diag);
+        std::cerr << "exception in MilliSleep: " << boost::diagnostic_information(e);
+        LogPrintStr(diagnostic_information(e));
+        throw;
     }
 
 //#elif defined(HAVE_WORKING_BOOST_SLEEP)
