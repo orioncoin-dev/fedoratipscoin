@@ -1573,7 +1573,7 @@ void ThreadMessageHandler()
                     }
                 }
             }
-            boost::this_thread::interruption_point();
+            // removed by Poppa, bombs on exit in Linux    boost::this_thread::interruption_point();
 
             // Send messages
             {
@@ -1581,7 +1581,7 @@ void ThreadMessageHandler()
                 if (lockSend)
                     g_signals.SendMessages(pnode, pnode == pnodeTrickle);
             }
-            boost::this_thread::interruption_point();
+            // removed by Poppa, bombs on exit in Linux ...   boost::this_thread::interruption_point();
         }
 
         {
