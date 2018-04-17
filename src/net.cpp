@@ -1590,30 +1590,13 @@ void ThreadMessageHandler()
 
         if (fSleep)
         {
-            try
-            {
-               MilliSleep(100);
+               boost::this_thread::disable_interruption di;
+               //MilliSleep(100);
+               boost::this_thread::sleep_for(boost::chrono::milliseconds(100));
                //messageHandlerCondition.timed_wait(lock, boost::posix_time::microsec_clock::universal_time() + boost::posix_time::milliseconds(100));
-            }
-            catch (const boost::thread_interrupted &e)
-            {
-               std::cerr << "exception in ThreadMessageHandler: " << boost::diagnostic_information(e);
-               LogPrintStr(diagnostic_information(e));
-               throw;
-            }
-            catch (const boost::exception &e)
-            {
-               std::cerr << "exception in ThreadMessageHandler: " << boost::diagnostic_information(e);
-               LogPrintStr(diagnostic_information(e));
-               throw;
-            }
         }
     }
 }
-
-
-
-
 
 
 bool BindListenPort(const CService &addrBind, string& strError)
