@@ -86,8 +86,8 @@ inline void MilliSleep(int64_t n)
 {
     try
     {
-        boost::this_thread::sleep(boost::posix_time::milliseconds(n));
-        //boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
+        boost::this_thread::disable_interruption di;
+        boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
     }
     catch (const boost::thread_interrupted &e)
     {
