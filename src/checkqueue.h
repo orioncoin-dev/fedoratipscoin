@@ -92,7 +92,10 @@ private:
                         return fRet;
                     }
                     nIdle++;
-                    cond.wait(lock); // wait
+                    {
+                        boost::this_thread::disable_interruption di; 
+                        cond.wait(lock); // wait
+                    }
                     nIdle--;
                 }
                 // Decide how many work units to process now.
