@@ -1471,7 +1471,7 @@ bool OpenNetworkConnection(const CAddress& addrConnect, CSemaphoreGrant *grantOu
         return false;
 
     CNode* pnode = ConnectNode(addrConnect, strDest);
-    boost::this_thread::interruption_point();
+    // removed by Poppa, causes crash on Linux ... boost::this_thread::interruption_point();
 
     if (!pnode)
         return false;
