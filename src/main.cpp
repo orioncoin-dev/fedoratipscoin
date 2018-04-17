@@ -4284,7 +4284,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         {
             const CInv &inv = vInv[nInv];
 
-            boost::this_thread::interruption_point();
+            // removed by Poppa, bombs on exit from Linux...   boost::this_thread::interruption_point();
+
             pfrom->AddInventoryKnown(inv);
 
             bool fAlreadyHave = AlreadyHave(inv);
