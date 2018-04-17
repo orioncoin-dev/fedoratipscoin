@@ -907,7 +907,8 @@ void ThreadSocketHandler()
 
         int nSelect = select(have_fds ? hSocketMax + 1 : 0,
                              &fdsetRecv, &fdsetSend, &fdsetError, &timeout);
-        boost::this_thread::interruption_point();
+
+        // Removed by Poppa, errors on exit in Linux ... boost::this_thread::interruption_point();
 
         if (nSelect == SOCKET_ERROR)
         {
@@ -1590,8 +1591,7 @@ void ThreadMessageHandler()
 
         if (fSleep)
         {
-               boost::this_thread::disable_interruption di;
-               boost::this_thread::sleep_for(boost::chrono::milliseconds(100));
+            MilliSleep(100);
         }
     }
 }
