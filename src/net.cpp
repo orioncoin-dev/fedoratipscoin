@@ -988,7 +988,7 @@ void ThreadSocketHandler()
         }
         BOOST_FOREACH(CNode* pnode, vNodesCopy)
         {
-            boost::this_thread::interruption_point();
+            // removed by Poppa, crashes on Linux ... boost::this_thread::interruption_point();
 
             //
             // Receive
