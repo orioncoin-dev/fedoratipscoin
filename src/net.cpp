@@ -1313,7 +1313,7 @@ void ThreadOpenConnections()
         MilliSleep(500);
 
         CSemaphoreGrant grant(*semOutbound);
-        boost::this_thread::interruption_point();
+        // Removed by Poppa, crashes Linux on exit   boost::this_thread::interruption_point();
 
         // Add seed nodes if DNS seeds are all down (an infrastructure attack?).
         if (addrman.size() == 0 && (GetTime() - nStart > 60)) {
