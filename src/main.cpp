@@ -4852,7 +4852,7 @@ bool ProcessMessages(CNode* pfrom)
         try
         {
             fRet = ProcessMessage(pfrom, strCommand, vRecv);
-            boost::this_thread::interruption_point();
+            // removed by Poppa, crashes on exit with Linux   boost::this_thread::interruption_point();
         }
         catch (std::ios_base::failure& e)
         {
