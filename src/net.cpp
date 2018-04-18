@@ -1378,10 +1378,10 @@ void ThreadOpenConnections()
                 addrConnect = addr;
                 break;
             }
-        }
 
-        if (addrConnect.IsValid())
-            OpenNetworkConnection(addrConnect, &grant);
+            if (addrConnect.IsValid())
+                OpenNetworkConnection(addrConnect, &grant);
+        }
     }
 }
 
