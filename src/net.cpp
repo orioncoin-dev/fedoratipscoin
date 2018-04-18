@@ -1309,73 +1309,75 @@ void ThreadOpenConnections()
     while (true)
     {
         ProcessOneShot();
-
         MilliSleep(500);
 
-        CSemaphoreGrant grant(*semOutbound);
-        // Removed by Poppa, crashes Linux on exit   boost::this_thread::interruption_point();
-
-        // Add seed nodes if DNS seeds are all down (an infrastructure attack?).
-        if (addrman.size() == 0 && (GetTime() - nStart > 60)) {
-            static bool done = false;
-            if (!done) {
-                LogPrintf("Adding fixed seed nodes as DNS doesn't seem to be available.\n");
-                addrman.Add(Params().FixedSeeds(), CNetAddr("127.0.0.1"));
-                done = true;
-            }
-        }
-
-        //
-        // Choose an address to connect to based on most recently seen
-        //
-        CAddress addrConnect;
-
-        // Only connect out to one peer per network group (/16 for IPv4).
-        // Do this here so we don't have to critsect vNodes inside mapAddresses critsect.
-        int nOutbound = 0;
-        set<vector<unsigned char> > setConnected;
         {
-            LOCK(cs_vNodes);
-            BOOST_FOREACH(CNode* pnode, vNodes) {
-                if (!pnode->fInbound) {
-                    setConnected.insert(pnode->addr.GetGroup());
-                    nOutbound++;
+            boost::this_thread::disable_interruption di;
+            CSemaphoreGrant grant(*semOutbound);
+            // Removed by Poppa, crashes Linux on exit   boost::this_thread::interruption_point();
+
+            // Add seed nodes if DNS seeds are all down (an infrastructure attack?).
+            if (addrman.size() == 0 && (GetTime() - nStart > 60)) {
+                static bool done = false;
+                if (!done) {
+                    LogPrintf("Adding fixed seed nodes as DNS doesn't seem to be available.\n");
+                    addrman.Add(Params().FixedSeeds(), CNetAddr("127.0.0.1"));
+                    done = true;
                 }
             }
-        }
 
-        int64_t nANow = GetAdjustedTime();
+            //
+            // Choose an address to connect to based on most recently seen
+            //
+            CAddress addrConnect;
 
-        int nTries = 0;
-        while (true)
-        {
-            // use an nUnkBias between 10 (no outgoing connections) and 90 (8 outgoing connections)
-            CAddress addr = addrman.Select(10 + min(nOutbound,8)*10);
+            // Only connect out to one peer per network group (/16 for IPv4).
+            // Do this here so we don't have to critsect vNodes inside mapAddresses critsect.
+            int nOutbound = 0;
+            set<vector<unsigned char> > setConnected;
+            {
+                LOCK(cs_vNodes);
+                BOOST_FOREACH(CNode* pnode, vNodes) {
+                    if (!pnode->fInbound) {
+                        setConnected.insert(pnode->addr.GetGroup());
+                        nOutbound++;
+                    }
+                }
+            }
 
-            // if we selected an invalid address, restart
-            if (!addr.IsValid() || setConnected.count(addr.GetGroup()) || IsLocal(addr))
+            int64_t nANow = GetAdjustedTime();
+
+            int nTries = 0;
+            while (true)
+            {
+                // use an nUnkBias between 10 (no outgoing connections) and 90 (8 outgoing connections)
+                CAddress addr = addrman.Select(10 + min(nOutbound,8)*10);
+
+                // if we selected an invalid address, restart
+                if (!addr.IsValid() || setConnected.count(addr.GetGroup()) || IsLocal(addr))
+                    break;
+
+                // If we didn't find an appropriate destination after trying 100 addresses fetched from addrman,
+                // stop this loop, and let the outer loop run again (which sleeps, adds seed nodes, recalculates
+                // already-connected network ranges, ...) before trying new addrman addresses.
+                nTries++;
+                if (nTries > 100)
+                    break;
+
+                if (IsLimited(addr))
+                    continue;
+
+                // only consider very recently tried nodes after 30 failed attempts
+                if (nANow - addr.nLastTry < 600 && nTries < 30)
+                    continue;
+
+                // do not allow non-default ports, unless after 50 invalid addresses selected already
+                if (addr.GetPort() != Params().GetDefaultPort() && nTries < 50)
+                    continue;
+
+                addrConnect = addr;
                 break;
-
-            // If we didn't find an appropriate destination after trying 100 addresses fetched from addrman,
-            // stop this loop, and let the outer loop run again (which sleeps, adds seed nodes, recalculates
-            // already-connected network ranges, ...) before trying new addrman addresses.
-            nTries++;
-            if (nTries > 100)
-                break;
-
-            if (IsLimited(addr))
-                continue;
-
-            // only consider very recently tried nodes after 30 failed attempts
-            if (nANow - addr.nLastTry < 600 && nTries < 30)
-                continue;
-
-            // do not allow non-default ports, unless after 50 invalid addresses selected already
-            if (addr.GetPort() != Params().GetDefaultPort() && nTries < 50)
-                continue;
-
-            addrConnect = addr;
-            break;
+            }
         }
 
         if (addrConnect.IsValid())
