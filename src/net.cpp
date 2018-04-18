@@ -1313,11 +1313,11 @@ void ThreadOpenConnections()
 
 //        {
             //boost::this_thread::disable_interruption di;
-            //if (boost::this_thread::interruption_requested())
-            //{
+            if (boost::this_thread::interruption_requested())
+            {
             //    LogPrintStr("ThreadOpenConnections() thread interrupted by application close...");
-            //    return;
-            //}
+                return;
+            }
 
             // Removed by Poppa, crashes Linux on exit   
             boost::this_thread::interruption_point();
