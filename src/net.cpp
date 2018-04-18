@@ -1315,6 +1315,11 @@ void ThreadOpenConnections()
             boost::this_thread::disable_interruption di;
             CSemaphoreGrant grant(*semOutbound);
             // Removed by Poppa, crashes Linux on exit   boost::this_thread::interruption_point();
+            if (boost::this_thread::interruption_requested())
+            {
+                LogPrintStr("ThreadOpenConnections() thread interrupted by application close...");
+                return;
+            }
 
             // Add seed nodes if DNS seeds are all down (an infrastructure attack?).
             if (addrman.size() == 0 && (GetTime() - nStart > 60)) {
