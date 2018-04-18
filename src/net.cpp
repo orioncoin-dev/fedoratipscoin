@@ -14,6 +14,8 @@
 #include "core.h"
 #include "ui_interface.h"
 
+#include "init.h"
+
 #ifdef WIN32
 #include <string.h>
 #else
@@ -1316,6 +1318,7 @@ void ThreadOpenConnections()
             if (boost::this_thread::interruption_requested())
             {
             //    LogPrintStr("ThreadOpenConnections() thread interrupted by application close...");
+                StartShutdown();
                 return;
             }
 
