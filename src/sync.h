@@ -180,10 +180,10 @@ public:
     CSemaphore(int init) : value(init) {}
 
     void wait() {
+        boost::this_thread::disable_interruption di;
         boost::unique_lock<boost::mutex> lock(mutex);
         while (value < 1) 
         {
-            boost::this_thread::disable_interruption di;
             condition.wait(lock);
         }
         value--;
