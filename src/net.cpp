@@ -1313,13 +1313,14 @@ void ThreadOpenConnections()
 
 //        {
             //boost::this_thread::disable_interruption di;
-            //CSemaphoreGrant grant(*semOutbound);
-            // Removed by Poppa, crashes Linux on exit   boost::this_thread::interruption_point();
             if (boost::this_thread::interruption_requested())
             {
                 LogPrintStr("ThreadOpenConnections() thread interrupted by application close...");
                 return;
             }
+
+            // Removed by Poppa, crashes Linux on exit   
+            boost::this_thread::interruption_point();
 
             CSemaphoreGrant grant(*semOutbound);
 
