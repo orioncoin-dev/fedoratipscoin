@@ -1318,7 +1318,7 @@ void ThreadOpenConnections()
             if (boost::this_thread::interruption_requested())
             {
             //    LogPrintStr("ThreadOpenConnections() thread interrupted by application close...");
-                StartShutdown();
+                Shutdown();
                 return;
             }
 
