@@ -109,7 +109,9 @@ static CCoinsViewDB *pcoinsdbview;
 
 void Shutdown()
 {
-    LogPrintf("Shutdown : In progress...\n");
+    LogPrintf("Shutdown() : In progress...");
+    MilliSleep(50);
+
     static CCriticalSection cs_Shutdown;
     TRY_LOCK(cs_Shutdown, lockShutdown);
     if (!lockShutdown) return;
