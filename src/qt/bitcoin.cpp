@@ -266,7 +266,9 @@ void BitcoinCore::shutdown()
     {
         LogPrintf("Running Shutdown in thread\n");
         threadGroup.interrupt_all();
+        LogPrintf("Running Shutdown ... interrupt_all() completed\n");
         threadGroup.join_all();
+        LogPrintf("Running Shutdown ... join_all() completed\n");
         Shutdown();
         LogPrintf("Shutdown finished\n");
         emit shutdownResult(1);
