@@ -181,6 +181,8 @@ public:
     explicit BitcoinApplication(int &argc, char **argv);
     ~BitcoinApplication();
 
+    void aboutToQuit();
+
 #ifdef ENABLE_WALLET
     /// Create payment server
     void createPaymentServer();
@@ -307,6 +309,11 @@ BitcoinApplication::~BitcoinApplication()
 #endif
     delete optionsModel;
     optionsModel = 0;
+}
+
+void BitcoinApplication::aboutToQuit()
+{
+    LogPrintf("In BitcoinApplication::aboutToQuit()\n");
 }
 
 #ifdef ENABLE_WALLET
