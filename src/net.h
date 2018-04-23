@@ -41,6 +41,9 @@ static const unsigned int MAX_INV_SZ = 50000;
 /** The maximum number of entries in mapAskFor */
 static const size_t MAPASKFOR_MAX_SZ = MAX_INV_SZ;
 
+/** Used to test locks when exiting the application */
+boost::try_mutex mDisposingMutex;
+
 inline unsigned int ReceiveFloodSize() { return 1000*GetArg("-maxreceivebuffer", 5*1000); }
 inline unsigned int SendBufferSize() { return 1000*GetArg("-maxsendbuffer", 1*1000); }
 
