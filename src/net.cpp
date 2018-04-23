@@ -1547,7 +1547,7 @@ void ThreadMessageHandler()
         bool fHaveSyncNode = false;
 
         // added by Poppa
-        if (fRequestShutdown)      // || boost::this_thread::interruption_requested())
+        if (fRequestShutdown)
             return;
  
         vector<CNode*> vNodesCopy;

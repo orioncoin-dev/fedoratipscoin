@@ -94,7 +94,7 @@ enum BindFlags {
 // shutdown thing.
 //
 
-volatile bool fRequestShutdown = false;
+//volatile bool fRequestShutdown = false;
 
 void StartShutdown()
 {

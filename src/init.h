@@ -14,6 +14,8 @@ namespace boost {
     class thread_group;
 };
 
+volatile static bool fRequestShutdown = false;
+
 extern std::string strWalletFile;
 extern CWallet* pwalletMain;
 
