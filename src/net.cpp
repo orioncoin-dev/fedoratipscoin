@@ -978,7 +978,7 @@ void ThreadSocketHandler()
         }
 
         // added by Poppa
-        if (boost::this_thread::interruption_requested())
+        if (fRequestShutdown)
             return;
 
         //
