@@ -977,14 +977,18 @@ void ThreadSocketHandler()
             }
         }
 
-        // added by Poppa
-        if (fRequestShutdown)
-            continue;
-
         //
         // Service each socket
         //
         vector<CNode*> vNodesCopy;
+        {
+            // added by Poppa
+            // This tests for a situation during shutdown on Linux, where we cannot
+            // get an exclusive lock during the shutdown process
+            TRY_LOCK(cs_vNodes, testLock);
+            if (!testLock)
+                return;
+        } 
         {
             LOCK(cs_vNodes);
             vNodesCopy = vNodes;
