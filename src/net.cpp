@@ -985,7 +985,8 @@ void ThreadSocketHandler()
             // added by Poppa
             // This tests for a situation during shutdown on Linux, where we cannot
             // get an exclusive lock during the shutdown process
-            //boost::mutex::scoped_lock testLock(mDisposingMutex, boost::try_to_lock);
+            //boost::unique_lock<boost::mutex> testLock(cs_vNodes, boost::try_to_lock);
+
             boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
             if (!testLock || fRequestShutdown)
                 continue;
@@ -1551,11 +1552,17 @@ void ThreadMessageHandler()
     {
         bool fHaveSyncNode = false;
 
-        // added by Poppa
-        if (fRequestShutdown)
-            return;
- 
         vector<CNode*> vNodesCopy;
+        {
+            // added by Poppa
+            // This tests for a situation during shutdown on Linux, where we cannot
+            // get an exclusive lock during the shutdown process
+            //boost::unique_lock<boost::mutex> testLock(cs_vNodes, boost::try_to_lock);
+
+            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+            if (!testLock || fRequestShutdown)
+                continue;
+        }
         {
             LOCK(cs_vNodes);
             vNodesCopy = vNodes;
