@@ -783,6 +783,14 @@ void ThreadSocketHandler()
         // Disconnect nodes
         //
         {
+            // added by Poppa
+            // This tests for a situation during shutdown on Linux, where we cannot
+            // get an exclusive lock during the shutdown process
+            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+            if (!testLock || fRequestShutdown)
+                continue;
+        }
+        {
             LOCK(cs_vNodes);
             // Disconnect unused nodes
             vector<CNode*> vNodesCopy = vNodes;
@@ -985,8 +993,6 @@ void ThreadSocketHandler()
             // added by Poppa
             // This tests for a situation during shutdown on Linux, where we cannot
             // get an exclusive lock during the shutdown process
-            //boost::unique_lock<boost::mutex> testLock(cs_vNodes, boost::try_to_lock);
-
             boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
             if (!testLock || fRequestShutdown)
                 continue;
