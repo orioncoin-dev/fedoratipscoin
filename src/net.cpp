@@ -985,8 +985,9 @@ void ThreadSocketHandler()
             // added by Poppa
             // This tests for a situation during shutdown on Linux, where we cannot
             // get an exclusive lock during the shutdown process
+            //boost::mutex::scoped_lock testLock(mDisposingMutex, boost::try_to_lock);
             boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-            if ( !testLock.locked() || fRequestShutdown)
+            if (!testLock || fRequestShutdown)
                 continue;
         } 
         {
