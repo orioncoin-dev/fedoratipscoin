@@ -979,7 +979,7 @@ void ThreadSocketHandler()
 
         // added by Poppa
         if (fRequestShutdown)
-            return;
+            continue;
 
         //
         // Service each socket
