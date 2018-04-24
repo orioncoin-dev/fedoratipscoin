@@ -1338,7 +1338,14 @@ void ThreadOpenConnections()
 //            }
 
             // Removed by Poppa, crashes Linux on exit   
-            boost::this_thread::interruption_point();
+            //boost::this_thread::interruption_point();
+
+            // added by Poppa
+            // This tests for a situation during shutdown on Linux, where we cannot
+            // get an exclusive lock during the shutdown process
+            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+            if (!testLock || fRequestShutdown)
+                return;
 
             CSemaphoreGrant grant(*semOutbound);
 
