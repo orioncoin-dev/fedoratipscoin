@@ -50,8 +50,8 @@ static const int64_t CENT = 1000000;
 
 // Used to signal all threads to exit, once shutdown() has completed
 static bool fExitAllThreads = false;
-boost::mutex exit_mutex;
-boost::condition_variable exit_condition;
+static boost::mutex exit_mutex;
+static boost::condition_variable exit_condition;
 
 // Align by increasing pointer, must have extra space at end of buffer
 template <size_t nBytes, typename T>
