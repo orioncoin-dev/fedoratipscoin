@@ -1343,8 +1343,7 @@ void ThreadOpenConnections()
             // added by Poppa
             // This tests for a situation during shutdown on Linux, where we cannot
             // get an exclusive lock during the shutdown process
-            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-            if (!testLock || fRequestShutdown)
+            if (fExitAllThreads || fRequestShutdown)
                 return;
 
             CSemaphoreGrant grant(*semOutbound);
