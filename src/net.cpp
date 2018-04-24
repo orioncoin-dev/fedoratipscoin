@@ -1321,6 +1321,9 @@ void ThreadOpenConnections()
         }
     }
 
+    // added by Poppa, mutex used to detect exit condition
+    boost::mutex::scoped_lock locked(exit_mutex);
+
     // Initiate network connections
     int64_t nStart = GetTime();
     while (true)
@@ -1328,27 +1331,13 @@ void ThreadOpenConnections()
         ProcessOneShot();
         MilliSleep(500);
 
-//        {
-            //boost::this_thread::disable_interruption di;
-//            if (boost::this_thread::interruption_requested())
-//            {
-            //    LogPrintStr("ThreadOpenConnections() thread interrupted by application close...");
-//                Shutdown();
-//                return;
-//            }
-
             // Removed by Poppa, crashes Linux on exit   
             //boost::this_thread::interruption_point();
 
             // added by Poppa
-            // This tests for a situation during shutdown on Linux, where we cannot
-            // get an exclusive lock during the shutdown process
-            {
-                boost::mutex::scoped_lock locked(exit_mutex);
-                exit_condition.wait(locked);
-                if (fExitAllThreads)
-                    return;
-            }
+            exit_condition.wait(locked);
+            if (fExitAllThreads)
+                return;
 
             CSemaphoreGrant grant(*semOutbound);
 
@@ -1417,7 +1406,6 @@ void ThreadOpenConnections()
 
             if (addrConnect.IsValid())
                 OpenNetworkConnection(addrConnect, &grant);
-//        }
     }
 }
 
