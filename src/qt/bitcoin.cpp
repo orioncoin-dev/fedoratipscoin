@@ -268,19 +268,11 @@ void BitcoinCore::shutdown()
         Shutdown();
         LogPrintf("Shutdown finished\n");
 
+        boost::mutex::scoped_lock lock(exit_mutex);
         fExitAllThreads = true;
+        exit_condition.notify_one();
 
         // Poppa, making sure threads are stopped before objects go out of scope
-//        try
-//        {
-//            threadGroup.interrupt_all();
-//            LogPrintf("Running Shutdown ... interrupt_all() completed\n");
-//        }
-//        catch (const boost::thread_interrupted &e)
-//        {
-//            std::cerr << "exception in shutdown(): " << boost::diagnostic_information(e);
-//            LogPrintStr(diagnostic_information(e));
-//        }
 
         threadGroup.join_all();
         LogPrintf("Running Shutdown ... join_all() completed\n");
