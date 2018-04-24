@@ -269,9 +269,8 @@ void BitcoinCore::shutdown()
         LogPrintf("Shutdown finished\n");
 
         // Poppa, making sure threads are stopped before objects go out of scope
-        //threadGroup.interrupt_all();
-        //LogPrintf("Running Shutdown ... interrupt_all() completed\n");
-
+        threadGroup.interrupt_all();
+        LogPrintf("Running Shutdown ... interrupt_all() completed\n");
         threadGroup.join_all();
         LogPrintf("Running Shutdown ... join_all() completed\n");
 
