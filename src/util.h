@@ -32,6 +32,7 @@
 
 #include <boost/filesystem/path.hpp>
 #include <boost/thread.hpp>
+#include <boost/thread/recursive_mutex.hpp>
 
 class CNetAddr;
 class uint256;
