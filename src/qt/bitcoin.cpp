@@ -269,7 +269,7 @@ void BitcoinCore::shutdown()
         LogPrintf("Shutdown finished\n");
 
         {
-            threadGroup.interrupt_all();
+            threadGroup.interrupt();
 
             boost::mutex::scoped_lock locked(exit_mutex);
             fExitAllThreads = true;
