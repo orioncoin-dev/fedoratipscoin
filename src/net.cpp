@@ -1322,7 +1322,7 @@ void ThreadOpenConnections()
     }
 
     // added by Poppa, mutex used to detect exit condition
-    //boost::mutex::scoped_lock locked(exit_mutex);
+    boost::mutex::scoped_lock locked(exit_mutex);
 
     // Initiate network connections
     int64_t nStart = GetTime();
@@ -1335,9 +1335,9 @@ void ThreadOpenConnections()
             //boost::this_thread::interruption_point();
 
             // added by Poppa
-            //exit_condition.wait(locked);
-           // if (fExitAllThreads)
-           //     return;
+            exit_condition.wait(locked);
+            if (fExitAllThreads)
+                return;
 
             CSemaphoreGrant grant(*semOutbound);
 

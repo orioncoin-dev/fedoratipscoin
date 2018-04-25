@@ -50,9 +50,9 @@ static const int64_t CENT = 1000000;
 #define PAIRTYPE(t1, t2)    std::pair<t1, t2>
 
 // Used to signal all threads to exit, once shutdown() has completed
-static std::atomic_bool fExitAllThreads(false);
-//static boost::recursive_mutex exit_mutex;
-//static boost::condition_variable exit_condition;
+static bool fExitAllThreads=false;
+static boost::recursive_mutex exit_mutex;
+static boost::condition_variable exit_condition;
 
 // Align by increasing pointer, must have extra space at end of buffer
 template <size_t nBytes, typename T>
