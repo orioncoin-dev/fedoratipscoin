@@ -1332,7 +1332,7 @@ void ThreadOpenConnections()
         MilliSleep(500);
 
             // Removed by Poppa, crashes Linux on exit   
-            //boost::this_thread::interruption_point();
+            boost::this_thread::interruption_point();
 
             // added by Poppa
             exit_condition.wait(locked);
