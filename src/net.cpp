@@ -1332,13 +1332,17 @@ void ThreadOpenConnections()
         MilliSleep(500);
 
             // Removed by Poppa, crashes Linux on exit   
-            boost::this_thread::interruption_point();
+            //boost::this_thread::interruption_point();
 
             // added by Poppa
-            exit_condition.wait(locked);
-            if (fExitAllThreads)
+            try
             {
-                LogPrintf("ThreadOpenConnections: fExitAllThreads is TRUE\n");
+                exit_condition.wait(locked);
+            }
+            catch (boost::thread_interrupted &e)
+            {
+                LogPrintf("interrupted: ", e.what());
+                LogPrintf("ThreadOpenConnections: interrupted by shutdown()\n");
                 return;
             }
 
