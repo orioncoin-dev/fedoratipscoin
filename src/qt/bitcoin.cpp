@@ -286,9 +286,8 @@ void BitcoinCore::shutdown()
     } catch (...) {
         handleRunawayException(NULL);
     } catch (boost::thread_interrupted& e) {
-        handleRunawayException(&e);
+        ::exit(1);
     }
-    
 }
 
 BitcoinApplication::BitcoinApplication(int &argc, char **argv):
