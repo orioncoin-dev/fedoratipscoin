@@ -1336,8 +1336,8 @@ void ThreadOpenConnections()
 
             // added by Poppa
             //exit_condition.wait(locked);
-            if (fExitAllThreads)
-                return;
+           // if (fExitAllThreads)
+           //     return;
 
             CSemaphoreGrant grant(*semOutbound);
 
