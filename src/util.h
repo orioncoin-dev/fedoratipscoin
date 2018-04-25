@@ -22,6 +22,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <atomic>
 
 #ifndef WIN32
 #include <sys/resource.h>
@@ -49,7 +50,7 @@ static const int64_t CENT = 1000000;
 #define PAIRTYPE(t1, t2)    std::pair<t1, t2>
 
 // Used to signal all threads to exit, once shutdown() has completed
-std::atomic<bool> fExitAllThreads = false;
+static std::atomic_bool fExitAllThreads(false);
 //static boost::recursive_mutex exit_mutex;
 //static boost::condition_variable exit_condition;
 
