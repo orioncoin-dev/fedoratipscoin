@@ -32,7 +32,6 @@
 
 #include <boost/filesystem/path.hpp>
 #include <boost/thread.hpp>
-#include <boost/thread/recursive_mutex.hpp>
 
 class CNetAddr;
 class uint256;
@@ -52,7 +51,7 @@ static const int64_t CENT = 1000000;
 
 // Used to signal all threads to exit, once shutdown() has completed
 static bool fExitAllThreads=false;
-static boost::recursive_mutex exit_mutex;
+static boost::mutex exit_mutex;
 static boost::condition_variable exit_condition;
 
 // Align by increasing pointer, must have extra space at end of buffer
