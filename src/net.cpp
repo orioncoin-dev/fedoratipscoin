@@ -1322,7 +1322,7 @@ void ThreadOpenConnections()
     }
 
     // added by Poppa, mutex used to detect exit condition
-    boost::mutex::scoped_lock locked(exit_mutex);
+    //boost::mutex::scoped_lock locked(exit_mutex);
 
     // Initiate network connections
     int64_t nStart = GetTime();
@@ -1332,18 +1332,18 @@ void ThreadOpenConnections()
         MilliSleep(500);
 
             // Removed by Poppa, crashes Linux on exit   
-            //boost::this_thread::interruption_point();
+            boost::this_thread::interruption_point();
 
             // added by Poppa
-            try
-            {
-                exit_condition.wait(locked);
-            }
-            catch (boost::thread_interrupted &e)
-            {
-                LogPrintf("ThreadOpenConnections: interrupted by shutdown()\n");
-                return;
-            }
+            //try
+            //{
+            //    exit_condition.wait(locked);
+            //}
+            //catch (boost::thread_interrupted &e)
+            //{
+            //    LogPrintf("ThreadOpenConnections: interrupted by shutdown()\n");
+            //    return;
+            //}
 
             CSemaphoreGrant grant(*semOutbound);
 
