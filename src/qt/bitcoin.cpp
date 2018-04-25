@@ -268,7 +268,7 @@ void BitcoinCore::shutdown()
         Shutdown();
         LogPrintf("Shutdown finished\n");
 
-        threadGroup.interrupt_all();
+//        threadGroup.interrupt_all();
 
 //        boost::mutex::scoped_lock locked(exit_mutex);
 //        fExitAllThreads = true;
@@ -280,7 +280,8 @@ void BitcoinCore::shutdown()
 
         //LogPrintf("Running Shutdown ... join_all() completed\n");
 
-        emit shutdownResult(1);
+        quit();
+        //emit shutdownResult(1);
     } catch (std::exception& e) {
         handleRunawayException(&e);
     } catch (boost::thread_interrupted& e) {
