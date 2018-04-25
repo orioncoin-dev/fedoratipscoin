@@ -1341,7 +1341,6 @@ void ThreadOpenConnections()
             }
             catch (boost::thread_interrupted &e)
             {
-                LogPrintf("interrupted: ", e.what());
                 LogPrintf("ThreadOpenConnections: interrupted by shutdown()\n");
                 return;
             }
