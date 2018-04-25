@@ -31,7 +31,6 @@
 
 #include <boost/filesystem/path.hpp>
 #include <boost/thread.hpp>
-#include <boost/atomic.hpp>
 
 class CNetAddr;
 class uint256;
@@ -50,7 +49,7 @@ static const int64_t CENT = 1000000;
 #define PAIRTYPE(t1, t2)    std::pair<t1, t2>
 
 // Used to signal all threads to exit, once shutdown() has completed
-static boost::atomic<bool> fExitAllThreads = false;
+std::atomic<bool> fExitAllThreads = false;
 //static boost::recursive_mutex exit_mutex;
 //static boost::condition_variable exit_condition;
 
