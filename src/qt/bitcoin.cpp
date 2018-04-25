@@ -283,10 +283,10 @@ void BitcoinCore::shutdown()
         emit shutdownResult(1);
     } catch (std::exception& e) {
         handleRunawayException(&e);
-    } catch (...) {
-        handleRunawayException(NULL);
     } catch (boost::thread_interrupted& e) {
         ::exit(1);
+    } catch (...) {
+        handleRunawayException(NULL);
     }
 }
 
