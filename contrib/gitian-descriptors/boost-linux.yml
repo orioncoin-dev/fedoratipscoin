@@ -118,11 +118,9 @@ script: |
     # - type_erasure
     # - wave
 
-    export BOOST_THREAD_DONT_PROVIDE_INTERRUPTIONS=1
-
     # should be upgraded to use b2 instead --without-python
     echo "building now..."
-    ./bjam toolset=gcc threadapi=pthread threading=multi variant=release link=static runtime-link=static --with-system --with-filesystem --with-thread --with-program_options --with-chrono --user-config=user-config.jam -sNO_BZIP2=1 -sNO_ZLIB=1 --layout=tagged --build-type=complete --prefix="$INSTALLPREFIX" $MAKEOPTS install
+    ./bjam toolset=gcc threadapi=pthread threading=multi variant=release link=static runtime-link=static --with-atomic --with-system --with-filesystem --with-thread --with-program_options --with-chrono --user-config=user-config.jam -sNO_BZIP2=1 -sNO_ZLIB=1 --layout=tagged --build-type=complete --prefix="$INSTALLPREFIX" $MAKEOPTS install
 
     #./bjam toolset=gcc threadapi=pthread threading=multi variant=release link=static runtime-link=shared --user-config=user-config.jam --without-mpi --without-python -sNO_BZIP2=1 --layout=tagged --build-type=complete --prefix="$STAGING" $MAKEOPTS -d+2 install
 
