@@ -280,8 +280,7 @@ void BitcoinCore::shutdown()
 
         //LogPrintf("Running Shutdown ... join_all() completed\n");
 
-        quit();
-        //emit shutdownResult(1);
+        emit shutdownResult(1);
     } catch (std::exception& e) {
         handleRunawayException(&e);
     } catch (boost::thread_interrupted& e) {
