@@ -1000,12 +1000,7 @@ void ThreadSocketHandler()
 
         vector<CNode*> vNodesCopy;
         {
-            TRY_LOCK(cs_vNodes, criticalblock);
-            if (!criticalblock)
-                return;
-
-            // LOCK(cs_vNodes);
-
+            LOCK(cs_vNodes);
             vNodesCopy = vNodes;
             BOOST_FOREACH(CNode* pnode, vNodesCopy)
                 pnode->AddRef();
