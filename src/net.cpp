@@ -994,12 +994,12 @@ void ThreadSocketHandler()
             // This tests for a situation during shutdown on Linux, where we cannot
             // get an exclusive lock during the shutdown process
 
-            pthread_mutex_t handlem = cs_vNodes.native_handle();
-            int const res=pthread_mutex_trylock(&handlem);
+            pthread_mutex_t *handlem = cs_vNodes.native_handle();
+            int const res=pthread_mutex_trylock(handlem);
             if (!res || res==EBUSY)
                 return;
             else
-                pthread_mutex_unlock(&handlem);
+                pthread_mutex_unlock(handlem);
 
             //if (!testLock || fRequestShutdown)
             //    return;
