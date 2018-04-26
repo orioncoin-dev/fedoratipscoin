@@ -8,6 +8,9 @@
 #include <algorithm>
 #include <vector>
 
+// Added by Poppa
+#undef BOOST_THREAD_PROVIDES_INTERRUPTIONS
+
 #include <boost/foreach.hpp>
 #include <boost/thread/condition_variable.hpp>
 #include <boost/thread/locks.hpp>
