@@ -988,7 +988,7 @@ void ThreadSocketHandler()
         //
         // Service each socket
         //
-        vector<CNode*> vNodesCopy;
+        //vector<CNode*> vNodesCopy;
         //{
         //    // added by Poppa
         //    // This tests for a situation during shutdown on Linux, where we cannot
@@ -997,12 +997,15 @@ void ThreadSocketHandler()
         //    if (!testLock || fRequestShutdown)
         //        return;
         //} 
+
+        vector<CNode*> vNodesCopy;
         {
-            TRY_LOCK(cs_vNodes, testLock)
-            if (!testLock)
+            TRY_LOCK(cs_vNodes, criticalblock)
+            if (!criticalblock)
                 return;
 
             // LOCK(cs_vNodes);
+
             vNodesCopy = vNodes;
             BOOST_FOREACH(CNode* pnode, vNodesCopy)
                 pnode->AddRef();
