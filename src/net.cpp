@@ -1000,7 +1000,7 @@ void ThreadSocketHandler()
 
         vector<CNode*> vNodesCopy;
         {
-            TRY_LOCK(cs_vNodes, criticalblock)
+            TRY_LOCK(cs_vNodes, criticalblock);
             if (!criticalblock)
                 return;
 
