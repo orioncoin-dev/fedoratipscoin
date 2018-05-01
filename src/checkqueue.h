@@ -72,6 +72,10 @@ private:
         unsigned int nNow = 0;
         bool fOk = true;
         do {
+
+            if (fExitAllThreads)
+               return true;
+
             {
                 boost::unique_lock<boost::mutex> lock(mutex);
                 // first do the clean-up of the previous loop run (allowing us to do it in the same critsect)
@@ -87,10 +91,6 @@ private:
                 }
                 // logically, the do loop starts here
                 while (queue.empty()) {
-
-                    if (fExitAllThreads)
-                      return true;
-
                     if (fMaster && nTodo == 0) {
                         nTotal--;
                         bool fRet = fAllOk;

@@ -150,6 +150,8 @@ void Shutdown()
     if (pwalletMain)
         delete pwalletMain;
 #endif
+
+    fExitAllThreads=true;
     LogPrintf("Shutdown : done\n");
 }
 
