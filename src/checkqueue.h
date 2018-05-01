@@ -17,6 +17,23 @@
 template <typename T>
 class CCheckQueueControl;
 
+class CConditionWorker : public boost::condition_variable
+{
+  public:
+    ~CConditionWorker()
+    {
+            int ret;
+            do {
+              ret = pthread_mutex_destroy(&internal_mutex);
+            } while (ret == EINTR);
+            //BOOST_ASSERT(!ret);
+            do {
+              ret = pthread_cond_destroy(&cond);
+            } while (ret == EINTR);
+            //BOOST_ASSERT(!ret);
+    } 
+}
+
 /** 
  * Queue for verifications that have to be performed.
   * The verifications are represented by a type T, which must provide an
@@ -35,10 +52,12 @@ private:
     boost::mutex mutex;
 
     //! Worker threads block on this when out of work
-    boost::condition_variable condWorker;
+    //boost::condition_variable condWorker;
+    CConditionWorker condWorker;
 
     //! Master thread blocks on this when out of work
-    boost::condition_variable condMaster;
+    //boost::condition_variable condMaster;
+    CConditionWorker condMaster;
 
     //! The queue of elements to be processed.
     //! As the order of booleans doesn't matter, it is used as a LIFO (stack)
