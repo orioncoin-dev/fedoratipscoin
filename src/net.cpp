@@ -993,16 +993,19 @@ void ThreadSocketHandler()
             // added by Poppa
             // This tests for a situation during shutdown on Linux, where we cannot
             // get an exclusive lock during the shutdown process
-
-            pthread_mutex_t *handlem = cs_vNodes.native_handle();
-            int const res=pthread_mutex_trylock(handlem);
-            if (!res || res==EBUSY)
+            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+            if (!testLock || fRequestShutdown)
                 return;
-            else
-                pthread_mutex_unlock(handlem);
 
-            //if (!testLock || fRequestShutdown)
+            //pthread_mutex_t *handlem = cs_vNodes.native_handle();
+            //int const res=pthread_mutex_trylock(handlem);
+            //if (!res || res==EBUSY)
             //    return;
+            //else
+            //    pthread_mutex_unlock(handlem);
+
+            if (!testLock || fRequestShutdown)
+                return;
         } 
 
         //vector<CNode*> vNodesCopy;
