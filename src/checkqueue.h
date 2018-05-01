@@ -6,6 +6,7 @@
 #define BITCOIN_CHECKQUEUE_H
 
 #include <sync.h>
+#include <util.h>
 
 #include <algorithm>
 #include <vector>
@@ -86,6 +87,10 @@ private:
                 }
                 // logically, the do loop starts here
                 while (queue.empty()) {
+
+                    if (fExitAllThreads)
+                      return true;
+
                     if (fMaster && nTodo == 0) {
                         nTotal--;
                         bool fRet = fAllOk;
