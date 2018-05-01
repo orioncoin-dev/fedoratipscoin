@@ -1004,7 +1004,7 @@ void ThreadSocketHandler()
             //else
             //    pthread_mutex_unlock(handlem);
 
-            if (!testLock || fRequestShutdown)
+            if (!testLock || fExitAllThreads || fRequestShutdown)
                 return;
         } 
 
