@@ -10,6 +10,7 @@
 #include "serialize.h"
 #include "sync.h"
 #include "wallet.h"
+#include "util.h"
 
 #include <boost/filesystem.hpp>
 #include <boost/foreach.hpp>
@@ -792,6 +793,10 @@ void ThreadFlushWalletDB(const string& strFile)
     while (true)
     {
         MilliSleep(500);
+
+        // Added by Poppa
+        if (fExitAllThreads)
+          return;
 
         if (nLastSeen != nWalletDBUpdated)
         {
