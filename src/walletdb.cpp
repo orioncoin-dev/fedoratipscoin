@@ -794,10 +794,6 @@ void ThreadFlushWalletDB(const string& strFile)
     {
         MilliSleep(500);
 
-        // Added by Poppa
-        if (fExitAllThreads)
-          return;
-
         if (nLastSeen != nWalletDBUpdated)
         {
             nLastSeen = nWalletDBUpdated;
@@ -821,6 +817,11 @@ void ThreadFlushWalletDB(const string& strFile)
                 if (nRefCount == 0)
                 {
                     // removed by Poppa, bombs on exit in Linux ... boost::this_thread::interruption_point();
+
+                    // Added by Poppa
+                    if (fExitAllThreads)
+                        return;
+
                     map<string, int>::iterator mi = bitdb.mapFileUseCount.find(strFile);
                     if (mi != bitdb.mapFileUseCount.end())
                     {
