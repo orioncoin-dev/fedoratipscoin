@@ -11,8 +11,10 @@
 #include <algorithm>
 #include <vector>
 
-#include <boost/thread/condition_variable.hpp>
 #include <boost/thread/mutex.hpp>
+
+#define NDEBUG
+#include <boost/thread/condition_variable.hpp>
 
 template <typename T>
 class CCheckQueueControl;
