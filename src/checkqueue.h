@@ -25,15 +25,13 @@ class CConditionWorker : public boost::condition_variable
   public:
     ~CConditionWorker()
     {
-       //     int ret;
-       //     do {
-       //       ret = pthread_mutex_destroy(&internal_mutex);
-       //     } while (ret == EINTR);
-       //     //BOOST_ASSERT(!ret);
-       //     do {
-       //       ret = pthread_cond_destroy(&cond);
-       //     } while (ret == EINTR);
-       //     //BOOST_ASSERT(!ret);
+        int ret;
+        do {
+               ret = pthread_mutex_destroy(&internal_mutex);
+           } while (ret == EINTR);
+        do {
+               ret = pthread_cond_destroy(&cond);
+           } while (ret == EINTR);
     } 
 };
 
