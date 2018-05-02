@@ -15,6 +15,7 @@
 
 #define NDEBUG
 #include <boost/thread/condition_variable.hpp>
+#undef NDEBUG
 
 template <typename T>
 class CCheckQueueControl;
