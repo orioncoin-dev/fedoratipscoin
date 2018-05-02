@@ -32,7 +32,7 @@ class CConditionWorker : public boost::condition_variable
             } while (ret == EINTR);
             //BOOST_ASSERT(!ret);
     } 
-}
+};
 
 /** 
  * Queue for verifications that have to be performed.
