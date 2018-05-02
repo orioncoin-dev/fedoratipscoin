@@ -1359,6 +1359,9 @@ void ThreadOpenConnections()
             //    return;
             //}
 
+            if (fExitAllThreads)
+                return;
+
             CSemaphoreGrant grant(*semOutbound);
 
             // Add seed nodes if DNS seeds are all down (an infrastructure attack?).
