@@ -934,6 +934,8 @@ void ThreadSocketHandler()
             MilliSleep(timeout.tv_usec/1000);
         }
 
+        if (fExitAllThreads)
+            return;
 
         //
         // Accept new connections
