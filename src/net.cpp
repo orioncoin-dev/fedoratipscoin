@@ -846,7 +846,7 @@ void ThreadSocketHandler()
                 }
             }
         }
-        if(vNodes.size() != nPrevNodeCount) {
+        if((vNodes.size() != nPrevNodeCount) && (!fExitAllThreads)){
             nPrevNodeCount = vNodes.size();
             uiInterface.NotifyNumConnectionsChanged(nPrevNodeCount);
         }
