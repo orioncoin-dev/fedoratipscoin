@@ -1239,8 +1239,9 @@ void ThreadDNSAddressSeed()
         MilliSleep(11 * 1000);
 
         // Added by Poppa
-        if (fExitAllThreads)
-            return; 
+        boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+        if (!testLock || fExitAllThreads)
+            return;
 
         LOCK(cs_vNodes);
         if (vNodes.size() >= 2) {
