@@ -1468,6 +1468,13 @@ void ThreadOpenAddedConnections()
 
     for (unsigned int i = 0; true; i++)
     {
+        // added by Poppa
+        // This tests for a situation during shutdown on Linux, where we cannot
+        // get an exclusive lock during the shutdown process
+        boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+        if (!testLock || fExitAllThreads)
+            return;
+
         list<string> lAddresses(0);
         {
             LOCK(cs_vAddedNodes);
