@@ -990,7 +990,6 @@ void ThreadSocketHandler()
         //
         // Service each socket
         //
-        vector<CNode*> vNodesCopy;
         {
             // added by Poppa
             // This tests for a situation during shutdown on Linux, where we cannot
@@ -1007,7 +1006,7 @@ void ThreadSocketHandler()
             //    pthread_mutex_unlock(handlem);
         } 
 
-        //vector<CNode*> vNodesCopy;
+        vector<CNode*> vNodesCopy;
         {
             LOCK(cs_vNodes);
             vNodesCopy = vNodes;
