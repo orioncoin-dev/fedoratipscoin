@@ -996,7 +996,7 @@ void ThreadSocketHandler()
             // This tests for a situation during shutdown on Linux, where we cannot
             // get an exclusive lock during the shutdown process
             boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-            if (!testLock || fRequestShutdown)
+            if (!testLock || fRequestShutdown || fExitAllThreads)
                 return;
 
             //pthread_mutex_t *handlem = cs_vNodes.native_handle();
@@ -1005,9 +1005,6 @@ void ThreadSocketHandler()
             //    return;
             //else
             //    pthread_mutex_unlock(handlem);
-
-            if (!testLock || fExitAllThreads || fRequestShutdown)
-                return;
         } 
 
         //vector<CNode*> vNodesCopy;
