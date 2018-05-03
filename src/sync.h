@@ -8,13 +8,13 @@
 
 #include "threadsafety.h"
 #include "util.h"
-#include "net.h"
 
 #include <boost/thread/condition_variable.hpp>
 #include <boost/thread/locks.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/recursive_mutex.hpp>
 
+static boost::try_mutex mDisposableMutex;
 
 ////////////////////////////////////////////////
 //                                            //
@@ -255,7 +255,7 @@ public:
     ~CSemaphoreGrant() {
 
         // Added by Poppa
-        boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+        boost::try_mutex::scoped_try_lock testLock(mDisposableMutex);
         if (!testLock || fExitAllThreads)
             return;
 
