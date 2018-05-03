@@ -1338,15 +1338,23 @@ void ThreadOpenConnections()
 
     // added by Poppa, mutex used to detect exit condition
     //boost::mutex::scoped_lock locked(exit_mutex);
+    boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+    if (!testLock || fExitAllThreads)
+        return;
 
     // Initiate network connections
     int64_t nStart = GetTime();
     while (true)
     {
+        // Added by Poppa
+        boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+        if (!testLock || fExitAllThreads)
+            return;
+
         ProcessOneShot();
         MilliSleep(500);
 
-            // Removed by Poppa, crashes Linux on exit   
+            // Poppa, crashes Linux on exit   
             boost::this_thread::interruption_point();
 
             // added by Poppa
