@@ -7,6 +7,7 @@
 #define BITCOIN_SYNC_H
 
 #include "threadsafety.h"
+#include "util.h"
 
 #include <boost/thread/condition_variable.hpp>
 #include <boost/thread/locks.hpp>
@@ -251,7 +252,9 @@ public:
     }
 
     ~CSemaphoreGrant() {
-        Release();
+        // Added by Poppa
+        if (!fExitAllThreads)
+            Release();
     }
 
     operator bool() {
