@@ -8,6 +8,7 @@
 
 #include "threadsafety.h"
 #include "util.h"
+#include "net.h"
 
 #include <boost/thread/condition_variable.hpp>
 #include <boost/thread/locks.hpp>
@@ -252,9 +253,13 @@ public:
     }
 
     ~CSemaphoreGrant() {
+
         // Added by Poppa
-        if (!fExitAllThreads)
-            Release();
+        boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+        if (!testLock || fExitAllThreads)
+            return;
+
+        Release();
     }
 
     operator bool() {
