@@ -828,6 +828,8 @@ void ThreadFlushWalletDB(const string& strFile)
                 if (nRefCount == 0)
                 {
                     // removed by Poppa, bombs on exit in Linux ... boost::this_thread::interruption_point();
+                    if boost::this_thread::interruption_requested()
+                        return;
 
                     map<string, int>::iterator mi = bitdb.mapFileUseCount.find(strFile);
                     if (mi != bitdb.mapFileUseCount.end())
