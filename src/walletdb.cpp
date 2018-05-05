@@ -802,14 +802,18 @@ void ThreadFlushWalletDB(const string& strFile)
             nLastWalletUpdate = GetTime();
         }
 
-        {
+//        {
             // Added by Poppa
             // This tests for a situation during shutdown on Linux, where we cannot
             // get an exclusive lock during the shutdown process
-            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-            if (!testLock || fExitAllThreads)
-                return;
-        }
+//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+//            if (!testLock || fExitAllThreads)
+//                return;
+//        }
+
+        // Added by Poppa
+        if (boost::this_thread::interruption_requested())
+            return;
 
         if (nLastFlushed != nWalletDBUpdated && GetTime() - nLastWalletUpdate >= 2)
         {
