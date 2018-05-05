@@ -400,8 +400,8 @@ void BitcoinGUI::createActions(bool fIsTestnet)
     paperWalletAction->setStatusTip(tr("Print paper wallets"));
     inertBlockChainAction = new QAction(QIcon(":/icons/comment"), tr("&Comments"), this);
     inertBlockChainAction->setStatusTip(tr("Insert your comments into blockchain"));
-    debugAction = new QAction(QIcon(":/icons/sx"), tr("&SX Tool"), this);
-    debugAction->setStatusTip(tr("SX Tool"));
+    //debugAction = new QAction(QIcon(":/icons/sx"), tr("&SX Tool"), this);
+    //debugAction->setStatusTip(tr("SX Tool"));
     opennameAction = new QAction(QIcon(":/icons/openname"), tr("&Openname"), this);
     opennameAction->setStatusTip(tr("Your identity and reputation in blockchain"));
     
