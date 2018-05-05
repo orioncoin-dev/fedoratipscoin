@@ -121,7 +121,7 @@ private:
     QAction *unlockWalletAction;
     QAction *inertBlockChainAction;
     QAction *opennameAction;
-    QAction *debugAction;
+    //QAction *debugAction;
     QAction *multiSigAction;
     QAction *coinnectorAction;
 

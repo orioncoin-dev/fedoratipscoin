@@ -463,7 +463,7 @@ void BitcoinGUI::createActions(bool fIsTestnet)
         connect(paperWalletAction, SIGNAL(triggered()), walletFrame, SLOT(printPaperWallets()));
         connect(inertBlockChainAction, SIGNAL(triggered()), walletFrame, SLOT(inertBlockChain()));
         connect(opennameAction, SIGNAL(triggered()), walletFrame, SLOT(opennameClicked()));
-        connect(debugAction, SIGNAL(triggered()), walletFrame, SLOT(debugClicked()));
+        //connect(debugAction, SIGNAL(triggered()), walletFrame, SLOT(debugClicked()));
     }
 #endif
 }
@@ -534,7 +534,7 @@ void BitcoinGUI::createMenuBar()
     help->addSeparator();
     help->addAction(aboutAction);
     help->addAction(aboutQtAction);
-    help->addAction(debugAction);
+    //help->addAction(debugAction);
 }
 
 void BitcoinGUI::createToolBars()
@@ -632,7 +632,7 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     paperWalletAction->setEnabled(enabled);
     inertBlockChainAction->setEnabled(enabled);
     opennameAction->setEnabled(enabled);
-    debugAction->setEnabled(enabled);
+    //debugAction->setEnabled(enabled);
     multiSigAction->setEnabled(enabled);
 }
 
