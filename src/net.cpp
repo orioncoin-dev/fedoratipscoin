@@ -1550,10 +1550,6 @@ bool OpenNetworkConnection(const CAddress& addrConnect, CSemaphoreGrant *grantOu
     //
     // removed by Poppa, bombs on exit in Linux...  boost::this_thread::interruption_point();
 
-    // Added by Poppa
-    if (boost::this_thread::interruption_requested())
-        return;
-
     if (!strDest)
         if (IsLocal(addrConnect) ||
             FindNode((CNetAddr)addrConnect) || CNode::IsBanned(addrConnect) ||
@@ -1564,10 +1560,6 @@ bool OpenNetworkConnection(const CAddress& addrConnect, CSemaphoreGrant *grantOu
 
     CNode* pnode = ConnectNode(addrConnect, strDest);
     // removed by Poppa, causes crash on Linux ... boost::this_thread::interruption_point();
-
-    // Added by Poppa
-    if (boost::this_thread::interruption_requested())
-        return;
 
     if (!pnode)
         return false;

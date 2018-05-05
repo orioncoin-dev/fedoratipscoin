@@ -4223,6 +4223,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         {
             // removed by Poppa, bombs on exit in Linux....   boost::this_thread::interruption_point();
 
+            // Added by Poppa
+            if (boost::this_thread::interruption_requested())
+                return;
+
             if (addr.nTime <= 100000000 || addr.nTime > nNow + 10 * 60)
                 addr.nTime = nNow - 5 * 24 * 60 * 60;
             pfrom->AddAddressKnown(addr);
@@ -4285,6 +4289,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             const CInv &inv = vInv[nInv];
 
             // removed by Poppa, bombs on exit from Linux...   boost::this_thread::interruption_point();
+
+            // Added by Poppa
+            if (boost::this_thread::interruption_requested())
+                return;
 
             pfrom->AddInventoryKnown(inv);
 
@@ -4853,7 +4861,12 @@ bool ProcessMessages(CNode* pfrom)
         try
         {
             fRet = ProcessMessage(pfrom, strCommand, vRecv);
+
             // removed by Poppa, crashes on exit with Linux   boost::this_thread::interruption_point();
+
+            // Added by Poppa
+            if (boost::this_thread::interruption_requested())
+                return;
         }
         catch (std::ios_base::failure& e)
         {
