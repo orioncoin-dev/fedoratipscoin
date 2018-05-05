@@ -4225,7 +4225,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
             // Added by Poppa
             if (boost::this_thread::interruption_requested())
-                return;
+                return true;
 
             if (addr.nTime <= 100000000 || addr.nTime > nNow + 10 * 60)
                 addr.nTime = nNow - 5 * 24 * 60 * 60;
@@ -4292,7 +4292,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
             // Added by Poppa
             if (boost::this_thread::interruption_requested())
-                return;
+                return true;
 
             pfrom->AddInventoryKnown(inv);
 
@@ -4866,7 +4866,7 @@ bool ProcessMessages(CNode* pfrom)
 
             // Added by Poppa
             if (boost::this_thread::interruption_requested())
-                return;
+                return fOk;
         }
         catch (std::ios_base::failure& e)
         {
