@@ -329,7 +329,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>FedoraCoinGUI</name>
     <message>
         <location filename="../bitcoingui.cpp" line="+294"/>
         <source>Sign &amp;message...</source>

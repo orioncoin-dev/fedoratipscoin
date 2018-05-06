@@ -3,13 +3,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Bitcoin Core</source>
-        <translation>Sobre Bitcoin core</translation>
+        <source>About FedoraCoin Core</source>
+        <translation>Sobre FedoraCoin core</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Bitcoin Core&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Bitcoin core&lt;/b&gt; versión</translation>
+        <source>&lt;b&gt;FedoraCoin Core&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;FedoraCoin core&lt;/b&gt; versión</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -33,8 +33,8 @@ Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no Op
     </message>
     <message>
         <location line="+0"/>
-        <source>The Bitcoin Core developers</source>
-        <translation>Os desarrolladores de Bitcoin Core</translation>
+        <source>The FedoraCoin Core developers</source>
+        <translation>Os desarrolladores de FedoraCoin Core</translation>
     </message>
 </context>
 <context>
@@ -121,13 +121,13 @@ Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no Op
     </message>
     <message>
         <location line="+7"/>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Estas son as túas direccións Bitcoin para enviar pagos. Revisa sempre a cantidade e a dirección receptora antes de enviar moedas.</translation>
+        <source>These are your FedoraCoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Estas son as túas direccións FedoraCoin para enviar pagos. Revisa sempre a cantidade e a dirección receptora antes de enviar moedas.</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Estas son as túas direccións Bitcoin para recibir pagos. Recoméndase empregar unha nova dirección de recepción por cada transacción.</translation>
+        <source>These are your FedoraCoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Estas son as túas direccións FedoraCoin para recibir pagos. Recoméndase empregar unha nova dirección de recepción por cada transacción.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -274,8 +274,8 @@ Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no Op
     </message>
     <message>
         <location line="-56"/>
-        <source>Bitcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation>Bitcoin se pechará agora para rematar o proceso de encriptación. Lembra que encriptar o teu moedeiro non protexe totalmente os teus bitcoins de ser robados por malware que infecte o teu ordenador.</translation>
+        <source>FedoraCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
+        <translation>FedoraCoin se pechará agora para rematar o proceso de encriptación. Lembra que encriptar o teu moedeiro non protexe totalmente os teus bitcoins de ser robados por malware que infecte o teu ordenador.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -320,7 +320,7 @@ Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no Op
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>FedoraCoinGUI</name>
     <message>
         <location filename="../bitcoingui.cpp" line="+295"/>
         <source>Sign &amp;message...</source>
@@ -368,8 +368,8 @@ Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no Op
     </message>
     <message>
         <location line="+7"/>
-        <source>Show information about Bitcoin</source>
-        <translation>Amosar información sobre Bitcoin</translation>
+        <source>Show information about FedoraCoin</source>
+        <translation>Amosar información sobre FedoraCoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -429,13 +429,13 @@ Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no Op
     </message>
     <message>
         <location line="-405"/>
-        <source>Send coins to a Bitcoin address</source>
-        <translation>Enviar moedas a unha dirección Bitcoin</translation>
+        <source>Send coins to a FedoraCoin address</source>
+        <translation>Enviar moedas a unha dirección FedoraCoin</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Bitcoin</source>
-        <translation>Modificar opcións de configuración para Bitcoin</translation>
+        <source>Modify configuration options for FedoraCoin</source>
+        <translation>Modificar opcións de configuración para FedoraCoin</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -464,8 +464,8 @@ Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no Op
     </message>
     <message>
         <location line="+430"/>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>FedoraCoin</source>
+        <translation>FedoraCoin</translation>
     </message>
     <message>
         <location line="-643"/>
@@ -500,13 +500,13 @@ Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no Op
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation>Asina mensaxes coas túas direccións Bitcoin para probar que te pertencen</translation>
+        <source>Sign messages with your FedoraCoin addresses to prove you own them</source>
+        <translation>Asina mensaxes coas túas direccións FedoraCoin para probar que te pertencen</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation>Verificar mensaxes para asegurar que foron asinados con direccións Bitcoin dadas.</translation>
+        <source>Verify messages to ensure they were signed with specified FedoraCoin addresses</source>
+        <translation>Verificar mensaxes para asegurar que foron asinados con direccións FedoraCoin dadas.</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -536,8 +536,8 @@ Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no Op
     </message>
     <message>
         <location line="-401"/>
-        <source>Bitcoin Core</source>
-        <translation>Core de Bitcoin</translation>
+        <source>FedoraCoin Core</source>
+        <translation>Core de FedoraCoin</translation>
     </message>
     <message>
         <location line="+163"/>
@@ -547,8 +547,8 @@ Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no Op
     <message>
         <location line="+29"/>
         <location line="+2"/>
-        <source>&amp;About Bitcoin Core</source>
-        <translation>&amp;Sobre Bitcoin Core</translation>
+        <source>&amp;About FedoraCoin Core</source>
+        <translation>&amp;Sobre FedoraCoin Core</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -572,19 +572,19 @@ Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no Op
     </message>
     <message>
         <location line="+1"/>
-        <source>Show the Bitcoin Core help message to get a list with possible Bitcoin command-line options</source>
+        <source>Show the FedoraCoin Core help message to get a list with possible FedoraCoin command-line options</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+159"/>
         <location line="+5"/>
-        <source>Bitcoin client</source>
-        <translation>Cliente Bitcoin</translation>
+        <source>FedoraCoin client</source>
+        <translation>Cliente FedoraCoin</translation>
     </message>
     <message numerus="yes">
         <location line="+142"/>
-        <source>%n active connection(s) to Bitcoin network</source>
-        <translation><numerusform>%n conexión activa coa rede Bitcoin</numerusform><numerusform>%n conexións activas coa rede Bitcoin</numerusform></translation>
+        <source>%n active connection(s) to FedoraCoin network</source>
+        <translation><numerusform>%n conexión activa coa rede FedoraCoin</numerusform><numerusform>%n conexións activas coa rede FedoraCoin</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -691,8 +691,8 @@ Dirección: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+438"/>
-        <source>A fatal error occurred. Bitcoin can no longer continue safely and will quit.</source>
-        <translation>Ocorriu un erro fatal. Bitcoin non pode continuar en condicións de seguridade e pecharáse.</translation>
+        <source>A fatal error occurred. FedoraCoin can no longer continue safely and will quit.</source>
+        <translation>Ocorriu un erro fatal. FedoraCoin non pode continuar en condicións de seguridade e pecharáse.</translation>
     </message>
 </context>
 <context>
@@ -1049,8 +1049,8 @@ Dirección: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Bitcoin address.</source>
-        <translation>A dirección introducida &apos;%1&apos; non é unha dirección Bitcoin válida.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid FedoraCoin address.</source>
+        <translation>A dirección introducida &apos;%1&apos; non é unha dirección FedoraCoin válida.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1095,13 +1095,13 @@ Dirección: %4
     <name>HelpMessageDialog</name>
     <message>
         <location filename="../forms/helpmessagedialog.ui" line="+19"/>
-        <source>Bitcoin Core - Command-line options</source>
+        <source>FedoraCoin Core - Command-line options</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../utilitydialog.cpp" line="+38"/>
-        <source>Bitcoin Core</source>
-        <translation>Core de Bitcoin</translation>
+        <source>FedoraCoin Core</source>
+        <translation>Core de FedoraCoin</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -1153,17 +1153,17 @@ Dirección: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Welcome to Bitcoin Core.</source>
+        <source>Welcome to FedoraCoin Core.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+26"/>
-        <source>As this is the first time the program is launched, you can choose where Bitcoin Core will store its data.</source>
+        <source>As this is the first time the program is launched, you can choose where FedoraCoin Core will store its data.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
-        <source>Bitcoin Core will download and store a copy of the Bitcoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <source>FedoraCoin Core will download and store a copy of the FedoraCoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1178,8 +1178,8 @@ Dirección: %4
     </message>
     <message>
         <location filename="../intro.cpp" line="+85"/>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>FedoraCoin</source>
+        <translation>FedoraCoin</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1254,13 +1254,13 @@ Dirección: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Bitcoin after logging in to the system.</source>
-        <translation>Comezar Bitcoin automáticamente despois de loguearse no sistema.</translation>
+        <source>Automatically start FedoraCoin after logging in to the system.</source>
+        <translation>Comezar FedoraCoin automáticamente despois de loguearse no sistema.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Bitcoin on system login</source>
-        <translation>&amp;Comezar Bitcoin ao facer login no sistema</translation>
+        <source>&amp;Start FedoraCoin on system login</source>
+        <translation>&amp;Comezar FedoraCoin ao facer login no sistema</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -1289,7 +1289,7 @@ Dirección: %4
     </message>
     <message>
         <location line="+58"/>
-        <source>Connect to the Bitcoin network through a SOCKS proxy.</source>
+        <source>Connect to the FedoraCoin network through a SOCKS proxy.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1324,8 +1324,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Abrir automáticamente o porto do cliente Bitcoin no router. Esto so funciona se o teu router soporta UPnP e está habilitado.</translation>
+        <source>Automatically open the FedoraCoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Abrir automáticamente o porto do cliente FedoraCoin no router. Esto so funciona se o teu router soporta UPnP e está habilitado.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1394,8 +1394,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Bitcoin.</source>
-        <translation>A linguaxe de interface de usuario pode fixarse aquí. Esta configuración terá efecto tras reiniciar Bitcoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting FedoraCoin.</source>
+        <translation>A linguaxe de interface de usuario pode fixarse aquí. Esta configuración terá efecto tras reiniciar FedoraCoin.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1409,8 +1409,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Bitcoin addresses in the transaction list or not.</source>
-        <translation>Se se amosan ou non as direccións Bitcoin na listaxe de transaccións.</translation>
+        <source>Whether to show FedoraCoin addresses in the transaction list or not.</source>
+        <translation>Se se amosan ou non as direccións FedoraCoin na listaxe de transaccións.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1484,8 +1484,8 @@ Dirección: %4
     <message>
         <location line="+50"/>
         <location line="+231"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>A información amosada por estar desactualizada. O teu moedeiro sincronízase automáticamente coa rede Bitcoin despois de que se estableza unha conexión, pero este proceso non está todavía rematado.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the FedoraCoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>A información amosada por estar desactualizada. O teu moedeiro sincronízase automáticamente coa rede FedoraCoin despois de que se estableza unha conexión, pero este proceso non está todavía rematado.</translation>
     </message>
     <message>
         <location line="-155"/>
@@ -1554,8 +1554,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
-        <translation>Non se pode parsear a URI! Esto pode ser causado por unha dirección Bitcoin inválida ou parámetros da URI malformados.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid FedoraCoin address or malformed URI parameters.</source>
+        <translation>Non se pode parsear a URI! Esto pode ser causado por unha dirección FedoraCoin inválida ou parámetros da URI malformados.</translation>
     </message>
     <message>
         <location line="+96"/>
@@ -1643,8 +1643,8 @@ Dirección: %4
     <message>
         <location filename="../bitcoin.cpp" line="+71"/>
         <location line="+11"/>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>FedoraCoin</source>
+        <translation>FedoraCoin</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1658,8 +1658,8 @@ Dirección: %4
     </message>
     <message>
         <location filename="../guiutil.cpp" line="+82"/>
-        <source>Enter a Bitcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Introduce unha dirección Bitcoin (exemplo: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>Enter a FedoraCoin address (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</source>
+        <translation>Introduce unha dirección FedoraCoin (exemplo: EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</translation>
     </message>
 </context>
 <context>
@@ -1819,8 +1819,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Bitcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Abrir o arquivo de log de depuración de Bitcoin dende o directorio actual de datos. Esto pode levar uns cantos segundos para grandes arquivos de log.</translation>
+        <source>Open the FedoraCoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Abrir o arquivo de log de depuración de FedoraCoin dende o directorio actual de datos. Esto pode levar uns cantos segundos para grandes arquivos de log.</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -1829,8 +1829,8 @@ Dirección: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Bitcoin RPC console.</source>
-        <translation>Benvido á consola RPC de Bitcoin</translation>
+        <source>Welcome to the FedoraCoin RPC console.</source>
+        <translation>Benvido á consola RPC de FedoraCoin</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1908,7 +1908,7 @@ Dirección: %4
     <message>
         <location line="+14"/>
         <location line="+23"/>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the FedoraCoin network.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2304,8 +2304,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+113"/>
-        <source>Warning: Invalid Bitcoin address</source>
-        <translation>Atención:  Enderezo Bitcoin non válido</translation>
+        <source>Warning: Invalid FedoraCoin address</source>
+        <translation>Atención:  Enderezo FedoraCoin non válido</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -2354,8 +2354,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>A dirección á que enviar o pago (exemplo: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to send the payment to (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</source>
+        <translation>A dirección á que enviar o pago (exemplo: EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+30"/>
@@ -2416,7 +2416,7 @@ Dirección: %4
     </message>
     <message>
         <location line="+33"/>
-        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the FedoraCoin network.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2441,7 +2441,7 @@ Dirección: %4
     <name>ShutdownWindow</name>
     <message>
         <location filename="../utilitydialog.cpp" line="+48"/>
-        <source>Bitcoin Core is shutting down...</source>
+        <source>FedoraCoin Core is shutting down...</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2469,8 +2469,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>A dirección coa que asinar a mensaxe (exemplo: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to sign the message with (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</source>
+        <translation>A dirección coa que asinar a mensaxe (exemplo: EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2511,8 +2511,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation>Asina a mensaxe para probar que posees esta dirección Bitcoin</translation>
+        <source>Sign the message to prove you own this FedoraCoin address</source>
+        <translation>Asina a mensaxe para probar que posees esta dirección FedoraCoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2542,13 +2542,13 @@ Dirección: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>A dirección coa que foi firmada a mensaxe (exemplo: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address the message was signed with (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</source>
+        <translation>A dirección coa que foi firmada a mensaxe (exemplo: EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</translation>
     </message>
     <message>
         <location line="+37"/>
-        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
-        <translation>Verificar a mensaxe para asegurar que foi asinada coa dirección Bitcoin especificada</translation>
+        <source>Verify the message to ensure it was signed with the specified FedoraCoin address</source>
+        <translation>Verificar a mensaxe para asegurar que foi asinada coa dirección FedoraCoin especificada</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2562,8 +2562,8 @@ Dirección: %4
     </message>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+30"/>
-        <source>Enter a Bitcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Introduza unha dirección Bitcoin (exemplo: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>Enter a FedoraCoin address (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</source>
+        <translation>Introduza unha dirección FedoraCoin (exemplo: EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -2641,13 +2641,13 @@ Dirección: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+28"/>
-        <source>Bitcoin Core</source>
-        <translation>Core de Bitcoin</translation>
+        <source>FedoraCoin Core</source>
+        <translation>Core de FedoraCoin</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>The Bitcoin Core developers</source>
-        <translation>Os desarrolladores de Bitcoin Core</translation>
+        <source>The FedoraCoin Core developers</source>
+        <translation>Os desarrolladores de FedoraCoin Core</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3326,7 +3326,7 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;FedoraCoin Alert&quot; admin@foo.com
 </source>
         <translation>%s, debes fixar unha rpcpassword no arquivo de configuración:
 %s
@@ -3337,7 +3337,7 @@ rpcpassword=%s
 O nome do usuario e o contrasinal DEBEN NON ser o mesmo.
 Se o arquivo non existe, debes crealo con permisos de so lectura para o propietario.
 Tamén é recomendable fixar alertnotify de modo que recibas notificación dos problemas;
-por exemplo: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.com
+por exemplo: alertnotify=echo %%s | mail -s &quot;FedoraCoin Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -3357,8 +3357,8 @@ por exemplo: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Bitcoin is probably already running.</source>
-        <translation>Non se pode obter un bloqueo sobre o directorio de datos %s. Bitcoin está probablemente xa executándose.</translation>
+        <source>Cannot obtain a lock on data directory %s. FedoraCoin is probably already running.</source>
+        <translation>Non se pode obter un bloqueo sobre o directorio de datos %s. FedoraCoin está probablemente xa executándose.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3402,8 +3402,8 @@ por exemplo: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Bitcoin will not work properly.</source>
-        <translation>Precaución; Por favor revisa que a data e hora do teu ordenador son correctas! Se o teu reloxo está equivocato Bitcoin non funcionará adecuadamente.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong FedoraCoin will not work properly.</source>
+        <translation>Precaución; Por favor revisa que a data e hora do teu ordenador son correctas! Se o teu reloxo está equivocato FedoraCoin non funcionará adecuadamente.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3437,13 +3437,13 @@ por exemplo: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Bitcoin Core Daemon</source>
+        <source>FedoraCoin Core Daemon</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
-        <source>Bitcoin RPC client version</source>
-        <translation>Versión de cliente RPC de Bitcoin</translation>
+        <source>FedoraCoin RPC client version</source>
+        <translation>Versión de cliente RPC de FedoraCoin</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3642,8 +3642,8 @@ por exemplo: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Send command to Bitcoin server</source>
-        <translation>Enviar comando a servidor Bitcoin</translation>
+        <source>Send command to FedoraCoin server</source>
+        <translation>Enviar comando a servidor FedoraCoin</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3662,8 +3662,8 @@ por exemplo: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+2"/>
-        <source>Start Bitcoin server</source>
-        <translation>Comezar servidor Bitcoin</translation>
+        <source>Start FedoraCoin server</source>
+        <translation>Comezar servidor FedoraCoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3777,8 +3777,8 @@ por exemplo: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+9"/>
-        <source>SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
-        <translation>Opcións SSL: (ver ńa Wiki Bitcoin as instrucción de configuración de SSL)</translation>
+        <source>SSL options: (see the FedoraCoin Wiki for SSL setup instructions)</source>
+        <translation>Opcións SSL: (ver ńa Wiki FedoraCoin as instrucción de configuración de SSL)</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3937,13 +3937,13 @@ por exemplo: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Bitcoin</source>
-        <translation>Erro cargando wallet.dat: O moedeiro precisa unha versión máis nova de Bitcoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of FedoraCoin</source>
+        <translation>Erro cargando wallet.dat: O moedeiro precisa unha versión máis nova de FedoraCoin</translation>
     </message>
     <message>
         <location line="+98"/>
-        <source>Wallet needed to be rewritten: restart Bitcoin to complete</source>
-        <translation>Precísase rescribir o moedeiro: reinicie Bitcoin para completar</translation>
+        <source>Wallet needed to be rewritten: restart FedoraCoin to complete</source>
+        <translation>Precísase rescribir o moedeiro: reinicie FedoraCoin para completar</translation>
     </message>
     <message>
         <location line="-100"/>
@@ -4002,8 +4002,8 @@ por exemplo: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="-32"/>
-        <source>Unable to bind to %s on this computer. Bitcoin is probably already running.</source>
-        <translation>Imposible enlazar a %s neste ordenador. Bitcoin probablemente xa se estea executando.</translation>
+        <source>Unable to bind to %s on this computer. FedoraCoin is probably already running.</source>
+        <translation>Imposible enlazar a %s neste ordenador. FedoraCoin probablemente xa se estea executando.</translation>
     </message>
     <message>
         <location line="+95"/>

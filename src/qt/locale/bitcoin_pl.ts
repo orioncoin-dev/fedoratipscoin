@@ -2370,8 +2370,8 @@ Adres: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Adres, na który wysłasz płatności (np. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to send the payment to (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</source>
+        <translation>Adres, na który wysłasz płatności (np. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+30"/>

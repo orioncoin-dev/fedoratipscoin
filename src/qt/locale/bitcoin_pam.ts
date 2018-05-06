@@ -3,12 +3,12 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Bitcoin Core</source>
+        <source>About FedoraCoin Core</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Bitcoin Core&lt;/b&gt; version</source>
+        <source>&lt;b&gt;FedoraCoin Core&lt;/b&gt; version</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -31,7 +31,7 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     </message>
     <message>
         <location line="+0"/>
-        <source>The Bitcoin Core developers</source>
+        <source>The FedoraCoin Core developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -125,12 +125,12 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     </message>
     <message>
         <location line="+7"/>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Reni reng kekang Bitcoin address king pamagpadalang kabayaran. Lawan mulang masalese reng alaga ampo ing address na ning tumanggap bayu ka magpadalang barya.</translation>
+        <source>These are your FedoraCoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Reni reng kekang FedoraCoin address king pamagpadalang kabayaran. Lawan mulang masalese reng alaga ampo ing address na ning tumanggap bayu ka magpadalang barya.</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <source>These are your FedoraCoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -278,8 +278,8 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     </message>
     <message>
         <location line="-56"/>
-        <source>Bitcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation>Ing Bitcoin ngeni magsara ya ban ayari ing proseso ning pamag-encrypt. Tandanan yu king pamag-encrypt wallet, ali nala aprotektan king kabuuan reng bitcoins yu kareng malware a kasalunsungan atiu kareng computer yu.</translation>
+        <source>FedoraCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
+        <translation>Ing FedoraCoin ngeni magsara ya ban ayari ing proseso ning pamag-encrypt. Tandanan yu king pamag-encrypt wallet, ali nala aprotektan king kabuuan reng bitcoins yu kareng malware a kasalunsungan atiu kareng computer yu.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -324,7 +324,7 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>FedoraCoinGUI</name>
     <message>
         <location filename="../bitcoingui.cpp" line="+295"/>
         <source>Sign &amp;message...</source>
@@ -372,8 +372,8 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     </message>
     <message>
         <location line="+7"/>
-        <source>Show information about Bitcoin</source>
-        <translation>Ipakit ing impormasyun tungkul king Bitcoin</translation>
+        <source>Show information about FedoraCoin</source>
+        <translation>Ipakit ing impormasyun tungkul king FedoraCoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -433,13 +433,13 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     </message>
     <message>
         <location line="-405"/>
-        <source>Send coins to a Bitcoin address</source>
-        <translation>Magpadalang barya king Bitcoin address</translation>
+        <source>Send coins to a FedoraCoin address</source>
+        <translation>Magpadalang barya king FedoraCoin address</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Bitcoin</source>
-        <translation>Alilan ing pipamilian konpigurasion para keng Bitcoin</translation>
+        <source>Modify configuration options for FedoraCoin</source>
+        <translation>Alilan ing pipamilian konpigurasion para keng FedoraCoin</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -468,8 +468,8 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     </message>
     <message>
         <location line="+430"/>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>FedoraCoin</source>
+        <translation>FedoraCoin</translation>
     </message>
     <message>
         <location line="-643"/>
@@ -504,12 +504,12 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
+        <source>Sign messages with your FedoraCoin addresses to prove you own them</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
+        <source>Verify messages to ensure they were signed with specified FedoraCoin addresses</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -540,8 +540,8 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     </message>
     <message>
         <location line="-401"/>
-        <source>Bitcoin Core</source>
-        <translation>Kapilubluban ning Bitcoin</translation>
+        <source>FedoraCoin Core</source>
+        <translation>Kapilubluban ning FedoraCoin</translation>
     </message>
     <message>
         <location line="+163"/>
@@ -551,7 +551,7 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     <message>
         <location line="+29"/>
         <location line="+2"/>
-        <source>&amp;About Bitcoin Core</source>
+        <source>&amp;About FedoraCoin Core</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -576,19 +576,19 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
     </message>
     <message>
         <location line="+1"/>
-        <source>Show the Bitcoin Core help message to get a list with possible Bitcoin command-line options</source>
+        <source>Show the FedoraCoin Core help message to get a list with possible FedoraCoin command-line options</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+159"/>
         <location line="+5"/>
-        <source>Bitcoin client</source>
-        <translation>Bitcoin client</translation>
+        <source>FedoraCoin client</source>
+        <translation>FedoraCoin client</translation>
     </message>
     <message numerus="yes">
         <location line="+142"/>
-        <source>%n active connection(s) to Bitcoin network</source>
-        <translation><numerusform>%n ya ing aktibong koneksion keng Bitcoin network</numerusform><numerusform>%n lareng aktibong koneksion keng Bitcoin network</numerusform></translation>
+        <source>%n active connection(s) to FedoraCoin network</source>
+        <translation><numerusform>%n ya ing aktibong koneksion keng FedoraCoin network</numerusform><numerusform>%n lareng aktibong koneksion keng FedoraCoin network</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -705,8 +705,8 @@ Address: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+435"/>
-        <source>A fatal error occurred. Bitcoin can no longer continue safely and will quit.</source>
-        <translation>Atin kamalian a milyari. Ali ne magsilbing sumulung pa ing Bitcoin at kailangan na ng tuknang.</translation>
+        <source>A fatal error occurred. FedoraCoin can no longer continue safely and will quit.</source>
+        <translation>Atin kamalian a milyari. Ali ne magsilbing sumulung pa ing FedoraCoin at kailangan na ng tuknang.</translation>
     </message>
 </context>
 <context>
@@ -1063,8 +1063,8 @@ Address: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Bitcoin address.</source>
-        <translation>Ing pepalub yung address &quot;%1&quot; ali ya katanggap-tanggap a Bitcoin address.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid FedoraCoin address.</source>
+        <translation>Ing pepalub yung address &quot;%1&quot; ali ya katanggap-tanggap a FedoraCoin address.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1109,13 +1109,13 @@ Address: %4
     <name>HelpMessageDialog</name>
     <message>
         <location filename="../forms/helpmessagedialog.ui" line="+19"/>
-        <source>Bitcoin Core - Command-line options</source>
+        <source>FedoraCoin Core - Command-line options</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../utilitydialog.cpp" line="+24"/>
-        <source>Bitcoin Core</source>
-        <translation>Kapilubluban ning Bitcoin</translation>
+        <source>FedoraCoin Core</source>
+        <translation>Kapilubluban ning FedoraCoin</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -1167,17 +1167,17 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Welcome to Bitcoin Core.</source>
+        <source>Welcome to FedoraCoin Core.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+26"/>
-        <source>As this is the first time the program is launched, you can choose where Bitcoin Core will store its data.</source>
+        <source>As this is the first time the program is launched, you can choose where FedoraCoin Core will store its data.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
-        <source>Bitcoin Core will download and store a copy of the Bitcoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <source>FedoraCoin Core will download and store a copy of the FedoraCoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1192,8 +1192,8 @@ Address: %4
     </message>
     <message>
         <location filename="../intro.cpp" line="+85"/>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>FedoraCoin</source>
+        <translation>FedoraCoin</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1268,13 +1268,13 @@ Address: %4
     </message>
     <message>
         <location line="-131"/>
-        <source>Automatically start Bitcoin after logging in to the system.</source>
-        <translation>Umpisan yang antimu ing Bitcoin kaibat mekapag-log in king sistema.</translation>
+        <source>Automatically start FedoraCoin after logging in to the system.</source>
+        <translation>Umpisan yang antimu ing FedoraCoin kaibat mekapag-log in king sistema.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Bitcoin on system login</source>
-        <translation>&amp;Umpisan ya ing Bitcoin king pamag-log-in na ning sistema.</translation>
+        <source>&amp;Start FedoraCoin on system login</source>
+        <translation>&amp;Umpisan ya ing FedoraCoin king pamag-log-in na ning sistema.</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -1303,7 +1303,7 @@ Address: %4
     </message>
     <message>
         <location line="+37"/>
-        <source>Connect to the Bitcoin network through a SOCKS proxy.</source>
+        <source>Connect to the FedoraCoin network through a SOCKS proxy.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1348,8 +1348,8 @@ Address: %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Ibuklat yang antimanu ing Bitcoin client port king router. Gagana yamu ini istung ing router mu susuporta yang UPnP at magsilbi ya.</translation>
+        <source>Automatically open the FedoraCoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Ibuklat yang antimanu ing FedoraCoin client port king router. Gagana yamu ini istung ing router mu susuporta yang UPnP at magsilbi ya.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1418,8 +1418,8 @@ Address: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Bitcoin.</source>
-        <translation>Ing amanu na ning user interface maliari yang i-ayus o ilage keni. Ing ayus a ini magsilbi yamu istung pesibayuan meng pasibayu ing Bitcoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting FedoraCoin.</source>
+        <translation>Ing amanu na ning user interface maliari yang i-ayus o ilage keni. Ing ayus a ini magsilbi yamu istung pesibayuan meng pasibayu ing FedoraCoin.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1433,8 +1433,8 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Bitcoin addresses in the transaction list or not.</source>
-        <translation>Ipakit man ing Bitcoin address king listahan naning transaksion o ali.</translation>
+        <source>Whether to show FedoraCoin addresses in the transaction list or not.</source>
+        <translation>Ipakit man ing FedoraCoin address king listahan naning transaksion o ali.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1508,8 +1508,8 @@ Address: %4
     <message>
         <location line="+50"/>
         <location line="+231"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>Ing makaltong impormasion mapalyaring luma ne. Ing kekang wallet otomatiku yang mag-synchronize keng Bitcoin network istung mekakonekta ne king network, oneng ing prosesung ini ali ya pa kumpletu.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the FedoraCoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>Ing makaltong impormasion mapalyaring luma ne. Ing kekang wallet otomatiku yang mag-synchronize keng FedoraCoin network istung mekakonekta ne king network, oneng ing prosesung ini ali ya pa kumpletu.</translation>
     </message>
     <message>
         <location line="-238"/>
@@ -1578,7 +1578,7 @@ Address: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>URI can not be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
+        <source>URI can not be parsed! This can be caused by an invalid FedoraCoin address or malformed URI parameters.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1667,8 +1667,8 @@ Address: %4
     <message>
         <location filename="../bitcoin.cpp" line="+71"/>
         <location line="+11"/>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>FedoraCoin</source>
+        <translation>FedoraCoin</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1682,8 +1682,8 @@ Address: %4
     </message>
     <message>
         <location filename="../guiutil.cpp" line="+82"/>
-        <source>Enter a Bitcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Magpalub kang Bitcoin address(e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>Enter a FedoraCoin address (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</source>
+        <translation>Magpalub kang FedoraCoin address(e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</translation>
     </message>
 </context>
 <context>
@@ -1843,8 +1843,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Bitcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Ibuklat ing Bitcoin debug log file menibat king kasalungsungan data directory. Magluat ya ining pilan segundu para kareng mamaragul a log files.</translation>
+        <source>Open the FedoraCoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Ibuklat ing FedoraCoin debug log file menibat king kasalungsungan data directory. Magluat ya ining pilan segundu para kareng mamaragul a log files.</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -1853,8 +1853,8 @@ Address: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Bitcoin RPC console.</source>
-        <translation>Malaus kayu king Bitcoin RPC console.</translation>
+        <source>Welcome to the FedoraCoin RPC console.</source>
+        <translation>Malaus kayu king FedoraCoin RPC console.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1932,7 +1932,7 @@ Address: %4
     <message>
         <location line="+14"/>
         <location line="+23"/>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the FedoraCoin network.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2328,7 +2328,7 @@ Address: %4
     </message>
     <message>
         <location line="+113"/>
-        <source>Warning: Invalid Bitcoin address</source>
+        <source>Warning: Invalid FedoraCoin address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2378,8 +2378,8 @@ Address: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to send the payment to (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Ing address nung nokarin ipadala ya ing kabayaran (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to send the payment to (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</source>
+        <translation>Ing address nung nokarin ipadala ya ing kabayaran (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+30"/>
@@ -2440,7 +2440,7 @@ Address: %4
     </message>
     <message>
         <location line="+33"/>
-        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the FedoraCoin network.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2465,7 +2465,7 @@ Address: %4
     <name>ShutdownWindow</name>
     <message>
         <location filename="../utilitydialog.cpp" line="+48"/>
-        <source>Bitcoin Core is shutting down...</source>
+        <source>FedoraCoin Core is shutting down...</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2493,8 +2493,8 @@ Address: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Ing address ban a -pirman ya ing mensayi kayabe ning (e.g.1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address to sign the message with (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</source>
+        <translation>Ing address ban a -pirman ya ing mensayi kayabe ning (e.g.EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2535,8 +2535,8 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation>Pirman ing mensayi ban patune na keka ya ining Bitcoin address</translation>
+        <source>Sign the message to prove you own this FedoraCoin address</source>
+        <translation>Pirman ing mensayi ban patune na keka ya ining FedoraCoin address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2566,13 +2566,13 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Ing address na ning mensayi nung nokarin me pirma ya ini (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>The address the message was signed with (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</source>
+        <translation>Ing address na ning mensayi nung nokarin me pirma ya ini (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</translation>
     </message>
     <message>
         <location line="+37"/>
-        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
-        <translation>Beripikan ing mensayi ban asiguradu a me pirma ya ini gamit ing mepiling Bitcoin address</translation>
+        <source>Verify the message to ensure it was signed with the specified FedoraCoin address</source>
+        <translation>Beripikan ing mensayi ban asiguradu a me pirma ya ini gamit ing mepiling FedoraCoin address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2586,8 +2586,8 @@ Address: %4
     </message>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+30"/>
-        <source>Enter a Bitcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Magpalub kang Bitcoin address(e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>Enter a FedoraCoin address (e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</source>
+        <translation>Magpalub kang FedoraCoin address(e.g. EHhkfdQBxzxjwRQ1Qx1tV6wBFB5LLpq4YD)</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -2665,12 +2665,12 @@ Address: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+28"/>
-        <source>Bitcoin Core</source>
-        <translation>Kapilubluban ning Bitcoin</translation>
+        <source>FedoraCoin Core</source>
+        <translation>Kapilubluban ning FedoraCoin</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>The Bitcoin Core developers</source>
+        <source>The FedoraCoin Core developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3364,7 +3364,7 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;FedoraCoin Alert&quot; admin@foo.com
 </source>
         <translation type="unfinished"/>
     </message>
@@ -3385,7 +3385,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Bitcoin is probably already running.</source>
+        <source>Cannot obtain a lock on data directory %s. FedoraCoin is probably already running.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3430,8 +3430,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Bitcoin will not work properly.</source>
-        <translation>Kapabaluan: Maliaring pakilawe ing oras at aldo a makalage king kekayung kompyuter nung istu la! Istung ing oras yu mali ya ali ya gumanang masalese ing Bitcoin.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong FedoraCoin will not work properly.</source>
+        <translation>Kapabaluan: Maliaring pakilawe ing oras at aldo a makalage king kekayung kompyuter nung istu la! Istung ing oras yu mali ya ali ya gumanang masalese ing FedoraCoin.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3465,12 +3465,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Bitcoin Core Daemon</source>
+        <source>FedoraCoin Core Daemon</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
-        <source>Bitcoin RPC client version</source>
+        <source>FedoraCoin RPC client version</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3675,7 +3675,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Send command to Bitcoin server</source>
+        <source>Send command to FedoraCoin server</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3700,7 +3700,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Start Bitcoin server</source>
+        <source>Start FedoraCoin server</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3815,8 +3815,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+9"/>
-        <source>SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
-        <translation>Pipamilian ning SSL: (lawen ye ing Bitcoin Wiki para king SSL setup instructions)</translation>
+        <source>SSL options: (see the FedoraCoin Wiki for SSL setup instructions)</source>
+        <translation>Pipamilian ning SSL: (lawen ye ing FedoraCoin Wiki para king SSL setup instructions)</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3980,13 +3980,13 @@ for example: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Bitcoin</source>
-        <translation>Me-mali ya ing pamag-load na ning wallet.dat: Ing wallet mangailangan yang bayung bersion na ning Bitcoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of FedoraCoin</source>
+        <translation>Me-mali ya ing pamag-load na ning wallet.dat: Ing wallet mangailangan yang bayung bersion na ning FedoraCoin</translation>
     </message>
     <message>
         <location line="+99"/>
-        <source>Wallet needed to be rewritten: restart Bitcoin to complete</source>
-        <translation>Ing wallet mangailangan yang misulat pasibayu: Umpisan yang pasibayu ing Bitcoin ban ma-kumpleto ya</translation>
+        <source>Wallet needed to be rewritten: restart FedoraCoin to complete</source>
+        <translation>Ing wallet mangailangan yang misulat pasibayu: Umpisan yang pasibayu ing FedoraCoin ban ma-kumpleto ya</translation>
     </message>
     <message>
         <location line="-101"/>
@@ -4045,8 +4045,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
     </message>
     <message>
         <location line="-32"/>
-        <source>Unable to bind to %s on this computer. Bitcoin is probably already running.</source>
-        <translation>Eya megsilbing idikit king %s na ning kompyuter a ini. Mapaliaring mamandar ne ing Bitcoin.</translation>
+        <source>Unable to bind to %s on this computer. FedoraCoin is probably already running.</source>
+        <translation>Eya megsilbing idikit king %s na ning kompyuter a ini. Mapaliaring mamandar ne ing FedoraCoin.</translation>
     </message>
     <message>
         <location line="+96"/>
