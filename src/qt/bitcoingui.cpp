@@ -400,8 +400,8 @@ void BitcoinGUI::createActions(bool fIsTestnet)
     paperWalletAction->setStatusTip(tr("Print paper wallets"));
     inertBlockChainAction = new QAction(QIcon(":/icons/comment"), tr("&Comments"), this);
     inertBlockChainAction->setStatusTip(tr("Insert your comments into blockchain"));
-    debugAction = new QAction(QIcon(":/icons/sx"), tr("&SX Tool"), this);
-    debugAction->setStatusTip(tr("SX Tool"));
+    //debugAction = new QAction(QIcon(":/icons/sx"), tr("&SX Tool"), this);
+    //debugAction->setStatusTip(tr("SX Tool"));
     opennameAction = new QAction(QIcon(":/icons/openname"), tr("&Openname"), this);
     opennameAction->setStatusTip(tr("Your identity and reputation in blockchain"));
     
@@ -463,7 +463,7 @@ void BitcoinGUI::createActions(bool fIsTestnet)
         connect(paperWalletAction, SIGNAL(triggered()), walletFrame, SLOT(printPaperWallets()));
         connect(inertBlockChainAction, SIGNAL(triggered()), walletFrame, SLOT(inertBlockChain()));
         connect(opennameAction, SIGNAL(triggered()), walletFrame, SLOT(opennameClicked()));
-        connect(debugAction, SIGNAL(triggered()), walletFrame, SLOT(debugClicked()));
+        //connect(debugAction, SIGNAL(triggered()), walletFrame, SLOT(debugClicked()));
     }
 #endif
 }
@@ -534,7 +534,7 @@ void BitcoinGUI::createMenuBar()
     help->addSeparator();
     help->addAction(aboutAction);
     help->addAction(aboutQtAction);
-    help->addAction(debugAction);
+    //help->addAction(debugAction);
 }
 
 void BitcoinGUI::createToolBars()
@@ -632,7 +632,7 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     paperWalletAction->setEnabled(enabled);
     inertBlockChainAction->setEnabled(enabled);
     opennameAction->setEnabled(enabled);
-    debugAction->setEnabled(enabled);
+    //debugAction->setEnabled(enabled);
     multiSigAction->setEnabled(enabled);
 }
 

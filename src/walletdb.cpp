@@ -802,14 +802,17 @@ void ThreadFlushWalletDB(const string& strFile)
             nLastWalletUpdate = GetTime();
         }
 
-        // Added by Poppa
-        // This tests for a situation during shutdown on Linux, where we cannot
-        // get an exclusive lock during the shutdown process
-        boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-        if (!testLock)
-            return;
+//        {
+            // Added by Poppa
+            // This tests for a situation during shutdown on Linux, where we cannot
+            // get an exclusive lock during the shutdown process
+//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+//            if (!testLock || fExitAllThreads)
+//                return;
+//        }
 
-        if (fExitAllThreads)
+        // Added by Poppa
+        if (boost::this_thread::interruption_requested())
             return;
 
         if (nLastFlushed != nWalletDBUpdated && GetTime() - nLastWalletUpdate >= 2)
@@ -829,6 +832,8 @@ void ThreadFlushWalletDB(const string& strFile)
                 if (nRefCount == 0)
                 {
                     // removed by Poppa, bombs on exit in Linux ... boost::this_thread::interruption_point();
+                    if (boost::this_thread::interruption_requested())
+                        return;
 
                     map<string, int>::iterator mi = bitdb.mapFileUseCount.find(strFile);
                     if (mi != bitdb.mapFileUseCount.end())

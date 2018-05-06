@@ -268,18 +268,6 @@ void BitcoinCore::shutdown()
         Shutdown();
         LogPrintf("Shutdown finished\n");
 
-//        threadGroup.interrupt_all();
-
-//        boost::mutex::scoped_lock locked(exit_mutex);
-//        fExitAllThreads = true;
-//        exit_condition.notify_all();
-
-        //threadGroup.join_all();
-
-        // Poppa, making sure threads are stopped before objects go out of scope
-
-        //LogPrintf("Running Shutdown ... join_all() completed\n");
-
         emit shutdownResult(1);
     } catch (std::exception& e) {
         handleRunawayException(&e);
@@ -315,13 +303,17 @@ BitcoinApplication::~BitcoinApplication()
     LogPrintf("Stopped thread\n");
 
     delete window;
+    LogPrintf("window deleted\n");
     window = 0;
 #ifdef ENABLE_WALLET
     delete paymentServer;
     paymentServer = 0;
+    LogPrintf("payment server deleted\n");
 #endif
     delete optionsModel;
     optionsModel = 0;
+    LogPrintf("optionsModel deleted.\nAt end of destructor for QT application...\n");
+    std::quick_exit(EXIT_SUCCESS);
 }
 
 void BitcoinApplication::aboutToQuit()
@@ -472,6 +464,7 @@ void BitcoinApplication::shutdownResult(int retval)
 {
     LogPrintf("Shutdown result: %i\n", retval);
     quit(); // Exit main loop after shutdown finished
+    LogPrintf("quit() function is finished. all QT windows are closed now");
 }
 
 void BitcoinApplication::handleRunawayException(const QString &message)
@@ -644,6 +637,9 @@ int main(int argc, char *argv[])
         PrintExceptionContinue(NULL, "Runaway exception");
         app.handleRunawayException(QString::fromStdString(strMiscWarning));
     }
+
+    LogPrintf("At very bottom of main() now... exiting...");
+
     return app.getReturnValue();
 }
 #endif // BITCOIN_QT_TEST

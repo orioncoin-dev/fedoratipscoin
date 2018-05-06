@@ -782,14 +782,19 @@ void ThreadSocketHandler()
         //
         // Disconnect nodes
         //
-        {
+//        {
             // added by Poppa
             // This tests for a situation during shutdown on Linux, where we cannot
             // get an exclusive lock during the shutdown process
-            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-            if (!testLock || fRequestShutdown)
-                return;
-        }
+//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+//            if (!testLock || fRequestShutdown)
+//                return;
+//        }
+
+        // Added by Poppa
+        if (boost::this_thread::interruption_requested())
+            return;
+
         {
             LOCK(cs_vNodes);
             // Disconnect unused nodes
@@ -919,6 +924,9 @@ void ThreadSocketHandler()
                              &fdsetRecv, &fdsetSend, &fdsetError, &timeout);
 
         // Removed by Poppa, errors on exit in Linux ... boost::this_thread::interruption_point();
+        // Added by Poppa
+        if (boost::this_thread::interruption_requested())
+            return;
 
         if (nSelect == SOCKET_ERROR)
         {
@@ -934,8 +942,11 @@ void ThreadSocketHandler()
             MilliSleep(timeout.tv_usec/1000);
         }
 
-        if (fExitAllThreads)
+        // Added by Poppa
+        if (boost::this_thread::interruption_requested())
             return;
+        //if (fExitAllThreads)
+        //    return;
 
         //
         // Accept new connections
@@ -990,21 +1001,18 @@ void ThreadSocketHandler()
         //
         // Service each socket
         //
-        {
+//        {
             // added by Poppa
             // This tests for a situation during shutdown on Linux, where we cannot
             // get an exclusive lock during the shutdown process
-            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-            if (!testLock || fRequestShutdown || fExitAllThreads)
-                return;
+//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+//            if (!testLock || fRequestShutdown || fExitAllThreads)
+//                return;
+//        } 
 
-            //pthread_mutex_t *handlem = cs_vNodes.native_handle();
-            //int const res=pthread_mutex_trylock(handlem);
-            //if (!res || res==EBUSY)
-            //    return;
-            //else
-            //    pthread_mutex_unlock(handlem);
-        } 
+        // Added by Poppa
+        if (boost::this_thread::interruption_requested())
+            return;
 
         vector<CNode*> vNodesCopy;
         {
@@ -1016,6 +1024,9 @@ void ThreadSocketHandler()
         BOOST_FOREACH(CNode* pnode, vNodesCopy)
         {
             // removed by Poppa, crashes on Linux ... boost::this_thread::interruption_point();
+            // Added by Poppa
+            if (boost::this_thread::interruption_requested())
+                return;
 
             //
             // Receive
@@ -1234,9 +1245,15 @@ void ThreadDNSAddressSeed()
         (!GetBoolArg("-forcednsseed", false))) {
         MilliSleep(11 * 1000);
 
+//        {
+//            // Added by Poppa
+//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+//            if (!testLock || fExitAllThreads)
+//                return;
+//        }
+
         // Added by Poppa
-        boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-        if (!testLock || fExitAllThreads)
+        if (boost::this_thread::interruption_requested())
             return;
 
         LOCK(cs_vNodes);
@@ -1336,19 +1353,30 @@ void ThreadOpenConnections()
         }
     }
 
-    // added by Poppa, mutex used to detect exit condition
-    //boost::mutex::scoped_lock locked(exit_mutex);
-    boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-    if (!testLock || fExitAllThreads)
+    // Added by Poppa
+    if (boost::this_thread::interruption_requested())
         return;
+
+//    {
+//        // added by Poppa, mutex used to detect exit condition
+//        boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+//        if (!testLock || fExitAllThreads)
+//            return;
+//    }
 
     // Initiate network connections
     int64_t nStart = GetTime();
     while (true)
     {
+//        {
+//            // Added by Poppa
+//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+//            if (!testLock || fExitAllThreads)
+//                return;
+//        }
+
         // Added by Poppa
-        boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-        if (!testLock || fExitAllThreads)
+        if (boost::this_thread::interruption_requested())
             return;
 
         ProcessOneShot();
@@ -1356,18 +1384,6 @@ void ThreadOpenConnections()
 
             // Poppa, crashes Linux on exit   
             boost::this_thread::interruption_point();
-
-            // added by Poppa
-            //try
-            //{
-            //    exit_condition.wait(locked);
-            //}
-            //catch (boost::thread_interrupted &e)
-            //{
-            //    LogPrintf("ThreadOpenConnections: interrupted by shutdown()\n");
-            //    return;
-            //}
-
             if (fExitAllThreads)
                 return;
 
@@ -1468,6 +1484,19 @@ void ThreadOpenAddedConnections()
 
     for (unsigned int i = 0; true; i++)
     {
+//        {
+//            // added by Poppa
+//            // This tests for a situation during shutdown on Linux, where we cannot
+//            // get an exclusive lock during the shutdown process
+//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+//            if (!testLock || fExitAllThreads)
+//                return;
+//        }
+
+        // Added by Poppa
+        if (boost::this_thread::interruption_requested())
+            return;
+
         list<string> lAddresses(0);
         {
             LOCK(cs_vAddedNodes);
@@ -1585,14 +1614,18 @@ void ThreadMessageHandler()
     {
         bool fHaveSyncNode = false;
 
-        {
+//        {
             // added by Poppa
             // This tests for a situation during shutdown on Linux, where we cannot
             // get an exclusive lock during the shutdown process
-            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-            if (!testLock || fRequestShutdown || fExitAllThreads)
-                return;
-        }
+//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
+//            if (!testLock || fRequestShutdown || fExitAllThreads)
+//                return;
+//        }
+
+        // Added by Poppa
+        if (boost::this_thread::interruption_requested())
+            return;
 
         vector<CNode*> vNodesCopy;
         {
@@ -1639,6 +1672,10 @@ void ThreadMessageHandler()
             }
             // removed by Poppa, bombs on exit in Linux    boost::this_thread::interruption_point();
 
+            // Added by Poppa
+            if (boost::this_thread::interruption_requested())
+                return;
+
             // Send messages
             {
                 TRY_LOCK(pnode->cs_vSend, lockSend);
@@ -1646,6 +1683,10 @@ void ThreadMessageHandler()
                     g_signals.SendMessages(pnode, pnode == pnodeTrickle);
             }
             // removed by Poppa, bombs on exit in Linux ...   boost::this_thread::interruption_point();
+
+            // Added by Poppa
+            if (boost::this_thread::interruption_requested())
+                return;
         }
 
         {
