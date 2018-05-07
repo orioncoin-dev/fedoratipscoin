@@ -313,7 +313,10 @@ BitcoinApplication::~BitcoinApplication()
     delete optionsModel;
     optionsModel = 0;
     LogPrintf("optionsModel deleted.\nAt end of destructor for QT application...\n");
+
+#if !defined(Q_OS_WIN)
     std::quick_exit(EXIT_SUCCESS);
+#endif
 }
 
 void BitcoinApplication::aboutToQuit()
