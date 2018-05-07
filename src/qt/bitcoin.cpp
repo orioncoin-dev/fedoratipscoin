@@ -316,6 +316,8 @@ BitcoinApplication::~BitcoinApplication()
 
 #if !defined(Q_OS_WIN)
     std::quick_exit(EXIT_SUCCESS);
+#else
+    exit(EXIT_SUCCESS);
 #endif
 }
 
