@@ -94,10 +94,9 @@ enum BindFlags {
 // shutdown thing.
 //
 
-//volatile bool fRequestShutdown = false;
-
 void StartShutdown()
 {
+    LogPrintf("StartShutdown() ... shutdown requested fRequestShutdown now TRUE\n");
     fRequestShutdown = true;
 }
 bool ShutdownRequested()
@@ -160,6 +159,7 @@ void Shutdown()
 //
 void HandleSIGTERM(int)
 {
+    LogPrintf("HandleSIGTERM() SHUTDOWN ... shutdown requested fRequestShutdown now TRUE\n");
     fRequestShutdown = true;
 }
 
