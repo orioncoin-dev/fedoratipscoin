@@ -17,10 +17,6 @@
 /** Amount in satoshis (Can be negative) */
 typedef int64_t CAmount;
 
-// Removed by Poppa for now
-// static const CAmount COIN = 100000000;
-// static const CAmount CENT = 1000000;
-
 extern const std::string CURRENCY_UNIT;
 
 /** No amount larger than this (in satoshi) is valid.
@@ -63,18 +59,6 @@ public:
     friend bool operator<=(const CFeeRate& a, const CFeeRate& b) { return a.nSatoshisPerK <= b.nSatoshisPerK; }
     friend bool operator>=(const CFeeRate& a, const CFeeRate& b) { return a.nSatoshisPerK >= b.nSatoshisPerK; }
     CFeeRate& operator+=(const CFeeRate& a) { nSatoshisPerK += a.nSatoshisPerK; return *this; }
-
-    // Removed by Poppa for now...
-    // std::string ToString() const;
-
-    // Removed by Poppa for now...
-    // ADD_SERIALIZE_METHODS;
-
-    // Removed by Poppa for now...
-    // template <typename Stream, typename Operation>
-    // inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
-    //     READWRITE(nSatoshisPerK);
-    //}
 };
 
 #endif //  BITCOIN_AMOUNT_H

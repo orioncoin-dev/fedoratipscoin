@@ -644,7 +644,7 @@ bool AppInit2(boost::thread_group& threadGroup)
     if (!lock.try_lock())
         return InitError(strprintf(_("Cannot obtain a lock on data directory %s. Fedoracoin Core is probably already running."), strDataDir));
 
-    // Poppa, changed default - will default to truncate logs to 1 meg now
+    // Poppa, changed default - SHOULD BE default to truncate logs to 1 meg now - check it
     //if (GetBoolArg("-shrinkdebugfile", !fDebug))
     if (!fDebug)
         ShrinkDebugFile();

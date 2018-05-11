@@ -254,7 +254,6 @@ public:
 
     ~CSemaphoreGrant() 
     {
-        // Added by Poppa
         boost::try_mutex::scoped_try_lock testLock(mDisposableMutex);
         if (!testLock || fExitAllThreads)
             return;

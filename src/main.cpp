@@ -4221,9 +4221,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         int64_t nSince = nNow - 10 * 60;
         BOOST_FOREACH(CAddress& addr, vAddr)
         {
-            // removed by Poppa, bombs on exit in Linux....   boost::this_thread::interruption_point();
-
-            // Added by Poppa
             if (boost::this_thread::interruption_requested())
                 return true;
 
@@ -4288,9 +4285,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         {
             const CInv &inv = vInv[nInv];
 
-            // removed by Poppa, bombs on exit from Linux...   boost::this_thread::interruption_point();
-
-            // Added by Poppa
             if (boost::this_thread::interruption_requested())
                 return true;
 
@@ -4861,10 +4855,6 @@ bool ProcessMessages(CNode* pfrom)
         try
         {
             fRet = ProcessMessage(pfrom, strCommand, vRecv);
-
-            // removed by Poppa, crashes on exit with Linux   boost::this_thread::interruption_point();
-
-            // Added by Poppa
             if (boost::this_thread::interruption_requested())
                 return fOk;
         }

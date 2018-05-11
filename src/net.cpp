@@ -781,17 +781,6 @@ void ThreadSocketHandler()
     {
         //
         // Disconnect nodes
-        //
-//        {
-            // added by Poppa
-            // This tests for a situation during shutdown on Linux, where we cannot
-            // get an exclusive lock during the shutdown process
-//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-//            if (!testLock || fRequestShutdown)
-//                return;
-//        }
-
-        // Added by Poppa
         if (boost::this_thread::interruption_requested())
             return;
 
@@ -923,8 +912,6 @@ void ThreadSocketHandler()
         int nSelect = select(have_fds ? hSocketMax + 1 : 0,
                              &fdsetRecv, &fdsetSend, &fdsetError, &timeout);
 
-        // Removed by Poppa, errors on exit in Linux ... boost::this_thread::interruption_point();
-        // Added by Poppa
         if (boost::this_thread::interruption_requested())
             return;
 
@@ -942,11 +929,8 @@ void ThreadSocketHandler()
             MilliSleep(timeout.tv_usec/1000);
         }
 
-        // Added by Poppa
         if (boost::this_thread::interruption_requested())
             return;
-        //if (fExitAllThreads)
-        //    return;
 
         //
         // Accept new connections
@@ -1001,16 +985,7 @@ void ThreadSocketHandler()
         //
         // Service each socket
         //
-//        {
-            // added by Poppa
-            // This tests for a situation during shutdown on Linux, where we cannot
-            // get an exclusive lock during the shutdown process
-//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-//            if (!testLock || fRequestShutdown || fExitAllThreads)
-//                return;
-//        } 
 
-        // Added by Poppa
         if (boost::this_thread::interruption_requested())
             return;
 
@@ -1023,8 +998,6 @@ void ThreadSocketHandler()
         }
         BOOST_FOREACH(CNode* pnode, vNodesCopy)
         {
-            // removed by Poppa, crashes on Linux ... boost::this_thread::interruption_point();
-            // Added by Poppa
             if (boost::this_thread::interruption_requested())
                 return;
 
@@ -1245,14 +1218,6 @@ void ThreadDNSAddressSeed()
         (!GetBoolArg("-forcednsseed", false))) {
         MilliSleep(11 * 1000);
 
-//        {
-//            // Added by Poppa
-//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-//            if (!testLock || fExitAllThreads)
-//                return;
-//        }
-
-        // Added by Poppa
         if (boost::this_thread::interruption_requested())
             return;
 
@@ -1353,36 +1318,19 @@ void ThreadOpenConnections()
         }
     }
 
-    // Added by Poppa
     if (boost::this_thread::interruption_requested())
         return;
-
-//    {
-//        // added by Poppa, mutex used to detect exit condition
-//        boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-//        if (!testLock || fExitAllThreads)
-//            return;
-//    }
 
     // Initiate network connections
     int64_t nStart = GetTime();
     while (true)
     {
-//        {
-//            // Added by Poppa
-//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-//            if (!testLock || fExitAllThreads)
-//                return;
-//        }
-
-        // Added by Poppa
         if (boost::this_thread::interruption_requested())
             return;
 
         ProcessOneShot();
         MilliSleep(500);
 
-            // Poppa, crashes Linux on exit   
             boost::this_thread::interruption_point();
             if (fExitAllThreads)
                 return;
@@ -1484,16 +1432,6 @@ void ThreadOpenAddedConnections()
 
     for (unsigned int i = 0; true; i++)
     {
-//        {
-//            // added by Poppa
-//            // This tests for a situation during shutdown on Linux, where we cannot
-//            // get an exclusive lock during the shutdown process
-//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-//            if (!testLock || fExitAllThreads)
-//                return;
-//        }
-
-        // Added by Poppa
         if (boost::this_thread::interruption_requested())
             return;
 
@@ -1548,7 +1486,6 @@ bool OpenNetworkConnection(const CAddress& addrConnect, CSemaphoreGrant *grantOu
     //
     // Initiate outbound network connection
     //
-    // removed by Poppa, bombs on exit in Linux...  boost::this_thread::interruption_point();
 
     if (!strDest)
         if (IsLocal(addrConnect) ||
@@ -1559,7 +1496,6 @@ bool OpenNetworkConnection(const CAddress& addrConnect, CSemaphoreGrant *grantOu
         return false;
 
     CNode* pnode = ConnectNode(addrConnect, strDest);
-    // removed by Poppa, causes crash on Linux ... boost::this_thread::interruption_point();
 
     if (!pnode)
         return false;
@@ -1613,17 +1549,6 @@ void ThreadMessageHandler()
     while (true)
     {
         bool fHaveSyncNode = false;
-
-//        {
-            // added by Poppa
-            // This tests for a situation during shutdown on Linux, where we cannot
-            // get an exclusive lock during the shutdown process
-//            boost::try_mutex::scoped_try_lock testLock(mDisposingMutex);
-//            if (!testLock || fRequestShutdown || fExitAllThreads)
-//                return;
-//        }
-
-        // Added by Poppa
         if (boost::this_thread::interruption_requested())
             return;
 
@@ -1670,9 +1595,7 @@ void ThreadMessageHandler()
                     }
                 }
             }
-            // removed by Poppa, bombs on exit in Linux    boost::this_thread::interruption_point();
 
-            // Added by Poppa
             if (boost::this_thread::interruption_requested())
                 return;
 
@@ -1682,9 +1605,7 @@ void ThreadMessageHandler()
                 if (lockSend)
                     g_signals.SendMessages(pnode, pnode == pnodeTrickle);
             }
-            // removed by Poppa, bombs on exit in Linux ...   boost::this_thread::interruption_point();
 
-            // Added by Poppa
             if (boost::this_thread::interruption_requested())
                 return;
         }
