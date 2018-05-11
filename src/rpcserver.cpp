@@ -153,8 +153,10 @@ string CRPCTable::help(string strCommand) const
 {
     string strRet = "";
     set<rpcfn_type> setDone;
-    
-    if (strCommand.length() > 0)
+   
+    if (strCommand == "help" || strCommand == "Help" || strCommand == "HELP")
+        strRet = "help"
+    else if (strCommand.length() > 0)
      for (map<string, const CRPCCommand*>::const_iterator mi = mapCommands.begin(); mi != mapCommands.end(); ++mi)
      {
         const CRPCCommand *pcmd = mi->second;
