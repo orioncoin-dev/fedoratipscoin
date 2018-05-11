@@ -155,7 +155,7 @@ string CRPCTable::help(string strCommand) const
     set<rpcfn_type> setDone;
    
     if (strCommand == "help" || strCommand == "Help" || strCommand == "HELP")
-        strRet = "help"
+        strRet = "help";
     else if (strCommand.length() > 0)
      for (map<string, const CRPCCommand*>::const_iterator mi = mapCommands.begin(); mi != mapCommands.end(); ++mi)
      {
