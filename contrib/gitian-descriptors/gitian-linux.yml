@@ -62,7 +62,7 @@ script: |
   export BOOST_THREAD_USE_LIB=1
   INDIR=$HOME/build
   # -g removed for production...
-  OPTFLAGS='-g -O2' 
+  OPTFLAGS='-O2' 
   TEMPDIR="$HOME/tempdir"
 
   CURTIMESTAMP=$(date +%s%N)
