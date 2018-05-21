@@ -43,9 +43,8 @@ void DetectShutdownThread(boost::thread_group* threadGroup)
     }
 
     fprintf(stdout, "Fedoracoin server shutting down\n");
-    fExitAllThreads = true;
     Shutdown();
-    exit(EXIT_SUCCESS);
+    std::quick_exit(EXIT_SUCCESS);
 }
 
 //////////////////////////////////////////////////////////////////////////////

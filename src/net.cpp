@@ -986,7 +986,7 @@ void ThreadSocketHandler()
         // Service each socket
         //
 
-        if (fExitAllThreads || boost::this_thread::interruption_requested())
+        if (boost::this_thread::interruption_requested())
             return;
 
         vector<CNode*> vNodesCopy;
@@ -1549,7 +1549,7 @@ void ThreadMessageHandler()
     while (true)
     {
         bool fHaveSyncNode = false;
-        if (fExitAllThreads || boost::this_thread::interruption_requested())
+        if (boost::this_thread::interruption_requested())
             return;
 
         vector<CNode*> vNodesCopy;
