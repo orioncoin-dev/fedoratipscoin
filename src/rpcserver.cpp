@@ -155,7 +155,7 @@ string CRPCTable::help(string strCommand) const
     set<rpcfn_type> setDone;
    
     if (strCommand == "help" || strCommand == "Help" || strCommand == "HELP")
-        strRet = "help";
+        strRet = "help\n";
     else if (strCommand.length() > 0)
      for (map<string, const CRPCCommand*>::const_iterator mi = mapCommands.begin(); mi != mapCommands.end(); ++mi)
      {
@@ -880,7 +880,7 @@ json_spirit::Value CRPCTable::execute(const std::string &strMethod, const json_s
     const CRPCCommand *pcmd = tableRPC[strMethod];
 
     if (!pcmd)
-        return helpList();
+        pcmd = tableRPC["help"];
 
     if (!pcmd)
         throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Method not found");
