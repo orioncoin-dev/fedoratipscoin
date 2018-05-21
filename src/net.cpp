@@ -1549,7 +1549,7 @@ void ThreadMessageHandler()
     while (true)
     {
         bool fHaveSyncNode = false;
-        if (boost::this_thread::interruption_requested())
+        if (fExitAllThreads || boost::this_thread::interruption_requested())
             return;
 
         vector<CNode*> vNodesCopy;
