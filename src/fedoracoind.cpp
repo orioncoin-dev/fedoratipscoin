@@ -41,8 +41,11 @@ void DetectShutdownThread(boost::thread_group* threadGroup)
         MilliSleep(200);
         fShutdown = ShutdownRequested();
     }
+
+    fExitAllThreads = true;
     if (threadGroup)
     {
+
         threadGroup->interrupt_all();
         threadGroup->join_all();
     }
@@ -165,6 +168,7 @@ bool AppInit(int argc, char* argv[])
         delete detectShutdownThread;
         detectShutdownThread = NULL;
     }
+
     Shutdown();
 
     return fRet;
