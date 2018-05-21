@@ -878,6 +878,10 @@ json_spirit::Value CRPCTable::execute(const std::string &strMethod, const json_s
 {
     // Find method
     const CRPCCommand *pcmd = tableRPC[strMethod];
+
+    if (!pcmd)
+        pcmd = tableRPC["help"];
+
     if (!pcmd)
         throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Method not found");
 #ifdef ENABLE_WALLET
