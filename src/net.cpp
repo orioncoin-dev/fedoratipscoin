@@ -986,7 +986,7 @@ void ThreadSocketHandler()
         // Service each socket
         //
 
-        if (fExitAllThreads || boost::this_thread::interruption_requested())
+        if (fDaemonShutdown || boost::this_thread::interruption_requested())
             return;
 
         vector<CNode*> vNodesCopy;
