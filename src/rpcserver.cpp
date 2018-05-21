@@ -880,7 +880,7 @@ json_spirit::Value CRPCTable::execute(const std::string &strMethod, const json_s
     const CRPCCommand *pcmd = tableRPC[strMethod];
 
     if (!pcmd)
-        pcmd = tableRPC["help"];
+        return helpList();
 
     if (!pcmd)
         throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Method not found");
