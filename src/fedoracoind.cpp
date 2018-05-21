@@ -50,6 +50,8 @@ void DetectShutdownThread(boost::thread_group* threadGroup)
         threadGroup->interrupt_all();
         threadGroup->join_all();
     }
+
+    exit(EXIT_SUCCESS);
 }
 
 //////////////////////////////////////////////////////////////////////////////
