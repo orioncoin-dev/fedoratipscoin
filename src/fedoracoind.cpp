@@ -43,6 +43,7 @@ void DetectShutdownThread(boost::thread_group* threadGroup)
     }
 
     fExitAllThreads = true;
+    Shutdown();
     if (threadGroup)
     {
 
