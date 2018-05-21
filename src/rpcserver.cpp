@@ -202,7 +202,11 @@ string CRPCTable::help(string strCommand) const
      }
 
     if (strRet == "")
-        strRet = strprintf("help: unknown command: %s\n", strCommand);
+        strRet = helpList();
+
+    // changed the above to just return the entire help list if they mistype a command
+    // strRet = strprintf("help: unknown command: %s\n", strCommand);
+
     strRet = strRet.substr(0,strRet.size()-1);
     return strRet;
 }
