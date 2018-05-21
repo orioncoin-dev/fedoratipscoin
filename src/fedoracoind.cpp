@@ -42,14 +42,15 @@ void DetectShutdownThread(boost::thread_group* threadGroup)
         fShutdown = ShutdownRequested();
     }
 
+    fprintf(stdout, "Fedoracoin server shutting down\n");
     fExitAllThreads = true;
     Shutdown();
-    if (threadGroup)
-    {
 
-        threadGroup->interrupt_all();
-        threadGroup->join_all();
-    }
+    //if (threadGroup)
+    //{
+    //    threadGroup->interrupt_all();
+    //    threadGroup->join_all();
+    //}
 
     exit(EXIT_SUCCESS);
 }
