@@ -1251,29 +1251,26 @@ public:
     }
 };
 
-/** Wrapper around a FILE* that implements a ring buffer to
- *  deserialize from. It guarantees the ability to rewind
- *  a given number of bytes. */
+/** Non-refcounted RAII wrapper around a FILE* that implements a ring buffer to
+ *  deserialize from. It guarantees the ability to rewind a given number of bytes.
+ *
+ *  Will automatically close the file when it goes out of scope if not null.
+ *  If you need to close the file early, use file.fclose() instead of fclose(file).
+ */
 class CBufferedFile
 {
 private:
-    FILE *src;          // source file
+    const int nType;
+    const int nVersion;
+
+    FILE *src;            // source file
     uint64_t nSrcPos;     // how many bytes have been read from source
     uint64_t nReadPos;    // how many bytes have been read from this
     uint64_t nReadLimit;  // up to which position we're allowed to read
     uint64_t nRewind;     // how many bytes we guarantee to rewind
     std::vector<char> vchBuf; // the buffer
 
-    short state;
-    short exceptmask;
-
 protected:
-    void setstate(short bits, const char *psz) {
-        state |= bits;
-        if (state & exceptmask)
-            throw std::ios_base::failure(psz);
-    }
-
     // read data from the source to fill the buffer
     bool Fill() {
         unsigned int pos = nSrcPos % vchBuf.size();
@@ -1283,28 +1280,40 @@ protected:
             readNow = nAvail;
         if (readNow == 0)
             return false;
-        size_t read = fread((void*)&vchBuf[pos], 1, readNow, src);
-        if (read == 0) {
-            setstate(std::ios_base::failbit, feof(src) ? "CBufferedFile::Fill : end of file" : "CBufferedFile::Fill : fread failed");
-            return false;
+        size_t nBytes = fread((void*)&vchBuf[pos], 1, readNow, src);
+        if (nBytes == 0) {
+            throw std::ios_base::failure(feof(src) ? "CBufferedFile::Fill: end of file" : "CBufferedFile::Fill: fread failed");
         } else {
-            nSrcPos += read;
+            nSrcPos += nBytes;
             return true;
         }
     }
 
 public:
-    int nType;
-    int nVersion;
-
     CBufferedFile(FILE *fileIn, uint64_t nBufSize, uint64_t nRewindIn, int nTypeIn, int nVersionIn) :
-        src(fileIn), nSrcPos(0), nReadPos(0), nReadLimit((uint64_t)(-1)), nRewind(nRewindIn), vchBuf(nBufSize, 0),
-        state(0), exceptmask(std::ios_base::badbit | std::ios_base::failbit), nType(nTypeIn), nVersion(nVersionIn) {
+        nType(nTypeIn), nVersion(nVersionIn), nSrcPos(0), nReadPos(0), nReadLimit((uint64_t)(-1)), nRewind(nRewindIn), vchBuf(nBufSize, 0)
+    {
+        src = fileIn;
     }
 
-    // check whether no error occurred
-    bool good() const {
-        return state == 0;
+    ~CBufferedFile()
+    {
+        fclose();
+    }
+
+    // Disallow copies
+    CBufferedFile(const CBufferedFile&) = delete;
+    CBufferedFile& operator=(const CBufferedFile&) = delete;
+
+    int GetVersion() const { return nVersion; }
+    int GetType() const { return nType; }
+
+    void fclose()
+    {
+        if (src) {
+            ::fclose(src);
+            src = nullptr;
+        }
     }
 
     // check whether we're at the end of the source file
@@ -1313,7 +1322,7 @@ public:
     }
 
     // read a number of bytes
-    CBufferedFile& read(char *pch, size_t nSize) {
+    void read(char *pch, size_t nSize) {
         if (nSize + nReadPos > nReadLimit)
             throw std::ios_base::failure("Read attempted past buffer limit");
         if (nSize + nRewind > vchBuf.size())
@@ -1332,11 +1341,10 @@ public:
             pch += nNow;
             nSize -= nNow;
         }
-        return (*this);
     }
 
     // return the current reading position
-    uint64_t GetPos() {
+    uint64_t GetPos() const {
         return nReadPos;
     }
 
@@ -1363,7 +1371,6 @@ public:
         nLongPos = ftell(src);
         nSrcPos = nLongPos;
         nReadPos = nLongPos;
-        state = 0;
         return true;
     }
 
@@ -1377,9 +1384,9 @@ public:
     }
 
     template<typename T>
-    CBufferedFile& operator>>(T& obj) {
+    CBufferedFile& operator>>(T&& obj) {
         // Unserialize from this stream
-        ::Unserialize(*this, obj, nType, nVersion);
+        ::Unserialize(*this, obj);
         return (*this);
     }
 
