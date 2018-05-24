@@ -1309,7 +1309,7 @@ public:
 
     ~CBufferedFile()
     {
-        fclose();
+        //fclose();
     }
 
     // check whether no error occurred
