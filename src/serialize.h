@@ -1270,7 +1270,16 @@ private:
     uint64_t nRewind;     // how many bytes we guarantee to rewind
     std::vector<char> vchBuf; // the buffer
 
+    short state;
+    short exceptmask;
+
 protected:
+    void setstate(short bits, const char *psz) {
+        state |= bits;
+        if (state & exceptmask)
+            throw std::ios_base::failure(psz);
+    }
+
     // read data from the source to fill the buffer
     bool Fill() {
         unsigned int pos = nSrcPos % vchBuf.size();
@@ -1282,7 +1291,8 @@ protected:
             return false;
         size_t nBytes = fread((void*)&vchBuf[pos], 1, readNow, src);
         if (nBytes == 0) {
-            throw std::ios_base::failure(feof(src) ? "CBufferedFile::Fill: end of file" : "CBufferedFile::Fill: fread failed");
+            setstate(std::ios_base::failbit, feof(src) ? "CBufferedFile::Fill : end of file" : "CBufferedFile::Fill : fread failed");
+            return false;
         } else {
             nSrcPos += nBytes;
             return true;
@@ -1291,7 +1301,8 @@ protected:
 
 public:
     CBufferedFile(FILE *fileIn, uint64_t nBufSize, uint64_t nRewindIn, int nTypeIn, int nVersionIn) :
-        nType(nTypeIn), nVersion(nVersionIn), nSrcPos(0), nReadPos(0), nReadLimit((uint64_t)(-1)), nRewind(nRewindIn), vchBuf(nBufSize, 0)
+        src(fileIn), nSrcPos(0), nReadPos(0), nReadLimit((uint64_t)(-1)), nRewind(nRewindIn), vchBuf(nBufSize, 0),
+        state(0), exceptmask(std::ios_base::badbit | std::ios_base::failbit), nType(nTypeIn), nVersion(nVersionIn)
     {
         src = fileIn;
     }
@@ -1299,6 +1310,11 @@ public:
     ~CBufferedFile()
     {
         fclose();
+    }
+
+    // check whether no error occurred
+    bool good() const {
+        return state == 0;
     }
 
     // Disallow copies
@@ -1386,7 +1402,6 @@ public:
     template<typename T>
     CBufferedFile& operator>>(T&& obj) {
         // Unserialize from this stream
-        //::Unserialize(*this, obj);
         ::Unserialize(*this, obj, nType, nVersion);
         return (*this);
     }
