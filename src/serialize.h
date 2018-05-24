@@ -1383,12 +1383,12 @@ public:
         return true;
     }
 
-    template<typename T>
-    CBufferedFile& operator>>(T&& obj) {
-        // Unserialize from this stream
-        ::Unserialize(*this, obj);
-        return (*this);
-    }
+    //template<typename T>
+    //CBufferedFile& operator>>(T&& obj) {
+    //    // Unserialize from this stream
+    //    ::Unserialize(*this, obj);
+    //    return (*this);
+    //}
 
     // search for a given byte in the stream, and remain positioned on it
     void FindByte(char ch) {
