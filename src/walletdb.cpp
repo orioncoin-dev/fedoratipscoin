@@ -14,10 +14,7 @@
 #include "util.h"
 #include "init.h"
 
-#define BOOST_NO_CXX11_SCOPED_ENUMS
 #include <boost/filesystem.hpp>
-#undef BOOST_NO_CXX11_SCOPED_ENUMS
-
 #include <boost/foreach.hpp>
 
 using namespace std;
