@@ -1,12 +1,12 @@
- **Fedoracoin production branch**
+ **Fedoracoin production branch - build instructions for Exchanges**
+
+What follows are the instructions on how to build fedoracoind (the daemon)
+for use by exchanges (tested with debian 8 jessie).
  
 This is the production version of the Fedoracoin code
 All other branches are developement branches and not intended for mining use
 
 To report bugs or issues used the github issue tracker and specify in the title area the branch and the problem you want to report
-
-What follows are the instructions on how to build fedoracoind (the daemon)
-for use by exchanges (tested with debian 8 jessie).
 
 1. (First, I installed sudo and added my user to it... in /etc/sudoers)
 
