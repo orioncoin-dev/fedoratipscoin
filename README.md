@@ -6,15 +6,10 @@ All other branches are developement branches and not intended for mining use.  T
 
 1. (First, I installed sudo and added my user to it... in /etc/sudoers)
 
-2. sudo apt-get install build-essential
-sudo apt-get install libdb++-dev
-sudo apt-get install libboost-chrono-dev
-sudo apt-get install libboost-all-dev
-sudo apt-get install pkg-config
-sudo apt-get install libssl-dev
+2. sudo apt-get install build-essential libdb++-dev libboost-chrono-dev libboost-all-dev pkg-config libssl-dev
 
 3.sudo apt-get install libboost-system1.55-dev 
-(that # needs to match the exact version of boost shown in /usr/lib/x86_64-linux-gnu)
+Note: that # needs to match the exact version of boost shown in /usr/lib/x86_64-linux-gnu
 
 4. sudo ln -s /usr/lib/x86_64-linux-gnu/libboost_thread.a /usr/lib/x86_64-linux-gnu/libboost_thread-mt.a
 
