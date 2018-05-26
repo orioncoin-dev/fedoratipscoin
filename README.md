@@ -17,20 +17,22 @@ sudo apt-get install libboost-all-dev
 sudo apt-get install pkg-config
 sudo apt-get install libssl-dev
 
-3.sudo apt-get install libboost-system1.55-dev   
-(needs to match exact version in /usr/lib/x86_64-linux-gnu)
+3.sudo apt-get install libboost-system1.55-dev 
+(that # needs to match the exact version of boost shown in /usr/lib/x86_64-linux-gnu)
 
-5. sudo ln -s /usr/lib/x86_64-linux-gnu/libboost_thread.a /usr/lib/x86_64-linux-gnu/libboost_thread-mt.a
+4. sudo ln -s /usr/lib/x86_64-linux-gnu/libboost_thread.a /usr/lib/x86_64-linux-gnu/libboost_thread-mt.a
 
-6. git clone https://github.com/jojapoppa/fedoratipscoin.git
+5. git clone https://github.com/jojapoppa/fedoratipscoin.git
 
-7. cd fedoratipscoin
-./autogen.sh
-./configure CXXFLAGS="-std=c++11 -DBOOST_NO_CXX11_SCOPED_ENUMS" LDFLAGS="-lboost_thread -lboost_filesystem" --disable-tests --without-gui --with-incompatible-bdb --with-boost-libdir=/usr/lib/x86_64-linux-gnu
+6. cd fedoratipscoin
 
-8. make
+7. ./autogen.sh
 
-9. the resulting build will be in ./src/fedoracoind and ./src/fedoracoin-cli
+8. ./configure CXXFLAGS="-std=c++11 -DBOOST_NO_CXX11_SCOPED_ENUMS" LDFLAGS="-lboost_thread -lboost_filesystem" --disable-tests --without-gui --with-incompatible-bdb --with-boost-libdir=/usr/lib/x86_64-linux-gnu
+
+9. make
+
+10. the resulting build will be in ./src/fedoracoind and ./src/fedoracoin-cli
 
 Cheers,
   --Poppa
