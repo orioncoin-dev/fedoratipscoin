@@ -37,49 +37,83 @@ Enter
 
 ssh-keygen (i didn't use a passphrase)
 
+sudo apt-get install ifupdown
+sudo apt-get install bridge-utils
+
 sudo shutdown now
 
 3) In VirtualBox highlight your VM and click on 'Network'
 then create to Adapters:
-  a) one is "NAT"
+  a) one is "NAT Network" and name it "NatNetwork"
   b) and the other is "Host-only Adapter"
 then click Start and run your VM again
 
-then log in and get your IP Address:
-
-ip link
-
-(enp0s3 should be your NAT, and enp0s8 should be your host interface)
-
-make /etc/network/interfaces look like this:
-
-# This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
+4) make /etc/network/interfaces look like this:
+with, sudo nano /etc/network/interfaces
 
 source /etc/network/interfaces.d/*
 
-# The loopback network interface
 auto lo
 iface lo inet loopback
 
-# The primary network interface
 auto enp0s3
 iface enp0s3 inet dhcp
 
-then, edit /etc/sysctl.conf and uncomment "net.ipv4.ip_forward=1
+auto enp0s8
+iface enp0s8 inet static
+address 192.168.56.101
+netmask 255.255.255.0
+network 192.168.56.0
+broadcast 192.168.56.255
 
-sudo ifconfig enp0s8 up
-ifconfig (and verify that enp0s8 is listed now in ifconfig...)
+5)
 
+then sudo nano /etc/sysctl.conf and uncomment "net.ipv4.ip_forward=1
+
+6) make /etc/rc.local script that sets up bridge between guest and host
+
+ip addr show
+
+and find the IP Address of your lxcbr0 (that's your virtual bridge)
+remember that IPADDR (it should be 10.0.3.2)
+
+sudo vi /etc/rc.local
+
+... and make it look like this:
+
+#!/bin/sh -e
+sleep 1
+brctl addbr br0
+ifconfig br0 10.0.3.2/24 up
+ifconfig enp0s8 up
+ifup enp0s8
+exit 0
+
+then, make it executable:
+
+sudo chmod ugo+x /etc/rc.local
 sudo reboot now
+
+7) then, log in and get your IP Address:
+
+ip link
+(enp0s3 should be your NAT, and enp0s8 should be your HOST interface)
+(write down the addresses)
+
+you use the HOST IP to log in from yor host OS
+you use the NAT IP to log in from an other VM on the same host
 
 4) Now run Terminal from your native OS
 
 ssh gitian@yourIpAddress
 
-and log in... you can copy & paste now...
+and log in... (you can copy & paste now)
 
-5) Log in as the 'gitian' user:
+
+
+
+
+5)  let's install some software now
 
 sudo apt-get update
 sudo apt-get install qemu rsync
@@ -107,26 +141,6 @@ sudo echo "%wheel ALL=NOPASSWD: /usr/bin/lxc-execute" >> /etc/sudoers.d/gitian-l
 sudo chmod o+w /etc/fstab
 sudo echo "cgroup /sys/fs/cgroup cgroup defaults 0 0" >> /etc/fstab
 sudo chmod o-w /etc/fstab
-
-8) # make /etc/rc.local script that sets up bridge between guest and host
-
-do an "ip addr show"
-
-and find the IP Address of your lxcbr0 (that's your virtual bridge)
-remember that IPADDR
-
-sudo vi /etc/rc.local
-
-... and enter:
-
-#!/bin/sh -e
-brctl addbr br0
-ifconfig br0 IPADDR/24 up
-exit 0
-
-then, make it executable:
-
-sudo chmod ugo+x /etc/rc.local
 
 9) now, make sure that USE_LXC is always set when logging in as gitian,
 and configure LXC IP addresses:
