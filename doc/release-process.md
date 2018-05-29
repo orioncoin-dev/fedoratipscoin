@@ -11,11 +11,12 @@ Release Process
 
      i) In VirtualBox click "New", give it a name like "UbuntuTIPSBuild" (64bit ubuntu)
      ii) Give it 2 gigs of ram, "Create a virtual hard disk now" (VDI), Dynamically allocated
-     iii) Now, highlight the new image and click "Start", 
-     iv) Then select your ISO that you downloaded (from Desktop)
-     v) Just go with all of the ubuntu install defaults...
-     vi) On the "Profile setup" screen... give it the user name "gitian"
-     vii) Then, just let it install ubuntu and then reboot
+     iii) set the VM with: selected chipset ICH9, Enable PAE/NX, Paravirtualization is KVM
+     iv) Now, highlight the new image and click "Start", 
+     v) Then select your ISO that you downloaded (from Desktop)
+     vi) Just go with all of the ubuntu install defaults...
+     vii) On the "Profile setup" screen... give it the user name "gitian"
+     viii) Then, just let it install ubuntu and then reboot
 
 2) sudo nano /etc/ssh/sshd_config
 
@@ -50,18 +51,25 @@ ip link
 
 (enp0s3 should be your NAT, and enp0s8 should be your host interface)
 
-add this to /etc/network/interfaces
+make /etc/network/interfaces look like this:
 
-auto enp0s8
-iface enp0s8 inet static
-address 192.168.56.101
-netmask 255.255.255.0
-network 192.168.56.0
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
 
-edit /etc/sysctl.conf and uncomment "net.ipv4.ip_forward=1
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto enp0s3
+iface enp0s3 inet dhcp
+
+then, edit /etc/sysctl.conf and uncomment "net.ipv4.ip_forward=1
 
 sudo ifconfig enp0s8 up
-ifconfig (and verify that enp0s8 is listed now...)
+ifconfig (and verify that enp0s8 is listed now in ifconfig...)
 
 sudo reboot now
 
@@ -74,8 +82,13 @@ and log in... you can copy & paste now...
 5) Log in as the 'gitian' user:
 
 sudo apt-get update
+sudo apt-get install qemu rsync
 sudo apt-get install git ruby apt-cacher-ng qemu-utils debootstrap lxc python-cheetah parted kpartx bridge-utils
 sudo apt-get install virt-manager python-vm-builder apache2 qemu-kvm
+sudo apt-get install docker
+sudo apt install docker.io
+
+sudo systemctl enable apt-cacher-ng.service
 
 6) then make sure apt cacher is running...
 
@@ -83,6 +96,11 @@ sudo service apt-cacher-ng status ( verify that it's running)
    (it should say "Active; active (running)")
 
 Press "q" to exit
+
+Then, make sure lxc is setup right...
+
+sudo echo "%wheel ALL=NOPASSWD: /usr/bin/lxc-start" > /etc/sudoers.d/gitian-lxc
+sudo echo "%wheel ALL=NOPASSWD: /usr/bin/lxc-execute" >> /etc/sudoers.d/gitian-lxc
 
 7) # add cgroup for LXC
 
@@ -105,6 +123,10 @@ sudo vi /etc/rc.local
 brctl addbr br0
 ifconfig br0 IPADDR/24 up
 exit 0
+
+then, make it executable:
+
+sudo chmod ugo+x /etc/rc.local
 
 9) now, make sure that USE_LXC is always set when logging in as gitian,
 and configure LXC IP addresses:
@@ -148,7 +170,7 @@ you do this, "sha256sum zipname" ... and just paste that into the gitian descrip
 15) sudo apt-get install debian-archive-keyring
     sudo apt-get install gnupg
     sudo apt-get install multipath-tools
-    sudo apt-get install libverto1
+    sudo apt-get install libvirt-bin
     sudo apt-get install faketime
 
 16) mkdir /home/gitian/gitian-builder/build
