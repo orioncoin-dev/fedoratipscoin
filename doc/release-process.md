@@ -167,6 +167,21 @@ Note: ... because in gbuild amd64 is mapped to "x86_64" which is what we want...
 
 ARCH=qemu64
 
+... and ... in gitian-builder/bin/gbuild
+
+change to remove 32 bit options,
+like this:
+
+# 'i386' => 32,
+@bitness = {
+  'amd64' => 64,
+}
+
+#'i386' => 'i386',
+@arches = {
+  'amd64' => 'x86_64',
+}
+
 20) in gitian-builder/libexec
 
     had to add --no-overwrite-dir to tar commands inside of libexec/copy-to-target file
@@ -224,26 +239,26 @@ chmod ugo+w /usr/local/include
     IMPORTANT Note: as you build libraries, move each from the gitian/build/out folder to 
     the gitian/inputs folder 1 at a time (gitian will wipe out anything left behind)
 
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/boost-win.yml
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/protobuf-win.yml
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/db-win.yml
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/ssl-win.yml
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/zlib_png-win.yml
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/miniupnp-win.yml 
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/qrencode-win.yml
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/boost-win.yml
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/protobuf-win.yml
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/db-win.yml
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/ssl-win.yml
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/zlib_png-win.yml
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/miniupnp-win.yml 
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qrencode-win.yml
 
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/boost-linux.yml
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/protobuf-linux.yml
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/db-linux.yml
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/ssl-linux.yml
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/zlib_png-linux.yml
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/miniupnp-linux.yml 
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/qrencode-linux.yml
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/boost-linux.yml
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/protobuf-linux.yml
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/db-linux.yml
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/ssl-linux.yml
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/zlib_png-linux.yml
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/miniupnp-linux.yml 
+    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qrencode-linux.yml
 
 24)
 
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/qt-win.yml
-    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/qt-linux.yml
+    bin/gbuild ../fedoratipscoin-1/contrib/gitian-descriptors/qt-win.yml
+    bin/gbuild ../fedoratipscoin-1/contrib/gitian-descriptors/qt-linux.yml
 
     (these last 2 create your wallets for both platforms
 
