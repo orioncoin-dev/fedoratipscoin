@@ -318,6 +318,7 @@ chmod ugo+w /usr/local/include
 
     export SIGNER=jojapoppa
     export VERSION=2.5.1   (or whichever branch you want to check in code with...)
+    export USE_LXC=1
 
     then...
 
