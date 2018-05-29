@@ -133,6 +133,8 @@ wget 'http://download.oracle.com/berkeley-db/db-5.3.28.NC.tar.gz'
 wget -O zxing-master.zip 'https://github.com/glassechidna/zxing-cpp/archive/master.zip'
 wget -O protobuf-all-2.5.0.tar.gz 'https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz'
 
+wget 'https://github.com/jojapoppa/fedoratipscoin/blob/2.5.1/depends/boost-mingw-gas-cross-compile-2013-03-03.patch'
+
 Note: if you need to create checksums for these files:
 you do this, "sha256sum zipname" ... and just paste that into the gitian descriptor...
 (i'm doing all that for you of course though...)
