@@ -1,190 +1,310 @@
 Release Process
 ====================
-
-
-* * *
-
-###update (commit) version in sources
-
-
-	fedoracoin-qt.pro
-	contrib/verifysfbinaries/verify.sh
-	doc/README*
-	share/setup.nsi
-	src/clientversion.h (change CLIENT_VERSION_IS_RELEASE to true)
-
-###tag version in git
-
-	git tag -s v(new version, e.g. 0.8.0)
-
-###write release notes. git shortlog helps a lot, for example:
-
-	git shortlog --no-merges v(current version, e.g. 0.7.2)..v(new version, e.g. 0.8.0)
-
-* * *
-
-##perform gitian builds
-
- From a directory containing the fedoracoin source, gitian-builder and gitian.sigs
   
-	export SIGNER=(your gitian key, ie bluematt, sipa, etc)
-	export VERSION=(new version, e.g. 0.8.0)
-	pushd ./fedoracoin
-	git checkout v${VERSION}
-	popd
-	pushd ./gitian-builder
+1) first create a headless Ubuntu 18.04 (bionic) VM:
+   Please use this ISO at: http://releases.ubuntu.com/bionic/ubuntu-18.04-live-server-amd64.iso
+   (Ubuntu 18.04)
+   Just download that ISO and drag it to your Desktop
 
- Fetch and build inputs: (first time, or when dependency versions change)
+   a) Now, download VirtualBox from Oracle and install it.
+   b)Create a 64 bit VM inside of VirtualBox by using that ISO image.
 
-	mkdir -p inputs; cd inputs/
-	wget 'http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.8.tar.gz' -O miniupnpc-1.8.tar.gz
-	wget 'https://www.openssl.org/source/openssl-1.0.1e.tar.gz'
-	wget 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz'
-	wget 'http://zlib.net/zlib-1.2.8.tar.gz'
-	wget 'ftp://ftp.simplesystems.org/pub/png/src/history/libpng16/libpng-1.6.8.tar.gz'
-	wget 'https://fukuchi.org/works/qrencode/qrencode-3.4.3.tar.bz2'
-	wget 'https://downloads.sourceforge.net/project/boost/boost/1.55.0/boost_1_55_0.tar.bz2'
-	wget 'https://svn.boost.org/trac/boost/raw-attachment/ticket/7262/boost-mingw.patch' -O \ 
-	     boost-mingw-gas-cross-compile-2013-03-03.patch
-	wget 'https://download.qt-project.org/official_releases/qt/5.2/5.2.0/single/qt-everywhere-opensource-src-5.2.0.tar.gz'
-	wget 'https://protobuf.googlecode.com/files/protobuf-2.5.0.tar.bz2'
-	cd ..
-	./bin/gbuild ../fedoracoin/contrib/gitian-descriptors/boost-linux.yml
-	mv build/out/boost-*.zip inputs/
-	./bin/gbuild ../fedoracoin/contrib/gitian-descriptors/deps-linux.yml
-	mv build/out/fedoracoin-deps-*.zip inputs/
-	./bin/gbuild ../fedoracoin/contrib/gitian-descriptors/boost-win.yml
-	mv build/out/boost-*.zip inputs/
-	./bin/gbuild ../fedoracoin/contrib/gitian-descriptors/deps-win.yml
-	mv build/out/fedoracoin-deps-*.zip inputs/
-	./bin/gbuild ../fedoracoin/contrib/gitian-descriptors/qt-win.yml
-	mv build/out/qt-*.zip inputs/
-	./bin/gbuild ../fedoracoin/contrib/gitian-descriptors/protobuf-win.yml
-	mv build/out/protobuf-*.zip inputs/
+     i) In VirtualBox click "New", give it a name like "UbuntuTIPSBuild" (64bit ubuntu)
+     ii) Give it 2 gigs of ram, "Create a virtual hard disk now" (VDI), Dynamically allocated
+     iii) Now, highlight the new image and click "Start", 
+     iv) Then select your ISO that you downloaded (from Desktop)
+     v) Just go with all of the ubuntu install defaults...
+     vi) On the "Profile setup" screen... give it the user name "gitian"
+     vii) Then, just let it install ubuntu and then reboot
 
- Build fedoracoind and fedoracoin-qt on Linux32, Linux64, and Win32:
-  
-	./bin/gbuild --commit fedoracoin=v${VERSION} ../fedoracoin/contrib/gitian-descriptors/gitian-linux.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../fedoracoin/contrib/gitian-descriptors/gitian-linux.yml
-	pushd build/out
-	zip -r fedoracoin-${VERSION}-linux-gitian.zip *
-	mv fedoracoin-${VERSION}-linux-gitian.zip ../../../
-	popd
-	./bin/gbuild --commit fedoracoin=v${VERSION} ../fedoracoin/contrib/gitian-descriptors/gitian-win.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION}-win --destination ../gitian.sigs/ ../fedoracoin/contrib/gitian-descriptors/gitian-win.yml
-	pushd build/out
-	zip -r fedoracoin-${VERSION}-win-gitian.zip *
-	mv fedoracoin-${VERSION}-win-gitian.zip ../../../
-	popd
-	popd
+2) sudo nano /etc/ssh/sshd_config
 
-  Build output expected:
+Uncomment the line #Port 22  (delete the #, so it says "Port 22")
+Uncomment the line #PubkeyAuthentication yes
+Uncomment the line #PasswordAuthentication yes
+Uncomment the line #PermitEmptyPasswords no
 
-  1. linux 32-bit and 64-bit binaries + source (fedoracoin-${VERSION}-linux-gitian.zip)
-  2. windows 32-bit and 64-bit binaries + installer + source (fedoracoin-${VERSION}-win-gitian.zip)
-  3. Gitian signatures (in gitian.sigs/${VERSION}[-win]/(your gitian key)/
+DON'T Uncomment the line #Hostkey /etc/ssh/ssh_host_rsa_key
+Uncomment the line #Hostkey /etc/ssh/ssh_host_ecdsa_key
+Uncomment the line #Hostkey /etc/ssh/ssh_host_ed25519_key
 
-repackage gitian builds for release as stand-alone zip/tar/installer exe
+Change "ChallengeResponseAuthentication yes" (make it 'yes')
 
-**Linux .tar.gz:**
+Ctrl+x
+then press "y"
+Enter
 
-	unzip fedoracoin-${VERSION}-linux-gitian.zip -d fedoracoin-${VERSION}-linux
-	tar czvf fedoracoin-${VERSION}-linux.tar.gz fedoracoin-${VERSION}-linux
-	rm -rf fedoracoin-${VERSION}-linux
+ssh-keygen (i didn't use a passphrase)
 
-**Windows .zip and setup.exe:**
+sudo shutdown now
 
-	unzip fedoracoin-${VERSION}-win-gitian.zip -d fedoracoin-${VERSION}-win
-	mv fedoracoin-${VERSION}-win/fedoracoin-*-setup.exe .
-	zip -r fedoracoin-${VERSION}-win.zip fedoracoin-${VERSION}-win
-	rm -rf fedoracoin-${VERSION}-win
+3) In VirtualBox highlight your VM and click on 'Network'
+then create to Adapters:
+  a) one is "NAT"
+  b) and the other is "Host-only Adapter"
+then click Start and run your VM again
 
-**Perform Mac build:**
+then log in and get your IP Address:
 
-  OSX binaries are created by Gavin Andresen on a 64-bit, OSX 10.6 machine.
+ip link
 
-	./autogen.sh
-        SDK=$(xcode-select --print-path)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.6.sdk
-        CXXFLAGS="-mmacosx-version-min=10.6 -isysroot $SDK" ./configure --enable-upnp-default
-	make
-	export QTDIR=/opt/local/share/qt4  # needed to find translations/qt_*.qm files
-	T=$(contrib/qt_translations.py $QTDIR/translations src/qt/locale)
-        export CODESIGNARGS='--keychain ...path_to_keychain --sign "Developer ID Application: BITCOIN FOUNDATION, INC., THE"'
-	python2.7 contrib/macdeploy/macdeployqtplus Fedoracoin-Qt.app -sign -add-qt-tr $T -dmg -fancy contrib/macdeploy/fancy.plist
+(enp0s3 should be your NAT, and enp0s8 should be your host interface)
 
- Build output expected: Fedoracoin-Qt.dmg
+add this to /etc/network/interfaces
 
-###Next steps:
+auto enp0s8
+iface enp0s8 inet static
+address 192.168.56.101
+netmask 255.255.255.0
+network 192.168.56.0
 
-* Code-sign Windows -setup.exe (in a Windows virtual machine using signtool)
- Note: only Gavin has the code-signing keys currently.
+edit /etc/sysctl.conf and uncomment "net.ipv4.ip_forward=1
 
-* upload builds to SourceForge
+sudo ifconfig enp0s8 up
+ifconfig (and verify that enp0s8 is listed now...)
 
-* create SHA256SUMS for builds, and PGP-sign it
+sudo reboot now
 
-* update fedoracoin.org version
-  make sure all OS download links go to the right versions
-  
-* update download sizes on fedoracoin.org/_templates/download.html
+4) Now run Terminal from your native OS
 
-* update forum version
+ssh gitian@yourIpAddress
 
-* update wiki download links
+and log in... you can copy & paste now...
 
-* update wiki changelog: [https://en.fedoracoin.it/wiki/Changelog](https://en.fedoracoin.it/wiki/Changelog)
+5) Log in as the 'gitian' user:
 
-Commit your signature to gitian.sigs:
+sudo apt-get update
+sudo apt-get install git ruby apt-cacher-ng qemu-utils debootstrap lxc python-cheetah parted kpartx bridge-utils
+sudo apt-get install virt-manager python-vm-builder apache2 qemu-kvm
 
-	pushd gitian.sigs
-	git add ${VERSION}/${SIGNER}
-	git add ${VERSION}-win/${SIGNER}
-	git commit -a
-	git push  # Assuming you can push to the gitian.sigs tree
-	popd
+6) then make sure apt cacher is running...
 
--------------------------------------------------------------------------
+sudo service apt-cacher-ng status ( verify that it's running)
+   (it should say "Active; active (running)")
 
-### After 3 or more people have gitian-built, repackage gitian-signed zips:
+Press "q" to exit
 
-From a directory containing fedoracoin source, gitian.sigs and gitian zips
+7) # add cgroup for LXC
 
-	export VERSION=(new version, e.g. 0.8.0)
-	mkdir fedoracoin-${VERSION}-linux-gitian
-	pushd fedoracoin-${VERSION}-linux-gitian
-	unzip ../fedoracoin-${VERSION}-linux-gitian.zip
-	mkdir gitian
-	cp ../fedoracoin/contrib/gitian-downloader/*.pgp ./gitian/
-	for signer in $(ls ../gitian.sigs/${VERSION}/); do
-	 cp ../gitian.sigs/${VERSION}/${signer}/fedoracoin-build.assert ./gitian/${signer}-build.assert
-	 cp ../gitian.sigs/${VERSION}/${signer}/fedoracoin-build.assert.sig ./gitian/${signer}-build.assert.sig
-	done
-	zip -r fedoracoin-${VERSION}-linux-gitian.zip *
-	cp fedoracoin-${VERSION}-linux-gitian.zip ../
-	popd
-	mkdir fedoracoin-${VERSION}-win-gitian
-	pushd fedoracoin-${VERSION}-win-gitian
-	unzip ../fedoracoin-${VERSION}-win-gitian.zip
-	mkdir gitian
-	cp ../fedoracoin/contrib/gitian-downloader/*.pgp ./gitian/
-	for signer in $(ls ../gitian.sigs/${VERSION}-win/); do
-	 cp ../gitian.sigs/${VERSION}-win/${signer}/fedoracoin-build.assert ./gitian/${signer}-build.assert
-	 cp ../gitian.sigs/${VERSION}-win/${signer}/fedoracoin-build.assert.sig ./gitian/${signer}-build.assert.sig
-	done
-	zip -r fedoracoin-${VERSION}-win-gitian.zip *
-	cp fedoracoin-${VERSION}-win-gitian.zip ../
-	popd
+sudo chmod o+w /etc/fstab
+sudo echo "cgroup /sys/fs/cgroup cgroup defaults 0 0" >> /etc/fstab
+sudo chmod o-w /etc/fstab
 
-- Upload gitian zips to SourceForge
+8) # make /etc/rc.local script that sets up bridge between guest and host
+sudo /etc/rc.local
 
-- Announce the release:
+enter:
 
-  - Add the release to fedoracoin.org: https://github.com/fedoracoin/fedoracoin.org/tree/master/_releases
+#!/bin/sh -e
+brctl addbr br0
+ifconfig br0 10.0.3.2/24 up
+exit 0
 
-  - Release sticky on fedoracointalk: https://fedoracointalk.org/index.php?board=1.0
+9) # make sure that USE_LXC is always set when logging in as gitian,
+   # and configure LXC IP addresses
 
-  - Fedoracoin-development mailing list
+sudo echo 'export USE_LXC=1' >> /home/gitian/.profile
+sudo echo 'export LXC_SUITE=xenial' >> /home/gitian/.profile
+sudo echo 'export LXC_ARCH=amd64' >> /home/gitian/.profile
+sudo echo 'export LXC_EXECUTE=lxc-execute' >> /home/gitian/.profile
+sudo echo 'export GITIAN_HOST_IP=10.0.3.2' >> /home/gitian/.profile
+sudo echo 'export LXC_GUEST_IP=10.0.3.5' >> /home/gitian/.profile
 
-  - Optionally reddit /r/Fedoracoin, ...
+10) sudo reboot now
 
-- Celebrate 
+11) log in as gitan
+
+12) git clone https://github.com/devrandom/gitian-builder.git
+
+13) git clone https://github.com/jojapoppa/fedoratipscoin.git
+
+14) mkdir /home/gitian/gitian-builder/inputs ... then put these files in there...
+cd /home/gitian/gitian-builder/inputs
+
+wget 'http://download.qt.io/archive/qt/5.10/5.10.0/single/qt-everywhere-src-5.10.0.tar.xz'
+wget -O miniupnpc-2.0.tar.gz 'http://miniupnp.tuxfamily.org/files/download.php?file=miniupnpc-2.0.20171212.tar.gz'
+wget 'https://downloads.sourceforge.net/project/libpng/zlib/1.2.11/zlib-1.2.11.tar.gz'
+wget 'https://fukuchi.org/works/qrencode/qrencode-4.0.0.tar.bz2'
+wget 'https://downloads.sourceforge.net/project/boost/boost/1.60.0/boost_1_60_0.tar.bz2'
+wget 'https://www.openssl.org/source/openssl-1.0.2n.tar.gz'
+wget 'http://indy.fulgan.com/SSL/openssl-1.0.2n-x64_86-win64.zip'
+wget -O libpng-1.6.34.tar.gz 'https://sourceforge.net/projects/libpng/files/libpng16/1.6.34/libpng-1.6.34.tar.gz/download'
+wget 'http://download.oracle.com/berkeley-db/db-5.3.28.NC.tar.gz'
+wget -O zxing-master.zip 'https://github.com/glassechidna/zxing-cpp/archive/master.zip'
+wget -O protobuf-all-2.5.0.tar.gz 'https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz'
+
+Note: if you need to create checksums for these files:
+you do this, "sha256sum zipname" ... and just paste that into the gitian descriptor...
+(i'm doing all that for you of course though...)
+
+15) sudo apt-get install debian-archive-keyring
+    sudo apt-get install gnupg
+    sudo apt-get install multipath-tools
+    sudo apt-get install libverto1
+    sudo apt-get install faketime
+
+16) mkdir /home/gitian/gitian-builder/build
+mkdir /home/gitian/gitian-builder/build/output
+
+17) in gitian-builder/Vagrantfile, added "xenial" to suites and removed "i386" in Vagrantfile:
+like this:
+
+#archs = ["amd64", "i386"]
+#ubuntu_suites = ["precise", "quantal", "raring", "saucy", "trusty", "xenial", "bionic"]
+archs = ["amd64"]
+ubuntu_suites = ["xenial"]
+
+18) in gitian-builder/libexec/config-lxc
+
+added...
+
+LXC_ARCH=amd64
+
+Note: ... because in gbuild amd64 is mapped to "x86_64" which is what we want...
+64 bit intel compatible architectures (Mac, Linux and Windows)
+
+19) also, in gitian-builder/libexec/start-target added...
+
+ARCH=qemu64
+
+20) in gitian-builder/libexec
+
+    had to add --no-overwrite-dir to tar commands inside of libexec/copy-to-target file
+    like this near the end of the file:
+
+    tar --no-overwrite-dir -C `dirname "$1"` -cf - `basename "$1"` | sudo $LXC_EXECUTE -n gitian -f var/lxc.config -- sudo -i -u $TUSER tar --no-overwrite-dir -C "$2" -xf -
+
+    optional: in gitian-builder/libexec on-target change "Timeout" to 60
+    and in bin/gbuild change timeout for on-target to (1..100) :
+    only needed on very slow computers
+
+21) go to gitian-builder/target-bin
+and edit file "upgrade-system"
+
+Add all of these lines to the end of that file:
+
+# added because of buggy cross compile configure settings in Qt
+mkdir /usr/local/Qt-5.10.0
+
+# added for buggy cross compile settings in Qt
+mkdir /home/ubuntu/staging64
+mkdir /home/ubuntu/staging64/host
+mkdir /home/ubuntu/staging64/host/bin
+touch /home/ubuntu/staging64/host/bin/qtpaths.exe
+chmod ugo+w /home/ubuntu/staging64/host/bin/qtpaths.exe
+mkdir /home/ubuntu/staging64/lib
+touch /home/ubuntu/staging64/lib/libQt5Bootstrap.a
+chmod ugo+w /home/ubuntu/staging64/lib/libQt5Bootstrap.a
+touch /home/ubuntu/staging64/lib/libQt5Bootstrap.la
+chmod ugo+w /home/ubuntu/staging64/lib/libQt5Bootstrap.la
+mkdir /home/ubuntu/staging64/translations
+chmod ugo+w /home/ubuntu/staging64/translations
+chmod ugo+w /home/ubuntu/staging64
+chmod ugo+w /home/ubuntu/staging64/host
+chmod ugo+w /home/ubuntu/staging64/host/bin
+chmod ugo+w /home/ubuntu/staging64/lib
+
+mkdir /home/ubuntu/build/bitcoin_win
+chmod ugo+w /home/ubuntu/build/bitcoin_win
+mkdir /home/ubuntu/build/bitcoin_linux
+chmod ugo+w /home/ubuntu/build/bitcoin_linux
+mkdir /home/ubuntu/build/bitcoin_mac
+chmod ugo+w /home/ubuntu/build/bitcoin_mac
+
+chmod ugo+w /usr/local/bin
+chmod ugo+w /usr/local/lib
+chmod ugo+w /usr/local/include
+
+22) in gitian-builder folder type:
+
+    bin/make-base-vm --suite xenial --arch amd64 --lxc
+
+23) in gitian-builder folder:
+
+    IMPORTANT Note: as you build libraries, move each from the gitian/build/out folder to 
+    the gitian/inputs folder 1 at a time (gitian will wipe out anything left behind)
+
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/boost-win.yml
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/protobuf-win.yml
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/db-win.yml
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/ssl-win.yml
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/zlib_png-win.yml
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/miniupnp-win.yml 
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/qrencode-win.yml
+
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/boost-linux.yml
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/protobuf-linux.yml
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/db-linux.yml
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/ssl-linux.yml
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/zlib_png-linux.yml
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/miniupnp-linux.yml 
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/qrencode-linux.yml
+
+24)
+
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/qt-win.yml
+    bin/gbuild ../fedoracoin-1/contrib/gitian-descriptors/qt-linux.yml
+
+    (these last 2 create your wallets for both platforms
+
+25) generate a GPG Key for gitian
+
+    from /home/gitian ...
+
+    sudo apt-get install haveged
+    gpg --gen-key
+    gpg --list-keys --keyid-format long
+
+    you will get output ... pick the "pub" line
+    ... and after the "/" ...
+    record the 16 digit number (and KEEP IT SECRET!)
+
+    then register your key here (at least)...
+    gpg --send-keys --keyserver pgp.mit.edu SECRETKEYID 
+    gpg --send-keys --keyserver subset.pool.sks-keyservers.net SECRETKEYID
+
+26) For core wallet build do the following:
+
+    sudo apt-get install gnupg-agent
+    gpg-agent --version
+    gpg --version
+
+    # the version will likely mismatch - this command gets the same package/version
+    sudo apt-get install gnupg2
+    gpg2 --version
+
+    then, from fedoratipscoin folder:
+    gpg2 --list-keys
+    git config user.signingkey SECRETKEYID
+
+27) now in the /home/gitian folder
+
+    open the .ssh/id_rsa.pub file and copy
+    the text but NOT including the email address
+    at the end.
+
+    log into your github account, and go to personal
+    menu / Settings / SSH and GPG Keys and add that
+    key to the SSH keys list.
+
+28) from the fedoratipscoin folder:
+
+    git config --global user.email "jojapoppa@protonmail.com"
+    (use the email address you registered with github of course...)
+
+    git tag -s v2.5.1   (or whichever branch you want to check in code with...)
+    git tag -n
+
+29) from /home/gitian:
+    
+    add this to .profile:
+
+    export SIGNER=jojapoppa
+    export VERSION=2.5.1   (or whichever branch you want to check in code with...)
+
+    then...
+
+    cd fedoratipscoin
+    git checkout ${VERSION}   (and this sync's your local folder to that version you are working with...)
+    cd ..
+
