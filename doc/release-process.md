@@ -167,6 +167,21 @@ Note: ... because in gbuild amd64 is mapped to "x86_64" which is what we want...
 
 ARCH=qemu64
 
+... and ... in gitian-builder/bin/gbuild
+
+change to remove 32 bit options,
+like this:
+
+# 'i386' => 32,
+@bitness = {
+  'amd64' => 64,
+}
+
+#'i386' => 'i386',
+@arches = {
+  'amd64' => 'x86_64',
+}
+
 20) in gitian-builder/libexec
 
     had to add --no-overwrite-dir to tar commands inside of libexec/copy-to-target file
