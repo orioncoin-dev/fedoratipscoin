@@ -91,23 +91,29 @@ sudo echo "cgroup /sys/fs/cgroup cgroup defaults 0 0" >> /etc/fstab
 sudo chmod o-w /etc/fstab
 
 8) # make /etc/rc.local script that sets up bridge between guest and host
-sudo /etc/rc.local
 
-enter:
+do an "ip addr show"
+
+and find the IP Address of your lxcbr0 (that's your virtual bridge)
+remember that IPADDR
+
+sudo vi /etc/rc.local
+
+... and enter:
 
 #!/bin/sh -e
 brctl addbr br0
-ifconfig br0 10.0.3.2/24 up
+ifconfig br0 IPADDR/24 up
 exit 0
 
-9) # make sure that USE_LXC is always set when logging in as gitian,
-   # and configure LXC IP addresses
+9) now, make sure that USE_LXC is always set when logging in as gitian,
+and configure LXC IP addresses:
 
 sudo echo 'export USE_LXC=1' >> /home/gitian/.profile
 sudo echo 'export LXC_SUITE=xenial' >> /home/gitian/.profile
 sudo echo 'export LXC_ARCH=amd64' >> /home/gitian/.profile
 sudo echo 'export LXC_EXECUTE=lxc-execute' >> /home/gitian/.profile
-sudo echo 'export GITIAN_HOST_IP=10.0.3.2' >> /home/gitian/.profile
+sudo echo 'export GITIAN_HOST_IP=IPADDR' >> /home/gitian/.profile
 sudo echo 'export LXC_GUEST_IP=10.0.3.5' >> /home/gitian/.profile
 
 10) sudo reboot now
