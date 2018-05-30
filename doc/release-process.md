@@ -10,46 +10,41 @@ Release Process
    b)Create a 64 bit VM inside of VirtualBox by using that ISO image.
 
      i) In VirtualBox click "New", give it a name like "UbuntuTIPSBuild" (64bit ubuntu)
-     ii) Give it 2 gigs of ram, "Create a virtual hard disk now" (VDI), Dynamically allocated
+     ii) Give it 2 gigs of ram, "Create a virtual hard disk now" (VDI), Dynamically allocated to 250gb
      iii) set the VM with: selected chipset ICH9, Enable PAE/NX, Paravirtualization is KVM
      iv) Now, highlight the new image and click "Start", 
      v) Then select your ISO that you downloaded (from Desktop)
      vi) Just go with all of the ubuntu install defaults...
      vii) On the "Profile setup" screen... give it the user name "gitian"
-     viii) Then, just let it install ubuntu and then reboot
+     iix) Then, just let it install ubuntu and then reboot
+     ix) The log in and shutdown (sudo shutdown now), and setup VM: selected chipset ICH9, Enable PAE/NX, Paravirtualization is KVM
+     x) Then started it back up and log in again
 
 2) sudo nano /etc/ssh/sshd_config
 
-Uncomment the line #Port 22  (delete the #, so it says "Port 22")
-Uncomment the line #PubkeyAuthentication yes
-Uncomment the line #PasswordAuthentication yes
-Uncomment the line #PermitEmptyPasswords no
+     i) Uncomment the line #Port 22  (delete the #, so it says "Port 22")
+     ii) Uncomment the line #PubkeyAuthentication yes
+     iii) Uncomment the line #PasswordAuthentication yes
+     iv) Uncomment the line #PermitEmptyPasswords no
+     v) Change "ChallengeResponseAuthentication yes" (make it 'yes')
 
-DON'T Uncomment the line #Hostkey /etc/ssh/ssh_host_rsa_key
-Uncomment the line #Hostkey /etc/ssh/ssh_host_ecdsa_key
-Uncomment the line #Hostkey /etc/ssh/ssh_host_ed25519_key
+     i) DON'T Uncomment the line #Hostkey /etc/ssh/ssh_host_rsa_key
+     ii) Uncomment the line #Hostkey /etc/ssh/ssh_host_ecdsa_key
+     iii) Uncomment the line #Hostkey /etc/ssh/ssh_host_ed25519_key
+     iv) Ctrl+x, then press "y" and press Enter
 
-Change "ChallengeResponseAuthentication yes" (make it 'yes')
+3) i) ssh-keygen (i didn't use a passphrase)
+   ii) sudo apt-get install ifupdown
+   iii) sudo apt-get install bridge-utils
+   iv) sudo shutdown now
 
-Ctrl+x
-then press "y"
-Enter
+4) i) In VirtualBox highlight your VM and click on 'Network'
+   ii) then create to Adapters:
+   iii) create one for "NAT Network" and name it "NatNetwork"
+   iv) and create the other for "Host-only Adapter"
+   v) then click Start and run your VM again
 
-ssh-keygen (i didn't use a passphrase)
-
-sudo apt-get install ifupdown
-sudo apt-get install bridge-utils
-
-sudo shutdown now
-
-3) In VirtualBox highlight your VM and click on 'Network'
-then create to Adapters:
-  a) one is "NAT Network" and name it "NatNetwork"
-  b) and the other is "Host-only Adapter"
-then click Start and run your VM again
-
-4) make /etc/network/interfaces look like this:
-with, sudo nano /etc/network/interfaces
+5) make /etc/network/interfaces look like this: with, sudo nano /etc/network/interfaces
 
 source /etc/network/interfaces.d/*
 
@@ -66,20 +61,14 @@ netmask 255.255.255.0
 network 192.168.56.0
 broadcast 192.168.56.255
 
-5)
+6) then, sudo nano /etc/sysctl.conf and uncomment "net.ipv4.ip_forward=1
 
-then sudo nano /etc/sysctl.conf and uncomment "net.ipv4.ip_forward=1
+7) make /etc/rc.local script that sets up bridge between guest and host:
 
-6) make /etc/rc.local script that sets up bridge between guest and host
-
-ip addr show
-
-and find the IP Address of your lxcbr0 (that's your virtual bridge)
+enter "ip addr show", and find the IP Address of your lxcbr0 (that's your virtual bridge)
 remember that IPADDR (it should be 10.0.3.2)
 
-sudo vi /etc/rc.local
-
-... and make it look like this:
+sudo nano /etc/rc.local, and make it look like this:
 
 #!/bin/sh -e
 sleep 1
@@ -94,73 +83,70 @@ then, make it executable:
 sudo chmod ugo+x /etc/rc.local
 sudo reboot now
 
-7) then, log in and get your IP Address:
+8) then, log in and get your IP Address:
 
 ip link
-(enp0s3 should be your NAT, and enp0s8 should be your HOST interface)
-(write down the addresses)
+
+enp0s3 should be your NAT, and enp0s8 should be your HOST interface; (write down those addresses)
 
 you use the HOST IP to log in from yor host OS
 you use the NAT IP to log in from an other VM on the same host
 
-4) Now run Terminal from your native OS
+Now run Terminal from your native HOST OS
 
 ssh gitian@yourIpAddress
 
-and log in... (you can copy & paste now)
+and log in... (you can copy & paste from now on)
 
-
-
-
-
-5)  let's install some software now
+9)  let's install some software now
 
 sudo apt-get update
-sudo apt-get install qemu rsync
-sudo apt-get install git ruby apt-cacher-ng qemu-utils debootstrap lxc python-cheetah parted kpartx bridge-utils
-sudo apt-get install virt-manager python-vm-builder apache2 qemu-kvm
-sudo apt-get install docker
+
+sudo apt-get install qemu rsync git ruby apt-cacher-ng qemu-utils debootstrap lxc python-cheetah parted kpartx bridge-utils virt-manager python-vm-builder apache2 qemu-kvm docker
+
 sudo apt install docker.io
 
-sudo systemctl enable apt-cacher-ng.service
+10) sudo systemctl enable apt-cacher-ng.service
 
-6) then make sure apt cacher is running...
+then make sure apt cacher is running...
 
-sudo service apt-cacher-ng status ( verify that it's running)
+sudo service apt-cacher-ng status 
    (it should say "Active; active (running)")
 
-Press "q" to exit
+11) Then, make sure lxc is setup right...
 
-Then, make sure lxc is setup right...
+sudo nano /etc/sudoers.d/gitian-lxc
+make it look like this:
 
-sudo echo "%wheel ALL=NOPASSWD: /usr/bin/lxc-start" > /etc/sudoers.d/gitian-lxc
-sudo echo "%wheel ALL=NOPASSWD: /usr/bin/lxc-execute" >> /etc/sudoers.d/gitian-lxc
+%wheel ALL=NOPASSWD: /usr/bin/lxc-start
+%wheel ALL=NOPASSWD: /usr/bin/lxc-execute
 
-7) # add cgroup for LXC
+12) # add cgroup for LXC
 
 sudo chmod o+w /etc/fstab
 sudo echo "cgroup /sys/fs/cgroup cgroup defaults 0 0" >> /etc/fstab
 sudo chmod o-w /etc/fstab
 
-9) now, make sure that USE_LXC is always set when logging in as gitian,
-and configure LXC IP addresses:
+13) now, make sure that USE_LXC is always set when logging in as gitian,
+and configure the LXC IP addresses:
 
 sudo echo 'export USE_LXC=1' >> /home/gitian/.profile
 sudo echo 'export LXC_SUITE=xenial' >> /home/gitian/.profile
 sudo echo 'export LXC_ARCH=amd64' >> /home/gitian/.profile
 sudo echo 'export LXC_EXECUTE=lxc-execute' >> /home/gitian/.profile
-sudo echo 'export GITIAN_HOST_IP=IPADDR' >> /home/gitian/.profile
+sudo echo 'export GITIAN_HOST_IP=10.0.3.2' >> /home/gitian/.profile
 sudo echo 'export LXC_GUEST_IP=10.0.3.5' >> /home/gitian/.profile
 
-10) sudo reboot now
+14) sudo reboot now
 
-11) log in as gitan
+15) log in as gitan
 
-12) git clone https://github.com/devrandom/gitian-builder.git
+16) get the source code and build env:
 
-13) git clone https://github.com/jojapoppa/fedoratipscoin.git
+git clone https://github.com/devrandom/gitian-builder.git
+git clone https://github.com/jojapoppa/fedoratipscoin.git
 
-14) mkdir /home/gitian/gitian-builder/inputs ... then put these files in there...
+17) mkdir /home/gitian/gitian-builder/inputs ... then put these files in there...
 cd /home/gitian/gitian-builder/inputs
 
 wget 'http://download.qt.io/archive/qt/5.10/5.10.0/single/qt-everywhere-src-5.10.0.tar.xz'
@@ -181,52 +167,46 @@ Note: if you need to create checksums for these files:
 you do this, "sha256sum zipname" ... and just paste that into the gitian descriptor...
 (i'm doing all that for you of course though...)
 
-15) sudo apt-get install debian-archive-keyring
-    sudo apt-get install gnupg
-    sudo apt-get install multipath-tools
-    sudo apt-get install libvirt-bin
-    sudo apt-get install faketime
+18) sudo apt-get install debian-archive-keyring gnupg multipath-tools libvirt-bin faketime
 
-16) mkdir /home/gitian/gitian-builder/build
+19) mkdir /home/gitian/gitian-builder/build
 mkdir /home/gitian/gitian-builder/build/output
 
-17) in gitian-builder/Vagrantfile, added "xenial" to suites and removed "i386" in Vagrantfile:
-like this:
-
+#17) in gitian-builder/Vagrantfile, added "xenial" to suites and removed "i386" in Vagrantfile:
+#like this:
 #archs = ["amd64", "i386"]
 #ubuntu_suites = ["precise", "quantal", "raring", "saucy", "trusty", "xenial", "bionic"]
-archs = ["amd64"]
-ubuntu_suites = ["xenial"]
+#archs = ["amd64"]
+#ubuntu_suites = ["xenial"]
 
-18) in gitian-builder/libexec/config-lxc
+20) in gitian-builder/libexec/config-lxc
 
-added...
+added this on line 2:
 
 LXC_ARCH=amd64
 
 Note: ... because in gbuild amd64 is mapped to "x86_64" which is what we want...
 64 bit intel compatible architectures (Mac, Linux and Windows)
 
-19) also, in gitian-builder/libexec/start-target added...
 
-ARCH=qemu64
-
-... and ... in gitian-builder/bin/gbuild
-
-change to remove 32 bit options,
-like this:
-
+#21)
+#also, in gitian-builder/libexec/start-target added...
+#ARCH=qemu64
+#In gitian-builder/bin/gbuild
+#change to remove 32 bit options,
+#like this:
+#
 # 'i386' => 32,
-@bitness = {
-  'amd64' => 64,
-}
-
+#@bitness = {
+#  'amd64' => 64,
+#}
+#
 #'i386' => 'i386',
-@arches = {
-  'amd64' => 'x86_64',
-}
+#@arches = {
+#  'amd64' => 'x86_64',
+#}
 
-20) in gitian-builder/libexec
+21) in gitian-builder/libexec
 
     had to add --no-overwrite-dir to tar commands inside of libexec/copy-to-target file
     like this near the end of the file:
@@ -237,7 +217,7 @@ like this:
     and in bin/gbuild change timeout for on-target to (1..100) :
     only needed on very slow computers
 
-21) go to gitian-builder/target-bin
+22) go to gitian-builder/target-bin
 and edit file "upgrade-system"
 
 Add all of these lines to the end of that file:
@@ -274,14 +254,14 @@ chmod ugo+w /usr/local/bin
 chmod ugo+w /usr/local/lib
 chmod ugo+w /usr/local/include
 
-22) in gitian-builder folder type:
+23) in gitian-builder folder type:
 
     bin/make-base-vm --suite xenial --arch amd64 --lxc
 
-23) in gitian-builder folder:
+24) in gitian-builder folder:
 
     IMPORTANT Note: as you build libraries, move each from the gitian/build/out folder to 
-    the gitian/inputs folder 1 at a time (gitian will wipe out anything left behind)
+    the gitian/inputs 1 compile at a time (gitian will wipe out anything left behind)
 
     bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/boost-win.yml
     bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/protobuf-win.yml
@@ -299,14 +279,17 @@ chmod ugo+w /usr/local/include
     bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/miniupnp-linux.yml 
     bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qrencode-linux.yml
 
-24)
+25)
 
     bin/gbuild ../fedoratipscoin-1/contrib/gitian-descriptors/qt-win.yml
     bin/gbuild ../fedoratipscoin-1/contrib/gitian-descriptors/qt-linux.yml
 
-    (these last 2 create your wallets for both platforms
+    (these last 2 create your wallets for both platforms; so copy them to your desktop)
 
-25) generate a GPG Key for gitian
+
+
+
+26) generate a GPG Key for gitian
 
     from /home/gitian ...
 
@@ -322,7 +305,7 @@ chmod ugo+w /usr/local/include
     gpg --send-keys --keyserver pgp.mit.edu SECRETKEYID 
     gpg --send-keys --keyserver subset.pool.sks-keyservers.net SECRETKEYID
 
-26) For core wallet build do the following:
+27) For core wallet build do the following:
 
     sudo apt-get install gnupg-agent
     gpg-agent --version
@@ -336,7 +319,7 @@ chmod ugo+w /usr/local/include
     gpg2 --list-keys
     git config user.signingkey SECRETKEYID
 
-27) now in the /home/gitian folder
+28) now in the /home/gitian folder
 
     open the .ssh/id_rsa.pub file and copy
     the text but NOT including the email address
@@ -346,7 +329,7 @@ chmod ugo+w /usr/local/include
     menu / Settings / SSH and GPG Keys and add that
     key to the SSH keys list.
 
-28) from the fedoratipscoin folder:
+29) from the fedoratipscoin folder:
 
     git config --global user.email "jojapoppa@protonmail.com"
     (use the email address you registered with github of course...)
@@ -354,7 +337,7 @@ chmod ugo+w /usr/local/include
     git tag -s v2.5.1   (or whichever branch you want to check in code with...)
     git tag -n
 
-29) from /home/gitian:
+30) from /home/gitian:
     
     add this to .profile:
 
