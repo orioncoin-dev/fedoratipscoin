@@ -203,7 +203,7 @@ LXC_ARCH=amd64
 
 and then, change the default IP address to 10.0.3.5
 
-Note: ... because in gbuild amd64 is mapped to "x86_64" which is what we want...
+Note: ... in gbuild amd64 is mapped to "x86_64" which is what we want...
 64 bit intel compatible architectures (Mac, Linux and Windows)
 
 19) in gitian-builder/libexec
@@ -223,30 +223,55 @@ and edit file "upgrade-system"
 Add all of these lines to the end of that file:
 
 mkdir /usr/local/Qt-5.10.0
+
 mkdir /home/ubuntu/staging64
+
 mkdir /home/ubuntu/staging64/host
+
 mkdir /home/ubuntu/staging64/host/bin
+
 touch /home/ubuntu/staging64/host/bin/qtpaths.exe
+
 chmod ugo+w /home/ubuntu/staging64/host/bin/qtpaths.exe
+
 mkdir /home/ubuntu/staging64/lib
+
 touch /home/ubuntu/staging64/lib/libQt5Bootstrap.a
+
 chmod ugo+w /home/ubuntu/staging64/lib/libQt5Bootstrap.a
+
 touch /home/ubuntu/staging64/lib/libQt5Bootstrap.la
+
 chmod ugo+w /home/ubuntu/staging64/lib/libQt5Bootstrap.la
+
 mkdir /home/ubuntu/staging64/translations
+
 chmod ugo+w /home/ubuntu/staging64/translations
+
 chmod ugo+w /home/ubuntu/staging64
+
 chmod ugo+w /home/ubuntu/staging64/host
+
 chmod ugo+w /home/ubuntu/staging64/host/bin
+
 chmod ugo+w /home/ubuntu/staging64/lib
+
 mkdir /home/ubuntu/build/bitcoin_win
+
 chmod ugo+w /home/ubuntu/build/bitcoin_win
+
 mkdir /home/ubuntu/build/bitcoin_linux
+
 chmod ugo+w /home/ubuntu/build/bitcoin_linux
+
 mkdir /home/ubuntu/build/bitcoin_mac
+
 chmod ugo+w /home/ubuntu/build/bitcoin_mac
+
 chmod ugo+w /usr/local/bin
+
 chmod ugo+w /usr/local/lib
+
 chmod ugo+w /usr/local/include
 
 21) in gitian-builder folder type:
