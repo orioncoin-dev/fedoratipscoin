@@ -17,10 +17,15 @@ Release Process
      vi) Just go with all of the ubuntu install defaults...
      vii) On the "Profile setup" screen... give it the user name "gitian"
      iix) Then, just let it install ubuntu and then reboot
-     ix) The log in and shutdown (sudo shutdown now), and setup VM: selected chipset ICH9, Enable PAE/NX, Paravirtualization is KVM
-     x) Then started it back up and log in again
+     ix) The log in and shutdown (sudo shutdown now)
 
-2) sudo nano /etc/ssh/sshd_config
+2) i) In VirtualBox highlight your VM and click on 'Network'
+   ii) then create to Adapters:
+   iii) create one for "NAT Network" and name it "NatNetwork"
+   iv) and create the other for "Host-only Adapter"
+   v) then click Start and run your VM again
+
+3) log back in again and, sudo nano /etc/ssh/sshd_config
 
      i) Uncomment the line #Port 22  (delete the #, so it says "Port 22")
      ii) Uncomment the line #PubkeyAuthentication yes
@@ -33,16 +38,10 @@ Release Process
      iii) Uncomment the line #Hostkey /etc/ssh/ssh_host_ed25519_key
      iv) Ctrl+x, then press "y" and press Enter
 
-3) i) ssh-keygen (i didn't use a passphrase)
+4) i) ssh-keygen (i didn't use a passphrase)
    ii) sudo apt-get install ifupdown
    iii) sudo apt-get install bridge-utils
    iv) sudo shutdown now
-
-4) i) In VirtualBox highlight your VM and click on 'Network'
-   ii) then create to Adapters:
-   iii) create one for "NAT Network" and name it "NatNetwork"
-   iv) and create the other for "Host-only Adapter"
-   v) then click Start and run your VM again
 
 5) make /etc/network/interfaces look like this: with, sudo nano /etc/network/interfaces
 
@@ -121,7 +120,7 @@ make it look like this:
 %sudo ALL=NOPASSWD: /usr/bin/lxc-start
 %sudo ALL=NOPASSWD: /usr/bin/lxc-execute
 
-12) # add cgroup for LXC
+12) next, add cgroup for LXC
 
 sudo chmod o+w /etc/fstab
 sudo echo "cgroup /sys/fs/cgroup cgroup defaults 0 0" >> /etc/fstab
@@ -172,13 +171,6 @@ you do this, "sha256sum zipname" ... and just paste that into the gitian descrip
 19) mkdir /home/gitian/gitian-builder/build
 mkdir /home/gitian/gitian-builder/build/output
 
-#17) in gitian-builder/Vagrantfile, added "xenial" to suites and removed "i386" in Vagrantfile:
-#like this:
-#archs = ["amd64", "i386"]
-#ubuntu_suites = ["precise", "quantal", "raring", "saucy", "trusty", "xenial", "bionic"]
-#archs = ["amd64"]
-#ubuntu_suites = ["xenial"]
-
 20) in gitian-builder/libexec/config-lxc
 
 added this on line 2:
@@ -189,24 +181,6 @@ and then, change the default IP address to 10.0.3.5
 
 Note: ... because in gbuild amd64 is mapped to "x86_64" which is what we want...
 64 bit intel compatible architectures (Mac, Linux and Windows)
-
-
-#21)
-#also, in gitian-builder/libexec/start-target added...
-#ARCH=qemu64
-#In gitian-builder/bin/gbuild
-#change to remove 32 bit options,
-#like this:
-#
-# 'i386' => 32,
-#@bitness = {
-#  'amd64' => 64,
-#}
-#
-#'i386' => 'i386',
-#@arches = {
-#  'amd64' => 'x86_64',
-#}
 
 21) in gitian-builder/libexec
 
@@ -224,10 +198,7 @@ and edit file "upgrade-system"
 
 Add all of these lines to the end of that file:
 
-# added because of buggy cross compile configure settings in Qt
 mkdir /usr/local/Qt-5.10.0
-
-# added for buggy cross compile settings in Qt
 mkdir /home/ubuntu/staging64
 mkdir /home/ubuntu/staging64/host
 mkdir /home/ubuntu/staging64/host/bin
@@ -313,11 +284,13 @@ chmod ugo+w /usr/local/include
     gpg-agent --version
     gpg --version
 
-    # the version will likely mismatch - this command gets the same package/version
+    Then, the version will likely mismatch - this command gets the same package/version
+
     sudo apt-get install gnupg2
     gpg2 --version
 
-    then, from fedoratipscoin folder:
+    Then, from fedoratipscoin folder:
+
     gpg2 --list-keys
     git config user.signingkey SECRETKEYID
 
