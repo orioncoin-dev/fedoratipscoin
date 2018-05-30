@@ -118,8 +118,8 @@ sudo service apt-cacher-ng status
 sudo nano /etc/sudoers.d/gitian-lxc
 make it look like this:
 
-%wheel ALL=NOPASSWD: /usr/bin/lxc-start
-%wheel ALL=NOPASSWD: /usr/bin/lxc-execute
+%sudo ALL=NOPASSWD: /usr/bin/lxc-start
+%sudo ALL=NOPASSWD: /usr/bin/lxc-execute
 
 12) # add cgroup for LXC
 
@@ -184,6 +184,8 @@ mkdir /home/gitian/gitian-builder/build/output
 added this on line 2:
 
 LXC_ARCH=amd64
+
+and then, change the default IP address to 10.0.3.5
 
 Note: ... because in gbuild amd64 is mapped to "x86_64" which is what we want...
 64 bit intel compatible architectures (Mac, Linux and Windows)
