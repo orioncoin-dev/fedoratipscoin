@@ -48,16 +48,23 @@ Release Process
 source /etc/network/interfaces.d/*
 
 auto lo
+
 iface lo inet loopback
 
 auto enp0s3
+
 iface enp0s3 inet dhcp
 
 auto enp0s8
+
 iface enp0s8 inet static
+
 address 192.168.56.101
+
 netmask 255.255.255.0
+
 network 192.168.56.0
+
 broadcast 192.168.56.255
 
 6) then, sudo nano /etc/sysctl.conf and uncomment "net.ipv4.ip_forward=1
@@ -70,16 +77,23 @@ remember that IPADDR (it should be 10.0.3.2)
 sudo nano /etc/rc.local, and make it look like this:
 
 #!/bin/sh -e
+
 sleep 1
+
 brctl addbr br0
+
 ifconfig br0 10.0.3.2/24 up
+
 ifconfig enp0s8 up
+
 ifup enp0s8
+
 exit 0
 
 then, make it executable:
 
 sudo chmod ugo+x /etc/rc.local
+
 sudo reboot now
 
 8) then, log in and get your IP Address:
@@ -118,22 +132,25 @@ sudo nano /etc/sudoers.d/gitian-lxc
 make it look like this:
 
 %sudo ALL=NOPASSWD: /usr/bin/lxc-start
+
 %sudo ALL=NOPASSWD: /usr/bin/lxc-execute
 
 12) next, add cgroup for LXC
 
 sudo chmod o+w /etc/fstab
+
 sudo echo "cgroup /sys/fs/cgroup cgroup defaults 0 0" >> /etc/fstab
+
 sudo chmod o-w /etc/fstab
 
 13) now, make sure that USE_LXC is always set when logging in as gitian,
 and configure the LXC IP addresses:
 
-sudo echo 'export USE_LXC=1' >> /home/gitian/.profile
-sudo echo 'export LXC_SUITE=xenial' >> /home/gitian/.profile
-sudo echo 'export LXC_ARCH=amd64' >> /home/gitian/.profile
-sudo echo 'export LXC_EXECUTE=lxc-execute' >> /home/gitian/.profile
-sudo echo 'export GITIAN_HOST_IP=10.0.3.2' >> /home/gitian/.profile
+sudo echo 'export USE_LXC=1' >> /home/gitian/.profile 
+sudo echo 'export LXC_SUITE=xenial' >> /home/gitian/.profile 
+sudo echo 'export LXC_ARCH=amd64' >> /home/gitian/.profile 
+sudo echo 'export LXC_EXECUTE=lxc-execute' >> /home/gitian/.profile 
+sudo echo 'export GITIAN_HOST_IP=10.0.3.2' >> /home/gitian/.profile 
 sudo echo 'export LXC_GUEST_IP=10.0.3.5' >> /home/gitian/.profile
 
 14) sudo reboot now
@@ -143,6 +160,7 @@ sudo echo 'export LXC_GUEST_IP=10.0.3.5' >> /home/gitian/.profile
 16) get the source code and build env:
 
 git clone https://github.com/devrandom/gitian-builder.git
+
 git clone https://github.com/jojapoppa/fedoratipscoin.git
 
 17) mkdir /home/gitian/gitian-builder/inputs ... then put these files in there...
@@ -215,14 +233,12 @@ chmod ugo+w /home/ubuntu/staging64
 chmod ugo+w /home/ubuntu/staging64/host
 chmod ugo+w /home/ubuntu/staging64/host/bin
 chmod ugo+w /home/ubuntu/staging64/lib
-
 mkdir /home/ubuntu/build/bitcoin_win
 chmod ugo+w /home/ubuntu/build/bitcoin_win
 mkdir /home/ubuntu/build/bitcoin_linux
 chmod ugo+w /home/ubuntu/build/bitcoin_linux
 mkdir /home/ubuntu/build/bitcoin_mac
 chmod ugo+w /home/ubuntu/build/bitcoin_mac
-
 chmod ugo+w /usr/local/bin
 chmod ugo+w /usr/local/lib
 chmod ugo+w /usr/local/include
