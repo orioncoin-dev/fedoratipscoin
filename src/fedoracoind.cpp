@@ -11,9 +11,12 @@
 #include "ui_interface.h"
 #include "util.h"
 
-#define _GLIBCXX_HAVE_AT_QUICK_EXIT
 #include <cstdlib>
 #include <process.h>
+
+#ifndef _GLIBCXX_HAVE_AT_QUICK_EXIT
+extern "C" void quick_exit(int) throw() _GLIBCXX_NORETURN;
+#endif
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/filesystem.hpp>
