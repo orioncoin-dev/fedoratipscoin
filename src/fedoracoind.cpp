@@ -11,7 +11,7 @@
 #include "ui_interface.h"
 #include "util.h"
 
-#include <cstdlib.h>
+#include <cstdlib>
 #include <process.h>
 
 #include <boost/algorithm/string/predicate.hpp>
