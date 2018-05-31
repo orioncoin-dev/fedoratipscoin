@@ -324,7 +324,7 @@ chmod ugo+w /usr/local/include
 
 23)
 
-    This build the wallets for Windows & Linux and puts them in gitian-builder/build/out:
+    This builds the wallets for Windows & Linux and puts them in gitian-builder/build/out:
 
     a) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qt-win.yml
     b) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qt-linux.yml
