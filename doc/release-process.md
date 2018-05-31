@@ -154,6 +154,8 @@ sudo echo 'export LXC_GUEST_IP=10.0.3.5' >> /home/gitian/.profile
 
 14) sudo reboot now, and log back in as gitian 
 
+sudo apt-get update
+
 get the source code and build env:
 
 git clone https://github.com/devrandom/gitian-builder.git
@@ -192,7 +194,7 @@ you do this, "sha256sum zipname" ... and just paste that into the gitian descrip
 
 16) sudo apt-get install debian-archive-keyring gnupg multipath-tools libvirt-bin faketime
 
-17) mkdir /home/gitian/gitian-builder/build
+17) mkdir /home/gitian/gitian-builder/build ...and... 
 mkdir /home/gitian/gitian-builder/build/output
 
 18) in gitian-builder/libexec/config-lxc
@@ -200,8 +202,6 @@ mkdir /home/gitian/gitian-builder/build/output
 added this on line 2:
 
 LXC_ARCH=amd64
-
-and then, change the default IP address to 10.0.3.5
 
 Note: ... in gbuild amd64 is mapped to "x86_64" which is what we want...
 64 bit intel compatible architectures (Mac, Linux and Windows)
@@ -212,10 +212,6 @@ Note: ... in gbuild amd64 is mapped to "x86_64" which is what we want...
     like this near the end of the file:
 
     tar --no-overwrite-dir -C `dirname "$1"` -cf - `basename "$1"` | sudo $LXC_EXECUTE -n gitian -f var/lxc.config -- sudo -i -u $TUSER tar --no-overwrite-dir -C "$2" -xf -
-
-    optional: in gitian-builder/libexec on-target change "Timeout" to 60
-    and in bin/gbuild change timeout for on-target to (1..100) :
-    only needed on very slow computers
 
 20) go to gitian-builder/target-bin
 and edit file "upgrade-system"
@@ -276,33 +272,45 @@ chmod ugo+w /usr/local/include
 
 21) in gitian-builder folder type:
 
+    sudo apt-get upgrade
+
+    and then...
+
     bin/make-base-vm --suite xenial --arch amd64 --lxc
 
 22) in gitian-builder folder:
 
+    now, lxc has updated it's parameter names in gitian-builder/etc/lxc.config.in so please check
+    the file and make sure that gitian used these updated names as follows:
+
+    i) lxc.tty.max = 4 ii) lxc.pty.max = 1024 iii) lxc.rootfs.path = ROOTFS
+    iv) lxc.net.0.type = veth v) lxc.net.0.flags = up vi) lxc.net.0.link = GUESTLINK
+    vii) lxc.net.0.ipv4.address = GUESTIP/24 viii) lxc.net.0.ipv4.gateway = auto
+    ix) lxc.uts.name = gitian
+
     IMPORTANT Note: as you build libraries, move each from the gitian/build/out folder to 
     the gitian/inputs 1 compile at a time (gitian will wipe out anything left behind)
 
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/boost-win.yml
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/protobuf-win.yml
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/db-win.yml
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/ssl-win.yml
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/zlib_png-win.yml
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/miniupnp-win.yml 
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qrencode-win.yml
+    a) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/boost-win.yml
+    b) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/protobuf-win.yml
+    c) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/db-win.yml
+    d) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/ssl-win.yml
+    e) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/zlib_png-win.yml
+    f) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/miniupnp-win.yml 
+    g) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qrencode-win.yml
 
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/boost-linux.yml
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/protobuf-linux.yml
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/db-linux.yml
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/ssl-linux.yml
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/zlib_png-linux.yml
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/miniupnp-linux.yml 
-    bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qrencode-linux.yml
+    a) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/boost-linux.yml
+    b) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/protobuf-linux.yml
+    c) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/db-linux.yml
+    d) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/ssl-linux.yml
+    e) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/zlib_png-linux.yml
+    f) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/miniupnp-linux.yml 
+    g) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qrencode-linux.yml
 
 23)
 
-    bin/gbuild ../fedoratipscoin-1/contrib/gitian-descriptors/qt-win.yml
-    bin/gbuild ../fedoratipscoin-1/contrib/gitian-descriptors/qt-linux.yml
+    a) bin/gbuild ../fedoratipscoin-1/contrib/gitian-descriptors/qt-win.yml
+    b) bin/gbuild ../fedoratipscoin-1/contrib/gitian-descriptors/qt-linux.yml
 
     (these last 2 create your wallets for both platforms; so copy them to your desktop)
 
