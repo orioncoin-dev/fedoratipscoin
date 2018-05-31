@@ -332,7 +332,7 @@ chmod ugo+w /usr/local/include
 
     export VERSION=2.5.1
 
-    a) bin/gbuild --commit bitcoin_linux=${VERSION} ../fedoratipscoin/contrib/gitian-descriptors/gitian-win.yml 
+    a) bin/gbuild --commit bitcoin_win=${VERSION} ../fedoratipscoin/contrib/gitian-descriptors/gitian-win.yml 
     b) bin/gbuild --commit bitcoin_linux=${VERSION} ../fedoratipscoin/contrib/gitian-descriptors/gitian-linux.yml
 
     (these last 2 create your wallets for both platforms; so copy them to your desktop after each run)
