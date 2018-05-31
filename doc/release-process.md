@@ -308,6 +308,7 @@ chmod ugo+w /usr/local/include
     e) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/zlib_png-win.yml
     f) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/miniupnp-win.yml 
     g) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qrencode-win.yml
+    h) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qt-win.yml
 
     This part is OPTIONAL. It builds the dependencies for Linux... or you can just download them already
     compiled from git in /depends and put them in the gitian-builder/inputs folder
@@ -319,10 +320,11 @@ chmod ugo+w /usr/local/include
     e) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/zlib_png-linux.yml
     f) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/miniupnp-linux.yml 
     g) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qrencode-linux.yml
+    h) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qt-linux.yml
 
 23)
 
-    This build the wallets for Windows & Linux:
+    This build the wallets for Windows & Linux and puts them in gitian-builder/build/out:
 
     a) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qt-win.yml
     b) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qt-linux.yml
