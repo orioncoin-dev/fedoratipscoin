@@ -11,6 +11,7 @@
 #include "ui_interface.h"
 #include "util.h"
 
+#define _GLIBCXX_HAVE_AT_QUICK_EXIT
 #include <cstdlib>
 #include <process.h>
 
