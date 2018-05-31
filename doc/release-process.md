@@ -289,7 +289,8 @@ chmod ugo+w /usr/local/include
     ix) lxc.uts.name = gitian
 
     IMPORTANT Note: as you build libraries, move each from the gitian/build/out folder to 
-    the gitian/inputs 1 compile at a time (gitian will wipe out anything left behind)
+    the gitian/inputs 1 compile at a time (gitian will wipe out anything left behind).
+    So for example, "gitian-builder/build/out$ mv boost-win64-1.60.0-gitian-r6.zip ../../inputs/"
 
     a) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/boost-win.yml
     b) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/protobuf-win.yml
