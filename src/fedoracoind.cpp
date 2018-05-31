@@ -14,10 +14,6 @@
 #include <cstdlib>
 #include <process.h>
 
-#ifndef _GLIBCXX_HAVE_AT_QUICK_EXIT
-extern "C" void quick_exit(int) throw() _GLIBCXX_NORETURN;
-#endif
-
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/filesystem.hpp>
 
@@ -51,7 +47,12 @@ void DetectShutdownThread(boost::thread_group* threadGroup)
 
     fprintf(stdout, "Fedoracoin server shutting down\n");
     Shutdown();
+
+#ifndef WINDOWS
     quick_exit(EXIT_SUCCESS);
+#else
+    exit(EXIT_SUCCESS);
+#endif
 }
 
 //////////////////////////////////////////////////////////////////////////////
