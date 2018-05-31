@@ -165,7 +165,7 @@ git clone https://github.com/jojapoppa/fedoratipscoin.git
 15) mkdir /home/gitian/gitian-builder/inputs ... then put these files in there...
 cd /home/gitian/gitian-builder/inputs
 
-IMPORTANT NOTE: This section is OPTIONAL.  You only need to download the source for these dependencies if you intend to compile them all.  Or, you can just grab the dependencies from github in /depends and place them in your gitian-builder-inputs folder.  Then you can just compile the wallet only.  It's up to you.
+IMPORTANT NOTE: This section is OPTIONAL.  You only need to download the source for these dependencies if you intend to compile them all.  Or, you can just grab the dependencies from github in /depends and place them in your gitian-builder/inputs folder.  Then you can just compile the wallet only.  It's up to you.
 
 wget 'http://download.qt.io/archive/qt/5.10/5.10.0/single/qt-everywhere-src-5.10.0.tar.xz'
 
