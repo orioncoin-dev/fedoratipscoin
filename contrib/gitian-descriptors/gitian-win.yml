@@ -40,7 +40,7 @@ script: |
   # Defines
   export TZ=UTC
   INDIR=$HOME/build
-  OPTFLAGS='-O2'
+  OPTFLAGS='-O2 -D _GLIBCXX_HAVE_AT_QUICK_EXIT'
   TEMPDIR="$HOME/tempdir"
 
   CURTIMESTAMP=$(date +%s%N)
@@ -237,9 +237,6 @@ script: |
     export FAKETIME=$REFERENCE_DATETIME
     export DYLD_PRINT_LIBRARIES=1
     export QT_DEBUG_PLUGINS=1
-
-    echo "on Windows quick_exit has a compilder flag"
-    export _GLIBCXX_HAVE_QUICK_EXIT=1
 
     echo "staging include and lib dirs..."
     ls -al $STAGING/include
