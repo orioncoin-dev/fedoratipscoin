@@ -11,7 +11,7 @@
 #include "ui_interface.h"
 #include "util.h"
 
-#include <stdlib.h>
+#include <cstdlib.h>
 #include <process.h>
 
 #include <boost/algorithm/string/predicate.hpp>
@@ -47,7 +47,7 @@ void DetectShutdownThread(boost::thread_group* threadGroup)
 
     fprintf(stdout, "Fedoracoin server shutting down\n");
     Shutdown();
-    quick_exit(EXIT_SUCCESS);
+    std::quick_exit(EXIT_SUCCESS);
 }
 
 //////////////////////////////////////////////////////////////////////////////
