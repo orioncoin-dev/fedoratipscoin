@@ -66,8 +66,8 @@ script: |
     #
     # Need mingw-compiled openssl from bitcoin-deps:
     cd $DEPSDIR
-    unzip $INDIR/bitcoin-ssl-win64-gitian-r10.zip
-    unzip $INDIR/bitcoin-zib_png-win64-gitian-r10.zip
+    yes|unzip $INDIR/bitcoin-ssl-win64-gitian-r10.zip
+    yes|unzip $INDIR/bitcoin-zib_png-win64-gitian-r10.zip
 
     ln -sf $DEPSDIR/lib/libsicudt.a $DEPSDIR/lib/libicudt.a
     ln -sf $DEPSDIR/lib/libsicuin.a $DEPSDIR/lib/libicuin.a
