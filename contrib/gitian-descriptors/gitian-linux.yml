@@ -248,7 +248,7 @@ script: |
   $STAGING/host/bin/protoc --version
   $STAGING/host/bin/protoc --cpp_out=/home/ubuntu/build64/distsrc/src/qt --proto_path=/home/ubuntu/build64/distsrc/src/qt /home/ubuntu/build64/distsrc/src/qt/paymentrequest.proto
 
-  echo what is in the lib folder?...
+  echo "what is in the lib folder?..."
   ls -al $STAGING/lib
 
   export DEBUG_LOCKCONTENTION=1
