@@ -324,8 +324,8 @@ chmod ugo+w /usr/local/include
 
     This build the wallets for Windows & Linux:
 
-    a) bin/gbuild ../fedoratipscoin-1/contrib/gitian-descriptors/qt-win.yml
-    b) bin/gbuild ../fedoratipscoin-1/contrib/gitian-descriptors/qt-linux.yml
+    a) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qt-win.yml
+    b) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qt-linux.yml
 
     (these last 2 create your wallets for both platforms; so copy them to your desktop)
 
