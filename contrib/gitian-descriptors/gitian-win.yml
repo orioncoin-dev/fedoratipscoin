@@ -40,7 +40,7 @@ script: |
   # Defines
   export TZ=UTC
   INDIR=$HOME/build
-  OPTFLAGS='-O2 -D _GLIBCXX_HAVE_AT_QUICK_EXIT'
+  OPTFLAGS='-O2'
   TEMPDIR="$HOME/tempdir"
 
   CURTIMESTAMP=$(date +%s%N)
@@ -227,7 +227,7 @@ script: |
     export LIBS="$LIBS -L$STAGING/lib -lqtpcre2 -lleveldb -lmemenv -lQt5Charts -lQt5Concurrent -lQt5DeviceDiscoverySupport -lQt5EdidSupport -lQt5EventDispatcherSupport -lQt5FbSupport -lQt5Gamepad -lQt5Gui -lQt5Help -lQt5Network -lQt5NetworkAuth -lQt5RemoteObjects -lQt5Sql -lQt5UiTools -lQt5Widgets -lQt5Xml -lqtharfbuzz -lqtmain -lboost_chrono-mt-s -lboost_program_options-mt-s -lboost_system-mt-s -lboost_thread_win32-mt-s -lboost_timer-mt-s -lprotobuf -lprotoc -lqrencode -lcrypto -lssl -lminiupnpc -lpng16 -lpng -lQt5AccessibilitySupport -lz -lzxing -lqico -lqjpeg -lqtuiotouchplugin -lxinputgamepad -lqgenericbearer -lqnativewifibearer -ldb -ldb_cxx -lqtlibpng -ldb-5.3 -ldb_cxx-5.3 -lboost_prg_exec_monitor-mt-s -lprotobuf-lite -L/usr/x86_64-w64-mingw32/lib -lcomdlg32 -lcomctl32 -lshell32 -luuid -lwinmm -lversion -lqminimal -lqwindows -lqwindowsvistastyle -lwindowsprintersupport -lwinspool -lole32 -lquartz -lkernel32 -lQt5Core -lQt5ThemeSupport -lQt5FontDatabaseSupport -lQt5PrintSupport -lQt5EventDispatcherSupport -lQt5Gui -lQt5Multimedia -lQt5MultimediaWidgets -lboost_filesystem-mt-s -lpthread -lgdi32 -loleaut32 -limm32 -luserenv -lnetapi32 -ldwmapi -lwinmm -lQt5AccessibilitySupport -lQt5Widgets -Wl,--start-group -lQt5Multimedia -lQt5MultimediaWidgets -Wl,--end-group"
 
     echo "Calling configure now..."
-    ./configure --disable-tests --enable-upnp-default --bindir=$BINDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L/usr/x86_64-w64-mingw32/lib -L$STAGING/lib -static -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose ${OPTFLAGS}" CXXFLAGS="-frandom-seed=$CURTIMESTAMP -std=c++11 -static-libgcc -static-libstdc++ ${OPTFLAGS}"
+    ./configure --disable-tests --enable-upnp-default --bindir=$BINDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L/usr/x86_64-w64-mingw32/lib -L$STAGING/lib -static -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose ${OPTFLAGS}" CXXFLAGS="-frandom-seed=$CURTIMESTAMP -std=c++11 -static-libgcc -static-libstdc++ -D_GLIBCXX_HAVE_AT_QUICK_EXIT=1 ${OPTFLAGS}"
 
     echo "Print out configure config.log file..."
     cat config.log
