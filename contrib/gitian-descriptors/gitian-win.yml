@@ -1,5 +1,6 @@
 ---
 name: "bitcoin"
+enable_cache: false
 suites:
 - "xenial"
 architectures:
@@ -196,23 +197,8 @@ script: |
     cd ..
     cd ..
 
-    echo "staged libraries ... about to build"
-    ls -al $STAGING/lib
-
-    echo "adding paths of all the QT code to the include..."
-    export CPLUS_INCLUDE_PATH="$STAGING/include;$STAGING/include/boost;$STAGING/include/google;$STAGING/include/libpng16;$STAGING/include/miniupnpc;$STAGING/include/openssl;$STAGING/include/QtAccessibilitySupport;$STAGING/include/QtCharts;$STAGING/include/QtConcurrent;$STAGING/include/QtCore;$STAGING/include/QtDeviceDiscoverySupport;$STAGING/include/QtEdidSupport;$STAGING/include/QtEventDispatcherSupport;$STAGING/include/QtFbSupport;$STAGING/include/QtFontDatabaseSupport;$STAGING/include/QtGamepad;$STAGING/include/QtGui;$STAGING/include/QtHelp;$STAGING/include/QtNetwork;$STAGING/include/QtNetworkAuth;$STAGING/include/QtPlatformHeaders;$STAGING/include/QtPrintSupport;$STAGING/include/QtRemoteObjects;$STAGING/include/QtRepParser;$STAGING/include/QtSql;$STAGING/include/QtTest;$STAGING/include/QtThemeSupport;$STAGING/include/QtMultimedia;$STAGING/include/QtMultimediaWidgets;$STAGING/include/QtUiPlugin;$STAGING/include/QtUiTools;$STAGING/include/QtWidgets;$STAGING/include/QtXml;$STAGING/include/QtZlib;$STAGING/zxing/zxing-cpp-master/core/src/zxing;$STAGING/zxing/zxing-cpp-master/core/src/win32/zxing;$STAGING/zxing/zxing-cpp-master/core/src;$STAGING/zxing/zxing-cpp-master/core/src/zxing/common"
-
-    export LIBS="$LIBS -L$STAGING/lib -lqtpcre2 -lleveldb -lmemenv -lQt5Charts -lQt5Concurrent -lQt5DeviceDiscoverySupport -lQt5EdidSupport -lQt5EventDispatcherSupport -lQt5FbSupport -lQt5Gamepad -lQt5Gui -lQt5Help -lQt5Network -lQt5NetworkAuth -lQt5RemoteObjects -lQt5Sql -lQt5UiTools -lQt5Widgets -lQt5Xml -lqtharfbuzz -lqtmain -lboost_chrono-mt-s -lboost_program_options-mt-s -lboost_system-mt-s -lboost_thread_win32-mt-s -lboost_timer-mt-s -lprotobuf -lprotoc -lqrencode -lcrypto -lssl -lminiupnpc -lpng16 -lpng -lQt5AccessibilitySupport -lz -lzxing -lqico -lqjpeg -lqtuiotouchplugin -lxinputgamepad -lqgenericbearer -lqnativewifibearer -ldb -ldb_cxx -lqtlibpng -ldb-5.3 -ldb_cxx-5.3 -lboost_prg_exec_monitor-mt-s -lprotobuf-lite -L/usr/x86_64-w64-mingw32/lib -lcomdlg32 -lcomctl32 -lshell32 -luuid -lwinmm -lversion -lqminimal -lqwindows -lqwindowsvistastyle -lwindowsprintersupport -lwinspool -lole32 -lquartz -lkernel32 -lQt5Core -lQt5ThemeSupport -lQt5FontDatabaseSupport -lQt5PrintSupport -lQt5EventDispatcherSupport -lQt5Gui -lQt5Multimedia -lQt5MultimediaWidgets -lboost_filesystem-mt-s -lpthread -lgdi32 -loleaut32 -limm32 -luserenv -lnetapi32 -ldwmapi -lwinmm -lQt5AccessibilitySupport -lQt5Widgets -Wl,--start-group -lQt5Multimedia -lQt5MultimediaWidgets -Wl,--end-group"
-
     which ld
     ld -V
-
-    echo "Calling configure now..."
-    ./configure --disable-tests --enable-upnp-default --bindir=$BINDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L/usr/x86_64-w64-mingw32/lib -L$STAGING/lib -static -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose ${OPTFLAGS}" CXXFLAGS="-frandom-seed=$CURTIMESTAMP -std=c++11 -static-libgcc -static-libstdc++ ${OPTFLAGS}"
-
-    echo "set up faketime..."
-    export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
-    export FAKETIME=$REFERENCE_DATETIME
 
     echo "regenerating langage qm files..."
     $STAGING/host/bin/lrelease src/fedoracoin-qt.pro
@@ -224,14 +210,40 @@ script: |
     echo "adding additional default parameter for new version of upnpc..."
     sed -i 's/devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0,/devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, 0,/' /home/ubuntu/build64/distsrc/src/net.cpp
 
-    echo "Calling make for main src folder..."
-    make $MAKEOPTS
-
     echo "calling protoc..."
     ls -al /home/ubuntu/build64/distsrc
     ls -al /home/ubuntu/build64/distsrc/src/qt
     $STAGING/host/bin/protoc --version
     $STAGING/host/bin/protoc --cpp_out=/home/ubuntu/build64/distsrc/src/qt --proto_path=/home/ubuntu/build64/distsrc/src/qt /home/ubuntu/build64/distsrc/src/qt/paymentrequest.proto
+
+    echo "what is in the lib folder?..."
+    ls -al $STAGING/lib
+
+    export DEBUG_LOCKCONTENTION=1
+
+    echo "adding paths of all the QT code to the include..."
+    export CPLUS_INCLUDE_PATH="$STAGING/include;$STAGING/include/boost;$STAGING/include/google;$STAGING/include/libpng16;$STAGING/include/miniupnpc;$STAGING/include/openssl;$STAGING/include/QtAccessibilitySupport;$STAGING/include/QtCharts;$STAGING/include/QtConcurrent;$STAGING/include/QtCore;$STAGING/include/QtDeviceDiscoverySupport;$STAGING/include/QtEdidSupport;$STAGING/include/QtEventDispatcherSupport;$STAGING/include/QtFbSupport;$STAGING/include/QtFontDatabaseSupport;$STAGING/include/QtGamepad;$STAGING/include/QtGui;$STAGING/include/QtHelp;$STAGING/include/QtNetwork;$STAGING/include/QtNetworkAuth;$STAGING/include/QtPlatformHeaders;$STAGING/include/QtPrintSupport;$STAGING/include/QtRemoteObjects;$STAGING/include/QtRepParser;$STAGING/include/QtSql;$STAGING/include/QtTest;$STAGING/include/QtThemeSupport;$STAGING/include/QtMultimedia;$STAGING/include/QtMultimediaWidgets;$STAGING/include/QtUiPlugin;$STAGING/include/QtUiTools;$STAGING/include/QtWidgets;$STAGING/include/QtXml;$STAGING/include/QtZlib;$STAGING/zxing/zxing-cpp-master/core/src/zxing;$STAGING/zxing/zxing-cpp-master/core/src/win32/zxing;$STAGING/zxing/zxing-cpp-master/core/src;$STAGING/zxing/zxing-cpp-master/core/src/zxing/common"
+
+    export LIBS="$LIBS -L$STAGING/lib -lqtpcre2 -lleveldb -lmemenv -lQt5Charts -lQt5Concurrent -lQt5DeviceDiscoverySupport -lQt5EdidSupport -lQt5EventDispatcherSupport -lQt5FbSupport -lQt5Gamepad -lQt5Gui -lQt5Help -lQt5Network -lQt5NetworkAuth -lQt5RemoteObjects -lQt5Sql -lQt5UiTools -lQt5Widgets -lQt5Xml -lqtharfbuzz -lqtmain -lboost_chrono-mt-s -lboost_program_options-mt-s -lboost_system-mt-s -lboost_thread_win32-mt-s -lboost_timer-mt-s -lprotobuf -lprotoc -lqrencode -lcrypto -lssl -lminiupnpc -lpng16 -lpng -lQt5AccessibilitySupport -lz -lzxing -lqico -lqjpeg -lqtuiotouchplugin -lxinputgamepad -lqgenericbearer -lqnativewifibearer -ldb -ldb_cxx -lqtlibpng -ldb-5.3 -ldb_cxx-5.3 -lboost_prg_exec_monitor-mt-s -lprotobuf-lite -L/usr/x86_64-w64-mingw32/lib -lcomdlg32 -lcomctl32 -lshell32 -luuid -lwinmm -lversion -lqminimal -lqwindows -lqwindowsvistastyle -lwindowsprintersupport -lwinspool -lole32 -lquartz -lkernel32 -lQt5Core -lQt5ThemeSupport -lQt5FontDatabaseSupport -lQt5PrintSupport -lQt5EventDispatcherSupport -lQt5Gui -lQt5Multimedia -lQt5MultimediaWidgets -lboost_filesystem-mt-s -lpthread -lgdi32 -loleaut32 -limm32 -luserenv -lnetapi32 -ldwmapi -lwinmm -lQt5AccessibilitySupport -lQt5Widgets -Wl,--start-group -lQt5Multimedia -lQt5MultimediaWidgets -Wl,--end-group"
+
+    echo "Calling configure now..."
+    ./configure --disable-tests --enable-upnp-default --bindir=$BINDIR --prefix=$STAGING --host=$HOST --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include ${OPTFLAGS}" LDFLAGS="-L/usr/x86_64-w64-mingw32/lib -L$STAGING/lib -static -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose ${OPTFLAGS}" CXXFLAGS="-frandom-seed=$CURTIMESTAMP -std=c++11 -static-libgcc -static-libstdc++ ${OPTFLAGS}"
+
+    echo "Print out configure config.log file..."
+    cat config.log
+
+    echo "set up faketime..."
+    export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
+    export FAKETIME=$REFERENCE_DATETIME
+    export DYLD_PRINT_LIBRARIES=1
+    export QT_DEBUG_PLUGINS=1
+
+    echo "staging include and lib dirs..."
+    ls -al $STAGING/include
+    ls -al $STAGING/lib
+
+    echo "Calling make for main src folder..."
+    make $MAKEOPTS
 
     echo "make deploy..."
     make deploy
