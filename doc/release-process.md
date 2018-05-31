@@ -289,7 +289,10 @@ chmod ugo+w /usr/local/include
     ix) lxc.uts.name = gitian
 
     IMPORTANT Note: as you build libraries, move each from the gitian/build/out folder to 
-    the gitian/inputs 1 compile at a time (gitian will wipe out anything left behind)
+    the gitian/inputs folder, 1 compile at a time (gitian will wipe out anything left behind)
+
+    if you want to be able to see what's going on during the compiles... then open a second
+    terminal session and cd gitian-builder and "tail -f /var/build.log"
 
     a) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/boost-win.yml
     b) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/protobuf-win.yml
