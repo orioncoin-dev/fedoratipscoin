@@ -43,7 +43,7 @@ script: |
     cd $BUILDDIR
     # adjusted tar for gz
     # tar xzf $INDIR/protobuf-all-3.5.1.tar.gz
-    tar xzf $INDIR/protobuf-all-2.5.0.tar.bz2
+    tar xzf $INDIR/protobuf-all-2.5.0.tar.gz
 
     cd protobuf-2.5.0
     # cd protobuf-3.5.1
