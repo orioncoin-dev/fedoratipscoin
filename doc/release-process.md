@@ -298,7 +298,7 @@ chmod ugo+w /usr/local/include
     Also, if you want to be able to see what's going on during the compiles... then open a second
     terminal session and cd gitian-builder and "tail -f var/build.log" (once it's past install.log)
 
-    This builds the dependencies for Windows... or you can just download them already
+    This part is OPTIONAL. It builds the dependencies for Windows... or you can just download them already
     compiled from git in /depends and put them in the gitian-builder/inputs folder
 
     a) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/boost-win.yml
@@ -309,7 +309,7 @@ chmod ugo+w /usr/local/include
     f) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/miniupnp-win.yml 
     g) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qrencode-win.yml
 
-    This builds the dependencies for Linux... or you can just download them already
+    This part is OPTIONAL. It builds the dependencies for Linux... or you can just download them already
     compiled from git in /depends and put them in the gitian-builder/inputs folder
 
     a) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/boost-linux.yml
