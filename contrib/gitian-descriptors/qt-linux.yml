@@ -68,7 +68,7 @@ script: |
   # Integrity Check
   echo "936d4cf5d577298f4f9fdb220e85b008ae321554a5fcd38072dc327a7296230e  qt-everywhere-src-5.10.0.tar.xz" | sha256sum -c
   echo "c0016153f40ee5c8c4444a109d90400b0b2db854a7fbb455c5050c64e6826ed2  bitcoin-zib_png-linux64-gitian-r10.zip" | sha256sum -c
-  echo "d94a1054e34cbb0d99a9c6307baad76018b8dfc93d63375af57342087a66fa33  bitcoin-ssl-linux64-gitian-r10.zip" | sha256sum -c
+  echo "86058f925842eac157b33d8ca8200ad50b11c65ebea366583fcabdef8b668dbb  bitcoin-ssl-linux64-gitian-r10.zip" | sha256sum -c
 
   # 32
   for BITS in 64; do # for architectures
