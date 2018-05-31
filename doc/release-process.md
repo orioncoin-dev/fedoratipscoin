@@ -188,6 +188,8 @@ wget -O protobuf-all-2.5.0.tar.gz 'https://github.com/google/protobuf/releases/d
 
 wget 'https://github.com/jojapoppa/fedoratipscoin/blob/2.5.1/depends/boost-mingw-gas-cross-compile-2013-03-03.patch'
 
+wget 'https://zlib.net/zlib-1.2.11.tar.gz'
+
 Note: if you need to create checksums for these files:
 you do this, "sha256sum zipname" ... and just paste that into the gitian descriptor...
 (i'm doing all that for you of course though...)
