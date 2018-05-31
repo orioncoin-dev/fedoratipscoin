@@ -23,7 +23,7 @@ script: |
   INDIR=$HOME/build
   TEMPDIR=$HOME/tmp
   # Input Integrity Check
-  echo "cef135ae46c12358a485e809619c01145238aceb10e6e8e2946ae40c4dbe477d  miniupnpc-2.0.tar.gz" | sha256sum -c
+  echo "7fe96bd8d175e16dd3044eb9f93e24a57b8dae8b48113a6e9c497ca6030aae34  miniupnpc-2.0.tar.gz" | sha256sum -c
 
   # 32
   for BITS in 64; do # for architectures
