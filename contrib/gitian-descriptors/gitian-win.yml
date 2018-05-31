@@ -243,7 +243,7 @@ script: |
     ls -al $STAGING/lib
 
     echo "Calling make for main src folder..."
-    make $MAKEOPTS
+    TARGET_OS=NATIVE_WINDOWS make $MAKEOPTS
 
     echo "make deploy..."
     make deploy

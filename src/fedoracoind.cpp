@@ -48,10 +48,10 @@ void DetectShutdownThread(boost::thread_group* threadGroup)
     fprintf(stdout, "Fedoracoin server shutting down\n");
     Shutdown();
 
-#ifndef WINDOWS
-    quick_exit(EXIT_SUCCESS);
-#else
+#ifdef __MINGW32__
     exit(EXIT_SUCCESS);
+#else
+    std::quick_exit(EXIT_SUCCESS);
 #endif
 }
 
