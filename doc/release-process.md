@@ -329,7 +329,7 @@ chmod ugo+w /usr/local/include
     a) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qt-win.yml
     b) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qt-linux.yml
 
-    (these last 2 create your wallets for both platforms; so copy them to your desktop)
+    (these last 2 create your wallets for both platforms; so copy them to your desktop after each run)
 
 
 
