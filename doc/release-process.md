@@ -337,7 +337,9 @@ chmod ugo+w /usr/local/include
     from /home/gitian ...
 
     sudo apt-get install haveged
+
     gpg --gen-key
+
     gpg --list-keys --keyid-format long
 
     you will get output ... pick the "pub" line
@@ -345,23 +347,29 @@ chmod ugo+w /usr/local/include
     record the 16 digit number (and KEEP IT SECRET!)
 
     then register your key here (at least)...
+
     gpg --send-keys --keyserver pgp.mit.edu SECRETKEYID 
+
     gpg --send-keys --keyserver subset.pool.sks-keyservers.net SECRETKEYID
 
 25) For core wallet build do the following:
 
     sudo apt-get install gnupg-agent
+
     gpg-agent --version
+
     gpg --version
 
-    Then, the version will likely mismatch - this command gets the same package/version
+    Then, the version will likely mismatch - this command gets the same package/version:
 
     sudo apt-get install gnupg2
+
     gpg2 --version
 
     Then, from fedoratipscoin folder:
 
     gpg2 --list-keys
+
     git config user.signingkey SECRETKEYID
 
 26) now in the /home/gitian folder
@@ -377,9 +385,11 @@ chmod ugo+w /usr/local/include
 27) from the fedoratipscoin folder:
 
     git config --global user.email "jojapoppa@protonmail.com"
+
     (use the email address you registered with github of course...)
 
     git tag -s v2.5.1   (or whichever branch you want to check in code with...)
+
     git tag -n
 
 28) from /home/gitian:
@@ -387,12 +397,18 @@ chmod ugo+w /usr/local/include
     add this to .profile:
 
     export SIGNER=jojapoppa
+
     export VERSION=2.5.1   (or whichever branch you want to check in code with...)
+
     export USE_LXC=1
 
     then...
 
     cd fedoratipscoin
+
     git checkout ${VERSION}   (and this sync's your local folder to that version you are working with...)
+
     cd ..
+
+    DONE.  You now can build the wallets, and edit the code.
 
