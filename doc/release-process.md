@@ -325,11 +325,11 @@ chmod ugo+w /usr/local/include
     Please Note: when building Apple targets you need to download the Apple SDK first and place it in
     gitian-builder/inputs.  To do that go to the apple store (with your Apple ID) and install the Xcode
     package (you need to register with a credit card, but I think it's free actually).  Then get the SDK
-    at this location Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk.
-    To open the package you find the Xcode.app in Finder and right click and Show Package Contents. 
+    at this location: Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk.
+    To open the package you find the Xcode.app in Finder/Applications and right click and Show Package Contents. 
 
     Once you have the sdk folder, copy it to linux via a shared folder (see bottom of these instructions)
-    and then tar -zcvf MacOSX10.13.sdk.tar.gz MacOSX10.13.sdk : the file you please in gitian-builder/inputs
+    and then tar -zcvf MacOSX10.13.sdk.tar.gz MacOSX10.13.sdk : the file you place in gitian-builder/inputs
     should be named MacOSX10.13.tar.gz
 
 23)
