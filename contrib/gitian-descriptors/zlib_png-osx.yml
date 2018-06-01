@@ -21,10 +21,12 @@ remotes: []
 files:
 - "zlib-1.2.11.tar.gz"
 - "libpng-1.6.34.tar.gz"
+- "MacOSX10.13.sdk.tar.gz"
 script: |
   #
-  LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1 FAKETIME=$REFERENCE_DATETIME
+  # LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1 FAKETIME=$REFERENCE_DATETIME
   # export FAKETIME=$REFERENCE_DATETIME
+  
   export TZ=UTC
   date
 
@@ -35,7 +37,7 @@ script: |
   echo "574623a4901a9969080ab4a2df9437026c8a87150dfd5c235e28c94b212964a7  libpng-1.6.34.tar.gz" | sha256sum -c
 
   export VAGRANT_DETECTED_OS="$(uname)"
-  export SUDO_ASKPASS=/usr/bin/ssh-askpass
+  # export SUDO_ASKPASS=/usr/bin/ssh-askpass
 
   # export DISPLAY=localhost:0
 
@@ -48,6 +50,8 @@ script: |
     #
     mkdir -p $INSTALLPREFIX $BUILDDIR
     cd $BUILDDIR
+    #
+    tar -xf MacOSX10.13.sdk.tar.gz
     #
     tar xzf $INDIR/zlib-1.2.11.tar.gz
     cd zlib-1.2.11
@@ -65,16 +69,18 @@ script: |
     make $MAKEOPTS
     make install
 
+    ls -al
     cd ..
+ 
     # post-process all generated libraries to be deterministic
     # extract them to a temporary directory then re-build them deterministically
     for LIB in $(find $INSTALLPREFIX -name \*.a); do
-        rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
-        $HOST-ar xv $LIB | cut -b5- > /tmp/list.txt
-        rm $LIB
-        $HOST-ar crsD $LIB $(cat /tmp/list.txt)
+      rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
+      $HOST-ar xv $LIB | cut -b5- > /tmp/list.txt
+      rm $LIB
+      $HOST-ar crsD $LIB $(cat /tmp/list.txt)
     done
-    #
+ 
     cd $INSTALLPREFIX
     find include lib | sort | zip -X@ $OUTDIR/bitcoin-zib_png-osx$BITS-gitian-r10.zip
   done # for BITS in
