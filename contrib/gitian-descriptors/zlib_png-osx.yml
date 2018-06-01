@@ -52,7 +52,7 @@ script: |
     mkdir -p $INSTALLPREFIX $BUILDDIR
     cd $BUILDDIR
     #
-    tar -xf MacOSX10.13.sdk.tar.gz
+    tar -xf $INDIR/MacOSX10.13.sdk.tar.gz
     #
     tar xzf $INDIR/zlib-1.2.11.tar.gz
     cd zlib-1.2.11
