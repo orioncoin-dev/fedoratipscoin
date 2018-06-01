@@ -328,6 +328,10 @@ chmod ugo+w /usr/local/include
     at this location Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk.
     To open the package you find the Xcode.app in Finder and right click and Show Package Contents. 
 
+    Once you have the sdk folder, copy it to linux via a shared folder (see bottom of these instructions)
+    and then tar -zcvf MacOSX10.13.sdk.tar.gz MacOSX10.13.sdk : the file you please in gitian-builder/inputs
+    should be named MacOSX10.13.tar.gz
+
 23)
 
     This builds the wallets for Windows & Linux and puts them in gitian-builder/build/out:
@@ -438,5 +442,5 @@ chmod ugo+w /usr/local/include
     h) sudo reboot now
     i) virtualbox menu / Devices / Shared folders (auto mount, make permanent)
     j) sudo reboot now
-    k) the shared folder will be in /media/sharedfoldername
+    k) the shared folder will be in /media/sf_sharedfoldername
 
