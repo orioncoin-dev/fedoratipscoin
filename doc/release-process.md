@@ -420,3 +420,17 @@ chmod ugo+w /usr/local/include
 
     DONE.  You now can build the wallets, and edit the code.
 
+29) next set up a shared folder with your host OS
+
+    a) virtualbox menu / Devices / InsertGuestAdditionsISO
+    b) sudo apt-get install -y dkms build-essential linux-headers-generic linux-headers-$(uname -r)
+    c) cd /media
+    d) sudo mkdir cdrom
+    e) sudo mount /dev/cdrom /media/cdrom
+    f) sudo ./VBoxLinuxAdditions.run
+    g) sudo usermod -aG vboxsf gitian
+    h) sudo reboot now
+    i) virtualbox menu / Devices / Shared folders (auto mount, make permanent)
+    j) sudo reboot now
+    k) the shared folder will be in /media/sharedfoldername
+
