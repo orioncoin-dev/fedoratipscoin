@@ -322,6 +322,12 @@ chmod ugo+w /usr/local/include
     g) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qrencode-linux.yml
     h) bin/gbuild ../fedoratipscoin/contrib/gitian-descriptors/qt-linux.yml
 
+    Please Note: when building Apple targets you need to download the Apple SDK first and place it in
+    gitian-builder/inputs.  To do that go to the apple store (with your Apple ID) and install the Xcode
+    package (you need to register with a credit card, but I think it's free actually).  Then get the SDK
+    at this location Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk.
+    To open the package you find the Xcode.app in Finder and right click and Show Package Contents. 
+
 23)
 
     This builds the wallets for Windows & Linux and puts them in gitian-builder/build/out:
