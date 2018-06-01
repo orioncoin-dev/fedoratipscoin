@@ -12,7 +12,6 @@
 #include "util.h"
 
 #include <cstdlib>
-#include <process.h>
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/filesystem.hpp>
