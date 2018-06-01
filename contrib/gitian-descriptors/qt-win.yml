@@ -42,8 +42,8 @@ script: |
 
   # Integrity Check
   echo "936d4cf5d577298f4f9fdb220e85b008ae321554a5fcd38072dc327a7296230e  qt-everywhere-src-5.10.0.tar.xz" | sha256sum -c
-  echo "320962e8239e7f5d28a73931c710b41fde3e7a348b14019f9b32d2f127a71c6d  bitcoin-zib_png-win64-gitian-r10.zip" | sha256sum -c
-  echo "17b2905f539180968019ae71b65812facd3c72a163934f829bfb879b7aacb993  bitcoin-ssl-win64-gitian-r10.zip" | sha256sum -c
+  echo "23f277a558b471cb8e488f2801c5aad04004836310b6dab1e969ed6b3b9e5900  bitcoin-zib_png-win64-gitian-r10.zip" | sha256sum -c
+  echo "056cee97a01b2ead70970de29a2b955736a2cde74ad204bf72c3f595eb9f4128  bitcoin-ssl-win64-gitian-r10.zip" | sha256sum -c
 
   # 32
   for BITS in 64; do # for architectures
@@ -66,8 +66,8 @@ script: |
     #
     # Need mingw-compiled openssl from bitcoin-deps:
     cd $DEPSDIR
-    unzip $INDIR/bitcoin-ssl-win64-gitian-r10.zip
-    unzip $INDIR/bitcoin-zib_png-win64-gitian-r10.zip
+    yes|unzip $INDIR/bitcoin-ssl-win64-gitian-r10.zip
+    yes|unzip $INDIR/bitcoin-zib_png-win64-gitian-r10.zip
 
     ln -sf $DEPSDIR/lib/libsicudt.a $DEPSDIR/lib/libicudt.a
     ln -sf $DEPSDIR/lib/libsicuin.a $DEPSDIR/lib/libicuin.a
