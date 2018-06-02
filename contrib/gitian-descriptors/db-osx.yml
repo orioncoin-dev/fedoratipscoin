@@ -1,0 +1,59 @@
+---
+name: "bitcoin-db"
+suites:
+- "xenial"
+architectures:
+- "amd64"
+packages:
+- "g++"
+- "git-core"
+- "zip"
+- "faketime"
+- "psmisc"
+reference_datetime: "2011-01-30 00:00:00"
+remotes: []
+files:
+- "db-5.3.28.NC.tar.gz"
+script: |
+  #
+  export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
+  export FAKETIME=$REFERENCE_DATETIME
+  export TZ=UTC
+  INDIR=$HOME/build
+  TEMPDIR=$HOME/tmp
+  # Input Integrity Check
+  echo "76a25560d9e52a198d37a31440fd07632b5f1f8f9f2b6d5438f4bc3e7c9013ef  db-5.3.28.NC.tar.gz" | sha256sum -c
+
+  # 32
+  for BITS in 64; do # for architectures
+    #
+    INSTALLPREFIX=$HOME/staging${BITS}
+    BUILDDIR=$HOME/build${BITS}
+    HOST=x86_64-apple-darwin11
+    #
+    mkdir -p $INSTALLPREFIX $BUILDDIR
+    cd $BUILDDIR
+    tar xzf $INDIR/db-5.3.28.NC.tar.gz
+    cd db-5.3.28.NC
+
+    sed -i "s/WinIoCtl.h/winioctl.h/g" src/dbinc/win_db.h
+
+    cd build_unix
+
+    ../dist/configure --prefix=$INSTALLPREFIX --enable-cxx --disable-shared --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=$HOST
+    make $MAKEOPTS library_build
+    make install_lib install_include
+    cd ../..
+    #
+    # post-process all generated libraries to be deterministic
+    # extract them to a temporary directory then re-build them deterministically
+    for LIB in $(find $INSTALLPREFIX -name \*.a); do
+        rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
+        x86_64-linux-gnu-ar xv $LIB | cut -b5- > /tmp/list.txt
+        rm $LIB
+        x86_64-linux-gnu-ar crsD $LIB $(cat /tmp/list.txt)
+    done
+    #
+    cd $INSTALLPREFIX
+    find include lib | sort | zip -X@ $OUTDIR/bitcoin-db-osx$BITS-gitian-r10.zip
+  done # for BITS in
