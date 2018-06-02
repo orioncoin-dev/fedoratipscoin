@@ -196,7 +196,7 @@ Note: if you need to create checksums for these files:
 you do this, "sha256sum zipname" ... and just paste that into the gitian descriptor...
 (i'm doing all that for you of course though...)
 
-16) sudo apt-get install debian-archive-keyring gnupg multipath-tools libvirt-bin faketime
+16) sudo apt-get install debian-archive-keyring gnupg multipath-tools libvirt-bin faketime p7zip-full sleuthkit ruby-dev rubygems gem
 
 17) mkdir /home/gitian/gitian-builder/build ...and... 
 mkdir /home/gitian/gitian-builder/build/output
@@ -324,13 +324,43 @@ chmod ugo+w /usr/local/include
 
     Please Note: when building Apple targets you need to download the Apple SDK first and place it in
     gitian-builder/inputs.  To do that go to the apple store (with your Apple ID) and install the Xcode
-    package (you need to register with a credit card, but I think it's free actually).  Then get the SDK
-    at this location: Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk.
-    To open the package you find the Xcode.app in Finder/Applications and right click and Show Package Contents. 
+    package (you need to register with a credit card, but I think it's free actually).
 
-    Once you have the sdk folder, copy it to linux via a shared folder (see bottom of these instructions)
-    and then: :/media/sf_sharedv/MacOSX.sdk/usr$ tar -zcvf MacOSX.sdk.tar.gz * (from within the embedded usr folder)
-    the file you place in gitian-builder/inputs should be named MacOSX.tar.gz
+    how to download the apple SDK:
+    a) browse to https://developer.apple.com/
+    b) click 'develop'
+    c) click 'downloads' and log in
+    d) scroll down and click "See more downloads"
+    e) click on 'Description' column to sort it
+    f) click the '+' sign next to the version you want
+    g) download the xcode xip file
+    h) mkdir /home/gitian/fedoratipscoin/depends/xcode
+    i) copy extract-sdk-osx.sh & parse_pbzx2.py in xcode folder
+    j) copy xip file to /home/gitian/fedoratipscoin/depends/xcode
+    k) cd /home/gitian/fedoratipscoin/depends/xcode
+
+    install xar:
+    a) sudo apt-get install build-essential libxml2-dev libssl1.0-dev zlib1g-dev
+    b) wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/xar/xar-1.5.2.tar.gz
+    c) tar -zxvf xar-1.5.2.tar.gz
+    d) cd xar-1.5.2
+    e) ./configure
+    f) make
+    g) sudo make install
+    h) cd ..
+
+    extract the xcode sdk for coin compilation from /depends/xcode 
+    a) xar -xf Xcode_9.4.zip
+    b) cat Metadata
+    c) go to https://gist.github.com/pudquick
+    d) download parse_pbzx2.py  (just click on Raw and download it...)
+    e) python parse_pbzx2.py Content
+    f) xz -d Content.part00.cpio.xz
+    g) sudo cpio -idm < ./Content.part00.cpio
+    h) you now have a directory named Xcode.app
+    i) ls Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+    j) ./extract-sdk-osx.sh
+    k) Now copy the file osx_SDK.tar.gz to your gitian-builder/inputs folder
 
 23)
 
