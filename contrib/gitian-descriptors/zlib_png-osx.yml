@@ -21,7 +21,7 @@ remotes: []
 files:
 - "zlib-1.2.11.tar.gz"
 - "libpng-1.6.34.tar.gz"
-- "MacOSX10.13.sdk.tar.gz"
+- "MacOSX.sdk.tar.gz"
 script: |
   #
   # LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1 FAKETIME=$REFERENCE_DATETIME
@@ -35,7 +35,7 @@ script: |
   # Input Integrity Check
   echo "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1  zlib-1.2.11.tar.gz"     | sha256sum -c
   echo "574623a4901a9969080ab4a2df9437026c8a87150dfd5c235e28c94b212964a7  libpng-1.6.34.tar.gz"   | sha256sum -c
-  echo "757f4fc13e02617c458d6cfac3f1fd50ac1c565b7abccc38f45510205c877e9b  MacOSX10.13.sdk.tar.gz" | sha256sum -c
+  echo "2e43319e407196203bf7c9d9518312f09cbab9c31a3376b6013fb4efbb6843f3  MacOSX.sdk.tar.gz"      | sha256sum -c
 
   export VAGRANT_DETECTED_OS="$(uname)"
   # export SUDO_ASKPASS=/usr/bin/ssh-askpass
@@ -52,7 +52,9 @@ script: |
     mkdir -p $INSTALLPREFIX $BUILDDIR
     cd $BUILDDIR
     #
-    tar -xf $INDIR/MacOSX10.13.sdk.tar.gz
+    tar -xf $INDIR/MacOSX.sdk.tar.gz 
+    echo "Extracted OSX SDK..."
+    ls -al
     #
     tar xzf $INDIR/zlib-1.2.11.tar.gz
     cd zlib-1.2.11
@@ -70,6 +72,7 @@ script: |
     make $MAKEOPTS
     make install
 
+    echo "make install completed..."
     ls -al
     cd ..
  
@@ -77,11 +80,14 @@ script: |
     # extract them to a temporary directory then re-build them deterministically
     for LIB in $(find $INSTALLPREFIX -name \*.a); do
       rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
-      $HOST-ar xv $LIB | cut -b5- > /tmp/list.txt
+      x86_64-linux-gnu-ar xv $LIB | cut -b5- > /tmp/list.txt
       rm $LIB
-      $HOST-ar crsD $LIB $(cat /tmp/list.txt)
+      x86_64-linux-gnu-ar crsD $LIB $(cat /tmp/list.txt)
     done
- 
+
+    echo "after archive rebuild..."
+    ls -al
+
     cd $INSTALLPREFIX
     find include lib | sort | zip -X@ $OUTDIR/bitcoin-zib_png-osx$BITS-gitian-r10.zip
   done # for BITS in
