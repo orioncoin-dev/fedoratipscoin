@@ -1,0 +1,99 @@
+---
+name: "bitcoin-upnp"
+suites:
+- "xenial"
+architectures:
+- "amd64"
+packages:
+- "g++"
+- "ntp"
+- "git-core"
+- "zip"
+- "faketime"
+- "psmisc"
+- "autoconf"
+- "automake"
+reference_datetime: "2018-12-12 00:00:00"
+remotes: []
+files:
+- "miniupnpc-2.0.tar.gz"
+script: |
+  #
+  export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
+  export FAKETIME=$REFERENCE_DATETIME
+  export TZ=UTC
+  INDIR=$HOME/build
+  TEMPDIR=$HOME/tmp
+  # Input Integrity Check
+  echo "7fe96bd8d175e16dd3044eb9f93e24a57b8dae8b48113a6e9c497ca6030aae34  miniupnpc-2.0.tar.gz" | sha256sum -c
+
+  # 32
+  for BITS in 64; do # for architectures
+    #
+    INSTALLPREFIX=$HOME/staging${BITS}
+    BUILDDIR=$HOME/build${BITS}
+    HOST=x86_64-apple-darwin11
+    #
+    mkdir -p $INSTALLPREFIX $BUILDDIR
+    cd $BUILDDIR
+    #
+    tar xzf $INDIR/miniupnpc-2.0.tar.gz
+    cd miniupnpc-2.0.20171212
+    ls -al
+
+    echo "
+  --- miniupnpc-1.8/Makefile.mingw.orig   2013-09-29 18:52:51.014087958 -1000
+  +++ miniupnpc-1.8/Makefile.mingw        2013-09-29 19:09:29.663318691 -1000
+  @@ -67,8 +67,8 @@
+   
+   wingenminiupnpcstrings.o:	wingenminiupnpcstrings.c
+   
+  -miniupnpcstrings.h: miniupnpcstrings.h.in wingenminiupnpcstrings
+  -	wingenminiupnpcstrings \$< \$@
+  +miniupnpcstrings.h: miniupnpcstrings.h.in 
+  +	sed -e 's|OS/version|MSWindows/5.1.2600|' -e 's|MINIUPNPC_VERSION_STRING \"version\"|MINIUPNPC_VERSION_STRING \"VERSIONHERE\"|' \$< > \$@
+   
+   minixml.o:	minixml.c minixml.h miniupnpcstrings.h
+   
+  " | sed "s/VERSIONHERE/$(cat VERSION)/" | patch -p1
+
+    mv Makefile.mingw Makefile.in
+    mkdir -p dll
+
+    touch install.sh
+    touch install-sh
+    touch shtool
+
+    autoscan
+    mv configure.scan configure.ac
+
+    aclocal
+    autoconf
+    autoheader
+
+    # make -f Makefile.mingw CC=$HOST-gcc AR=$HOST-ar libminiupnpc.a
+    ./configure --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=$HOST
+    make libminiupnpc.a
+
+    echo "make is completed..."
+
+    install -d $INSTALLPREFIX/include/miniupnpc
+    install *.h $INSTALLPREFIX/include/miniupnpc
+    ls -al libminiupnpc.a
+    install libminiupnpc.a  $INSTALLPREFIX/lib
+    cd ..
+    #
+    # post-process all generated libraries to be deterministic
+    # extract them to a temporary directory then re-build them deterministically
+    for LIB in $(find $INSTALLPREFIX -name \*.a); do
+        rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
+        x86_64-linux-gnu-ar xv $LIB | cut -b5- > /tmp/list.txt
+        rm $LIB
+        echo "list.txt:"
+        cat /tmp/list.txt
+        x86_64-linux-gnu-ar crsD $LIB $(cat /tmp/list.txt)
+    done
+    #
+    cd $INSTALLPREFIX
+    find include lib | sort | zip -X@ $OUTDIR/bitcoin-upnp-osx$BITS-gitian-r10.zip
+  done # for BITS in
