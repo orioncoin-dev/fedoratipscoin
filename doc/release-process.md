@@ -329,8 +329,8 @@ chmod ugo+w /usr/local/include
     To open the package you find the Xcode.app in Finder/Applications and right click and Show Package Contents. 
 
     Once you have the sdk folder, copy it to linux via a shared folder (see bottom of these instructions)
-    and then tar -zcvf MacOSX.sdk.tar.gz MacOSX.sdk : the file you place in gitian-builder/inputs
-    should be named MacOSX.tar.gz
+    and then: :/media/sf_sharedv/MacOSX.sdk/usr$ tar -zcvf MacOSX.sdk.tar.gz * (from within the embedded usr folder)
+    the file you place in gitian-builder/inputs should be named MacOSX.tar.gz
 
 23)
 
