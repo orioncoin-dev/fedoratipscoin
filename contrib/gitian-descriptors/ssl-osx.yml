@@ -43,7 +43,7 @@ script: |
     tar xzf $INDIR/openssl-1.0.2n.tar.gz
     cd openssl-1.0.2n
     # ./Configure no-shared no-dso --openssldir=$INSTALLPREFIX compiler:linux-x86_64
-    ./config no-shared no-zlib no-dso no-krb5 --openssldir=$INSTALLPREFIX -fPIC
+    ./config no-shared no-zlib no-dso no-krb5 --openssldir=$INSTALLPREFIX --target=$HOST -fPIC
     make
     make install_sw
     cd ..

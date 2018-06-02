@@ -60,7 +60,7 @@ script: |
     cd libpng-1.6.34
     OPT="-O2"
 
-    CPPFLAGS="${OPT} -I$INSTALLPREFIX/include" CFLAGS="${OPT} -I$INSTALLPREFIX/include" LDFLAGS="${OPT} -L$INSTALLPREFIX/lib" ./configure --disable-shared --enable-reduce-exports --disable-bench --disable-gui-tests --prefix=$INSTALLPREFIX --host=$HOST
+    CPPFLAGS="${OPT} -I$INSTALLPREFIX/include" CFLAGS="${OPT} -I$INSTALLPREFIX/include" LDFLAGS="${OPT} -L$INSTALLPREFIX/lib" ./configure --disable-shared --enable-reduce-exports --disable-bench --disable-gui-tests --prefix=$INSTALLPREFIX --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=$HOST
 
     make $MAKEOPTS
     make install

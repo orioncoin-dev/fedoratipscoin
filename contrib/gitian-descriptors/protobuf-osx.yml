@@ -52,8 +52,8 @@ script: |
 
     make distclean
 
-    # Now recompile
-    ./configure --prefix=$INSTALLPREFIX --enable-shared=no --disable-dependency-tracking --without-zlib --with-protoc=$INSTALLPREFIX/host/bin/protoc --host=$HOST CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
+    # Now recompile 
+    ./configure --prefix=$INSTALLPREFIX --enable-shared=no --disable-dependency-tracking --without-zlib --with-protoc=$INSTALLPREFIX/host/bin/protoc --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=$HOST CXXFLAGS="-frandom-seed=${CURTIMESTAMP} ${OPTFLAGS}"
     export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
     export FAKETIME=$REFERENCE_DATETIME
 

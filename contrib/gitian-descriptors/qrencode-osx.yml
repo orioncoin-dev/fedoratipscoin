@@ -37,7 +37,7 @@ script: |
     #
     tar xjf $INDIR/qrencode-4.0.0.tar.bz2
     cd qrencode-4.0.0
-    png_CFLAGS="-I$INSTALLPREFIX/include" png_LIBS="-L$INSTALLPREFIX/lib -lpng" ./configure --prefix=$INSTALLPREFIX --host=$HOST --enable-static --disable-shared --without-tools --disable-dependency-tracking
+    png_CFLAGS="-I$INSTALLPREFIX/include" png_LIBS="-L$INSTALLPREFIX/lib -lpng" ./configure --prefix=$INSTALLPREFIX --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=$HOST --enable-static --disable-shared --without-tools --disable-dependency-tracking
     make
     make install
     cd ..
