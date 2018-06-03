@@ -1,0 +1,307 @@
+---
+name: "bitcoin"
+enable_cache: true
+suites:
+- "xenial"
+architectures:
+- "amd64"
+packages: 
+- "qt5-qmake"
+- "g++"
+- "gcc"
+- "git-core"
+- "zip"
+- "unzip"
+- "nsis"
+- "cmake"
+- "ssh-askpass"
+- "faketime"
+- "autoconf2.13"
+- "libssl-dev"
+- "libtool"
+- "automake"
+- "pkg-config"
+- "bsdmainutils"
+- "libxcb-xinerama0-dev"
+- "libfontconfig1-dev"
+- "libfreetype6-dev"
+- "libx11-dev"
+- "libxext-dev"
+- "libxfixes-dev"
+- "libxi-dev"
+- "libxrender-dev"
+- "libxcb1-dev"
+- "libx11-xcb-dev"
+- "libxcb-glx0-dev"
+- "libxcb-keysyms1-dev"
+- "libxcb-image0-dev"
+- "libxcb-shm0-dev"
+- "libxcb-icccm4-dev"
+- "libxcb-sync0-dev"
+- "libxcb-xfixes0-dev"
+- "libxcb-shape0-dev"
+- "libxcb-randr0-dev"
+- "libxcb-render-util0-dev"
+reference_datetime: "2018-02-01 00:00:00"
+remotes:
+- "url": "https://github.com/jojapoppa/fedoratipscoin.git"
+  "dir": "bitcoin_osx"
+files:
+- "qt-linux64-5.10.0-gitian-r2.zip"
+- "boost-linux64-1.60.0-gitian-r6.zip"
+- "protobuf-linux64-2.5.0-gitian-r4.zip"
+- "bitcoin-db-linux64-gitian-r10.zip"
+- "bitcoin-qrencode-linux64-gitian-r10.zip"
+- "bitcoin-upnp-linux64-gitian-r10.zip"
+- "bitcoin-ssl-linux64-gitian-r10.zip"
+- "zxing-master.zip"
+- "bitcoin-zib_png-linux64-gitian-r10.zip"
+- "osx_SDK.zip"
+# - "openssl-1.0.2n-x64_86-linux64.zip"
+script: |
+  # Defines
+  export TZ=UTC
+  export BOOST_THREAD_USE_LIB=1
+  export SUDO_ASKPASS=/usr/bin/ssh-askpass
+  export QTPRINT_LIBS=/home/ubuntu/staging64/lib
+  export PKG_CONFIG_LIBDIR=/usr/lib/x86_64-linux-gnu/pkgconfig
+  INDIR=$HOME/build
+  # -g removed for production...
+  OPTFLAGS='-O2' 
+  TEMPDIR="$HOME/tempdir"
+
+  CURTIMESTAMP=$(date +%s%N)
+  echo "Timestamp in nanoseconds:"
+  echo $CURTIMESTAMP
+
+  NEEDDIST=1
+  # Qt: workaround for determinism in resource ordering
+  #  Qt5's rcc uses a QHash to store the files for the resource.
+  #  A security fix in QHash makes the ordering of keys to be different on every run
+  #  (https://qt.gitorious.org/qt/qtbase/commit/c01eaa438200edc9a3bbcd8ae1e8ded058bea268).
+  #  This is good in general but qrc shouldn't be doing a traversal over a randomized container.
+  #  The thorough solution would be to use QMap instead of QHash, but this requires patching Qt.
+  #  For now luckily there is a test mode that forces a fixed seed.
+  export QT_RCC_TEST=1
+
+  BITS=64
+  STAGING=$HOME/staging${BITS}
+  BUILDDIR=$HOME/build${BITS}
+  BINDIR=$OUTDIR/$BITS
+  export HOST=x86_64-apple-darwin11
+  export TARGET=x86_64-apple-darwin11
+  export PATH=$STAGING/host/bin:$PATH
+  export CROSS_COMPILE="$TARGET"-
+  echo $CROSS_COMPILE
+
+  mkdir -p $STAGING $BUILDDIR $BINDIR
+
+  if test -n "$GBUILD_CACHE_ENABLED"; then
+    export SOURCES_PATH=${GBUILD_COMMON_CACHE}
+    export BASE_CACHE=${GBUILD_PACKAGE_CACHE}
+    mkdir -p ${BASE_CACHE} ${SOURCES_PATH}
+  fi
+
+  cd $STAGING
+
+  unzip -o $INDIR/osx_SDK.zip
+  unzip -o $INDIR/qt-linux64-5.10.0-gitian-r2.zip
+  unzip -o $INDIR/boost-linux64-1.60.0-gitian-r6.zip
+  unzip -o $INDIR/protobuf-linux64-2.5.0-gitian-r4.zip
+  unzip -o $INDIR/bitcoin-db-linux64-gitian-r10.zip
+  unzip -o $INDIR/bitcoin-qrencode-linux64-gitian-r10.zip
+  unzip -o $INDIR/bitcoin-ssl-linux64-gitian-r10.zip
+  unzip -o $INDIR/bitcoin-upnp-linux64-gitian-r10.zip
+  unzip -o $INDIR/bitcoin-zib_png-linux64-gitian-r10.zip
+
+  echo "unzipping prebuilt ssl dlls, may want to build these too eventually... TBD..."
+  # unzip -o $INDIR/openssl-1.0.2n-x64_86-linux64.zip
+
+  echo "move libs to libs folder as qmake can't locate them otherwise..."
+  mv $STAGING/plugins/bearer/* $STAGING/lib
+  mv $STAGING/plugins/gamepads/* $STAGING/lib
+  mv $STAGING/plugins/generic/* $STAGING/lib
+  mv $STAGING/plugins/imageformats/* $STAGING/lib
+  mv $STAGING/plugins/platforminputcontexts/* $STAGING/lib
+  # mv $STAGING/plugins/printsupport/* $STAGING/lib
+  # mv $STAGING/plugins/styles/* $STAGING/lib
+  mv $STAGING/plugins/platforms/* $STAGING/lib
+  ls -al $STAGING/lib
+
+  export APPKIT="$STAGING/System/Library/Frameworks/AppKit.framework:$STAGING/System/Library/Frameworks/ApplicationServices.framework:$STAGING/System/Library/Frameworks/Foundation.framework"
+  export LIBRARY_PATH="$STAGING/lib:$STAGING/usr/lib"
+  export CPLUS_INCLUDE_PATH="$STAGING/include:$APPKIT/Headers"
+  echo $CPLUS_INCLUDE_PATH
+
+  echo "Must now build the zxing library now (used for qrcodes)..."
+  cd $STAGING/include
+
+  if ! test -d zxing
+  then
+    mkdir zxing
+    cd zxing
+    unzip -o $INDIR/zxing-master.zip
+    cd zxing-cpp-master
+    ls -al
+    mkdir build
+    cd build
+    export CMAKE_CXX_COMPILER="$CROSS_COMPILE"g++
+    export CMAKE_C_COMPILER="$CROSS_COMPILE"gcc
+    export CXXFLAGS="-fPIC -static"
+    cmake -G "Unix Makefiles" -DCMAKE_CXX_FLAGS=-static -D_GLIBCXX_USE_CXX11_ABI=0 -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_BUILD_TYPE=Release ..
+    make
+    ls -al $STAGING/include/zxing/zxing-cpp-master/build
+    cp $STAGING/include/zxing/zxing-cpp-master/core/src/zxing/ZXing.h $STAGING/include/zxing.h
+    mv $STAGING/include/zxing/zxing-cpp-master/build/libzxing.a $STAGING/lib
+    mv $STAGING/include/zxing/zxing-cpp-master/core/src/win32/zxing/* $STAGING/lib
+    mv $STAGING/include/zxing/zxing-cpp-master/core/src/zxing/* $STAGING/include/zxing
+    echo "zxing in include dir..."
+    ls -al $STAGING/include/zxing
+  fi
+
+  echo $STAGING/include
+  ls -al $STAGING/include
+
+  echo "show what utilities are available..."
+  ls -al $STAGING/host/bin
+
+  export QTPRINT_CFLAGS="-I$STAGING/include/QtPrintSupport"
+  export QTPRINT_LIBS="-L$STAGING/lib -lQt5PrintSupport"
+  export QTPLATFORM_CFLAGS="-I$STAGING/include/QtAccessibilitySupport"
+  export QTPLATFORM_LIBS="-L$STAGING/lib -lQt5AccessibilitySupport -lqtpcre2"
+  export PROTOBUF_CFLAGS="-I$STAGING/include -I$STAGING/include/google -I$STAGING/include/google/protobuf"
+  export PROTOBUF_LIBS="-L$STAGING/lib -lprotobuf"
+
+  echo "Bundle up a distribution internally with all the source in it..."
+  if [ "$NEEDDIST" == "1" ]; then
+    # Make source code archive which is architecture independent so it only needs to be done once
+    cd $HOME/build/bitcoin_osx
+
+    # -pthread -lpthread  (-Wl,--whole-archive -Wl,--no-whole-archive) -static-libgcc -static-libstdc++
+    ./autogen.sh
+    ./configure --disable-tests --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --build=x86_64-linux-gnu --host=$HOST --target=$TARGET --with-incompatible-bdb --with-qt-plugindir=$STAGING  --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl -I$APPKIT/Headers $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lboost_thread-mt-s -lcrypto -lssl -lprotobuf $OPTFLAGS" CXXFLAGS="-static -frandom-seed=$CURTIMESTAMP -std=c++11 $OPTFLAGS"
+    echo "Print out configure config.log file..."
+    cat config.log
+    echo "building leveldb..."
+    cd src/leveldb
+    # TARGET_OS=Darwin 
+    make libleveldb.a libmemenv.a
+    cp libleveldb.a $STAGING/lib
+    cp libmemenv.a $STAGING/lib
+    cd ..
+    cd ..
+
+    echo "Making dist of code for coin..."
+    make dist
+    DISTNAME=`echo fedoracoin-*.tar.gz`
+    echo "showing distribution created in $HOME/build/bitcoin_osx..."
+    ls -al $HOME/build/bitcoin_osx
+    NEEDDIST=0
+  fi
+
+  echo "Build platform-dependent executables from source archive..."
+  cd $BUILDDIR
+  mkdir -p distsrc
+  cd distsrc
+  tar --strip-components=1 -xf $HOME/build/bitcoin_osx/$DISTNAME
+  ls -al
+
+  cd src
+  cd qt
+
+  echo "moc version..."
+  moc -v
+
+  echo "Calling uic to convert form files into header files..."
+  uic -v
+  uic -o ui_aboutdialog.h forms/aboutdialog.ui
+  uic -o ui_debugdialog.h forms/debugdialog.ui
+  uic -o ui_optionsdialog.h forms/optionsdialog.ui
+  uic -o ui_sendcoinsdialog.h forms/sendcoinsdialog.ui
+  uic -o ui_addressbookpage.h forms/addressbookpage.ui
+  uic -o ui_editaddressdialog.h forms/editaddressdialog.ui
+  uic -o ui_overviewpage.h forms/overviewpage.ui
+  uic -o ui_sendcoinsentry.h forms/sendcoinsentry.ui
+  uic -o ui_askpassphrasedialog.h forms/askpassphrasedialog.ui
+  uic -o ui_helpmessagedialog.h forms/helpmessagedialog.ui
+  uic -o ui_paperwalletdialog.h forms/paperwalletdialog.ui
+  uic -o ui_shiftdialog.h forms/shiftdialog.ui
+  uic -o ui_coincontroldialog.h forms/coincontroldialog.ui
+  uic -o ui_intro.h forms/intro.ui
+  uic -o ui_qrcodedialog.h forms/qrcodedialog.ui
+  uic -o ui_signverifymessagedialog.h forms/signverifymessagedialog.ui
+  uic -o ui_coinnectordialog.h forms/coinnectordialog.ui
+  uic -o ui_multisigdialog.h forms/multisigdialog.ui
+  uic -o ui_receivecoinsdialog.h forms/receivecoinsdialog.ui
+  uic -o ui_snapwidget.h forms/snapwidget.ui
+  uic -o ui_commentdialog.h forms/commentdialog.ui
+  uic -o ui_opennamedialog.h forms/opennamedialog.ui
+  uic -o ui_receiverequestdialog.h forms/receiverequestdialog.ui
+  uic -o ui_transactiondescdialog.h forms/transactiondescdialog.ui
+  uic -o ui_createmultisigaddrdialog.h forms/createmultisigaddrdialog.ui
+  uic -o ui_openuridialog.h forms/openuridialog.ui
+  uic -o ui_rpcconsole.h forms/rpcconsole.ui
+
+  # echo "Calling moc... must build some explicitly due to forward references"
+  moc -o bitcoinamountfield.moc bitcoinamountfield.cpp
+
+  cd ..
+  cd ..
+
+  which ld
+  ld -V
+
+  echo "regenerating langage qm files..."
+  $STAGING/host/bin/lrelease src/fedoracoin-qt.pro
+
+  echo "staging include and lib dirs..."
+  ls -al $STAGING/include
+  ls -al $STAGING/lib
+
+  echo "adding additional default parameter for new version of upnpc..."
+  sed -i 's/devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0,/devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, 0,/' /home/ubuntu/build64/distsrc/src/net.cpp
+
+  echo "calling protoc..."
+  ls -al /home/ubuntu/build64/distsrc
+  ls -al /home/ubuntu/build64/distsrc/src/qt
+  $STAGING/host/bin/protoc --version
+  $STAGING/host/bin/protoc --cpp_out=/home/ubuntu/build64/distsrc/src/qt --proto_path=/home/ubuntu/build64/distsrc/src/qt /home/ubuntu/build64/distsrc/src/qt/paymentrequest.proto
+
+  echo "what is in the lib folder?..."
+  ls -al $STAGING/lib
+
+  export DEBUG_LOCKCONTENTION=1
+
+  # -lqtfreetype
+
+  export LIBS="$LIBS -L$STAGING/lib -lboost_thread-mt-s -lqtpcre2 -lleveldb -lmemenv -lQt5Charts -lQt5Concurrent -lQt5DeviceDiscoverySupport -lQt5EventDispatcherSupport -lQt5FbSupport -lQt5Gamepad -lQt5Gui -lQt5Help -lQt5Network -lQt5NetworkAuth -lQt5RemoteObjects -lQt5Sql -lQt5UiTools -lQt5Widgets -lQt5Xml -lqtharfbuzz -lboost_chrono-mt-s -lboost_program_options-mt-s -lboost_system-mt-s -lprotobuf -lprotoc -lqrencode -lcrypto -lssl -lminiupnpc -lQt5AccessibilitySupport -lzxing -ldb -ldb_cxx -ldb-5.3 -ldb_cxx-5.3 -lprotobuf-lite -lQt5Core -lQt5ThemeSupport -lQt5FontDatabaseSupport -lQt5PrintSupport -lQt5EventDispatcherSupport -lQt5Gui -lboost_filesystem-mt-s -lQt5AccessibilitySupport -lQt5Widgets -lqminimal -lQt5XcbQpa -lQt5EventDispatcherSupport -lqoffscreen -lqvnc -levdevgamepad -lqgenericbearer -lqjpeg -lqico -lqevdevkeyboardplugin -lqevdevmouseplugin -lqevdevtabletplugin -lqevdevtouchplugin -lqtuiotouchplugin -lqvnc -lQt5InputSupport -lQt5ServiceSupport -lQt5Test -lcomposeplatforminputcontextplugin -Wl,--start-group -lqxcb -lQt5XcbQpa -lxcb-static -lQt5EdidSupport -Wl,--end-group -lQt5Gui -lQt5ThemeSupport -Wl,--start-group -lQt5Multimedia -lQt5MultimediaWidgets -Wl,--end-group -lQt5FontDatabaseSupport -lQt5ServiceSupport -lQt5EventDispatcherSupport -L/usr/lib/x86_64-linux-gnu -lxcb -lXau -lXdmcp -lX11 -lX11-xcb -lXrender -lfreetype -lfontconfig -Wl,-Bdynamic -ldl -Wl,-Bdynamic -Wl,--start-group -lfontconfig -lfreetype -Wl,--end-group -lexpat -lX11 -lXrender -lpthread"
+
+  # -static-libgcc -static-libstdc++
+  echo "Calling configure now..."
+  ./configure --disable-tests --sysconfdir=/etc --localstatedir=/var --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --build=x86_64-linux-gnu --host=$HOST --target=$TARGET --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl -I$APPKIT/Headers -I$STAGING/include/google/protobuf $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lprotobuf -lprotoc -lcrypto -lssl -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose -Wl,-dynamic-linker /lib64/ld-linux-x86-64.so.2 $OPTFLAGS" CXXFLAGS="-static -frandom-seed=$CURTIMESTAMP -std=c++11 -static-libgcc -static-libstdc++ $OPTFLAGS"
+
+  echo "Print out configure config.log file..."
+  cat config.log
+
+  echo "set up faketime..."
+  export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
+  export FAKETIME=$REFERENCE_DATETIME
+  export DYLD_PRINT_LIBRARIES=1
+  export QT_DEBUG_PLUGINS=1
+
+  echo "Calling make for main src folder..."
+  make
+  echo "make install-strip is next..."
+  make install
+  # make install-strip
+  echo "make deploy..."
+  make deploy
+  echo "makes completed..."
+  ls -al
+  ls -al src
+
+  #find ${DISTNAME} -not -name "*.dbg" | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 --mtime="$REFERENCE_DATETIME" -c -T - | gzip -9n > ${OUTDIR}/${DISTNAME}-${i}.tar.gz
+
+  unset LD_PRELOAD
+  unset FAKETIME
+

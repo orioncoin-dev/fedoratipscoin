@@ -1,0 +1,55 @@
+---
+name: "bitcoin-qrencode"
+suites:
+- "xenial"
+architectures:
+- "amd64"
+packages:
+- "g++"
+- "git-core"
+- "zip"
+- "faketime"
+- "psmisc"
+reference_datetime: "2018-01-02 00:00:00"
+remotes: []
+files:
+- "qrencode-4.0.0.tar.bz2"
+script: |
+  #
+  LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
+  export FAKETIME=$REFERENCE_DATETIME
+  export TZ=UTC
+  INDIR=$HOME/build
+  TEMPDIR=$HOME/tmp
+  # Input Integrity Check
+  echo "c90035e16921117d4086a7fdee65aab85be32beb4a376f6b664b8a425d327d0b  qrencode-4.0.0.tar.bz2" | sha256sum -c
+
+  # 32
+  for BITS in 64; do # for architectures
+    #
+    date
+    INSTALLPREFIX=$HOME/staging${BITS}
+    BUILDDIR=$HOME/build${BITS}
+    HOST=x86_64-apple-darwin11
+    #
+    mkdir -p $INSTALLPREFIX $BUILDDIR
+    cd $BUILDDIR
+    #
+    tar xjf $INDIR/qrencode-4.0.0.tar.bz2
+    cd qrencode-4.0.0
+    png_CFLAGS="-I$INSTALLPREFIX/include" png_LIBS="-L$INSTALLPREFIX/lib -lpng" ./configure --prefix=$INSTALLPREFIX --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=$HOST --enable-static --disable-shared --without-tools --disable-dependency-tracking
+    make
+    make install
+    cd ..
+    # post-process all generated libraries to be deterministic
+    # extract them to a temporary directory then re-build them deterministically
+    for LIB in $(find $INSTALLPREFIX -name \*.a); do
+        rm -rf $TEMPDIR && mkdir $TEMPDIR && cd $TEMPDIR
+        x86_64-linux-gnu-ar xv $LIB | cut -b5- > /tmp/list.txt
+        rm $LIB
+        x86_64-linux-gnu-ar crsD $LIB $(cat /tmp/list.txt)
+    done
+    #
+    cd $INSTALLPREFIX
+    find include lib | sort | zip -X@ $OUTDIR/bitcoin-qrencode-osx$BITS-gitian-r10.zip
+  done # for BITS in
