@@ -162,21 +162,9 @@ git clone https://github.com/devrandom/gitian-builder.git
 
 git clone https://github.com/jojapoppa/fedoratipscoin.git
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 15) mkdir /home/gitian/gitian-builder/inputs
 chmod ugo+w /home/gitian/gitian-builder/inputs
 ... then put these files in there...
-=======
-15) mkdir /home/gitian/gitian-builder/inputs ... then put these files in there...
->>>>>>> 3effb54f9cb5d6e434069053516fe245510b4292
-=======
-15) mkdir /home/gitian/gitian-builder/inputs ... then put these files in there...
->>>>>>> 3effb54f9cb5d6e434069053516fe245510b4292
-=======
-15) mkdir /home/gitian/gitian-builder/inputs ... then put these files in there...
->>>>>>> 3effb54f9cb5d6e434069053516fe245510b4292
 cd /home/gitian/gitian-builder/inputs
 
 IMPORTANT NOTE: This section is OPTIONAL.  You only need to download the source for these dependencies if you intend to compile them all.  Or, you can just grab the dependencies from github in /depends and place them in your gitian-builder/inputs folder.  Then you can just compile the wallet only.  It's up to you.
@@ -374,19 +362,7 @@ chmod ugo+w /usr/local/include
     h) you now have a directory named Xcode.app
     i) ls Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
     j) ./extract-sdk-osx.sh
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     k) Now copy the file osx_SDK.zip to your gitian-builder/inputs folder
-=======
-    k) Now copy the file osx_SDK.tar.gz to your gitian-builder/inputs folder
->>>>>>> 3effb54f9cb5d6e434069053516fe245510b4292
-=======
-    k) Now copy the file osx_SDK.tar.gz to your gitian-builder/inputs folder
->>>>>>> 3effb54f9cb5d6e434069053516fe245510b4292
-=======
-    k) Now copy the file osx_SDK.tar.gz to your gitian-builder/inputs folder
->>>>>>> 3effb54f9cb5d6e434069053516fe245510b4292
 
 23)
 
