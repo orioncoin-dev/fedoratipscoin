@@ -2,7 +2,7 @@
 
 What follows are the instructions on how to build fedoracoind (the daemon) for TIPS for use by exchanges (tested with debian 8/jessie & debian 9/stretch & ubuntu 16.04/xenial).  This is the production version of the Fedoracoin TIPS code.  All other branches are developement branches, and not intended for exchanges or mining use.  To report bugs or issues, use the github issue tracker tab, and specify in the title area the branch, and the problem you want to report.
 
-1. If you're using Ubuntu then skip this... this 1st step is only for Debian:  First, as root (su root), please "apt-get install sudo", and add your user with "chmod +w /etc/sudoers", and by copying the privs for root in /etc/sudoers, then "chmod -w /etc/sudoers", and then log in as that user
+1. If you're using Ubuntu then skip this 1st step! this 1st step is only for Debian:  First, as root (su root), please "apt-get install sudo", and add your user with "chmod +w /etc/sudoers", and by copying the privs for root in /etc/sudoers, then "chmod -w /etc/sudoers", and then log in as that user
 
 2. sudo apt-get install build-essential libdb++-dev libboost-chrono-dev libboost-all-dev pkg-config git autoconf automake 
 
