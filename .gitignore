@@ -4,30 +4,14 @@
 src/fedoracoin
 src/fedoracoind
 src/fedoracoin-cli
-src/bitcoin-config.h
-src/bitcoin-config.h
-src/Makefile.in
-
-src/test/Makefile.in
-src/test/test_bitcoin
-
-src/build-aux/
-src/stamp-h1
 
 src/qt/*.moc
 src/qt/moc_*.cpp
 src/qt/forms/ui_*.h
-src/qt/Makefile.in
 src/qt/test/moc*.cpp
-src/qt/test/test_bitcoin-qt
-src/qt/test/Makefile.in
 
-
-autom4te.cache/
 config.log
 config.status
-configure
-
 
 .deps
 .dirstamp
@@ -38,7 +22,6 @@ configure
 *.orig
 *.o
 *.o-*
-*.patch
 .bitcoin
 *.a
 *.pb.cc
@@ -53,13 +36,8 @@ configure
 
 # Compilation and Qt preprocessor part
 *.qm
-Makefile
 fedoracoin-qt
 Fedoracoin-Qt.app
-
-# Unit-tests
-Makefile.test
-bitcoin-qt_test
 
 # Resources cpp
 qrc_*.cpp
@@ -82,7 +60,3 @@ coverage_percent.txt
 linux-coverage-build
 linux-build
 win32-build
-qa/pull-tester/run-bitcoind-for-test.sh
-qa/pull-tester/build-tests.sh
-
-!src/leveldb*/Makefile
