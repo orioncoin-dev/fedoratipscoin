@@ -24,6 +24,8 @@ What follows are the instructions on how to build fedoracoind (the daemon) for T
 
 9. the resulting build will be in ./src/fedoracoind and ./src/fedoracoin-cli
 
+Please note: the first time you run the daemon it will give you an RPC user name and password.  You need to put those inside a config file, as instructed, that's stored inside your home .fedoracoin hidden folder.  The cli interface will read that same config file, so that the daemon and cli can agree on the access credentials.  After that, just run the daemon in one terminal window, and run the cli in a different terminal window, and type "fedoracoin-cli help" to get started.
+
 Cheers,
   --Poppa
 
