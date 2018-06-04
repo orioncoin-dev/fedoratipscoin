@@ -190,7 +190,7 @@ wget -O zxing-master.zip 'https://github.com/glassechidna/zxing-cpp/archive/mast
 
 wget -O protobuf-all-2.5.0.tar.gz 'https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz'
 
-wget 'https://github.com/jojapoppa/fedoratipscoin/blob/2.5.1/depends/boost-mingw-gas-cross-compile-2013-03-03.patch'
+wget 'https://github.com/jojapoppa/fedoratipscoin/blob/3.0.0/depends/boost-mingw-gas-cross-compile-2013-03-03.patch'
 
 wget 'https://zlib.net/zlib-1.2.11.tar.gz'
 
@@ -438,7 +438,7 @@ chmod ugo+w /usr/local/include
 
     (use the email address you registered with github of course...)
 
-    git tag -s v2.5.1   (or whichever branch you want to check in code with...)
+    git tag -s v3.0.0   (or whichever branch you want to check in code with...)
 
     git tag -n
 
@@ -448,7 +448,7 @@ chmod ugo+w /usr/local/include
 
     export SIGNER=jojapoppa
 
-    export VERSION=2.5.1   (or whichever branch you want to check in code with...)
+    export VERSION=3.0.0   (or whichever branch you want to check in code with...)
 
     export USE_LXC=1
 
