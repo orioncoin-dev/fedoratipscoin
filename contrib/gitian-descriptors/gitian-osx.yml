@@ -14,7 +14,6 @@ packages:
 - "unzip"
 - "nsis"
 - "cmake"
-- "ssh-askpass"
 - "faketime"
 - "autoconf2.13"
 - "libssl-dev"
@@ -56,15 +55,11 @@ files:
 - "bitcoin-ssl-linux64-gitian-r10.zip"
 - "zxing-master.zip"
 - "bitcoin-zib_png-linux64-gitian-r10.zip"
-- "osx_SDK.zip"
 # - "openssl-1.0.2n-x64_86-linux64.zip"
 script: |
   # Defines
   export TZ=UTC
   export BOOST_THREAD_USE_LIB=1
-  export SUDO_ASKPASS=/usr/bin/ssh-askpass
-  export QTPRINT_LIBS=/home/ubuntu/staging64/lib
-  export PKG_CONFIG_LIBDIR=/usr/lib/x86_64-linux-gnu/pkgconfig
   INDIR=$HOME/build
   # -g removed for production...
   OPTFLAGS='-O2' 
@@ -88,13 +83,10 @@ script: |
   STAGING=$HOME/staging${BITS}
   BUILDDIR=$HOME/build${BITS}
   BINDIR=$OUTDIR/$BITS
-  export HOST=x86_64-linux-gnu
-  export TARGET=x86_64-linux-gnu
-  #x86_64-apple-darwin11
+  BUILD=x86_64-linux-gnu
+  HOST=x86_64-linux-gnu
+  TARGET=x86_64-linux-gnu
   export PATH=$STAGING/host/bin:$PATH
-  export CROSS_COMPILE="$TARGET"-
-  echo $CROSS_COMPILE
-
   mkdir -p $STAGING $BUILDDIR $BINDIR
 
   if test -n "$GBUILD_CACHE_ENABLED"; then
@@ -104,8 +96,6 @@ script: |
   fi
 
   cd $STAGING
-
-  unzip -o $INDIR/osx_SDK.zip
   unzip -o $INDIR/qt-linux64-5.10.0-gitian-r2.zip
   unzip -o $INDIR/boost-linux64-1.60.0-gitian-r6.zip
   unzip -o $INDIR/protobuf-linux64-2.5.0-gitian-r4.zip
@@ -129,10 +119,7 @@ script: |
   mv $STAGING/plugins/platforms/* $STAGING/lib
   ls -al $STAGING/lib
 
-  export APPKIT="$STAGING/System/Library/Frameworks/AppKit.framework:$STAGING/System/Library/Frameworks/ApplicationServices.framework:$STAGING/System/Library/Frameworks/Foundation.framework"
-  export LIBRARY_PATH="$STAGING/lib:$STAGING/usr/lib"
-  export CPLUS_INCLUDE_PATH="$STAGING/include:$APPKIT/Headers"
-  echo $CPLUS_INCLUDE_PATH
+  export LIBRARY_PATH="$STAGING/lib"
 
   echo "Must now build the zxing library now (used for qrcodes)..."
   cd $STAGING/include
@@ -146,8 +133,6 @@ script: |
     ls -al
     mkdir build
     cd build
-    export CMAKE_CXX_COMPILER="$CROSS_COMPILE"g++
-    export CMAKE_C_COMPILER="$CROSS_COMPILE"gcc
     export CXXFLAGS="-fPIC -static"
     cmake -G "Unix Makefiles" -DCMAKE_CXX_FLAGS=-static -D_GLIBCXX_USE_CXX11_ABI=0 -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_BUILD_TYPE=Release ..
     make
@@ -166,8 +151,6 @@ script: |
   echo "show what utilities are available..."
   ls -al $STAGING/host/bin
 
-  export QTPRINT_CFLAGS="-I$STAGING/include/QtPrintSupport"
-  export QTPRINT_LIBS="-L$STAGING/lib -lQt5PrintSupport"
   export QTPLATFORM_CFLAGS="-I$STAGING/include/QtAccessibilitySupport"
   export QTPLATFORM_LIBS="-L$STAGING/lib -lQt5AccessibilitySupport -lqtpcre2"
   export PROTOBUF_CFLAGS="-I$STAGING/include -I$STAGING/include/google -I$STAGING/include/google/protobuf"
@@ -176,17 +159,16 @@ script: |
   echo "Bundle up a distribution internally with all the source in it..."
   if [ "$NEEDDIST" == "1" ]; then
     # Make source code archive which is architecture independent so it only needs to be done once
-    cd $HOME/build/bitcoin_osx
+    cd $HOME/build/bitcoin_linux
 
     # -pthread -lpthread  (-Wl,--whole-archive -Wl,--no-whole-archive) -static-libgcc -static-libstdc++
     ./autogen.sh
-    ./configure --disable-tests --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --build=x86_64-linux-gnu --host=$HOST --target=$TARGET --with-incompatible-bdb --with-qt-plugindir=$STAGING  --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl -I$APPKIT/Headers $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lboost_thread-mt-s -lcrypto -lssl -lprotobuf $OPTFLAGS" CXXFLAGS="-static -frandom-seed=$CURTIMESTAMP -std=c++11 $OPTFLAGS"
+    ./configure --disable-tests --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --build=$BUILD --host=$HOST --target=$TARGET --with-incompatible-bdb --with-qt-plugindir=$STAGING  --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lboost_thread-mt-s -lcrypto -lssl -lprotobuf $OPTFLAGS" CXXFLAGS="-static -frandom-seed=$CURTIMESTAMP -std=c++11 $OPTFLAGS"
     echo "Print out configure config.log file..."
     cat config.log
     echo "building leveldb..."
     cd src/leveldb
-    # TARGET_OS=Darwin 
-    make libleveldb.a libmemenv.a
+    TARGET_OS=Linux make libleveldb.a libmemenv.a
     cp libleveldb.a $STAGING/lib
     cp libmemenv.a $STAGING/lib
     cd ..
@@ -195,8 +177,8 @@ script: |
     echo "Making dist of code for coin..."
     make dist
     DISTNAME=`echo fedoracoin-*.tar.gz`
-    echo "showing distribution created in $HOME/build/bitcoin_osx..."
-    ls -al $HOME/build/bitcoin_osx
+    echo "showing distribution created in $HOME/build/bitcoin_linux..."
+    ls -al $HOME/build/bitcoin_linux
     NEEDDIST=0
   fi
 
@@ -204,7 +186,7 @@ script: |
   cd $BUILDDIR
   mkdir -p distsrc
   cd distsrc
-  tar --strip-components=1 -xf $HOME/build/bitcoin_osx/$DISTNAME
+  tar --strip-components=1 -xf $HOME/build/bitcoin_linux/$DISTNAME
   ls -al
 
   cd src
@@ -279,7 +261,7 @@ script: |
 
   # -static-libgcc -static-libstdc++
   echo "Calling configure now..."
-  ./configure --disable-tests --sysconfdir=/etc --localstatedir=/var --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --build=x86_64-linux-gnu --host=$HOST --target=$TARGET --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl -I$APPKIT/Headers -I$STAGING/include/google/protobuf $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lprotobuf -lprotoc -lcrypto -lssl -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose -Wl,-dynamic-linker /lib64/ld-linux-x86-64.so.2 $OPTFLAGS" CXXFLAGS="-static -frandom-seed=$CURTIMESTAMP -std=c++11 -static-libgcc -static-libstdc++ $OPTFLAGS"
+  ./configure --disable-tests --sysconfdir=/etc --localstatedir=/var --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --build=$BUILD --host=$HOST --target=$TARGET --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl -I$STAGING/include/google/protobuf $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lprotobuf -lprotoc -lcrypto -lssl -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose -Wl,-dynamic-linker /lib64/ld-linux-x86-64.so.2 $OPTFLAGS" CXXFLAGS="-static -frandom-seed=$CURTIMESTAMP -std=c++11 -static-libgcc -static-libstdc++ $OPTFLAGS"
 
   echo "Print out configure config.log file..."
   cat config.log
@@ -290,21 +272,19 @@ script: |
   export DYLD_PRINT_LIBRARIES=1
   export QT_DEBUG_PLUGINS=1
 
+  echo "Calling make for main src folder..."
+  make
+  echo "make install-strip is next..."
+  make install
+  echo "make deploy..."
+  make deploy
+  echo "makes completed..."
+  ls -al
+  ls -al src
+  ls -al src/qt
 
-  # here on down...
+  #  find ${DISTNAME} -not -name "*.dbg" | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 --mtime="$REFERENCE_DATETIME" -c -T - | gzip -9n > ${OUTDIR}/${DISTNAME}-${i}.tar.gz
 
-  # echo "Calling make for main src folder..."
-  # make
-  # echo "make install-strip is next..."
-  #make install
-  #echo "make deploy..."
-  #make deploy
-  #echo "makes completed..."
-  #ls -al
-  #ls -al src
-
-  #find ${DISTNAME} -not -name "*.dbg" | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 --mtime="$REFERENCE_DATETIME" -c -T - | gzip -9n > ${OUTDIR}/${DISTNAME}-${i}.tar.gz
-
-  #unset LD_PRELOAD
-  #unset FAKETIME
+  unset LD_PRELOAD
+  unset FAKETIME
 
