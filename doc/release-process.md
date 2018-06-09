@@ -163,7 +163,7 @@ git clone https://github.com/devrandom/gitian-builder.git
 git clone https://github.com/jojapoppa/fedoratipscoin.git
 
 15) mkdir /home/gitian/gitian-builder/inputs
-chmod ugo+w /home/gitian/gitian-builder/inputs
+chmod +w /home/gitian/gitian-builder/inputs
 ... then put these files in there...
 cd /home/gitian/gitian-builder/inputs
 

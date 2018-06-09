@@ -289,19 +289,21 @@ script: |
   export DYLD_PRINT_LIBRARIES=1
   export QT_DEBUG_PLUGINS=1
 
-  echo "Calling make for main src folder..."
-  make
-  echo "make install-strip is next..."
-  make install
-  # make install-strip
-  echo "make deploy..."
-  make deploy
-  echo "makes completed..."
-  ls -al
-  ls -al src
+
+  # here on down...
+
+  # echo "Calling make for main src folder..."
+  # make
+  # echo "make install-strip is next..."
+  #make install
+  #echo "make deploy..."
+  #make deploy
+  #echo "makes completed..."
+  #ls -al
+  #ls -al src
 
   #find ${DISTNAME} -not -name "*.dbg" | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 --mtime="$REFERENCE_DATETIME" -c -T - | gzip -9n > ${OUTDIR}/${DISTNAME}-${i}.tar.gz
 
-  unset LD_PRELOAD
-  unset FAKETIME
+  #unset LD_PRELOAD
+  #unset FAKETIME
 
