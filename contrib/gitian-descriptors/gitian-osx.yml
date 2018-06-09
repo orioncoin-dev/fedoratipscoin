@@ -159,7 +159,7 @@ script: |
   echo "Bundle up a distribution internally with all the source in it..."
   if [ "$NEEDDIST" == "1" ]; then
     # Make source code archive which is architecture independent so it only needs to be done once
-    cd $HOME/build/bitcoin_linux
+    cd $HOME/build/bitcoin_osx
 
     # -pthread -lpthread  (-Wl,--whole-archive -Wl,--no-whole-archive) -static-libgcc -static-libstdc++
     ./autogen.sh
@@ -177,8 +177,8 @@ script: |
     echo "Making dist of code for coin..."
     make dist
     DISTNAME=`echo fedoracoin-*.tar.gz`
-    echo "showing distribution created in $HOME/build/bitcoin_linux..."
-    ls -al $HOME/build/bitcoin_linux
+    echo "showing distribution created in $HOME/build/bitcoin_osx..."
+    ls -al $HOME/build/bitcoin_osx
     NEEDDIST=0
   fi
 
@@ -186,7 +186,7 @@ script: |
   cd $BUILDDIR
   mkdir -p distsrc
   cd distsrc
-  tar --strip-components=1 -xf $HOME/build/bitcoin_linux/$DISTNAME
+  tar --strip-components=1 -xf $HOME/build/bitcoin_osx/$DISTNAME
   ls -al
 
   cd src
