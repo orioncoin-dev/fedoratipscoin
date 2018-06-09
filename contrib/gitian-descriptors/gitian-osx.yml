@@ -88,7 +88,7 @@ script: |
   STAGING=$HOME/staging${BITS}
   BUILDDIR=$HOME/build${BITS}
   BINDIR=$OUTDIR/$BITS
-  export HOST=x86_64-apple-darwin11
+  export HOST=x86_64-linux-gnu
   export TARGET=x86_64-apple-darwin11
   export PATH=$STAGING/host/bin:$PATH
   export CROSS_COMPILE="$TARGET"-
