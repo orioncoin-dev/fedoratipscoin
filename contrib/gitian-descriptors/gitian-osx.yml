@@ -13,7 +13,6 @@ packages:
 - "zip"
 - "unzip"
 - "nsis"
-- "snap"
 - "cmake"
 - "faketime"
 - "autoconf2.13"
@@ -109,7 +108,7 @@ script: |
   echo "unzipping prebuilt ssl dlls, may want to build these too eventually... TBD..."
   # unzip -o $INDIR/openssl-1.0.2n-x64_86-linux64.zip
 
-  ls -al /usr/bin/s*
+  snap version
   snap install docker
   echo "check docker version..."
   docker -v
