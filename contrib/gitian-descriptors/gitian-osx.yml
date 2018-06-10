@@ -41,7 +41,6 @@ packages:
 - "libxcb-shape0-dev"
 - "libxcb-randr0-dev"
 - "libxcb-render-util0-dev"
-- "docker"
 reference_datetime: "2018-02-01 00:00:00"
 remotes:
 - "url": "https://github.com/jojapoppa/fedoratipscoin.git"
@@ -109,6 +108,7 @@ script: |
   echo "unzipping prebuilt ssl dlls, may want to build these too eventually... TBD..."
   # unzip -o $INDIR/openssl-1.0.2n-x64_86-linux64.zip
 
+  snap install docker
   echo "check docker version..."
   docker -v
 
