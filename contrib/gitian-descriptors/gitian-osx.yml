@@ -41,6 +41,7 @@ packages:
 - "libxcb-shape0-dev"
 - "libxcb-randr0-dev"
 - "libxcb-render-util0-dev"
+- "docker"
 reference_datetime: "2018-02-01 00:00:00"
 remotes:
 - "url": "https://github.com/jojapoppa/fedoratipscoin.git"
