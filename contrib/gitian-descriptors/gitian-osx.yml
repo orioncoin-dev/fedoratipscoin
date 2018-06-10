@@ -109,6 +109,9 @@ script: |
   echo "unzipping prebuilt ssl dlls, may want to build these too eventually... TBD..."
   # unzip -o $INDIR/openssl-1.0.2n-x64_86-linux64.zip
 
+  echo "check docker version..."
+  docker -v
+
   echo "move libs to libs folder as qmake can't locate them otherwise..."
   mv $STAGING/plugins/bearer/* $STAGING/lib
   mv $STAGING/plugins/gamepads/* $STAGING/lib
