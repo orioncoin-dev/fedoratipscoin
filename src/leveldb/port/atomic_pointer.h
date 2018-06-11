@@ -82,7 +82,7 @@ class AtomicPointer {
 #elif defined(OS_MACOSX)
 inline void MemoryBarrier() {
   //OSMemoryBarrier();
-  std::atomic_thread_fence(std::memory_order_seq_cst);
+  atomic_thread_fence(std::memory_order.memory_order_seq_cst);
 }
 #define LEVELDB_HAVE_MEMORY_BARRIER
 
