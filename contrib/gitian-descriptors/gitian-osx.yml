@@ -183,7 +183,7 @@ script: |
 
     # -pthread -lpthread  (-Wl,--whole-archive -Wl,--no-whole-archive) -static-libgcc -static-libstdc++
     ./autogen.sh
-    ./configure --disable-tests --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --build=x86_64-linux-gnu --host=$HOST --target=$TARGET --with-incompatible-bdb --with-qt-plugindir=$STAGING  --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl -std=c++11 $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lboost_thread-mt-s -lcrypto -lssl -lprotobuf $OPTFLAGS" CXXFLAGS="-static -frandom-seed=$CURTIMESTAMP -std=c++11 $OPTFLAGS"
+    ./configure --disable-tests --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --build=x86_64-linux-gnu --host=$HOST --target=$TARGET --with-incompatible-bdb --with-qt-plugindir=$STAGING  --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl -std=gnu++11 -std=c++11 $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lboost_thread-mt-s -lcrypto -lssl -lprotobuf $OPTFLAGS" CXXFLAGS="-static -frandom-seed=$CURTIMESTAMP -std=gnu++11 -std=c++11 $OPTFLAGS"
     echo "Print out configure config.log file..."
     cat config.log
     echo "building leveldb..."
@@ -284,7 +284,7 @@ script: |
 
   # -static-libgcc -static-libstdc++
   echo "Calling configure now..."
-  ./configure --disable-tests --sysconfdir=/etc --localstatedir=/var --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --build=x86_64-linux-gnu --host=$HOST --target=$TARGET --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl -I$STAGING/include/google/protobuf -std=c++11 $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lprotobuf -lprotoc -lcrypto -lssl -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose -Wl,-dynamic-linker /lib64/ld-linux-x86-64.so.2 $OPTFLAGS" CXXFLAGS="-static -frandom-seed=$CURTIMESTAMP -std=c++11 -static-libgcc -static-libstdc++ $OPTFLAGS"
+  ./configure --disable-tests --sysconfdir=/etc --localstatedir=/var --with-gui=qt5 --enable-upnp-default --bindir=$OUTDIR --prefix=$STAGING --build=x86_64-linux-gnu --host=$HOST --target=$TARGET --with-incompatible-bdb --with-qt-plugindir=$STAGING --with-qt-incdir=$STAGING/include --with-qt-libdir=$STAGING/lib --with-qt-bindir=$STAGING/host/bin --with-boost=$STAGING --disable-maintainer-mode --with-protoc-bindir=$STAGING/host/bin --disable-dependency-tracking CPPFLAGS="-I$STAGING/include -I$STAGING/include/openssl -I$STAGING/include/google/protobuf -std=gnu++11 -std=c++11 $OPTFLAGS" LDFLAGS="-static -L$STAGING/lib -lprotobuf -lprotoc -lcrypto -lssl -Wl,-V -Wl,-M -Wl,--cref -Wl,-t -Wl,--no-keep-memory -Wl,--stats -Wl,--verbose -Wl,-dynamic-linker /lib64/ld-linux-x86-64.so.2 $OPTFLAGS" CXXFLAGS="-static -frandom-seed=$CURTIMESTAMP -std=gnu++11 -std=c++11 -static-libgcc -static-libstdc++ $OPTFLAGS"
 
   echo "Print out configure config.log file..."
   cat config.log
