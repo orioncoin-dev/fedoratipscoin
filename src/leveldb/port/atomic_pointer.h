@@ -27,7 +27,7 @@
 #include <windows.h>
 #endif
 #ifdef OS_MACOSX
-#include <stdatomic.h>
+#include <atomic.h>
 // #include <libkern/OSAtomic.h>
 #endif
 
