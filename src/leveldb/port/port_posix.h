@@ -9,7 +9,8 @@
 
 #undef PLATFORM_IS_LITTLE_ENDIAN
 #if defined(OS_MACOSX)
-  #include <machine/endian.h>
+//  #include <machine/endian.h>
+  #include <sys/types.h>
   #if defined(__DARWIN_LITTLE_ENDIAN) && defined(__DARWIN_BYTE_ORDER)
     #define PLATFORM_IS_LITTLE_ENDIAN \
         (__DARWIN_BYTE_ORDER == __DARWIN_LITTLE_ENDIAN)
