@@ -1,6 +1,6 @@
  **Fedoracoin TIPS production branch - build instructions for Exchanges**
 
-What follows are the instructions on how to build fedoracoind (the daemon) for TIPS for use by exchanges (tested with debian 8/jessie & debian 9/stretch & ubuntu 16.04/xenial).  This is the production version of the Fedoracoin TIPS code.  All other branches are developement branches, and not intended for exchanges or mining use.  To report bugs or issues, use the github issue tracker tab, and specify in the title area the branch, and the problem you want to report.
+What follows are the instructions on how to build fedoracoind (the daemon) for TIPS for use by exchanges (tested with debian 8/jessie & debian 9/stretch & ubuntu 16.04/xenial & 18.04/bionic).  This is the production version of the Fedoracoin TIPS code.  All other branches are developement branches, and not intended for exchanges or mining use.  To report bugs or issues, use the github issue tracker tab, and specify in the title area the branch, and the problem you want to report.
 
 1. If you're using Ubuntu then skip this 1st step! this 1st step is only for Debian:  First, as root (su root), please "apt-get install sudo", and add your user with "chmod +w /etc/sudoers", and by copying the privs for root in /etc/sudoers, then "chmod -w /etc/sudoers", and then log in as that user
 
@@ -8,7 +8,7 @@ What follows are the instructions on how to build fedoracoind (the daemon) for T
 
 2a. Only if using Debian 8, or Ubuntu 16.04, then sudo apt-get install libssl-dev
 
-2b. Only if using Debian 9, then sudo apt-get install libssl1.0-dev
+2b. Only if using Debian 9, or Ubuntu 18.04 then sudo apt-get install libssl1.0-dev
 
 3. sudo ln -s /usr/lib/x86_64-linux-gnu/libboost_thread.a /usr/lib/x86_64-linux-gnu/libboost_thread-mt.a
 
