@@ -1,6 +1,6 @@
 ---
 name: "bitcoin"
-enable_cache: true
+enable_cache: false
 suites:
 - "xenial"
 architectures:
@@ -14,7 +14,8 @@ packages:
 - "unzip"
 - "nsis"
 - "cmake"
-- "clang"
+- "snap"
+- "docker"
 - "ssh-askpass"
 - "faketime"
 - "autoconf2.13"
@@ -57,7 +58,7 @@ files:
 - "bitcoin-ssl-linux64-gitian-r10.zip"
 - "zxing-master.zip"
 - "bitcoin-zib_png-linux64-gitian-r10.zip"
-- "osx_SDK.zip"
+# - "osx_SDK.zip"
 # - "openssl-1.0.2n-x64_86-linux64.zip"
 script: |
   # Defines
@@ -98,6 +99,8 @@ script: |
   echo "Timestamp in nanoseconds:"
   echo $CURTIMESTAMP
 
+  docker -v
+
   NEEDDIST=1
   # Qt: workaround for determinism in resource ordering
   #  Qt5's rcc uses a QHash to store the files for the resource.
@@ -112,6 +115,12 @@ script: |
   BINDIR=$OUTDIR/$BITS
   export PATH=$STAGING/host/bin:$PATH
   mkdir -p $STAGING $BUILDDIR $BINDIR
+
+  
+
+
+
+
 
   if test -n "$GBUILD_CACHE_ENABLED"; then
     export SOURCES_PATH=${GBUILD_COMMON_CACHE}
@@ -192,7 +201,15 @@ script: |
     echo "building leveldb..."
     cd src/leveldb
 
-    TARGET_OS=Darwin make libleveldb.a libmemenv.a
+    clang -v
+
+    git clone https://github.com/jojapoppa/crossbuild.git
+    cd crossbuild
+
+    docker run -it --rm -v $(pwd):/workdir -e CROSS_TRIPLE=x86_64-apple-darwin  multiarch/crossbuild ../make libleveldb.a libmemenv.a
+
+    cd ..
+    # TARGET_OS=Darwin make libleveldb.a libmemenv.a
 
     cp libleveldb.a $STAGING/lib
     cp libmemenv.a $STAGING/lib
