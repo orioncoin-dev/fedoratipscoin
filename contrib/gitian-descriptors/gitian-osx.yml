@@ -58,6 +58,7 @@ files:
 - "bitcoin-ssl-linux64-gitian-r10.zip"
 - "zxing-master.zip"
 - "bitcoin-zib_png-linux64-gitian-r10.zip"
+- "crossbuild.zip"
 # - "osx_SDK.zip"
 # - "openssl-1.0.2n-x64_86-linux64.zip"
 script: |
@@ -129,7 +130,7 @@ script: |
   fi
 
   cd $STAGING
-  unzip -o $INDIR/osx_SDK.zip
+  # unzip -o $INDIR/osx_SDK.zip
   unzip -o $INDIR/qt-linux64-5.10.0-gitian-r2.zip
   unzip -o $INDIR/boost-linux64-1.60.0-gitian-r6.zip
   unzip -o $INDIR/protobuf-linux64-2.5.0-gitian-r4.zip
@@ -192,6 +193,16 @@ script: |
   if [ "$NEEDDIST" == "1" ]; then
     # Make source code archive which is architecture independent so it only needs to be done once
     cd $HOME/build/bitcoin_osx
+   
+    unzip $INDIR/crossbuild.zip
+    echo "whoami..."
+    whoami
+    echo "Connecting to this docker host..."
+    echo $DOCKER_HOST
+
+    cd crossbuild
+    docker run -i --rm -v $(pwd):/workdir -e CROSS_TRIPLE=x86_64-apple-darwin  multiarch/crossbuild make helloworld 2>&1
+    file helloworld
 
     # -pthread -lpthread  (-Wl,--whole-archive -Wl,--no-whole-archive) -static-libgcc -static-libstdc++
     ./autogen.sh
@@ -200,11 +211,6 @@ script: |
     cat config.log
     echo "building leveldb..."
     cd src/leveldb
-
-    clang -v
-
-    git clone https://github.com/jojapoppa/crossbuild.git
-    cd crossbuild
 
     docker run -it --rm -v $(pwd):/workdir -e CROSS_TRIPLE=x86_64-apple-darwin  multiarch/crossbuild ../make libleveldb.a libmemenv.a
 
