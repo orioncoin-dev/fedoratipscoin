@@ -10,6 +10,7 @@ packages:
 - "g++"
 - "gcc"
 - "git-core"
+- "dbus"
 - "zip"
 - "unzip"
 - "nsis"
@@ -99,8 +100,6 @@ script: |
   CURTIMESTAMP=$(date +%s%N)
   echo "Timestamp in nanoseconds:"
   echo $CURTIMESTAMP
-
-  docker -v
 
   NEEDDIST=1
   # Qt: workaround for determinism in resource ordering
@@ -195,10 +194,15 @@ script: |
     cd $HOME/build/bitcoin_osx
    
     unzip $INDIR/crossbuild.zip
+
+    docker -v
+    unset DOCKER_HOST
     echo "whoami..."
     whoami
-    echo "Connecting to this docker host..."
-    echo $DOCKER_HOST
+    export XDG_RUNTIME_DIR=/run/user/`id -u`
+    #systemctl start docker
+    #nohup docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
+    ps aux | grep docker
 
     cd crossbuild
     docker run -i --rm -v $(pwd):/workdir -e CROSS_TRIPLE=x86_64-apple-darwin  multiarch/crossbuild make helloworld 2>&1
