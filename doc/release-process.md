@@ -169,6 +169,8 @@ cd /home/gitian/gitian-builder/inputs
 
 IMPORTANT NOTE: This section is OPTIONAL.  You only need to download the source for these dependencies if you intend to compile them all.  Or, you can just grab the dependencies from github in /depends and place them in your gitian-builder/inputs folder.  Then you can just compile the wallet only.  It's up to you.
 
+wget --timeout=15 'https://download.docker.com/linux/static/stable/x86_64/docker-18.03.1-ce.tgz'
+
 wget 'http://download.qt.io/archive/qt/5.10/5.10.0/single/qt-everywhere-src-5.10.0.tar.xz'
 
 wget -O miniupnpc-2.0.tar.gz 'http://miniupnp.tuxfamily.org/files/download.php?file=miniupnpc-2.0.20171212.tar.gz'

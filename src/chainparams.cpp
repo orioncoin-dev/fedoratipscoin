@@ -67,10 +67,12 @@ public:
         assert(hashGenesisBlock == uint256("0x746b18d1b206b817408c355a256a144e740579b6729043d184574642077f2054"));
         assert(genesis.hashMerkleRoot == uint256("0x51de661d58580e9d49e8d2b6a620c52bb6776953f2410d5814106120ad894f65"));
 
-        vSeeds.push_back(CDNSSeedData("seed.fedoracoin.net", "seed.fedoracoin.net"));
-	vSeeds.push_back(CDNSSeedData("45.55.250.196", "45.55.250.196"));
-	vSeeds.push_back(CDNSSeedData("tips1.netcraft.ch", "tips1.netcraft.ch"));
-	vSeeds.push_back(CDNSSeedData("tips2.netcraft.ch", "tips2.netcraft.ch"));
+	vSeeds.push_back(CDNSSeedData("seed1.tipsco.in", "seed1.tipsco.in"));
+
+        //vSeeds.push_back(CDNSSeedData("seed.fedoracoin.net", "seed.fedoracoin.net"));
+	//vSeeds.push_back(CDNSSeedData("45.55.250.196", "45.55.250.196"));
+	//vSeeds.push_back(CDNSSeedData("tips1.netcraft.ch", "tips1.netcraft.ch"));
+	//vSeeds.push_back(CDNSSeedData("tips2.netcraft.ch", "tips2.netcraft.ch"));
 
         //how to do fedoracoin ?
 
